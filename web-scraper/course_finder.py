@@ -2,18 +2,17 @@ import requests
 import http.cookiejar
 import time
 
+
 class CourseFinder:
-    """ Some sort of description
-    - stuff
-    """
+    """A wrapper for utilizing UofT's Course Finder web service."""
 
     def __init__(self):
-        pass
+        self.host = 'http://coursefinder.utoronto.ca'
 
     def search(self, query='', requirements=''):
-        """ Perform a UofT Course Finder search and return the data.
-        """
-        url = 'http://coursefinder.utoronto.ca/course-search/search/courseSearch/course/search'
+        """Perform a UofT Course Finder search and return data as a dict."""
+
+        url = '%s/course-search/search/courseSearch/course/search' % self.host
 
         data = {
             'queryText': query,
