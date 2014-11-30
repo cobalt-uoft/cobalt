@@ -2,8 +2,9 @@ import requests
 import http.cookiejar
 import time
 
-def get_raw_data():
+def download_raw_data():
     url = 'http://coursefinder.utoronto.ca/course-search/search/courseSearch/course/search'
+
     data = {
         'queryText': '',
         'requirements': '',
@@ -13,16 +14,16 @@ def get_raw_data():
     cookies = http.cookiejar.CookieJar()
     s = requests.Session()
 
-    json = ''
-    good = False
-    while not good:
+    # Keep trying to get data until a proper response is given
+    json = None
+    while json is None:
         r = s.get(url, params=data, cookies=cookies)
         if r.status_code == 200:
-            good = True
             json = r.text
         else:
             time.sleep(0.5)
 
+    # Output to file
     f = open('raw_data.json', 'wb')
     f.write(json.encode('utf-8'))
     f.close()
