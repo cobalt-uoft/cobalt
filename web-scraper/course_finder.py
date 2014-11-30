@@ -4,7 +4,10 @@ import time
 
 
 class CourseFinder:
-    """A wrapper for utilizing UofT's Course Finder web service."""
+    """A wrapper for utilizing UofT's Course Finder web service.
+
+    Course Finder is located at http://coursefinder.utoronto.ca/.
+    """
 
     def __init__(self):
         self.host = 'http://coursefinder.utoronto.ca'
