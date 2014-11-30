@@ -2,28 +2,35 @@ import requests
 import http.cookiejar
 import time
 
-def download_raw_data():
-    url = 'http://coursefinder.utoronto.ca/course-search/search/courseSearch/course/search'
+class CourseFinder:
+    """ Some sort of description
+    - stuff
+    """
 
-    data = {
-        'queryText': '',
-        'requirements': '',
-        'campusParam': 'St. George,Scarborough,Mississauga'
-    }
+    def __init__(self):
+        pass
 
-    cookies = http.cookiejar.CookieJar()
-    s = requests.Session()
+    def search(self, query='', requirements=''):
+        """ Perform a UofT Course Finder search and return the data.
+        """
+        url = 'http://coursefinder.utoronto.ca/course-search/search/courseSearch/course/search'
 
-    # Keep trying to get data until a proper response is given
-    json = None
-    while json is None:
-        r = s.get(url, params=data, cookies=cookies)
-        if r.status_code == 200:
-            json = r.text
-        else:
-            time.sleep(0.5)
+        data = {
+            'queryText': query,
+            'requirements': requirements,
+            'campusParam': 'St. George,Scarborough,Mississauga'
+        }
 
-    # Output to file
-    f = open('raw_data.json', 'wb')
-    f.write(json.encode('utf-8'))
-    f.close()
+        cookies = http.cookiejar.CookieJar()
+        s = requests.Session()
+
+        # Keep trying to get data until a proper response is given
+        json = None
+        while json is None:
+            r = s.get(url, params=data, cookies=cookies)
+            if r.status_code == 200:
+                json = r.json()
+            else:
+                time.sleep(0.5)
+
+        return json
