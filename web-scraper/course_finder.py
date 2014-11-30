@@ -10,7 +10,7 @@ class CourseFinder:
         self.host = 'http://coursefinder.utoronto.ca'
 
     def search(self, query='', requirements=''):
-        """Perform a UofT Course Finder search and return data as a dict."""
+        """Perform a search and return the data as a dict."""
 
         url = '%s/course-search/search/courseSearch/course/search' % self.host
 
