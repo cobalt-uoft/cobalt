@@ -11,7 +11,7 @@ class CourseFinder:
     """
 
     def __init__(self):
-        self.host = 'http://coursefinder.utoronto.ca/course-search/search/courseSearch'
+        self.host = 'http://coursefinder.utoronto.ca/course-search/search'
         self.cookies = http.cookiejar.CookieJar()
         self.s = requests.Session()
 
@@ -22,11 +22,13 @@ class CourseFinder:
 
         for x in info:
             course_id = re.search('offImg(.*)', x[0]).group(1)[:14]
-            url = '%s/coursedetails/%s' % (self.host, course_id)
+            url = '%s/courseSearch/coursedetails/%s' % (self.host, course_id)
             course_dir = 'cache/%s' % course_id[-5:]
+            file_path = '%s/%s.html' % (course_dir, course_id)
             os.makedirs(course_dir, exist_ok=True)
 
-            r = self.s.get(url, cookies=self.cookies)
+            if os.path.isfile(file_path):
+                continue
 
             html = None
             while html is None:
@@ -34,14 +36,14 @@ class CourseFinder:
                 if r.status_code == 200:
                     html = r.text
 
-            f = open('%s/%s.html' % (course_dir, course_id), 'wb')
+            f = open(file_path, 'wb')
             f.write(html.encode('utf-8'))
             f.close()
 
     def search(self, query='', requirements=''):
         """Perform a search and return the data as a dict."""
 
-        url = '%s/course/search' % self.host
+        url = '%s/courseSearch/course/search' % self.host
 
         data = {
             'queryText': query,
@@ -59,6 +61,3 @@ class CourseFinder:
                 time.sleep(0.5)
 
         return json['aaData']
-
-c = CourseFinder()
-c.update_cache()
