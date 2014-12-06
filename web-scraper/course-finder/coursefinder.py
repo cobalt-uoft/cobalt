@@ -2,6 +2,7 @@ import requests, http.cookiejar
 import time
 import re
 import os
+import json
 import pprint
 
 class CourseFinder:
@@ -14,6 +15,22 @@ class CourseFinder:
         self.host = 'http://coursefinder.utoronto.ca/course-search/search'
         self.cookies = http.cookiejar.CookieJar()
         self.s = requests.Session()
+
+    def parse_files_to_json(self):
+        """Create JSON files from the HTML pages downloaded."""
+        # loop through all the files
+        filename = "cache/20149/Thing.html"
+        json_location = "json/Thing.json"
+        # do somethign with file html (beautiful soup)
+        data = {
+            'course_code': 'CSC108H1',
+            'stuff': [
+                1, 2, 3, 4
+            ]
+        }
+        f = open(json_location, 'w')
+        f.write(json.dumps(data))
+        f.close()
 
     def update_cache(self):
         """Update the locally stored course pages."""
@@ -61,3 +78,6 @@ class CourseFinder:
                 time.sleep(0.5)
 
         return json['aaData']
+
+c = CourseFinder()
+c.parse_files_to_json()
