@@ -4,6 +4,8 @@ import re
 import os
 import json
 import pprint
+from bs4 import BeautifulSoup
+from collections import OrderedDict
 
 class CourseFinder:
     """A wrapper for utilizing UofT's Course Finder web service.
@@ -19,8 +21,113 @@ class CourseFinder:
     def parse_files_to_json(self):
         """Create JSON files from the HTML pages downloaded."""
         # loop through all the files
-        filename = "cache/20149/Thing.html"
-        json_location = "json/Thing.json"
+        filename = "cache/ABS310Y1Y20149.html"
+        json_location = "json/%s.json" % filename[6:-5]
+        q = open(filename, "r")
+        read = q.read()
+        soup = BeautifulSoup(read)
+
+        #Things that appear on all courses
+        title_name = soup.find(id = "u19").find_all(
+          "span",
+          class_= "uif-headerText-span"
+        )[0].get_text()
+        course_code = title_name[:8]
+        course_name = title_name[10:]
+        division = soup.find(id = "u23").find_all("span",
+        id ="u23")[0].get_text().strip()
+        description = soup.find(id = "u32").find_all("span",
+        id ="u32")[0].get_text().strip()
+        department = soup.find(id = "u41").find_all("span",
+        id ="u41")[0].get_text().strip()
+        course_level = soup.find(id = "u86").find_all("span",
+        id ="u86")[0].get_text().strip()
+        campus = soup.find(id = "u149").find_all("span",
+        id ="u149")[0].get_text().strip()
+        term = soup.find(id = "u158").find_all("span",
+        id ="u158")[0].get_text().strip()
+
+
+        #Things that don't appear on all courses
+        as_breadth = soup.find(id= "u122")
+        if not as_breadth == None:
+          as_breadth = as_breadth.find_all("span", id ="u122")[0].get_text().strip()
+          breadths = []
+          for ch in as_breadth:
+            if ch in "12345":
+              breadths.append(int(ch))
+        else:
+          breadths = []
+
+        exclusions = soup.find(id= "u68")
+        if not exclusions == None:
+          exclusions = exclusions.find_all("span", id ="u68")[0].get_text().strip()
+        else:
+          exclusions = ""
+
+        prereq = soup.find(id= "u50")
+        if not prereq == None:
+          prereq = prereq.find_all("span", id ="u50")[0].get_text().strip()
+        else:
+          prereq = ""
+
+        apsc_elec = soup.find(id= "u140")
+        if not apsc_elec == None:
+          apsc_elec = apsc_elec.find_all("span", id ="u140")[0].get_text().strip()
+        else:
+          apsc_elec = ""
+
+        #Meeting Sections
+        meeting_table = soup.find(id = "u172").find_all("tr")
+        for tr in meeting_table:
+          tds = tr.find_all("td")
+          # Index stuff:
+          # tds[0].get_text().strip() - name
+          # 1 - times
+          # 2 - instructor
+          # 3 - locations
+          # 4 - class size
+          meeting_section = OrderedDict([()])
+
+
+
+        #Dictionary
+        course = OrderedDict([
+          ("code", course_code),
+          ("name", course_name),
+          ("description", description),
+          ("division", division),
+          ("department", department),
+          ("prerequisite", prereq),
+          ("exclusions", exclusions),
+          ("course_level", course_level),
+          ("breadth", breadths),
+          ("campus", campus),
+          ("term", term),
+          ("APSC_elec", apsc_elec),
+          ("meeting_sections",
+            OrderedDict([
+
+            ])
+          )
+        ])
+
+        print(json.dumps(course))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         # do somethign with file html (beautiful soup)
         data = {
             'course_code': 'CSC108H1',
@@ -31,6 +138,7 @@ class CourseFinder:
         f = open(json_location, 'w')
         f.write(json.dumps(data))
         f.close()
+
 
     def update_cache(self):
         """Update the locally stored course pages."""
