@@ -19,11 +19,12 @@ class CourseFinder:
         self.s = requests.Session()
 
     def parse_files_to_json(self):
+      folder = "cache"
+      for file in os.listdir(folder)[:1000]:
         """Create JSON files from the HTML pages downloaded."""
         # loop through all the files
-        filename = "cache/ABS310Y1Y20149.html"
-        json_location = "json/%s.json" % filename[6:-5]
-        q = open(filename, "r")
+        json_location = "json/%s.json" % file[:-5]
+        q = open("cache/" + file, "r")
         read = q.read()
         soup = BeautifulSoup(read)
 
@@ -78,16 +79,17 @@ class CourseFinder:
           apsc_elec = ""
 
         #Meeting Sections
-        meeting_table = soup.find(id = "u172").find_all("tr")
-        for tr in meeting_table:
-          tds = tr.find_all("td")
-          # Index stuff:
-          # tds[0].get_text().strip() - name
-          # 1 - times
-          # 2 - instructor
-          # 3 - locations
-          # 4 - class size
-          meeting_section = OrderedDict([()])
+        meeting_table = soup.find(id = "u172")
+        if not meeting_table == None:
+          meeting_table.find_all("tr")
+          for tr in meeting_table:
+            tds = tr.find_all("td")
+            # Index stuff:
+            # tds[0].get_text().strip() - name
+            # 1 - times
+            # 2 - instructor
+            # 3 - locations
+            # 4 - class size
 
 
 
@@ -112,31 +114,8 @@ class CourseFinder:
           )
         ])
 
-        print(json.dumps(course))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # do somethign with file html (beautiful soup)
-        data = {
-            'course_code': 'CSC108H1',
-            'stuff': [
-                1, 2, 3, 4
-            ]
-        }
         f = open(json_location, 'w')
-        f.write(json.dumps(data))
+        f.write(json.dumps(course))
         f.close()
 
 
