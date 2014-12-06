@@ -20,7 +20,7 @@ class CourseFinder:
 
     def parse_files_to_json(self):
       folder = "cache"
-      for file in os.listdir(folder)[:1000]:
+      for file in os.listdir(folder)[:1]:
         """Create JSON files from the HTML pages downloaded."""
         # loop through all the files
         json_location = "json/%s.json" % file[:-5]
@@ -79,17 +79,19 @@ class CourseFinder:
           apsc_elec = ""
 
         #Meeting Sections
-        meeting_table = soup.find(id = "u172")
-        if not meeting_table == None:
-          meeting_table.find_all("tr")
-          for tr in meeting_table:
-            tds = tr.find_all("td")
-            # Index stuff:
-            # tds[0].get_text().strip() - name
-            # 1 - times
-            # 2 - instructor
-            # 3 - locations
-            # 4 - class size
+        meeting_table = soup.find(id = "u172").find_all("tr")
+        lectures = []
+        tutorials = []
+        practicals = []
+        for tr in meeting_table:
+          tds = tr.find_all("td")
+          # Index stuff:
+          # tds[0].get_text().strip() - name
+          # 1 - times
+          # 2 - instructor
+          # 3 - locations
+          # 4 - class size
+          print(tds[0].get_text().strip())
 
 
 
