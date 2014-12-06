@@ -19,107 +19,171 @@ class CourseFinder:
         self.s = requests.Session()
 
     def parse_files_to_json(self):
-      folder = "cache"
-      for file in os.listdir(folder)[:1]:
         """Create JSON files from the HTML pages downloaded."""
-        # loop through all the files
-        json_location = "json/%s.json" % file[:-5]
-        q = open("cache/" + file, "r")
-        read = q.read()
-        soup = BeautifulSoup(read)
 
-        #Things that appear on all courses
-        title_name = soup.find(id = "u19").find_all(
-          "span",
-          class_= "uif-headerText-span"
-        )[0].get_text()
-        course_code = title_name[:8]
-        course_name = title_name[10:]
-        division = soup.find(id = "u23").find_all("span",
-        id ="u23")[0].get_text().strip()
-        description = soup.find(id = "u32").find_all("span",
-        id ="u32")[0].get_text().strip()
-        department = soup.find(id = "u41").find_all("span",
-        id ="u41")[0].get_text().strip()
-        course_level = soup.find(id = "u86").find_all("span",
-        id ="u86")[0].get_text().strip()
-        campus = soup.find(id = "u149").find_all("span",
-        id ="u149")[0].get_text().strip()
-        term = soup.find(id = "u158").find_all("span",
-        id ="u158")[0].get_text().strip()
+        folder = "cache"
+        for file in os.listdir(folder):
+            if ".html" not in file:
+                continue
+            # loop through all the files
+            json_location = "json/%s.json" % file[:-5]
+            q = open("cache/" + file, "rb")
+            read = q.read()
+            soup = BeautifulSoup(read)
 
+            #Things that appear on all courses
+            title_name = soup.find(id = "u19").find_all(
+                "span",
+                class_= "uif-headerText-span"
+            )[0].get_text()
 
-        #Things that don't appear on all courses
-        as_breadth = soup.find(id= "u122")
-        if not as_breadth == None:
-          as_breadth = as_breadth.find_all("span", id ="u122")[0].get_text().strip()
-          breadths = []
-          for ch in as_breadth:
-            if ch in "12345":
-              breadths.append(int(ch))
-        else:
-          breadths = []
+            course_code = title_name[:8]
+            course_name = title_name[10:]
 
-        exclusions = soup.find(id= "u68")
-        if not exclusions == None:
-          exclusions = exclusions.find_all("span", id ="u68")[0].get_text().strip()
-        else:
-          exclusions = ""
-
-        prereq = soup.find(id= "u50")
-        if not prereq == None:
-          prereq = prereq.find_all("span", id ="u50")[0].get_text().strip()
-        else:
-          prereq = ""
-
-        apsc_elec = soup.find(id= "u140")
-        if not apsc_elec == None:
-          apsc_elec = apsc_elec.find_all("span", id ="u140")[0].get_text().strip()
-        else:
-          apsc_elec = ""
-
-        #Meeting Sections
-        meeting_table = soup.find(id = "u172").find_all("tr")
-        lectures = []
-        tutorials = []
-        practicals = []
-        for tr in meeting_table:
-          tds = tr.find_all("td")
-          # Index stuff:
-          # tds[0].get_text().strip() - name
-          # 1 - times
-          # 2 - instructor
-          # 3 - locations
-          # 4 - class size
-          print(tds[0].get_text().strip())
+            division = soup.find(id = "u23").find_all("span",
+            id ="u23")[0].get_text().strip()
+            description = soup.find(id = "u32").find_all("span",
+            id ="u32")[0].get_text().strip()
+            department = soup.find(id = "u41").find_all("span",
+            id ="u41")[0].get_text().strip()
+            course_level = soup.find(id = "u86").find_all("span",
+            id ="u86")[0].get_text().strip()
+            campus = soup.find(id = "u149").find_all("span",
+            id ="u149")[0].get_text().strip()
+            term = soup.find(id = "u158").find_all("span",
+            id ="u158")[0].get_text().strip()
 
 
+            #Things that don't appear on all courses
+            as_breadth = soup.find(id= "u122")
+            breadths = []
+            if not as_breadth == None:
+                as_breadth = as_breadth.find_all("span", id ="u122")[0].get_text().strip()
+                breadths = []
+                for ch in as_breadth:
+                    if ch in "12345":
+                        breadths.append(int(ch))
+            else:
+                breadths = []
 
-        #Dictionary
-        course = OrderedDict([
-          ("code", course_code),
-          ("name", course_name),
-          ("description", description),
-          ("division", division),
-          ("department", department),
-          ("prerequisite", prereq),
-          ("exclusions", exclusions),
-          ("course_level", course_level),
-          ("breadth", breadths),
-          ("campus", campus),
-          ("term", term),
-          ("APSC_elec", apsc_elec),
-          ("meeting_sections",
-            OrderedDict([
+            exclusions = soup.find(id= "u68")
+            if not exclusions == None:
+                exclusions = exclusions.find_all("span", id ="u68")[0].get_text().strip()
+            else:
+                exclusions = ""
 
+            prereq = soup.find(id= "u50")
+            if not prereq == None:
+                prereq = prereq.find_all("span", id ="u50")[0].get_text().strip()
+            else:
+                prereq = ""
+
+            apsc_elec = soup.find(id= "u140")
+            if not apsc_elec == None:
+                apsc_elec = apsc_elec.find_all("span", id ="u140")[0].get_text().strip()
+            else:
+                apsc_elec = ""
+
+            #Meeting Sections
+            meeting_table = soup.find(id = "u172")
+            trs = []
+            if not meeting_table is None:
+                trs = meeting_table.find_all("tr")
+            lectures = []
+            tutorials = []
+            practicals = []
+
+            for tr in trs:
+                tds = tr.find_all("td")
+                if len(tds) > 0:
+                    code = tds[0].get_text().strip()
+
+                    raw_times = tds[1].get_text().replace('Alternate week', '').strip().split(" ")
+                    times = []
+                    for i in range(0, len(raw_times) - 1, 2):
+                        times.append(raw_times[i] + " " + raw_times[i + 1])
+
+                    instructor = tds[2].get_text().strip()
+
+                    raw_locations = tds[3].get_text().strip().split(" ")
+                    locations = []
+                    for i in range(0, len(raw_locations) - 1, 2):
+                        locations.append(raw_locations[i] + " " + raw_locations[i + 1])
+
+                    class_size = tds[4].get_text().strip()
+                    print(course_code)
+                    time_data = []
+                    for i in range(len(times)):
+                        info = times[i].split(" ")
+                        day = info[0]
+                        hours = info[1].split("-")
+
+                        location = ""
+                        try:
+                            location = locations[i]
+                        except IndexError:
+                            location = ""
+
+                        time_data.append(OrderedDict([
+                            ("day", day),
+                            ("start", hours[0]),
+                            ("end", hours[1]),
+                            ("location", location)
+                        ]))
+
+                    code = code.split(" ")
+                    code = code[0][0] + code[1]
+
+                    data = OrderedDict([
+                        ("code", code),
+                        ("instructor", instructor),
+                        ("times", time_data),
+                        ("class_size", int(class_size))
+                    ])
+
+                    if "L" in code:
+                        lectures.append(data)
+                    elif "T" in code:
+                        tutorials.append(data)
+                    elif "P" in code:
+                        practicals.append(data)
+
+                # Index stuff:
+                # tds[0].get_text().strip() - name
+                # 1 - times
+                # 2 - instructor
+                # 3 - locations
+                # 4 - class size
+
+
+
+
+            #Dictionary
+            course = OrderedDict([
+                ("code", course_code),
+                ("name", course_name),
+                ("description", description),
+                ("division", division),
+                ("department", department),
+                ("prerequisite", prereq),
+                ("exclusions", exclusions),
+                ("course_level", course_level),
+                ("breadth", breadths),
+                ("campus", campus),
+                ("term", term),
+                ("APSC_elec", apsc_elec),
+                ("meeting_sections",
+                    OrderedDict([
+                        ("lectures", lectures),
+                        ("tutorials", tutorials),
+                        ("practicals", practicals)
+                    ])
+                )
             ])
-          )
-        ])
 
-        f = open(json_location, 'w')
-        f.write(json.dumps(course))
-        f.close()
-
+            f = open(json_location, 'w')
+            f.write(json.dumps(course))
+            f.close()
 
     def update_cache(self):
         """Update the locally stored course pages."""
