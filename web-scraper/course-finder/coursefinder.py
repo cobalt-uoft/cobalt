@@ -55,6 +55,12 @@ class CourseFinder:
 
             campus = soup.find(id = "u149").find_all("span",
             id ="u149")[0].get_text().strip()
+            if campus == "St.George":
+                campus = "UTSG"
+            elif campus == "Mississauga":
+                campus = "UTM"
+            elif campus == "Scarborough":
+                campus = "UTSC"
 
             term = soup.find(id = "u158").find_all("span",
             id ="u158")[0].get_text().strip()
