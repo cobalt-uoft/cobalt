@@ -38,7 +38,7 @@ class CourseFinder:
                 class_= "uif-headerText-span"
             )[0].get_text()
 
-            course_code = title_name[:8]
+            course_code = file_name[:9]
 
             course_name = title_name[10:]
 
