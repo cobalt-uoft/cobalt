@@ -134,7 +134,7 @@ class CourseFinder:
 
                         location = ""
                         try:
-                            location = locations[i]
+                            location = locations[i].replace(" ", "")
                         except IndexError:
                             location = ""
 
