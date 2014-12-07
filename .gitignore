@@ -5,3 +5,4 @@ node_modules/
 json
 Archive.zip
 example.json
+secrets.*

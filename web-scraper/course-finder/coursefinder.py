@@ -6,6 +6,8 @@ import json
 import pprint
 from bs4 import BeautifulSoup
 from collections import OrderedDict
+import pymongo
+from secrets import *
 
 class CourseFinder:
     """A wrapper for utilizing UofT's Course Finder web service.
@@ -17,12 +19,21 @@ class CourseFinder:
         self.host = 'http://coursefinder.utoronto.ca/course-search/search'
         self.cookies = http.cookiejar.CookieJar()
         self.s = requests.Session()
+        self.client = pymongo.MongoClient(MONGO_URL)
+        self.db = self.client[MONGO_DB]
+        self.courses = self.db.courses
+
+    def push_to_mongo(self, doc):
+        """Push all the code to the MongoDB server."""
+        self.courses.insert(doc)
+
+
 
     def parse_files_to_json(self):
         """Create JSON files from the HTML pages downloaded."""
 
         # loop through all the files
-        for file in os.listdir("cache")[:100]:
+        for file in os.listdir("cache"):
             if ".html" not in file:
                 continue
 
@@ -188,9 +199,12 @@ class CourseFinder:
             ])
 
             # to JSON file
-            f = open(json_location, 'w')
-            f.write(json.dumps(course))
-            f.close()
+            #f = open(json_location, 'w')
+            #f.write(json.dumps(course))
+            #f.close()
+
+            # to database
+            c.push_to_mongo(course)
 
     def update_cache(self):
         """Update the locally stored course pages."""
