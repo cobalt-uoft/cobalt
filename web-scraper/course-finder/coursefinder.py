@@ -22,7 +22,7 @@ class CourseFinder:
         """Create JSON files from the HTML pages downloaded."""
 
         # loop through all the files
-        for file in os.listdir("cache"):
+        for file in os.listdir("cache")[:100]:
             if ".html" not in file:
                 continue
 
@@ -56,7 +56,8 @@ class CourseFinder:
 
             campus = soup.find(id = "u149").find_all("span",
             id ="u149")[0].get_text().strip()
-            if campus == "St.George":
+
+            if campus == "St. George":
                 campus = "UTSG"
             elif campus == "Mississauga":
                 campus = "UTM"
@@ -164,7 +165,7 @@ class CourseFinder:
 
             # Dictionary creation
             course = OrderedDict([
-                ("course_id", file_name)
+                ("course_id", file_name),
                 ("code", course_code),
                 ("name", course_name),
                 ("description", description),
@@ -172,7 +173,7 @@ class CourseFinder:
                 ("department", department),
                 ("prerequisites", prereq),
                 ("exclusions", exclusions),
-                ("course_level", int(course_level[:3]),
+                ("course_level", int(course_level[:3])),
                 ("breadth", breadths),
                 ("campus", campus),
                 ("term", term),
