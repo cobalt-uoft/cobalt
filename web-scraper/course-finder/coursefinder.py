@@ -26,7 +26,8 @@ class CourseFinder:
             if ".html" not in file:
                 continue
 
-            json_location = "json/%s.json" % file[:-5]
+            file_name = file[:-5]
+            json_location = "json/%s.json" % file_name
             q = open("cache/" + file, "rb")
             read = q.read()
             soup = BeautifulSoup(read)
@@ -163,6 +164,7 @@ class CourseFinder:
 
             # Dictionary creation
             course = OrderedDict([
+                ("course_id", file_name)
                 ("code", course_code),
                 ("name", course_name),
                 ("description", description),
@@ -174,7 +176,7 @@ class CourseFinder:
                 ("breadth", breadths),
                 ("campus", campus),
                 ("term", term),
-                ("APSC_elec", apsc_elec),
+                ("apsc_elec", apsc_elec),
                 ("meeting_sections",
                     OrderedDict([
                         ("lectures", lectures),
