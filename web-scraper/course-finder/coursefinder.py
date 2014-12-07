@@ -21,40 +21,45 @@ class CourseFinder:
     def parse_files_to_json(self):
         """Create JSON files from the HTML pages downloaded."""
 
-        folder = "cache"
-        for file in os.listdir(folder):
+        # loop through all the files
+        for file in os.listdir("cache"):
             if ".html" not in file:
                 continue
-            # loop through all the files
+
             json_location = "json/%s.json" % file[:-5]
             q = open("cache/" + file, "rb")
             read = q.read()
             soup = BeautifulSoup(read)
 
-            #Things that appear on all courses
+            # Things that appear on all courses
             title_name = soup.find(id = "u19").find_all(
                 "span",
                 class_= "uif-headerText-span"
             )[0].get_text()
 
             course_code = title_name[:8]
+
             course_name = title_name[10:]
 
             division = soup.find(id = "u23").find_all("span",
             id ="u23")[0].get_text().strip()
+
             description = soup.find(id = "u32").find_all("span",
             id ="u32")[0].get_text().strip()
+
             department = soup.find(id = "u41").find_all("span",
             id ="u41")[0].get_text().strip()
+
             course_level = soup.find(id = "u86").find_all("span",
             id ="u86")[0].get_text().strip()
+
             campus = soup.find(id = "u149").find_all("span",
             id ="u149")[0].get_text().strip()
+
             term = soup.find(id = "u158").find_all("span",
             id ="u158")[0].get_text().strip()
 
-
-            #Things that don't appear on all courses
+            # Things that don't appear on all courses
             as_breadth = soup.find(id= "u122")
             breadths = []
             if not as_breadth == None:
@@ -86,9 +91,11 @@ class CourseFinder:
 
             #Meeting Sections
             meeting_table = soup.find(id = "u172")
+
             trs = []
             if not meeting_table is None:
                 trs = meeting_table.find_all("tr")
+
             lectures = []
             tutorials = []
             practicals = []
@@ -148,17 +155,7 @@ class CourseFinder:
                     elif "P" in code:
                         practicals.append(data)
 
-                # Index stuff:
-                # tds[0].get_text().strip() - name
-                # 1 - times
-                # 2 - instructor
-                # 3 - locations
-                # 4 - class size
-
-
-
-
-            #Dictionary
+            # Dictionary creation
             course = OrderedDict([
                 ("code", course_code),
                 ("name", course_name),
@@ -181,6 +178,7 @@ class CourseFinder:
                 )
             ])
 
+            # to JSON file
             f = open(json_location, 'w')
             f.write(json.dumps(course))
             f.close()
