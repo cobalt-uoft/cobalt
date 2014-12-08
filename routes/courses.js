@@ -7,8 +7,6 @@ var QUERIES = [
   "location", "size", "rating"
 ]
 
-var mongoose = require('mongoose');
-mongoose.connect('process.env.MONGOLAB_URL');
 var courseSchema = new mongoose.Schema({
   course_id: String,
   code: String,
