@@ -7,6 +7,19 @@ var QUERIES = [
   "location", "size", "rating"
 ]
 
+var timesSchema = new mongoose.Schema({
+  day: String,
+  start: String,
+  end: String,
+  location: String
+})
+
+var meetingSchema = new mongoose.Schema({
+  lectures: [sectionSchema],
+  tutorials: [sectionSchema],
+  practicals: [sectionSchema]
+})
+
 var courseSchema = new mongoose.Schema({
   course_id: String,
   code: String,
@@ -16,12 +29,13 @@ var courseSchema = new mongoose.Schema({
   prerequisites: String,
   exlusions: String,
   course_level: String,
-  breadth: Array,
+  breadth: [Number],
   campus: String,
   term: String,
   apsc_elec: String,
-  meeting_sections: Array
+  meeting_sections: [meetingSchema]
 })
+
 var courses = new mongoose.model("courses", courseSchema)
 
 
