@@ -36,6 +36,9 @@ class CourseFinder:
             data = self.parse_course_html(course_id, html)
             self.push_to_mongo(data)
 
+            self.count += 1
+            print('Current Course: %s \t Progress: %s%s' % (course_id, str(round((self.count / self.total) * 100, 2)), "%"))
+
     def search(self, query='', requirements=''):
         """Perform a search and return the data as a dict."""
 
@@ -79,9 +82,6 @@ class CourseFinder:
 
     def parse_course_html(self, course_id, html):
         """Create JSON files from the HTML pages downloaded."""
-
-        self.count += 1
-        print('Current Course: %s \t Progress: %s%s' % (course_id, str(round((self.count / self.total) * 100, 2)), "%"))
 
         soup = BeautifulSoup(html)
 
