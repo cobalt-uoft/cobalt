@@ -15,9 +15,9 @@ var timesSchema = new mongoose.Schema({
 })
 
 var meetingSchema = new mongoose.Schema({
-  lectures: [sectionSchema],
-  tutorials: [sectionSchema],
-  practicals: [sectionSchema]
+  lectures: [timesSchema],
+  tutorials: [timesSchema],
+  practicals: [timesSchema]
 })
 
 var courseSchema = new mongoose.Schema({
