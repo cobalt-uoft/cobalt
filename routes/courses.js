@@ -29,7 +29,7 @@ var courseSchema = new mongoose.Schema({
   prerequisites: String,
   exlusions: String,
   course_level: String,
-  breadth: [Number],
+  breadths: [Number],
   campus: String,
   term: String,
   apsc_elec: String,
@@ -43,27 +43,14 @@ router.get('/', function(req, res) {
 
   var query = req.query
   var clean = true
-  var keys = []
+  var search = {}
 
   for (var key in query) {
     if (QUERIES.indexOf(key.toLowerCase()) < 0) {
-      clean = false
+      res.send("Bad")
+      return
     }
-    keys.push(key)
-  }
-
-  var response = [];
-
-  if (!clean) {
-    res.send("yo")
-  } else {
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i].toLowerCase()
-      var quer = query[key]
-      if (key = "_id") {
-        response.push(getIdQuery(quer))
-      }
-    }
+    search[key] = query[key]
   }
 
 })
