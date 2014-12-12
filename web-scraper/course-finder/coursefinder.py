@@ -148,9 +148,7 @@ class CourseFinder:
         if not meeting_table is None:
             trs = meeting_table.find_all("tr")
 
-        lectures = []
-        tutorials = []
-        practicals = []
+        sections = []
 
         for tr in trs:
             tds = tr.find_all("td")
@@ -202,12 +200,7 @@ class CourseFinder:
                     ("class_size", int(class_size))
                 ])
 
-                if "L" in code:
-                    lectures.append(data)
-                elif "T" in code:
-                    tutorials.append(data)
-                elif "P" in code:
-                    practicals.append(data)
+                sections.append(data)
 
         # Dictionary creation
         course = OrderedDict([
@@ -224,13 +217,7 @@ class CourseFinder:
             ("campus", campus),
             ("term", term),
             ("apsc_elec", apsc_elec),
-            ("meeting_sections",
-                OrderedDict([
-                    ("lectures", lectures),
-                    ("tutorials", tutorials),
-                    ("practicals", practicals)
-                ])
-            )
+            ("meeting_sections", sections)
         ])
 
         return course

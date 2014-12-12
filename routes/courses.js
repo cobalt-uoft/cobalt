@@ -1,11 +1,30 @@
 var express = require('express')
+var mongoose = require('mongoose')
 var router = express.Router()
 
 var QUERIES = [
-  "_id", "department", "division", "campus", "term", "section",
+  "course_id", "code", "department", "division", "campus", "term", "section",
   "term", "postrequisite", "tutorials", "breadth", "time", "instructor",
   "location", "size", "rating"
 ]
+
+var KEY_MAP = {
+  "id": "course_id",
+  "code": "code",
+  "name": "name",
+  "description": "description",
+  "division": "division",
+  "department": "department",
+  "prerequisites": "prerequisites",
+  "exclusions": "exclusions",
+  "course_level": "course_level",
+  "breadth": "breadth",
+  "campus": "campus",
+  "term": "term",
+  "apsc_elec": "apsc_elec",
+  "meeting_code": "meeting_sections.lectures.code",
+  "instructor": "meeting_sections."
+}
 
 var timesSchema = new mongoose.Schema({
   day: String,
@@ -15,9 +34,9 @@ var timesSchema = new mongoose.Schema({
 })
 
 var meetingSchema = new mongoose.Schema({
-  lectures: [timesSchema],
-  tutorials: [timesSchema],
-  practicals: [timesSchema]
+  code: String,
+  instructor: String,
+  times: [timesSchema]
 })
 
 var courseSchema = new mongoose.Schema({
@@ -29,15 +48,14 @@ var courseSchema = new mongoose.Schema({
   prerequisites: String,
   exlusions: String,
   course_level: String,
-  breadths: [Number],
+  breadth: [Number],
   campus: String,
   term: String,
   apsc_elec: String,
   meeting_sections: [meetingSchema]
 })
 
-var courses = new mongoose.model("courses", courseSchema)
-
+var courses = mongoose.model("courses", courseSchema)
 
 router.get('/', function(req, res) {
 
@@ -52,6 +70,7 @@ router.get('/', function(req, res) {
     }
     search[key] = query[key]
   }
+  console.log(search)
 
 })
 
