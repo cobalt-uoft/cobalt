@@ -23,7 +23,7 @@ var KEYMAP = {
   "term": "term",
   "apsc_elec": "apsc_elec",
   "meeting_code": "meeting_sections.code",
-  "instructor": "meeting_sections.instructor",
+  "instructor": "meeting_sections.instructors",
   "day": "meeting_sections.times.day",
   "start": "meeting_sections.times.start",
   "end": "meeting_sections.times.end",
@@ -39,7 +39,7 @@ var timesSchema = new mongoose.Schema({
 
 var meetingSchema = new mongoose.Schema({
   code: String,
-  instructor: String,
+  instructors: [String],
   times: [timesSchema]
 })
 
