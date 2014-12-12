@@ -161,7 +161,9 @@ class CourseFinder:
                 for i in range(0, len(raw_times) - 1, 2):
                     times.append(raw_times[i] + " " + raw_times[i + 1])
 
-                instructor = tds[2].get_text().strip()
+                instructors = BeautifulSoup(str(tds[2]).replace("<br>", "\n"))
+                instructors = instructors.get_text().split("\n")
+                instructors = list(filter(None, [x.strip() for x in instructors]))
 
                 raw_locations = tds[3].get_text().strip().split(" ")
                 locations = []
@@ -195,7 +197,7 @@ class CourseFinder:
 
                 data = OrderedDict([
                     ("code", code),
-                    ("instructor", instructor),
+                    ("instructors", instructors),
                     ("times", time_data),
                     ("class_size", int(class_size))
                 ])
