@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(process.env.MONGOLAB_URL);
+mongoose.connect(process.env.MONGOLAB_URL)
 
 app.use('/', routes);
 app.use('/api/' + app.get('api version') + '/courses', courses);
