@@ -8,7 +8,7 @@ var QUERIES = [
   "location", "size", "rating"
 ]
 
-var KEY_MAP = {
+var KEYMAP = {
   "id": "course_id",
   "code": "code",
   "name": "name",
@@ -22,8 +22,12 @@ var KEY_MAP = {
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
-  "meeting_code": "meeting_sections.lectures.code",
-  "instructor": "meeting_sections."
+  "meeting_code": "meeting_sections.code",
+  "instructor": "meeting_sections.instructor",
+  "day": "meeting_sections.times.day",
+  "start": "meeting_sections.times.start",
+  "end": "meeting_sections.times.end",
+  "location": "meeting_sections.times.location",
 }
 
 var timesSchema = new mongoose.Schema({
@@ -65,12 +69,17 @@ router.get('/', function(req, res) {
 
   for (var key in query) {
     if (QUERIES.indexOf(key.toLowerCase()) < 0) {
-      res.send("Bad")
+      res.send(403)
       return
     }
-    search[key] = query[key]
+    search[ KEYMAP[key] ] = { $regex : ".*" + query[key] + ".*" }
   }
+
   console.log(search)
+
+  courses.find(search, function (err, docs) {
+    res.json(docs)
+  })
 
 })
 
