@@ -23,7 +23,7 @@ var KEYMAP = {
   "term": "term",
   "apsc_elec": "apsc_elec",
   "meeting_code": "meeting_sections.code",
-  "instructor": "meeting_sections.instructors",
+  "instructors": "meeting_sections.instructors",
   "day": "meeting_sections.times.day",
   "start": "meeting_sections.times.start",
   "end": "meeting_sections.times.end",
