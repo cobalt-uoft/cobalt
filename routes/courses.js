@@ -5,7 +5,7 @@ var router = express.Router()
 var QUERIES = [
   "course_id", "code", "department", "division", "campus", "term", "section",
   "term", "postrequisite", "tutorials", "breadth", "time", "instructor",
-  "location", "size", "rating"
+  "location", "size", "rating", "testQ"
 ]
 
 var KEYMAP = {
@@ -72,6 +72,11 @@ router.get('/:id', function(req, res) {
     var clean = true
 
     for (var key in query) {
+      if(key.toLowerCase() = "testQ"){
+        testFunc()
+        return
+      }
+
       if (QUERIES.indexOf(key.toLowerCase()) < 0) {
         res.send(403)
         return
@@ -86,10 +91,14 @@ router.get('/:id', function(req, res) {
 
 })
 
-function getIdQuery(key, quer) {
-  return courses.find({
-    key: quer
-  })
+/**
+ * Do fancy things
+ * :)
+ */
+var testFunc = function(){
+  res.send(200)
 }
+
+
 
 module.exports = router
