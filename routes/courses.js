@@ -72,7 +72,7 @@ router.get('/:id', function(req, res) {
     var clean = true
 
     for (var key in query) {
-      if(key.toLowerCase() = "testQ"){
+      if(key.toLowerCase() = "testq"){
         testFunc()
         return
       }
