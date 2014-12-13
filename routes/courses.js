@@ -5,7 +5,7 @@ var router = express.Router()
 var QUERIES = [
   "course_id", "code", "department", "division", "campus", "term", "section",
   "term", "postrequisite", "tutorials", "breadth", "time", "instructor",
-  "location", "size", "rating", "testQ"
+  "location", "size", "rating", "testq"
 ]
 
 var KEYMAP = {
