@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect(process.env.MONGOLAB_URL)
 
 app.use('/', routes);
-app.use('/api/' + app.get('api version') + '/courses', courses);
+app.use('/courses', courses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

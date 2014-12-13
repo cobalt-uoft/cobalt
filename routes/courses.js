@@ -61,21 +61,24 @@ var courseSchema = new mongoose.Schema({
 
 var courses = mongoose.model("courses", courseSchema)
 
-router.get('/', function(req, res) {
+router.get('/:id', function(req, res) {
 
-  var query = req.query
-  var clean = true
   var search = {}
 
-  for (var key in query) {
-    if (QUERIES.indexOf(key.toLowerCase()) < 0) {
-      res.send(403)
-      return
-    }
-    search[ KEYMAP[key] ] = { $regex : ".*" + query[key] + ".*" }
-  }
+  if(req.params.id != undefined) {
+    search['course_id'] = req.params.id;
+  } else {
+    var query = req.query
+    var clean = true
 
-  console.log(search)
+    for (var key in query) {
+      if (QUERIES.indexOf(key.toLowerCase()) < 0) {
+        res.send(403)
+        return
+      }
+      search[ KEYMAP[key] ] = { $regex : ".*" + query[key] + ".*" }
+    }
+  }
 
   courses.find(search, function (err, docs) {
     res.json(docs)
