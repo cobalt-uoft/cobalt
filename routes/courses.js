@@ -61,31 +61,40 @@ var courseSchema = new mongoose.Schema({
 
 var courses = mongoose.model("courses", courseSchema)
 
+router.get('/:id', function(req, res) {
+  if (req.params.id != undefined) {
+    search['course_id'] = req.params.id;
+    courses.find(search, function(err, docs) {
+      res.json(docs)
+    })
+  } else {
+    res.send("fuck you")
+  }
+})
+
 router.get('/', function(req, res) {
 
   var search = {}
 
-  if(req.params.id != undefined) {
-    search['course_id'] = req.params.id;
-  } else {
-    var query = req.query
-    var clean = true
+  var query = req.query
+  var clean = true
 
-    for (var key in query) {
-      if(key.toLowerCase() == "testq"){
-        testFunc()
-        return
-      }
+  for (var key in query) {
+    if (key.toLowerCase() == "testq") {
+      testFunc()
+      return
+    }
 
-      if (QUERIES.indexOf(key.toLowerCase()) < 0) {
-        res.send(403)
-        return
-      }
-      search[ KEYMAP[key] ] = { $regex : ".*" + query[key] + ".*" }
+    if (QUERIES.indexOf(key.toLowerCase()) < 0) {
+      res.send(403)
+      return
+    }
+    search[KEYMAP[key]] = {
+      $regex: ".*" + query[key] + ".*"
     }
   }
 
-  courses.find(search, function (err, docs) {
+  courses.find(search, function(err, docs) {
     res.json(docs)
   })
 
@@ -95,7 +104,7 @@ router.get('/', function(req, res) {
  * Do fancy things
  * :)
  */
-var testFunc = function(){
+var testFunc = function() {
   res.send(200)
 }
 

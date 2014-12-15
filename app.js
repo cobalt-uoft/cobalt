@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGOLAB_URL)
 
 app.use('/', routes);
 app.use('/courses', courses);
+app.use('/courses/:id', courses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
