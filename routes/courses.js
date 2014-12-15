@@ -62,13 +62,14 @@ var courseSchema = new mongoose.Schema({
 var courses = mongoose.model("courses", courseSchema)
 
 router.get('/:id', function(req, res) {
-  if (req.params.id != undefined) {
+  if (req.params.id != undefined && req.params.id != "") {
+    var search = {}
     search['course_id'] = req.params.id;
     courses.find(search, function(err, docs) {
       res.json(docs)
     })
   } else {
-    res.send("fuck you")
+    res.send(403)
   }
 })
 
@@ -79,24 +80,33 @@ router.get('/', function(req, res) {
   var query = req.query
   var clean = true
 
+  queries = 0
+
   for (var key in query) {
-    if (key.toLowerCase() == "testq") {
-      testFunc()
-      return
+
+    key = key.toLowerCase()
+
+    if (QUERIES.indexOf(key) > 0) {
+
+      queries++
+
+      search[KEYMAP[key]] = {
+        $regex: "(?i).*" + query[key] + ".*"
+      }
+
+    } else {
+      res.send(403)
     }
 
-    if (QUERIES.indexOf(key.toLowerCase()) < 0) {
-      res.send(403)
-      return
-    }
-    search[KEYMAP[key]] = {
-      $regex: ".*" + query[key] + ".*"
-    }
   }
 
-  courses.find(search, function(err, docs) {
-    res.json(docs)
-  })
+  if(queries > 0) {
+    courses.find(search, function(err, docs) {
+      res.json(docs)
+    })
+  } else {
+    res.send(403)
+  }
 
 })
 
