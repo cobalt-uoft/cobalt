@@ -86,10 +86,11 @@ router.get('/', function(req, res) {
 
     key = key.toLowerCase()
 
-    if (QUERIES.indexOf(key) > 0) {
+    if (QUERIES.indexOf(key) > 0 && query[key].length > 0) {
+
+      //Some serious sanitization on every parameter shit over here
 
       queries++
-
       search[KEYMAP[key]] = {
         $regex: "(?i).*" + query[key] + ".*"
       }
