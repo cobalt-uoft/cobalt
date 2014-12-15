@@ -61,7 +61,7 @@ var courseSchema = new mongoose.Schema({
 
 var courses = mongoose.model("courses", courseSchema)
 
-router.get('/:id', function(req, res) {
+router.get('/', function(req, res) {
 
   var search = {}
 
