@@ -90,6 +90,21 @@ router.get('/', function(req, res) {
 
       //Some serious sanitization on every parameter shit over here
 
+      //I think instructors should be queried like ?instructors=heap/campbell/alfonso
+      if(key == "instructors")
+        {
+          instructors =[]
+          l = 0;
+          for(var i = 0; i < query[key].length; i++)
+            {
+              if(query[key].charAt(i) == "/")
+                {
+                  instructors.push(query.[key].substring(i-l, i))
+                }
+                l++
+            }
+        }
+
       queries++
       search[KEYMAP[key]] = {
         $regex: "(?i).*" + query[key] + ".*"
@@ -118,6 +133,7 @@ router.get('/', function(req, res) {
 var testFunc = function() {
   res.send(200)
 }
+
 
 
 
