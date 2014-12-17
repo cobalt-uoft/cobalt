@@ -88,11 +88,18 @@ router.get('/', function(req, res) {
 
     if (QUERIES.indexOf(key) > 0 && query[key].length > 0) {
 
-      //Some serious sanitization on every parameter shit over here
+      // Some serious sanitization on every parameter shit over here
+      var good = true
+      if (KEYMAP[key] == "breathds") {
+        // Do something for array search????
+      } else {
+        search[KEYMAP[key]] = {
+          $regex: "(?i).*" + query[key] + ".*"
+        }
+      }
 
-      queries++
-      search[KEYMAP[key]] = {
-        $regex: "(?i).*" + query[key] + ".*"
+      if (good) {
+        queries++
       }
 
     } else {
