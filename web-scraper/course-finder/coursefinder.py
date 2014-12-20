@@ -37,7 +37,8 @@ class CourseFinder:
             self.push_to_mongo(data)
 
             self.count += 1
-            print('Current Course: %s \t Progress: %s%s' % (course_id, str(round((self.count / self.total) * 100, 2)), "%"))
+            percent = str(round((self.count / self.total) * 100, 2))
+            print('Current Course: %s \t Progress: %s%s' % (course_id, percent, "%"))
 
     def search(self, query='', requirements=''):
         """Perform a search and return the data as a dict."""
@@ -87,7 +88,8 @@ class CourseFinder:
 
         # Things that appear on all courses
 
-        title_name = soup.find(id = "u19").find_all("span", class_="uif-headerText-span")[0].get_text()
+        title = soup.find(id = "u19")
+        title_name = title.find_all("span", class_="uif-headerText-span")[0].get_text()
 
         course_code = course_id[:-5]
 
@@ -225,8 +227,9 @@ class CourseFinder:
         return course
 
     def push_to_mongo(self, doc):
-        """Push all the code to the MongoDB server."""
+        """Push all the data to the MongoDB server."""
         self.courses.insert(doc)
 
+# Run the beautiful script :)
 cf = CourseFinder()
 cf.run_update()
