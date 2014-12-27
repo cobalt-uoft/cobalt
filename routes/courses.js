@@ -18,7 +18,7 @@ var KEYMAP = {
   "prerequisites": "prerequisites",
   "exclusions": "exclusions",
   "course_level": "course_level",
-  "breadth": "breadth",
+  "breadths": "breadths",
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
@@ -89,38 +89,25 @@ router.get('/', function(req, res) {
     if (QUERIES.indexOf(key) > 0 && query[key].length > 0) {
 
       // Some serious sanitization on every parameter shit over here
+
       var good = true
-      if (KEYMAP[key] == "breathds") {
+      if (key == "breadths") {
         // Do something for array search????
+
+      } else if (key =="instructors") {
+        // Is the split AND or OR? who knows
+        var instructors = query[key].split(",")
+
       } else {
         search[KEYMAP[key]] = {
           $regex: "(?i).*" + query[key] + ".*"
         }
       }
 
-<<<<<<< HEAD
-      if (good) {
+      if(!good) {
+        res.send(403)
+      } else {
         queries++
-=======
-      //I think instructors should be queried like ?instructors=heap/campbell/alfonso
-      if(key == "instructors")
-        {
-          instructors =[]
-          l = 0;
-          for(var i = 0; i < query[key].length; i++)
-            {
-              if(query[key].charAt(i) == "/")
-                {
-                  instructors.push(query.[key].substring(i-l, i))
-                }
-                l++
-            }
-        }
-
-      queries++
-      search[KEYMAP[key]] = {
-        $regex: "(?i).*" + query[key] + ".*"
->>>>>>> FETCH_HEAD
       }
 
     } else {
@@ -146,8 +133,5 @@ router.get('/', function(req, res) {
 var testFunc = function() {
   res.send(200)
 }
-
-
-
 
 module.exports = router
