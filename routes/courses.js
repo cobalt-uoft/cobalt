@@ -94,17 +94,17 @@ router.get('/', function(req, res) {
       if (key == "breadths") {
         // Do something for array search????
 
-      } else if (key =="instructors") {
+      } else if (key == "instructors") {
         // Is the split AND or OR? who knows
+        //
         var instructors = query[key].split(",")
-
       } else {
         search[KEYMAP[key]] = {
           $regex: "(?i).*" + query[key] + ".*"
         }
       }
 
-      if(!good) {
+      if (!good) {
         res.send(403)
       } else {
         queries++
@@ -116,7 +116,7 @@ router.get('/', function(req, res) {
 
   }
 
-  if(queries > 0) {
+  if (queries > 0) {
     courses.find(search, function(err, docs) {
       res.json(docs)
     })
@@ -134,4 +134,7 @@ var testFunc = function() {
   res.send(200)
 }
 
+var parseBool = function(query) {
+  //magical non-brackets solution here
+}
 module.exports = router
