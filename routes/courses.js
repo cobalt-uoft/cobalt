@@ -3,13 +3,12 @@ var mongoose = require('mongoose')
 var router = express.Router()
 
 var QUERIES = [
-  "course_id", "code", "department", "division", "campus", "term", "section",
+  "code", "department", "division", "campus", "term", "section",
   "term", "postrequisite", "tutorials", "breadth", "time", "instructor",
-  "location", "size", "rating", "testq"
+  "location", "size", "rating"
 ]
 
 var KEYMAP = {
-  "id": "course_id",
   "code": "code",
   "name": "name",
   "description": "description",
@@ -95,7 +94,7 @@ router.get('/', function(req, res) {
         // Do something for array search????
 
       } else if (key =="instructors") {
-        // Is the split AND or OR? who knows
+        // Is the split AND or OR? who knows (spoiler: its both)
         var instructors = query[key].split(",")
 
       } else {
