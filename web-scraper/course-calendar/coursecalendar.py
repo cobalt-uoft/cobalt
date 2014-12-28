@@ -8,12 +8,12 @@ import json
 import pymongo
 
 
-class CourseCalendar:
-	"""A wrapper for fetching U of T's Arts & Science Course Calendar data
+class CourseTimetable:
+	"""A wrapper for fetching U of T's Course Timetable data
 
-	located at http://www.artsandscience.utoronto.ca/ofr/calendar"""
+	located at http://www.artsandscience.utoronto.ca/ofr/timetable/"""
 	def __init__(self):
-		self.host = 'http://www.artsandscience.utoronto.ca/ofr/calendar'
+		self.host = 'http://www.artsandscience.utoronto.ca/ofr/timetable'
 		self.urls = None
 		self.cookies = http.cookiejar.CookieJar()
 		self.s = requests.Session()
