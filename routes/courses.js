@@ -93,14 +93,8 @@ router.get('/', function(req, res) {
       if (key == "breadths") {
         // Do something for array search????
 
-<<<<<<< HEAD
       } else if (key =="instructors") {
         // Is the split AND or OR? who knows (spoiler: its both)
-=======
-      } else if (key == "instructors") {
-        // Is the split AND or OR? who knows
-        //
->>>>>>> FETCH_HEAD
         var instructors = query[key].split(",")
       } else {
         search[KEYMAP[key]] = {
@@ -140,5 +134,10 @@ var testFunc = function() {
 
 var parseBool = function(query) {
   //magical non-brackets solution here
+  parts = query.split(",")
+  for(var i = 0; i < ands.length; i++) {
+    parts[i] = parts[i].split("/")
+    //Now we feed it to Mongo BITCH
+  }
 }
 module.exports = router
