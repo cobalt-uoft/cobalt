@@ -13,7 +13,7 @@ class CourseTimetable:
 
 	located at http://www.artsandscience.utoronto.ca/ofr/timetable/"""
 	def __init__(self):
-		self.host = 'http://www.artsandscience.utoronto.ca/ofr/timetable'
+		self.host = 'http://www.artsandscience.utoronto.ca'
 		self.urls = None
 		self.cookies = http.cookiejar.CookieJar()
 		self.s = requests.Session()
@@ -23,9 +23,12 @@ class CourseTimetable:
 		self.count = 0
 		self.total = 0
 
-	def get_course_html(self, url):
-		"""Update the locally stored program pages."""
+	def run_update(self):
 
+	def scrape(self):
+		sponsors = get_html("%s/ofr/timetable" % self.host)
+
+	def get_html(self, url):
 		html = None
 		while html is None:
 			try:
