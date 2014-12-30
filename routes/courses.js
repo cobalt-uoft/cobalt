@@ -5,7 +5,7 @@ var router = express.Router()
 var QUERIES = [
   "code", "name", "department", "division", "campus", "term", "section",
   "term", "postrequisite", "tutorials", "breadths", "time", "instructors",
-  "location", "size", "rating"
+  "location", "size", "rating", "level"
 ]
 
 var KEYMAP = {
@@ -16,7 +16,7 @@ var KEYMAP = {
   "department": "department",
   "prerequisites": "prerequisites",
   "exclusions": "exclusions",
-  "course_level": "course_level",
+  "level": "course_level",
   "breadths": "breadth",
   "campus": "campus",
   "term": "term",
@@ -134,7 +134,7 @@ var parseQuery = function(key, query, isIntegerArray, isStringArray) {
 
   parts = query.split(",")
   for(var x = 0; x < parts.length; x++) {
-    
+
     parts[x] = { $or: parts[x].split("/") }
     for (var y = 0; y < parts[x].$or.length; y++) {
 

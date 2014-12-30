@@ -31,6 +31,12 @@ class CourseFinder:
         json = self.search()
         for x in json:
             course_id = re.search('offImg(.*)', x[0]).group(1)[:14]
+            exists = self.courses.find_one({"course_id": course_id})
+            if exists is not None:
+                self.count += 1
+                percent = str(round((self.count / self.total) * 100, 2))
+                print('Skipping Course: %s \t Progress: %s%s' % (course_id, percent, "%"))
+                continue
             url = '%s/courseSearch/coursedetails/%s' % (self.host, course_id)
             html = self.get_course_html(url)
             data = self.parse_course_html(course_id, html)
