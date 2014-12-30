@@ -3,8 +3,8 @@ var mongoose = require('mongoose')
 var router = express.Router()
 
 var QUERIES = [
-  "code", "department", "division", "campus", "term", "section",
-  "term", "postrequisite", "tutorials", "breadth", "time", "instructor",
+  "code", "name", "department", "division", "campus", "term", "section",
+  "term", "postrequisite", "tutorials", "breadths", "time", "instructors",
   "location", "size", "rating"
 ]
 
@@ -17,7 +17,7 @@ var KEYMAP = {
   "prerequisites": "prerequisites",
   "exclusions": "exclusions",
   "course_level": "course_level",
-  "breadths": "breadths",
+  "breadths": "breadth",
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
@@ -74,65 +74,89 @@ router.get('/:id', function(req, res) {
 
 router.get('/', function(req, res) {
 
-  var search = {}
+  var search = { $and: [] }
 
   var query = req.query
   var clean = true
 
-  queries = 0
+  var queries = 0
+
+  console.log(query)
 
   for (var key in query) {
 
     key = key.toLowerCase()
 
-    if (QUERIES.indexOf(key) > 0 && query[key].length > 0) {
-
-      // Some serious sanitization on every parameter shit over here
+    if (QUERIES.indexOf(key) > -1 && query[key].length > 0) {
 
       var good = true
-      if (key == "breadths") {
-        // Do something for array search????
 
-      } else if (key =="instructors") {
-        // Is the split AND or OR? who knows (spoiler: its both)
-        var instructors = query[key].split(",")
-      } else {
-        search[KEYMAP[key]] = {
-          $regex: "(?i).*" + query[key] + ".*"
-        }
-      }
+      //Still gotta do that sanitizing here probably
 
-      if (!good) {
-        res.send(403)
-      } else {
+      if (good) {
         queries++
+
+        var operators = []
+        if (key == "breadths") {
+          operators = parseQuery(key, query[key], true, false)
+        } else if (key == "instructors") {
+          operators = parseQuery(key, query[key], false, true)
+        } else {
+          operators = parseQuery(key, query[key], false, false)
+        }
+
+        search.$and = search.$and.concat(operators)
+      } else {
+        res.status(403).end()
+        return
       }
 
     } else {
-      res.send(403)
+      res.status(403).end()
+      return
     }
 
   }
 
   if (queries > 0) {
+    console.log(JSON.stringify(search))
     courses.find(search, function(err, docs) {
       res.json(docs)
     })
   } else {
-    res.send(403)
+    res.status(403).end()
+    return
   }
 
 })
 
-var parseQuery = function(query) {
-  //magical non-brackets solution here
+var parseQuery = function(key, query, isIntegerArray, isStringArray) {
+
   parts = query.split(",")
   for(var x = 0; x < parts.length; x++) {
+    
     parts[x] = { $or: parts[x].split("/") }
-    for (var y = 0; y < parts[i].$or.length; y++) {
+    for (var y = 0; y < parts[x].$or.length; y++) {
+
+      var or = {}
+      if (isIntegerArray) {
+        or[KEYMAP[key]] = parseInt(parts[x].$or[y])
+      } else if (isStringArray) {
+        or[KEYMAP[key]] = {
+          $elemMatch: { $regex: "(?i).*" + parts[x].$or[y] + ".*" }
+        }
+      } else {
+        or[KEYMAP[key]] = {
+          $regex: "(?i).*" + parts[x].$or[y] + ".*"
+        }
+      }
+
+      parts[x].$or[y] = or
 
     }
   }
+
+  return parts
 }
 
 module.exports = router
