@@ -108,6 +108,8 @@ class CourseFinder:
         department = soup.find(id = "u41").find_all("span", id="u41")[0].get_text().strip()
 
         course_level = soup.find(id = "u86").find_all("span", id="u86")[0].get_text().strip()
+        course_level = course_level[:3]
+        course_level = int(course_level)
 
         campus = soup.find(id = "u149").find_all("span", id="u149")[0].get_text().strip()
 
@@ -129,6 +131,7 @@ class CourseFinder:
             for ch in as_breadth:
                 if ch in "12345":
                     breadths.append(int(ch))
+        breadths = sorted(breadths)
 
         exclusions = soup.find(id= "u68")
         if not exclusions is None:
@@ -222,8 +225,8 @@ class CourseFinder:
             ("department", department),
             ("prerequisites", prereq),
             ("exclusions", exclusions),
-            ("course_level", int(course_level[:3])),
-            ("breadth", breadths),
+            ("course_level", course_level),
+            ("breadths", breadths),
             ("campus", campus),
             ("term", term),
             ("apsc_elec", apsc_elec),
