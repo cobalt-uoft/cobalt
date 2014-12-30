@@ -124,20 +124,15 @@ router.get('/', function(req, res) {
 
 })
 
-/**
- * Do fancy things
- * :)
- */
-var testFunc = function() {
-  res.send(200)
-}
-
-var parseBool = function(query) {
+var parseQuery = function(query) {
   //magical non-brackets solution here
   parts = query.split(",")
-  for(var i = 0; i < ands.length; i++) {
-    parts[i] = parts[i].split("/")
-    //Now we feed it to Mongo BITCH
+  for(var x = 0; x < parts.length; x++) {
+    parts[x] = { $or: parts[x].split("/") }
+    for (var y = 0; y < parts[i].$or.length; y++) {
+
+    }
   }
 }
+
 module.exports = router
