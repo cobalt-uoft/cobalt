@@ -4,7 +4,7 @@ This is a service that is currently in development by [Qasim Iqbal](https://gith
 
 The goal is to provide a RESTful web API that can allow developers to create applications to help make course selection easier for students at UofT.
 
-We want our database to be self-sufficient (fully automated, with no user-needed actions). We also want the API itself to be easy to understand and use, but yet still very comprehensive in what it can provide to a developer.
+We want our database to be self-sufficient (fully automated, with no user-required actions). We also want the API itself to be easy to understand and use, but yet still very comprehensive in what it can provide to a developer.
 
 Web Scraper
 ---------------
