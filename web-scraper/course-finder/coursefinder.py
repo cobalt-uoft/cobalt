@@ -131,6 +131,7 @@ class CourseFinder:
             for ch in as_breadth:
                 if ch in "12345":
                     breadths.append(int(ch))
+
         breadths = sorted(breadths)
 
         exclusions = soup.find(id= "u68")
