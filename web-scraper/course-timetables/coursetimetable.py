@@ -76,13 +76,13 @@ class CourseTimetable:
 		section_count = 1
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
-			course = current[COURSE_CODE_INDEX].get_text().strip()
-			if course == "":
+			space = current[COURSE_CODE_INDEX].get_text().strip()
+			if len(space) != LENGTH_COURSE_CODE:
 				section_count += 1
-			elif len(course) == LENGTH_COURSE_CODE:
-				last = table_rows[i-1].find_all("td")
+			elif len(space) == LENGTH_COURSE_CODE:
+				last = table_rows[i-section_count].find_all("td")
 				last_course = last[COURSE_CODE_INDEX].get_text().strip()
-				print(course)
+				print(last_course)
 				print("Number of sections: " + str(section_count))
 				section_count = 1
 
