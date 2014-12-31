@@ -70,13 +70,17 @@ class CourseTimetable:
 		c = 0
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
-			course = current[COURSE_CODE_INDEX = 0].get_text().strip()
+			course = current[COURSE_CODE_INDEX].get_text().strip()
 			if course == "":
 				c += 1
 			elif len(course) == LENGTH_COURSE_CODE:
 				print(course)
 				print("Number of sections: " + str(c))
 				c = 0
+
+	def parse_course(self, courseid, table_rows, current_row):
+		current = table_rows[current_row].find_all("td")
+		section = current[]
 
 
 
