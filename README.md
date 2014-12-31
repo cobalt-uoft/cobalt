@@ -57,3 +57,8 @@ For any parameter:
  - “**~**” indicates **NOT** (eg. department=~architecture)
 
 They can be combined, with **AND** taking precedence. The **NOT** operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
+
+|Parameter|Description|Format/Examples|Default|
+|-|-|-|-|-|
+|course_id|The unique identifier for directly refering to a course.|CSC108H1F20149|(none)|
+
