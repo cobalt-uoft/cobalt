@@ -7,6 +7,9 @@ import re
 import json
 #import pymongo
 
+LENGTH_COURSE_CODE = 8
+COURSE_START_OFFSET = 3
+COURSE_CODE_INDEX = 0
 
 class CourseTimetable:
 	"""A wrapper for fetching U of T's Course Timetable data
@@ -60,5 +63,25 @@ class CourseTimetable:
 
 		return html.encode('utf-8')
 
+	def parse_html(self, html):
+		soup = BeautifulSoup(html)
+		table = soup.find("table")
+		table_rows = table.find_all("tr")
+		c = 0
+		for i in range(COURSE_START_OFFSET, len(table_rows)):
+			current = table_rows[i].find_all("td")
+			course = current[COURSE_CODE_INDEX = 0].get_text().strip()
+			if course == "":
+				c += 1
+			elif len(course) == LENGTH_COURSE_CODE:
+				print(course)
+				print("Number of sections: " + str(c))
+				c = 0
+
+
+
+
 ct = CourseTimetable()
-ct.get_timetables()
+#ct.get_timetables()
+html = ct.get_html("%s/ofr/timetable/winter/%s" % (ct.host, "csc.html"))
+ct.parse_html(html)
