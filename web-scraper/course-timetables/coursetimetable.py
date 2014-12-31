@@ -10,7 +10,12 @@ import json
 LENGTH_COURSE_CODE = 8
 COURSE_START_OFFSET = 4
 COURSE_CODE_INDEX = 0
-
+SEMESTER_INDEX = 1
+TITLE_INDEX = 2
+MEETING_SECTION_INDEX = 3
+WAIT_INDEX = 4
+TIME_INDEX = 5
+LOCATION = 6
 class CourseTimetable:
 	"""A wrapper for fetching U of T's Course Timetable data
 
@@ -82,13 +87,26 @@ class CourseTimetable:
 			elif len(space) == LENGTH_COURSE_CODE:
 				last = table_rows[i-section_count].find_all("td")
 				last_course = last[COURSE_CODE_INDEX].get_text().strip()
-				print(last_course)
-				print("Number of sections: " + str(section_count))
+				self.parse_course(last_course, table_rows, i, section_count)
 				section_count = 1
 
 	def parse_course(self, courseid, table_rows, current_row, section_count):
-		current = table_rows[current_row].find_all("td")
-		section = current[0]
+		current = table_rows[current_row-section_count].find_all("td")
+		semester = current[SEMESTER_INDEX].get_text().strip()
+		title = current[TITLE_INDEX].get_text().strip()
+		sections = self.parse_meeting_sections(table_rows, current_row,
+		section_count)
+		
+	def parse_meeting_sections(self, table_rows, current_row, section_count):
+		sections = []
+		for i in range(current_row, current_row+section_count):
+			current = table_rows[i].find_all("td")
+			if current[WAIT_INDEX].get_text().strip() != "Cancel":
+				unsanit_code = current[MEETING_SECTION_INDEX].get_text().strip()
+				code = re.search("\w\d{4}",unsanit_code)
+				print(unsanit_code)
+
+
 
 ct = CourseTimetable("winter")
 #ct.get_timetables()
