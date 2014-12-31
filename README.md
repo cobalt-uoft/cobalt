@@ -23,6 +23,31 @@ Each scraper should have the following properties:
 	- It should be named in respect to the course_id parameter which we will keep universal (eg. CSC108H1F20149.json)
 	- It should fill as much of the course schema as it can (to find the current schema, refer to [routes/courses.js](https://github.com/qasim/uoft-course-api/blob/master/routes/courses.js))
 
+	{
+		course_id: String,
+		code: String,
+		name: String,
+		description: String,
+		division: String,
+		prerequisites: String,
+		exlusions: String,
+		course_level: Number,
+		breadths: [Number],
+		campus: String,
+		term: String,
+		apsc_elec: String,
+		meeting_sections: [{
+			code: String,
+			instructors: [String],
+			times: [{
+				day: String,
+				start: String,
+				end: String,
+				location: String
+			}]
+		}]
+	}
+
 Web API
 ----------
 For any parameter:
