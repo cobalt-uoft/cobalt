@@ -21,4 +21,13 @@ Each scraper should have the following properties:
  2. A folder called “html” that holds all the raw HTML.
  3. A folder called “json” that holds all the formatted JSON for each course that has been scraped.
 	- It should be named in respect to the course_id parameter which we will keep universal (eg. CSC108H1F20149.json)
-	- It should fill as much of the course schema it can (to find the current schema, refer to [routes/courses.js](https://github.com/qasim/uoft-course-api/blob/master/routes/courses.js))
+	- It should fill as much of the course schema as it can (to find the current schema, refer to [routes/courses.js](https://github.com/qasim/uoft-course-api/blob/master/routes/courses.js))
+
+Web API
+----------
+For any parameter:
+ - “**,**” indicates **AND** (eg. breadth=1,2)
+ - “**/**” indicates **OR** (eg. instructor=Heap/Liu)
+ - “**~**” indicates **NOT** (eg. department=~architecture)
+
+They can be combined, with **AND** taking precedence. The **NOT** operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
