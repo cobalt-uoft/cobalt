@@ -17,7 +17,7 @@ var KEYMAP = {
   "prerequisites": "prerequisites",
   "exclusions": "exclusions",
   "level": "course_level",
-  "breadths": "breadth",
+  "breadths": "breadths",
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
@@ -98,11 +98,13 @@ router.get('/', function(req, res) {
 
         var operators = []
         if (key == "breadths") {
-          operators = parseQuery(key, query[key], true, false)
+          operators = parseQuery(key, query[key], "integerArray")
         } else if (key == "instructors") {
-          operators = parseQuery(key, query[key], false, true)
+          operators = parseQuery(key, query[key], "stringArray")
+        } else if (key == "level") {
+          operators = parseQuery(key, query[key], "integer")
         } else {
-          operators = parseQuery(key, query[key], false, false)
+          operators = parseQuery(key, query[key], "string")
         }
 
         search.$and = search.$and.concat(operators)
@@ -130,7 +132,7 @@ router.get('/', function(req, res) {
 
 })
 
-var parseQuery = function(key, query, isIntegerArray, isStringArray) {
+var parseQuery = function(key, query, type) {
 
   parts = query.split(",")
   for(var x = 0; x < parts.length; x++) {
@@ -139,13 +141,13 @@ var parseQuery = function(key, query, isIntegerArray, isStringArray) {
     for (var y = 0; y < parts[x].$or.length; y++) {
 
       var or = {}
-      if (isIntegerArray) {
+      if (type == "integerArray" || type == "integer") {
         or[KEYMAP[key]] = parseInt(parts[x].$or[y])
-      } else if (isStringArray) {
+      } else if (type == "stringArray") {
         or[KEYMAP[key]] = {
           $elemMatch: { $regex: "(?i).*" + parts[x].$or[y] + ".*" }
         }
-      } else {
+      } else if (type == "string") {
         or[KEYMAP[key]] = {
           $regex: "(?i).*" + parts[x].$or[y] + ".*"
         }
