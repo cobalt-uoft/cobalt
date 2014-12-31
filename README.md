@@ -56,6 +56,10 @@ For any parameter:
  - “**/**” indicates **OR** (eg. instructor=Heap/Liu)
  - “**~**” indicates **NOT** (eg. department=~architecture)
 
+For any numerical parameter:
+ - "**>**" indicates **GREATER THAN** (eg. class_size=>30)
+ - "**<**" indicates **LESS THAN** (eg. level=<300)
+
 They can be combined, with **AND** taking precedence. The **NOT** operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
 
 |Parameter|Description|Format/Examples|Default|
