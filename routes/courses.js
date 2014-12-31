@@ -97,9 +97,9 @@ router.get('/', function(req, res) {
         queries++
 
         var operators = []
-        if (key == "breadths") {
+        if (key == "breadth") {
           operators = parseQuery(key, query[key], "integerArray")
-        } else if (key == "instructors") {
+        } else if (key == "instructor") {
           operators = parseQuery(key, query[key], "stringArray")
         } else if (key == "level") {
           operators = parseQuery(key, query[key], "integer")
