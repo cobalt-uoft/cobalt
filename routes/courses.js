@@ -3,9 +3,9 @@ var mongoose = require('mongoose')
 var router = express.Router()
 
 var QUERIES = [
-  "code", "name", "department", "division", "campus", "term", "section",
-  "term", "postrequisite", "tutorials", "breadths", "time", "instructors",
-  "location", "size", "rating", "level"
+  "code", "name", "description", "division", "department", "prerequisite",
+  "exclusion", "level", "breadth", "campus", "term", "instructor",
+  "location", "size", "rating"
 ]
 
 var KEYMAP = {
@@ -14,15 +14,15 @@ var KEYMAP = {
   "description": "description",
   "division": "division",
   "department": "department",
-  "prerequisites": "prerequisites",
+  "prerequisite": "prerequisites",
   "exclusions": "exclusions",
   "level": "course_level",
-  "breadths": "breadths",
+  "breadth": "breadths",
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
   "meeting_code": "meeting_sections.code",
-  "instructors": "meeting_sections.instructors",
+  "instructor": "meeting_sections.instructors",
   "day": "meeting_sections.times.day",
   "start": "meeting_sections.times.start",
   "end": "meeting_sections.times.end",
