@@ -8,7 +8,7 @@ import json
 #import pymongo
 
 LENGTH_COURSE_CODE = 8
-COURSE_START_OFFSET = 3
+COURSE_START_OFFSET = 4
 COURSE_CODE_INDEX = 0
 
 class CourseTimetable:
@@ -80,6 +80,8 @@ class CourseTimetable:
 			if course == "":
 				section_count += 1
 			elif len(course) == LENGTH_COURSE_CODE:
+				last = table_rows[i-1].find_all("td")
+				last_course = last[COURSE_CODE_INDEX].get_text().strip()
 				print(course)
 				print("Number of sections: " + str(section_count))
 				section_count = 1
@@ -89,6 +91,6 @@ class CourseTimetable:
 		section = current[0]
 
 ct = CourseTimetable("winter")
-ct.get_timetables()
+#ct.get_timetables()
 html = ct.get_html("%s/ofr/timetable/%s/%s" % (ct.host, ct.season, "csc.html"))
 ct.parse_html(html)
