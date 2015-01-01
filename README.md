@@ -44,7 +44,9 @@ Each scraper should have the following properties:
 			start: String,
 			end: String,
 			location: String
-		}]
+		}],
+		class_size: Number,
+		class_enrolment: Number
 	}]
 }
 ```
@@ -59,6 +61,8 @@ For any parameter:
 For any numerical or time parameter:
  - "**>**" indicates **GREATER THAN** (eg. class_size=>30)
  - "**<**" indicates **LESS THAN** (eg. start_time=<18:00)
+ - "**.>**" indicates **GREATER THAN OR EQUAL TO** (eg. class_enrolment=.>1)
+ - "**.<**" indicates **LESS THAN OR EQUAL TO** (eg. course_level=.<200)
  - No operator indicates **EQUAL TO** (eg. breadth=5)
 
 For any string parameter:
