@@ -59,6 +59,10 @@ For any parameter:
 For any numerical or time parameter:
  - "**>**" indicates **GREATER THAN** (eg. class_size=>30)
  - "**<**" indicates **LESS THAN** (eg. start_time=<18:00)
+ - No operator indicates **EQUAL TO** (eg. breadth=5)
+
+For any string parameter:
+ - No operator indicates **CONTAINS** (eg. code=CSC)
 
 They can be combined, with **AND** taking precedence. The **NOT** operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
 
