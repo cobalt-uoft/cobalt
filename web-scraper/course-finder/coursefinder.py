@@ -5,7 +5,7 @@ from secrets import *
 import time
 import re
 import json
-import pymongo
+#import pymongo
 
 
 class CourseFinder:
@@ -19,28 +19,30 @@ class CourseFinder:
         self.urls = None
         self.cookies = http.cookiejar.CookieJar()
         self.s = requests.Session()
-        self.client = pymongo.MongoClient(MONGO_URL)
-        self.db = self.client[MONGO_DB]
-        self.courses = self.db.courses
+        #self.client = pymongo.MongoClient(MONGO_URL)
+        #self.db = self.client[MONGO_DB]
+        #self.courses = self.db.courses
         self.count = 0
         self.total = 0
 
     def run_update(self):
         """Does everything."""
 
-        json = self.search()
-        for x in json:
+        urls = self.search()
+        for x in urls[:5]:
             course_id = re.search('offImg(.*)', x[0]).group(1)[:14]
-            exists = self.courses.find_one({"course_id": course_id})
-            if exists is not None:
-                self.count += 1
-                percent = str(round((self.count / self.total) * 100, 2))
-                print('Skipping Course: %s \t Progress: %s%s' % (course_id, percent, "%"))
-                continue
+            #exists = self.courses.find_one({"course_id": course_id})
+            #if exists is not None:
+            #    self.count += 1
+            #    percent = str(round((self.count / self.total) * 100, 2))
+            #    print('Skipping Course: %s \t Progress: %s%s' % (course_id, percent, "%"))
+            #    continue
             url = '%s/courseSearch/coursedetails/%s' % (self.host, course_id)
             html = self.get_course_html(url)
             data = self.parse_course_html(course_id, html)
-            self.push_to_mongo(data)
+            with open('json/%s.json' % course_id, 'w+') as outfile:
+                json.dump(data, outfile)
+            #self.push_to_mongo(data)
 
             self.count += 1
             percent = str(round((self.count / self.total) * 100, 2))
