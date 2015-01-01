@@ -73,4 +73,8 @@ They can be combined, with **AND** taking precedence. The **NOT** operator only 
 |Parameter|Description|Format/Examples|Default|
 |---|---|---|---|---|
 |course_id|The unique identifier for directly refering to a course.|CSC108H1F20149|(none)|
+|code|The 9 character code for representing a course.|CSC108H1F|(none)|
+|name|The formal name of a course.|Introduction to Computer Programming|(none)|
+|description|The formal definition of a course.|...|(none)|
+|division|...|...|...|
 
