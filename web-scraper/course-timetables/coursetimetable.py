@@ -16,6 +16,7 @@ MEETING_SECTION_INDEX = 3
 WAIT_INDEX = 4
 TIME_INDEX = 5
 LOCATION = 6
+SECTION_RE_SCHEME = [""]
 class CourseTimetable:
 	"""A wrapper for fetching U of T's Course Timetable data
 
@@ -94,17 +95,20 @@ class CourseTimetable:
 		current = table_rows[current_row-section_count].find_all("td")
 		semester = current[SEMESTER_INDEX].get_text().strip()
 		title = current[TITLE_INDEX].get_text().strip()
+		print(courseid)
 		sections = self.parse_meeting_sections(table_rows, current_row,
 		section_count)
-		
+
 	def parse_meeting_sections(self, table_rows, current_row, section_count):
 		sections = []
 		for i in range(current_row, current_row+section_count):
 			current = table_rows[i].find_all("td")
 			if current[WAIT_INDEX].get_text().strip() != "Cancel":
 				unsanit_code = current[MEETING_SECTION_INDEX].get_text().strip()
-				code = re.search("\w\d{4}",unsanit_code)
-				print(unsanit_code)
+				if(unsanit_code != ""):
+					code = re.search("\w\d{4}",unsanit_code)
+					if(code != None):
+						print(code.group(0))
 
 
 
