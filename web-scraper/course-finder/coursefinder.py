@@ -29,7 +29,7 @@ class CourseFinder:
         """Does everything."""
 
         urls = self.search()
-        for x in urls[:5]:
+        for x in urls:
             course_id = re.search('offImg(.*)', x[0]).group(1)[:14]
             #exists = self.courses.find_one({"course_id": course_id})
             #if exists is not None:
