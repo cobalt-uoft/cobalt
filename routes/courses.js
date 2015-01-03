@@ -159,10 +159,10 @@ var formatPart = function(key, part) {
     query: {}
   }
 
-  if(part.lastIndexOf("~", 0) === 0) {
+  if(part.indexOf("-", 0) === 0) {
     //negation
     part = {
-      operator: "~",
+      operator: "-",
       value: part.substring(1)
     }
   } else {
@@ -177,22 +177,14 @@ var formatPart = function(key, part) {
   if (["breadths", "level", "class_size", "class_enrolment"].indexOf(key) > -1) {
 
     response.query[KEYMAP[key]] = parseInt(part.value)
-    if(part.operator == "~") {
+    if(part.operator == "-") {
       response.query[KEYMAP[key]] = { $ne: response.query[KEYMAP[key]] }
     }
 
   } else {
 
-    var re
-
-    if(part.operator == "~") {
-      re = { $regex: "^((?!" + part.value + ").)*$", $options: 'i' }
-    } else {
-      re = { $regex: "(?i).*" + part.value + ".*" }
-    }
-
     if(key == "instructors") {
-      if(part.operator == "~") {
+      if(part.operator == "-") {
         response.query[KEYMAP[key]] = { $not: {
           $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
         } }
@@ -202,7 +194,14 @@ var formatPart = function(key, part) {
         }
       }
     } else {
-      response.query[KEYMAP[key]] = re
+      if(part.operator == "-") {
+        response.query[KEYMAP[key]] = {
+          $regex: "^((?!" + part.value + ").)*$",
+          $options: 'i'
+        }
+      } else {
+        response.query[KEYMAP[key]] = { $regex: "(?i).*" + part.value + ".*" }
+      }
     }
 
   }
