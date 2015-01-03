@@ -68,7 +68,7 @@ For any numerical or time parameter:
 For any string parameter:
  - No operator indicates **CONTAINS** (eg. code=CSC)
 
-They can be combined, with **AND** taking precedence. The **NOT** operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
+**AND** and **OR** can be combined, with **AND** taking precedence. The **NOT** operator and any numerical operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
 
 |Parameter|Description|Format/Examples|Default|
 |---|---|---|---|---|
