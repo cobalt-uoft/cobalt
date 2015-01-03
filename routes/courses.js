@@ -4,7 +4,7 @@ var router = express.Router()
 
 var QUERIES = [
   "code", "name", "description", "division", "department", "prerequisite",
-  "exclusion", "level", "breadth", "campus", "term", "instructor",
+  "exclusion", "level", "breadths", "campus", "term", "instructors",
   "location", "size", "rating"
 ]
 
@@ -17,12 +17,12 @@ var KEYMAP = {
   "prerequisite": "prerequisites",
   "exclusions": "exclusions",
   "level": "course_level",
-  "breadth": "breadths",
+  "breadths": "breadths",
   "campus": "campus",
   "term": "term",
   "apsc_elec": "apsc_elec",
   "meeting_code": "meeting_sections.code",
-  "instructor": "meeting_sections.instructors",
+  "instructors": "meeting_sections.instructors",
   "day": "meeting_sections.times.day",
   "start": "meeting_sections.times.start",
   "end": "meeting_sections.times.end",
@@ -39,7 +39,9 @@ var timesSchema = new mongoose.Schema({
 var meetingSchema = new mongoose.Schema({
   code: String,
   instructors: [String],
-  times: [timesSchema]
+  times: [timesSchema],
+  class_size: Number
+  //class_enrolment: Number
 })
 
 var courseSchema = new mongoose.Schema({
@@ -74,6 +76,8 @@ router.get('/:id', function(req, res) {
 
 router.get('/', function(req, res) {
 
+  var start = new Date()
+
   var search = { $and: [] }
 
   var query = req.query
@@ -89,25 +93,11 @@ router.get('/', function(req, res) {
 
     if (QUERIES.indexOf(key) > -1 && query[key].length > 0) {
 
-      var good = true
+      var q = parseQuery(key, query[key])
 
-      //Still gotta do that sanitizing here probably
-
-      if (good) {
+      if (q.isValid) {
         queries++
-
-        var operators = []
-        if (key == "breadth") {
-          operators = parseQuery(key, query[key], "integerArray")
-        } else if (key == "instructor") {
-          operators = parseQuery(key, query[key], "stringArray")
-        } else if (key == "level") {
-          operators = parseQuery(key, query[key], "integer")
-        } else {
-          operators = parseQuery(key, query[key], "string")
-        }
-
-        search.$and = search.$and.concat(operators)
+        search.$and = search.$and.concat(q.query)
       } else {
         res.status(403).end()
         return
@@ -123,6 +113,7 @@ router.get('/', function(req, res) {
   if (queries > 0) {
     console.log(JSON.stringify(search))
     courses.find(search, function(err, docs) {
+      console.log("Done: " + Math.abs(new Date() - start) + "ms")
       res.json(docs)
     })
   } else {
@@ -132,33 +123,92 @@ router.get('/', function(req, res) {
 
 })
 
-var parseQuery = function(key, query, type) {
+var parseQuery = function(key, query) {
+
+  var response = {
+    isValid: true,
+    query: {}
+  }
 
   parts = query.split(",")
   for(var x = 0; x < parts.length; x++) {
-
     parts[x] = { $or: parts[x].split("/") }
     for (var y = 0; y < parts[x].$or.length; y++) {
 
-      var or = {}
-      if (type == "integerArray" || type == "integer") {
-        or[KEYMAP[key]] = parseInt(parts[x].$or[y])
-      } else if (type == "stringArray") {
-        or[KEYMAP[key]] = {
-          $elemMatch: { $regex: "(?i).*" + parts[x].$or[y] + ".*" }
-        }
-      } else if (type == "string") {
-        or[KEYMAP[key]] = {
-          $regex: "(?i).*" + parts[x].$or[y] + ".*"
-        }
-      }
+      var part = formatPart(key, parts[x].$or[y])
 
-      parts[x].$or[y] = or
+      if(part.isValid) {
+        parts[x].$or[y] = part.query
+      } else {
+        response.isValid = false
+        return response
+      }
 
     }
   }
 
-  return parts
+  response.query = parts
+  return response
+
+}
+
+var formatPart = function(key, part) {
+
+  var response = {
+    isValid: true,
+    query: {}
+  }
+
+  if(part.lastIndexOf("~", 0) === 0) {
+    //negation
+    part = {
+      operator: "~",
+      value: part.substring(1)
+    }
+  } else {
+    part = {
+      operator: undefined,
+      value: part
+    }
+  }
+
+  //WE STILL GOTTA VALIDATE THE QUERY HERE, WOW I KEEP PUTTING IT OFF
+
+  if (["breadths", "level", "class_size", "class_enrolment"].indexOf(key) > -1) {
+
+    response.query[KEYMAP[key]] = parseInt(part.value)
+    if(part.operator == "~") {
+      response.query[KEYMAP[key]] = { $ne: response.query[KEYMAP[key]] }
+    }
+
+  } else {
+
+    var re
+
+    if(part.operator == "~") {
+      re = { $regex: "^((?!" + part.value + ").)*$", $options: 'i' }
+    } else {
+      re = { $regex: "(?i).*" + part.value + ".*" }
+    }
+
+    if(key == "instructors") {
+      if(part.operator == "~") {
+        response.query[KEYMAP[key]] = { $not: {
+          $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
+        } }
+      } else {
+        response.query[KEYMAP[key]] = {
+          $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
+        }
+      }
+    } else {
+      response.query[KEYMAP[key]] = re
+    }
+
+  }
+
+  return response
+
 }
 
 module.exports = router
