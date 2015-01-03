@@ -56,7 +56,7 @@ Web API
 For any parameter:
  - “**,**” indicates **AND** (eg. breadth=1,2)
  - “**/**” indicates **OR** (eg. instructor=Heap/Liu)
- - “**~**” indicates **NOT** (eg. department=~architecture)
+ - “**-**” indicates **NOT** (eg. department=-architecture)
 
 For any numerical or time parameter:
  - "**>**" indicates **GREATER THAN** (eg. class_size=>30)
@@ -68,7 +68,7 @@ For any numerical or time parameter:
 For any string parameter:
  - No operator indicates **CONTAINS** (eg. code=CSC)
 
-**AND** and **OR** can be combined, with **AND** taking precedence. The **NOT** operator and any numerical operator only affects its immediate segment (eg. ~Heap/Liu implies [**NOT** Heap] **OR** Liu).
+**AND** and **OR** can be combined, with **AND** taking precedence. The **NOT** operator and any numerical operator only affects its immediate segment (eg. -Heap/Liu implies [**NOT** Heap] **OR** Liu).
 
 |Parameter|Description|Format/Examples|Default|
 |---|---|---|---|---|
@@ -77,4 +77,3 @@ For any string parameter:
 |name|The formal name of a course.|Introduction to Computer Programming|(none)|
 |description|The formal definition of a course.|...|(none)|
 |division|...|...|...|
-
