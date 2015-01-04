@@ -2,12 +2,14 @@ var express = require('express')
 var mongoose = require('mongoose')
 var router = express.Router()
 
-var QUERIES = [
+// Valid parameters
+var PARAMS = [
   "code", "name", "description", "division", "department", "prerequisite",
   "exclusion", "level", "breadths", "campus", "term", "instructors",
   "location", "size", "rating"
 ]
 
+// What the parameters map to in MongoDB
 var KEYMAP = {
   "code": "code",
   "name": "name",
@@ -29,21 +31,7 @@ var KEYMAP = {
   "location": "meeting_sections.times.location",
 }
 
-var timesSchema = new mongoose.Schema({
-  day: String,
-  start: String,
-  end: String,
-  location: String
-})
-
-var meetingSchema = new mongoose.Schema({
-  code: String,
-  instructors: [String],
-  times: [timesSchema],
-  class_size: Number
-  //class_enrolment: Number
-})
-
+// The heavenly schema, mapping what our database holds data like
 var courseSchema = new mongoose.Schema({
   course_id: String,
   code: String,
@@ -57,11 +45,23 @@ var courseSchema = new mongoose.Schema({
   campus: String,
   term: String,
   apsc_elec: String,
-  meeting_sections: [meetingSchema]
+  meeting_sections: [new mongoose.Schema({
+    code: String,
+    instructors: [String],
+    times: [new mongoose.Schema({
+      day: String,
+      start: String,
+      end: String,
+      location: String
+    })],
+    class_size: Number
+    //class_enrolment: Number
+  })]
 })
 
 var courses = mongoose.model("courses", courseSchema)
 
+// When searching for exact ID
 router.get('/:id', function(req, res) {
   if (req.params.id != undefined && req.params.id != "") {
     var search = {}
@@ -74,15 +74,15 @@ router.get('/:id', function(req, res) {
   }
 })
 
+// When searching with the parameters
 router.get('/', function(req, res) {
 
+  // For tracking time it takes to complete a request
   var start = new Date()
 
   var search = { $and: [] }
-
   var query = req.query
   var clean = true
-
   var queries = 0
 
   console.log(query)
@@ -91,8 +91,9 @@ router.get('/', function(req, res) {
 
     key = key.toLowerCase()
 
-    if (QUERIES.indexOf(key) > -1 && query[key].length > 0) {
+    if (PARAMS.indexOf(key) > -1 && query[key].length > 0) {
 
+      // Format the query to a MongoDB friendly search object
       var q = parseQuery(key, query[key])
 
       if (q.isValid) {
@@ -110,6 +111,7 @@ router.get('/', function(req, res) {
 
   }
 
+  // Only process a query if it has more than query
   if (queries > 0) {
     console.log(JSON.stringify(search))
     courses.find(search, function(err, docs) {
@@ -125,16 +127,21 @@ router.get('/', function(req, res) {
 
 var parseQuery = function(key, query) {
 
+  // Response format
   var response = {
     isValid: true,
     query: {}
   }
 
+  // Split on the AND operator
   parts = query.split(",")
   for(var x = 0; x < parts.length; x++) {
+
+    // Split on the OR operator
     parts[x] = { $or: parts[x].split("/") }
     for (var y = 0; y < parts[x].$or.length; y++) {
 
+      //Format the specific part of the query
       var part = formatPart(key, parts[x].$or[y])
 
       if(part.isValid) {
@@ -154,13 +161,16 @@ var parseQuery = function(key, query) {
 
 var formatPart = function(key, part) {
 
+  // Response format
   var response = {
     isValid: true,
     query: {}
   }
 
+
+  // Checking if the start of the segment is an operator (-, >, <, .>, .<)
   if(part.indexOf("-") === 0) {
-    //negation
+    // Negation
     part = {
       operator: "-",
       value: part.substring(1)
@@ -192,9 +202,15 @@ var formatPart = function(key, part) {
     }
   }
 
-  //WE STILL GOTTA VALIDATE THE QUERY HERE, WOW I KEEP PUTTING IT OFF
+  /*
+    WE STILL GOTTA VALIDATE THE QUERY HERE, WOW I KEEP PUTTING IT OFF.
+
+    Basically, if the query is valid, we're good to go. If it isn't, set
+    response.isValid to false and return the response object.
+  */
 
   if (["breadths", "level", "class_size", "class_enrolment"].indexOf(key) > -1) {
+    // Integers and arrays of integers (mongo treats them the same)
 
     part.value = parseInt(part.value)
     if(part.operator == "-") {
@@ -208,10 +224,17 @@ var formatPart = function(key, part) {
     } else if(part.operator == ".<") {
       response.query[KEYMAP[key]] = { $lte: part.value }
     } else {
+      // Assume equality if no operator
       response.query[KEYMAP[key]] = part.value
     }
 
+  } else if(["start_time", "end_time", "duration"].indexOf(key) > -1) {
+    // Time related things
+
+
+
   } else if(key == "instructors") {
+    // Array of strings
 
     if(part.operator == "-") {
       response.query[KEYMAP[key]] = { $not: {
@@ -224,6 +247,7 @@ var formatPart = function(key, part) {
     }
 
   } else {
+    // Just your average string
 
     if(part.operator == "-") {
       response.query[KEYMAP[key]] = {
