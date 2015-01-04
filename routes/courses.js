@@ -125,7 +125,7 @@ router.get('/', function(req, res) {
 
 })
 
-var parseQuery = function(key, query) {
+function parseQuery(key, query) {
 
   // Response format
   var response = {
@@ -159,7 +159,7 @@ var parseQuery = function(key, query) {
 
 }
 
-var formatPart = function(key, part) {
+function formatPart(key, part) {
 
   // Response format
   var response = {
