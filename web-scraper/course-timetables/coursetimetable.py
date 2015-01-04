@@ -103,7 +103,12 @@ class CourseTimetable:
 		sections = []
 		for i in range(current_row, current_row+section_count):
 			current = table_rows[i].find_all("td")
-			if current[WAIT_INDEX].get_text().strip() != "Cancel":
+			if table_rows[i].find(colspan = "3") == current[0]:
+				unsanit_code = current[1].get_text().strip()
+				print("yo" + unsanit_code)
+
+
+			if current[WAIT_INDEX].get_text().strip() != "Cancel" and table_rows[i].find(colspan = "3") == None:
 				unsanit_code = current[MEETING_SECTION_INDEX].get_text().strip()
 				if(unsanit_code != ""):
 					code = re.search("\w\d{4}",unsanit_code)
