@@ -80,40 +80,30 @@ class CourseTimetable:
 		table = soup.find("table")
 		table_rows = table.find_all("tr")
 		section_count = 1
+		cancelled_count = 0
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
 			space = current[COURSE_CODE_INDEX].get_text().strip()
 			if len(space) != LENGTH_COURSE_CODE:
 				section_count += 1
-			elif len(space) == LENGTH_COURSE_CODE:
+				if table_rows[i].find(colspan = "5") != None:
+					cancelled_count += 1
+		elif len(space) == LENGTH_COURSE_CODE:
 				last = table_rows[i-section_count].find_all("td")
 				last_course = last[COURSE_CODE_INDEX].get_text().strip()
-				self.parse_course(last_course, table_rows, i, section_count)
+				self.parse_course(last_course, table_rows, i, section_count, cancelled_count)
 				section_count = 1
+				cancelled_count = 0
 
-	def parse_course(self, courseid, table_rows, current_row, section_count):
+	def parse_course(self, courseid, table_rows, current_row, section_count, cancelled_count):
 		current = table_rows[current_row-section_count].find_all("td")
 		semester = current[SEMESTER_INDEX].get_text().strip()
 		title = current[TITLE_INDEX].get_text().strip()
 		print(courseid)
-		sections = self.parse_meeting_sections(table_rows, current_row,
-		section_count)
+		print(semester)
+		print(section_count)
+		print("Valid sections = " + (str)(section_count-cancelled_count))
 
-	def parse_meeting_sections(self, table_rows, current_row, section_count):
-		sections = []
-		for i in range(current_row, current_row+section_count):
-			current = table_rows[i].find_all("td")
-			if table_rows[i].find(colspan = "3") == current[0]:
-				unsanit_code = current[1].get_text().strip()
-				print("yo" + unsanit_code)
-
-
-			if current[WAIT_INDEX].get_text().strip() != "Cancel" and table_rows[i].find(colspan = "3") == None:
-				unsanit_code = current[MEETING_SECTION_INDEX].get_text().strip()
-				if(unsanit_code != ""):
-					code = re.search("\w\d{4}",unsanit_code)
-					if(code != None):
-						print(code.group(0))
 
 
 
