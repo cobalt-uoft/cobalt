@@ -159,11 +159,31 @@ var formatPart = function(key, part) {
     query: {}
   }
 
-  if(part.indexOf("-", 0) === 0) {
+  if(part.indexOf("-") === 0) {
     //negation
     part = {
       operator: "-",
       value: part.substring(1)
+    }
+  } else if(part.indexOf(">") === 0) {
+    part = {
+      operator: ">",
+      value: part.substring(1)
+    }
+  } else if(part.indexOf("<") === 0) {
+    part = {
+      operator: "<",
+      value: part.substring(1)
+    }
+  } else if(part.indexOf(".>") === 0) {
+    part = {
+      operator: ".>",
+      value: part.substring(2)
+    }
+  } else if(part.indexOf(".<") === 0) {
+    part = {
+      operator: ".<",
+      value: part.substring(2)
     }
   } else {
     part = {
@@ -176,32 +196,42 @@ var formatPart = function(key, part) {
 
   if (["breadths", "level", "class_size", "class_enrolment"].indexOf(key) > -1) {
 
-    response.query[KEYMAP[key]] = parseInt(part.value)
+    part.value = parseInt(part.value)
     if(part.operator == "-") {
-      response.query[KEYMAP[key]] = { $ne: response.query[KEYMAP[key]] }
+      response.query[KEYMAP[key]] = { $ne: part.value }
+    } else if(part.operator == ">") {
+      response.query[KEYMAP[key]] = { $gt: part.value }
+    } else if(part.operator == "<") {
+      response.query[KEYMAP[key]] = { $lt: part.value }
+    } else if(part.operator == ".>") {
+      response.query[KEYMAP[key]] = { $gte: part.value }
+    } else if(part.operator == ".<") {
+      response.query[KEYMAP[key]] = { $lte: part.value }
+    } else {
+      response.query[KEYMAP[key]] = part.value
+    }
+
+  } else if(key == "instructors") {
+
+    if(part.operator == "-") {
+      response.query[KEYMAP[key]] = { $not: {
+        $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
+      } }
+    } else {
+      response.query[KEYMAP[key]] = {
+        $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
+      }
     }
 
   } else {
 
-    if(key == "instructors") {
-      if(part.operator == "-") {
-        response.query[KEYMAP[key]] = { $not: {
-          $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
-        } }
-      } else {
-        response.query[KEYMAP[key]] = {
-          $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
-        }
+    if(part.operator == "-") {
+      response.query[KEYMAP[key]] = {
+        $regex: "^((?!" + part.value + ").)*$",
+        $options: 'i'
       }
     } else {
-      if(part.operator == "-") {
-        response.query[KEYMAP[key]] = {
-          $regex: "^((?!" + part.value + ").)*$",
-          $options: 'i'
-        }
-      } else {
-        response.query[KEYMAP[key]] = { $regex: "(?i).*" + part.value + ".*" }
-      }
+      response.query[KEYMAP[key]] = { $regex: "(?i).*" + part.value + ".*" }
     }
 
   }
