@@ -79,49 +79,37 @@ class CourseTimetable:
 		soup = BeautifulSoup(html)
 		table = soup.find("table")
 		table_rows = table.find_all("tr")
-		section_count = 1
-		cancelled_count = 0
+		cancelled = []
+		cancelled.append(False)
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
 			space = current[COURSE_CODE_INDEX].get_text().strip()
-			cancelled = []
 			if table_rows[i].find(colspan = "5") != None:
 				cancelled.append(True)
-			if len(space) != LENGTH_COURSE_CODE:
+			elif len(space) != LENGTH_COURSE_CODE:
 				cancelled.append(False)
 			elif len(space) == LENGTH_COURSE_CODE:
-				last = table_rows[i-section_count].find_all("td")
+				last = table_rows[i-len(cancelled)].find_all("td")
 				last_course = last[COURSE_CODE_INDEX].get_text().strip()
-				self.parse_course(last_course, table_rows, i, cancelled)
-				section_count = 1
-				cancelled_count = 0
+				print("Current_row: " + (str)(i))
+				print("Section_count: " + (str)(len(cancelled)))
+				self.parse_course(space, table_rows, i, cancelled)
 				cancelled = []
+				cancelled.append(False)
 
-	def parse_course(self, courseid, table_rows, current_row, section_count, cancelled_count, cancelled):
-		current = table_rows[current_row-section_count].find_all("td")
+	def parse_course(self, courseid, table_rows, current_row, cancelled):
+		current = table_rows[current_row-len(cancelled)].find_all("td")
 		semester = current[SEMESTER_INDEX].get_text().strip()
 		title = current[TITLE_INDEX].get_text().strip()
-		valid_count = section_count - cancelled_count
 		print(courseid)
+		print(semester)
 		#print("Valid sections = " + (str)(section_count-cancelled_count))
-		sections = self.parse_meeting_sections(table_rows, current_row, valid_count)
+		sections = self.parse_meeting_sections(table_rows, current_row, cancelled)
 
 
-	def parse_meeting_sections(self, table_rows, current_row, section_count):
-			sections = []
-			for i in range(current_row, current_row+section_count):
-				current = table_rows[i].find_all("td")
-				if table_rows[i].find(colspan = "3") == current[0]:
-					unsanit_code = current[1].get_text().strip()
-					print("yo" + unsanit_code)
-
-
-				if current[WAIT_INDEX].get_text().strip() != "Cancel" and table_rows[i].find(colspan = "3") == None:
-					unsanit_code = current[MEETING_SECTION_INDEX].get_text().strip()
-					if(unsanit_code != ""):
-						code = re.search("\w\d{4}",unsanit_code)
-						if(code != None):
-							print(code.group(0))
+	def parse_meeting_sections(self, table_rows, current_row, cancelled):
+		for i in range(current_row, current_row + len(cancelled)):
+			if not cancelled[i - current_row]:
 
 
 
