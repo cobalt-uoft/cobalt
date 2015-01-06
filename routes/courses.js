@@ -116,6 +116,9 @@ router.get('/', function(req, res) {
     console.log(JSON.stringify(search))
     courses.find(search, function(err, docs) {
       console.log("Done: " + Math.abs(new Date() - start) + "ms")
+
+      // Do some time manip shit
+
       res.json(docs)
     })
   } else {
@@ -164,7 +167,9 @@ function formatPart(key, part) {
   // Response format
   var response = {
     isValid: true,
-    query: {}
+    isTimeQuery: false,
+    query: {},
+    timeQuery: {}
   }
 
 
@@ -231,7 +236,7 @@ function formatPart(key, part) {
   } else if(["start_time", "end_time", "duration"].indexOf(key) > -1) {
     // Time related things
 
-
+    response.isTimeQuery = true
 
   } else if(key == "instructors") {
     // Array of strings
@@ -262,6 +267,11 @@ function formatPart(key, part) {
 
   return response
 
+}
+
+function timeToNumber(str) {
+  var time = str.split(":")
+  return parseInt(time[0]) + (parseInt(time[1]) / 60)
 }
 
 module.exports = router
