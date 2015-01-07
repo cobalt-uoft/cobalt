@@ -16,6 +16,7 @@ MEETING_SECTION_INDEX = 3
 WAIT_INDEX = 4
 TIME_INDEX = 5
 LOCATION = 6
+INSTRUCTORS = 7
 SECTION_RE_SCHEME = [""]
 class CourseTimetable:
 	"""A wrapper for fetching U of T's Course Timetable data
@@ -93,7 +94,7 @@ class CourseTimetable:
 				last_course = last[COURSE_CODE_INDEX].get_text().strip()
 				print("Current_row: " + (str)(i))
 				print("Section_count: " + (str)(len(cancelled)))
-				self.parse_course(space, table_rows, i, cancelled)
+				self.parse_course(last_course, table_rows, i, cancelled)
 				cancelled = []
 				cancelled.append(False)
 
@@ -108,9 +109,27 @@ class CourseTimetable:
 
 
 	def parse_meeting_sections(self, table_rows, current_row, cancelled):
-		for i in range(current_row, current_row + len(cancelled)):
+		sections = []
+		last_section = None
+		for i in range(current_row-len(cancelled), current_row):
 			if not cancelled[i - current_row]:
-
+				current = table_rows[i].find_all("td")
+				if table_rows[i].find(colspan = "3") != None:
+					section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX-2].get_text().strip()).group(0)
+					last_section = section_code
+					location = LOCATION
+					instructors = INSTRUCTORS
+					print("special "+ section_code)
+					time = current[TIME_INDEX-2].get_text().strip()
+					print(section_code+ " " + time)
+				elif current[MEETING_SECTION_INDEX].get_text().strip() == "":
+					time = current[TIME_INDEX].get_text().strip()
+					print(last_section + " " + time)
+				else:
+					section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
+					last_section = section_code
+					time = current[TIME_INDEX].get_text().strip()
+					print(section_code + " " +time)
 
 
 ct = CourseTimetable("winter")
