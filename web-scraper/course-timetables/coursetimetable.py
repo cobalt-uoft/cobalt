@@ -85,7 +85,7 @@ class CourseTimetable:
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
 			space = current[COURSE_CODE_INDEX].get_text().strip()
-			if table_rows[i].find(colspan = "5") != None:
+			if table_rows[i].find(colspan = "5") != None or  (len(space) == LENGTH_COURSE_CODE and table_rows[i].find(colspan = "5")) :
 				cancelled.append(True)
 			elif len(space) != LENGTH_COURSE_CODE:
 				cancelled.append(False)
@@ -118,18 +118,30 @@ class CourseTimetable:
 					section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX-2].get_text().strip()).group(0)
 					last_section = section_code
 					location = LOCATION
-					instructors = INSTRUCTORS
+					instructors = current[INSTRUCTORS-2].get_text().strip()
 					print("special "+ section_code)
-					time = current[TIME_INDEX-2].get_text().strip()
-					print(section_code+ " " + time)
+					unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX-2].get_text().strip()).group(0)
+					print(section_code + " " +unparsed_time + " " + instructors)
 				elif current[MEETING_SECTION_INDEX].get_text().strip() == "":
-					time = current[TIME_INDEX].get_text().strip()
-					print(last_section + " " + time)
+					if table_rows[i].find(colspan = "2") == None:
+						instructors = current[INSTRUCTORS].get_text().strip()
+						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
+						print(last_section + " " +unparsed_time + " " + instructors)
+					else:
+						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
+						print(last_section + " " +unparsed_time + " " + instructors)
 				else:
-					section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
-					last_section = section_code
-					time = current[TIME_INDEX].get_text().strip()
-					print(section_code + " " +time)
+					if table_rows[i].find(colspan = "2") == None:
+						section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
+						last_section = section_code
+						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
+						instructors = current[INSTRUCTORS].get_text().strip()
+						print(section_code + " " +unparsed_time + " " + instructors)
+					else:
+						section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
+						last_section = section_code
+						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
+						print(section_code + " " +unparsed_time + " " + instructors)
 
 
 ct = CourseTimetable("winter")
