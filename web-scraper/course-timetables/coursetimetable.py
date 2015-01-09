@@ -85,7 +85,7 @@ class CourseTimetable:
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
 			space = current[COURSE_CODE_INDEX].get_text().strip()
-			if table_rows[i].find(colspan = "5") != None or  (len(space) == LENGTH_COURSE_CODE and table_rows[i].find(colspan = "5")) :
+			if table_rows[i].find(colspan = "5") != None and not len(space) == LENGTH_COURSE_CODE :
 				cancelled.append(True)
 			elif len(space) != LENGTH_COURSE_CODE:
 				cancelled.append(False)
@@ -96,7 +96,10 @@ class CourseTimetable:
 				print("Section_count: " + (str)(len(cancelled)))
 				self.parse_course(last_course, table_rows, i, cancelled)
 				cancelled = []
-				cancelled.append(False)
+				if(table_rows[i].find(colspan = "5") != None):
+					cancelled.append(True)
+				else:
+					cancelled.append(False)
 
 	def parse_course(self, courseid, table_rows, current_row, cancelled):
 		current = table_rows[current_row-len(cancelled)].find_all("td")
