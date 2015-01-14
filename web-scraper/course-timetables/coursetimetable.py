@@ -96,6 +96,7 @@ class CourseTimetable:
 				print("Section_count: " + (str)(len(cancelled)))
 				self.parse_course(last_course, table_rows, i, cancelled)
 				cancelled = []
+				cancelled.append(table_rows[i].find(colspan = "5") != None)
 
 	def parse_course(self, courseid, table_rows, current_row, cancelled):
 		current = table_rows[current_row-len(cancelled)].find_all("td")
@@ -105,7 +106,7 @@ class CourseTimetable:
 		print(semester)
 		print(cancelled)
 		#print("Valid sections = " + (str)(section_count-cancelled_count))
-		sections = self.parse_meeting_sections(table_rows, current_row, cancelled)
+		#sections = self.parse_meeting_sections(table_rows, current_row, cancelled)
 
 
 	def parse_meeting_sections(self, table_rows, current_row, cancelled):
@@ -114,35 +115,7 @@ class CourseTimetable:
 		for i in range(current_row-len(cancelled), current_row):
 			section_code = None
 			current = table_rows[i].find_all("td")
-			if not cancelled[i - current_row]:
-				if table_rows[i].find(colspan = "3") != None:
-					section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX-2].get_text().strip()).group(0)
-					last_section = section_code
-					location = LOCATION
-					instructors = current[INSTRUCTORS-2].get_text().strip()
-					print("special "+ section_code)
-					unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX-2].get_text().strip()).group(0)
-					print(section_code + " " +unparsed_time + " " + instructors)
-				elif current[MEETING_SECTION_INDEX].get_text().strip() == "":
-					if table_rows[i].find(colspan = "2") == None:
-						instructors = current[INSTRUCTORS].get_text().strip()
-						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
-						print(last_section + " " +unparsed_time + " " + instructors)
-					else:
-						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
-						print(last_section + " " +unparsed_time + " " + instructors)
-				else:
-					if table_rows[i].find(colspan = "2") == None:
-						section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
-						last_section = section_code
-						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
-						instructors = current[INSTRUCTORS].get_text().strip()
-						print(section_code + " " +unparsed_time + " " + instructors)
-					else:
-						section_code = re.search("\w\d{4}", current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
-						last_section = section_code
-						unparsed_time = re.search("[F-W]{1,3}\d*-*\d*", current[TIME_INDEX].get_text().strip()).group(0)
-						print(section_code + " " +unparsed_time + " " + instructors)
+
 
 
 
