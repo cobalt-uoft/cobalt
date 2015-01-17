@@ -105,16 +105,49 @@ class CourseTimetable:
 		print(courseid)
 		print(semester)
 		print(cancelled)
-		#print("Valid sections = " + (str)(section_count-cancelled_count))
-		#sections = self.parse_meeting_sections(table_rows, current_row, cancelled)
+		sections = self.parse_meeting_sections(table_rows, current_row, cancelled)
 
 
 	def parse_meeting_sections(self, table_rows, current_row, cancelled):
 		sections = []
 		last_section = None
 		for i in range(current_row-len(cancelled), current_row):
+			section = []
 			section_code = None
 			current = table_rows[i].find_all("td")
+			if not cancelled[i-current_row]:
+				if(table_rows[i].find(colspan = "3") != None): #Handles "Note messages"
+					section_code = re.search("\w\d{4}",current[MEETING_SECTION_INDEX-2].get_text().strip()).group(0)
+					print(section_code + " ", end="")
+					last_section = section_code
+					section = [section_code]
+					time = re.search("[MTWRFS]{1,3}\d-*\d*", current[TIME_INDEX-2].get_text().strip())
+					if(time != None):
+						times.append(time.group(0))
+						print(time.group(0))
+					section = [section_code, times]
+					sections.append(section)
+				elif(current[MEETING_SECTION_INDEX].get_text().strip() == ""):
+					print(last_section + " ", end="")
+					time = re.search("[MTWRFS]{1,3}\d-*\d*", current[TIME_INDEX].get_text().strip())
+					if(time != None):
+						sections[-1][1].append(time.group(0))
+						print(time.group(0))
+				else:
+					section_code = re.search("\w\d{4}",current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
+					print(section_code + " ",end="")
+					last_section = section_code
+					section = [section_code]
+					times = []
+					time = re.search("[MTWRFS]{1,3}\d-*\d*", current[TIME_INDEX].get_text().strip())
+					if(time != None):
+						times.append(time.group(0))
+						print(time.group(0))
+					section = [section_code, times]
+					sections.append(section)
+
+		for section in sections:
+			print(section)
 
 
 
