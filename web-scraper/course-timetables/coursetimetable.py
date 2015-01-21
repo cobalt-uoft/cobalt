@@ -125,14 +125,17 @@ class CourseTimetable:
 					if(time != None):
 						times.append(time.group(0))
 						print(time.group(0))
+					location_check = [LOCATION]
 					section = [section_code, times]
 					sections.append(section)
 				elif(current[MEETING_SECTION_INDEX].get_text().strip() == ""):
 					print(last_section + " ", end="")
+					location_check = [LOCATION]
 					time = re.search("[MTWRFS]{1,3}\d-*\d*", current[TIME_INDEX].get_text().strip())
 					if(time != None):
 						sections[-1][1].append(time.group(0))
 						print(time.group(0))
+
 				else:
 					section_code = re.search("\w\d{4}",current[MEETING_SECTION_INDEX].get_text().strip()).group(0)
 					print(section_code + " ",end="")
@@ -144,6 +147,7 @@ class CourseTimetable:
 						times.append(time.group(0))
 						print(time.group(0))
 					section = [section_code, times]
+					location_check = [LOCATION]
 					sections.append(section)
 
 		for section in sections:
