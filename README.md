@@ -70,10 +70,16 @@ For any string parameter:
 
 **AND** and **OR** can be combined, with **AND** taking precedence. The **NOT** operator and any numerical operator only affects its immediate segment (eg. -Heap/Liu implies [**NOT** Heap] **OR** Liu).
 
-|Parameter|Description|Format/Examples|Default|
+|Parameter|Description|Type|Example|
 |---|---|---|---|---|
-|course_id|The unique identifier for directly refering to a course.|CSC108H1F20149|(none)|
-|code|The 9 character code for representing a course.|CSC108H1F|(none)|
-|name|The formal name of a course.|Introduction to Computer Programming|(none)|
-|description|The formal definition of a course.|...|(none)|
-|division|...|...|...|
+|course_id|The unique identifier for directly referring to a course.|String|CSC148H1F20149|
+|code|The 9 character code for representing a course.|String|CSC148H1F|
+|name|The formal name of a course.|String|Introduction to Computer Science|
+|description|The formal description of a course.|String|...|
+|division|The faculty which a course is under.|String|Faculty of Arts and Science|
+|prerequisites|List of courses that are required in order to take the current course.|String|CSC108H1|
+|exclusions|List of courses you may not take concurrently with the current course.|String|CSC150H1|
+|course_level|Level the course belongs to.|Integer|100|
+|breadths|The breadths that a course involves.|Integer Array|[5]|
+|campus|The campus that a course is under.|String|UTSG|
+|term|The semester that the course is under.|String|2014 Fall|
