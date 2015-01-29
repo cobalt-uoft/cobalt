@@ -41,9 +41,9 @@ var courseSchema = new mongoose.Schema({
   prerequisites: String,
   exlusions: String,
   course_level: Number,
-  breadths: [Number],
   campus: String,
   term: String,
+  breadths: [Number],
   apsc_elec: String,
   meeting_sections: [new mongoose.Schema({
     code: String,
