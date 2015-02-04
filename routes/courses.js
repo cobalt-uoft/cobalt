@@ -50,8 +50,9 @@ var courseSchema = new mongoose.Schema({
     instructors: [String],
     times: [new mongoose.Schema({
       day: String,
-      start: String,
-      end: String,
+      start: Number,
+      end: Number,
+      duration: Number,
       location: String
     })],
     class_size: Number
@@ -234,9 +235,24 @@ function formatPart(key, part) {
     }
 
   } else if(["start_time", "end_time", "duration"].indexOf(key) > -1) {
-    // Time related things
 
-    response.isTimeQuery = true
+    var time = part.value.split(':')
+    part.value = parseInt(time[0]) + (parseInt(time[1]) / 60)
+    
+    if(part.operator == "-") {
+      response.query[KEYMAP[key]] = { $ne: part.value }
+    } else if(part.operator == ">") {
+      response.query[KEYMAP[key]] = { $gt: part.value }
+    } else if(part.operator == "<") {
+      response.query[KEYMAP[key]] = { $lt: part.value }
+    } else if(part.operator == ".>") {
+      response.query[KEYMAP[key]] = { $gte: part.value }
+    } else if(part.operator == ".<") {
+      response.query[KEYMAP[key]] = { $lte: part.value }
+    } else {
+      // Assume equality if no operator
+      response.query[KEYMAP[key]] = part.value
+    }
 
   } else if(key == "instructors") {
     // Array of strings
