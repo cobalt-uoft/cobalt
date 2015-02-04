@@ -85,7 +85,8 @@ class CourseTimetable:
 		for i in range(COURSE_START_OFFSET, len(table_rows)):
 			current = table_rows[i].find_all("td")
 			space = current[COURSE_CODE_INDEX].get_text().strip()
-			if table_rows[i].find(colspan = "5") != None and len(space) != LENGTH_COURSE_CODE:
+			if table_rows[i].find(colspan = "5") != None or table_rows[i].find(
+			colspan = "5") != None and len(space) != LENGTH_COURSE_CODE:
 				cancelled.append(True)
 			elif len(space) != LENGTH_COURSE_CODE:
 				cancelled.append(False)
@@ -96,7 +97,8 @@ class CourseTimetable:
 				print("Section_count: " + (str)(len(cancelled)))
 				self.parse_course(last_course, table_rows, i, cancelled)
 				cancelled = []
-				cancelled.append(table_rows[i].find(colspan = "5") != None)
+				cancelled.append(table_rows[i].find(
+				colspan = "5") != None or table_rows[i].find(colspan = "4") != None)
 
 	def parse_course(self, courseid, table_rows, current_row, cancelled):
 		current = table_rows[current_row-len(cancelled)].find_all("td")
@@ -125,7 +127,7 @@ class CourseTimetable:
 						times.append(time.group(0))
 						print(time.group(0))
 					location = current[LOCATION-2]
-					section = [section_code, times, location]
+					section = [section_code, times, [location]]
 					sections.append(section)
 				elif(current[MEETING_SECTION_INDEX].get_text().strip() == ""): #Handles multiple times
 					print(last_section + " ", end="")
@@ -147,7 +149,7 @@ class CourseTimetable:
 						times.append(time.group(0))
 						print(time.group(0))
 					location = current[LOCATION].get_text().strip()
-					section = [section_code, times, location]
+					section = [section_code, times, [location]]
 					sections.append(section)
 
 		for section in sections:
