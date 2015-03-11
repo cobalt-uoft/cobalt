@@ -233,9 +233,9 @@ function formatPart(key, part) {
       response.query[KEYMAP[key]] = part.value
     }
 
-  } else if(["start_time", "end_time", "duration"].indexOf(key) > -1) {
+  } else if(["start", "end", "duration"].indexOf(key) > -1) {
     //time related
-    
+
     var time = part.value.split(':')
     part.value = parseInt(time[0]) + (parseInt(time[1]) / 60)
 
