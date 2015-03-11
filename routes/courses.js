@@ -6,7 +6,7 @@ var router = express.Router()
 var PARAMS = [
   "code", "name", "description", "division", "department", "prerequisite",
   "exclusion", "level", "breadths", "campus", "term", "instructors",
-  "location", "size", "rating"
+  "location", "size", "rating", "day", "start", "end", "duration"
 ]
 
 // What the parameters map to in MongoDB
@@ -28,6 +28,7 @@ var KEYMAP = {
   "day": "meeting_sections.times.day",
   "start": "meeting_sections.times.start",
   "end": "meeting_sections.times.end",
+  "duration": "meeting_sections.times.duration",
   "location": "meeting_sections.times.location",
 }
 
@@ -117,8 +118,6 @@ router.get('/', function(req, res) {
     console.log(JSON.stringify(search))
     courses.find(search, function(err, docs) {
       console.log("Done: " + Math.abs(new Date() - start) + "ms")
-
-      // Do some time manip shit
 
       res.json(docs)
     })
@@ -235,10 +234,11 @@ function formatPart(key, part) {
     }
 
   } else if(["start_time", "end_time", "duration"].indexOf(key) > -1) {
-
+    //time related
+    
     var time = part.value.split(':')
     part.value = parseInt(time[0]) + (parseInt(time[1]) / 60)
-    
+
     if(part.operator == "-") {
       response.query[KEYMAP[key]] = { $ne: part.value }
     } else if(part.operator == ">") {
