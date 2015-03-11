@@ -61,14 +61,14 @@ var courseSchema = new mongoose.Schema({
   })]
 })
 
-var courses = mongoose.model("courses", courseSchema)
+var Courses = mongoose.model("courses", courseSchema)
 
 // When searching for exact ID
 router.get('/:id', function(req, res) {
   if (req.params.id != undefined && req.params.id != "") {
     var search = {}
-    search['course_id'] = req.params.id;
-    courses.find(search, function(err, docs) {
+    search['course_id'] = req.params.id
+    Courses.find(search, function(err, docs) {
       res.json(docs)
     })
   } else {
@@ -87,6 +87,9 @@ router.get('/', function(req, res) {
   var clean = true
   var queries = 0
 
+  var isMapReduce = false
+  var mapReduceData = []
+
   console.log(query)
 
   for (var key in query) {
@@ -101,6 +104,12 @@ router.get('/', function(req, res) {
       if (q.isValid) {
         queries++
         search.$and = search.$and.concat(q.query)
+
+        if(q.isMapReduce) {
+          isMapReduce = true
+          mapReduceData.push(q.mapReduceData)
+        }
+
       } else {
         res.status(403).end()
         return
@@ -115,12 +124,88 @@ router.get('/', function(req, res) {
 
   // Only process a query if it has more than query
   if (queries > 0) {
-    console.log(JSON.stringify(search))
-    courses.find(search, function(err, docs) {
-      console.log("Done: " + Math.abs(new Date() - start) + "ms")
 
-      res.json(docs)
-    })
+    if(isMapReduce) {
+
+      var o = {
+        query: search,
+        scope: {
+          data: mapReduceData
+        }
+      }
+
+      o.map = function() {
+        // What are the odds I get stuck in scope hell?
+        filteredSections = []
+
+        this.meeting_sections.forEach(function(s) {
+          // The magic awaits, for another day.
+
+          /*
+            Rundown:
+            --------
+
+            We're given an array like this (called "data"):
+
+              [
+                [
+                  [something, something],
+                  [something]
+                ],
+                [
+                  [something, something]
+                ]
+              ]
+
+            We need to format this array, so the deepest layer are OR, the
+            middle layer is AND, and the first layer is AND.
+
+            Each "something" looks like the following:
+
+              {
+                key
+                operation
+                value
+              }
+
+            And we have to evaluate if the statement is true or not, and then
+            append the necessary AND or OR logic to overall, come up with
+            whether the current meeting section is a yes or a no.
+
+          */
+
+          /*if(["class_size", "class_enrolment"].indexOf(part.key) > -1) {
+
+          } else if(["start", "end", "duration"].indexOf(part.key) > -1) {
+
+          } else if(key == "instructors") {
+
+          } else if(key == "location") {
+
+          }*/
+        })
+
+        this.matched_meeting_sections = filteredSections
+
+        emit(this._id, this)
+      }
+
+      o.reduce = function(key, values) {
+        return values[0]
+      }
+
+      Courses.mapReduce(o, function(err, docs) {
+        console.log(docs)
+      })
+    } else {
+      Courses.find(search, function(err, docs) {
+        console.log("Done: " + Math.abs(new Date() - start) + "ms")
+
+        res.json(docs)
+      })
+    }
+
+
   } else {
     res.status(403).end()
     return
@@ -133,8 +218,12 @@ function parseQuery(key, query) {
   // Response format
   var response = {
     isValid: true,
+    isMapReduce: false,
+    mapReduceData: {},
     query: {}
   }
+
+  var mapReduceFilters = []
 
   // Split on the AND operator
   parts = query.split(",")
@@ -142,12 +231,27 @@ function parseQuery(key, query) {
 
     // Split on the OR operator
     parts[x] = { $or: parts[x].split("/") }
+    var orMapReduceFilters = []
     for (var y = 0; y < parts[x].$or.length; y++) {
 
       //Format the specific part of the query
       var part = formatPart(key, parts[x].$or[y])
 
       if(part.isValid) {
+
+        if(part.isMapReduce) {
+          response.isMapReduce = true
+
+          var filter = {
+            key: KEYMAP[key],
+            operation: part.mapReduceData.operation,
+            value: part.mapReduceData.value
+          }
+
+          orMapReduceFilters.push(filter)
+
+        }
+
         parts[x].$or[y] = part.query
       } else {
         response.isValid = false
@@ -155,6 +259,12 @@ function parseQuery(key, query) {
       }
 
     }
+
+    mapReduceFilters.push(orMapReduceFilters)
+  }
+
+  if(response.isMapReduce) {
+    response.mapReduceData = mapReduceFilters
   }
 
   response.query = parts
@@ -166,8 +276,11 @@ function formatPart(key, part) {
 
   // Response format
   var response = {
+    key: key,
     isValid: true,
     isTimeQuery: false,
+    isMapReduce: false,
+    mapReduceData: {},
     query: {},
     timeQuery: {}
   }
@@ -233,11 +346,20 @@ function formatPart(key, part) {
       response.query[KEYMAP[key]] = part.value
     }
 
+    if(["class_size", "class_enrolment"].indexOf(key) > -1) {
+      response.isMapReduce = true
+      response.mapReduceData = part
+    }
+
+
   } else if(["start", "end", "duration"].indexOf(key) > -1) {
     //time related
 
     var time = part.value.split(':')
     part.value = parseInt(time[0]) + (parseInt(time[1]) / 60)
+
+    response.isMapReduce = true
+    response.mapReduceData = part
 
     if(part.operator == "-") {
       response.query[KEYMAP[key]] = { $ne: part.value }
@@ -256,6 +378,9 @@ function formatPart(key, part) {
 
   } else if(key == "instructors") {
     // Array of strings
+
+    response.isMapReduce = true
+    response.mapReduceData = part
 
     if(part.operator == "-") {
       response.query[KEYMAP[key]] = { $not: {
@@ -277,6 +402,11 @@ function formatPart(key, part) {
       }
     } else {
       response.query[KEYMAP[key]] = { $regex: "(?i).*" + part.value + ".*" }
+    }
+
+    if(key == "location") {
+      response.isMapReduce = true
+      response.mapReduceData = part
     }
 
   }
