@@ -128,8 +128,6 @@ router.get('/', function(req, res) {
 
     if(isMapReduce) {
 
-      console.log(JSON.stringify(mapReduceData))
-
       var o = {
         query: search,
         scope: {
@@ -273,8 +271,6 @@ router.get('/', function(req, res) {
           }
 
           var isValidSection = currentData.every(Boolean)
-
-          printjson(currentData)
 
           if(isValidSection) {
             filteredSections.push(s)
