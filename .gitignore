@@ -8,3 +8,8 @@ example.json
 secrets.py
 __pycache__
 timetables
+.env
+
+backup
+
+*.log

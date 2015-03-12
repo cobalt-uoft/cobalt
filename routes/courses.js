@@ -6,7 +6,7 @@ var router = express.Router()
 var PARAMS = [
   "code", "name", "description", "division", "department", "prerequisite",
   "exclusion", "level", "breadths", "campus", "term", "instructors",
-  "location", "size", "rating", "day", "start", "end", "duration"
+  "location", "size", "rating", "day", "start", "end", "duration", "class_size"
 ]
 
 // What the parameters map to in MongoDB
@@ -30,6 +30,7 @@ var KEYMAP = {
   "end": "meeting_sections.times.end",
   "duration": "meeting_sections.times.duration",
   "location": "meeting_sections.times.location",
+  "class_size": "meeting_sections.class_size"
 }
 
 // The heavenly schema, mapping what our database holds data like
@@ -127,6 +128,8 @@ router.get('/', function(req, res) {
 
     if(isMapReduce) {
 
+      console.log(JSON.stringify(mapReduceData))
+
       var o = {
         query: search,
         scope: {
@@ -135,59 +138,156 @@ router.get('/', function(req, res) {
       }
 
       o.map = function() {
-        // What are the odds I get stuck in scope hell?
+        /*
+          Rundown:
+          --------
+
+          We're given an array like this (called "data"):
+
+            [
+              [
+                [something, something],
+                [something]
+              ],
+              [
+                [something, something]
+              ]
+            ]
+
+          We need to format this array, so the deepest layer are OR, the
+          middle layer is AND, and the first layer is AND.
+
+          Each "something" looks like the following:
+
+            {
+              key
+              operater
+              value
+            }
+
+          And we have to evaluate if the statement is true or not, and then
+          append the necessary AND or OR logic to overall, come up with
+          whether the current meeting section is a yes or a no.
+        */
+
         filteredSections = []
 
-        this.meeting_sections.forEach(function(s) {
-          // The magic awaits, for another day.
+        for(var h = 0; h < this.meeting_sections.length; h++) {
+          var s = this.meeting_sections[h]
 
-          /*
-            Rundown:
-            --------
+          var currentData = []
 
-            We're given an array like this (called "data"):
+          for(var i = 0; i < data.length; i++) {
+            currentData[i] = []
+            for(var j = 0; j < data[i].length; j++) {
+              currentData[i][j] = []
+              for(var k = 0; k < data[i][j].length; k++) {
 
-              [
-                [
-                  [something, something],
-                  [something]
-                ],
-                [
-                  [something, something]
-                ]
-              ]
+                var p = data[i][j][k]
+                var value = undefined
 
-            We need to format this array, so the deepest layer are OR, the
-            middle layer is AND, and the first layer is AND.
+                if(["code", "class_size", "class_enrolment", "instructors"].indexOf(p.key) > -1) {
+                    value = s[p.key]
+                } else if(["day", "start", "end", "duration", "location"].indexOf(p.key) > -1) {
+                  value = []
+                  for(var l = 0; l < s.times.length; l++) {
+                    value.push(s.times[l][p.key])
+                  }
+                }
 
-            Each "something" looks like the following:
+                if(value.constructor === Array) {
 
-              {
-                key
-                operation
-                value
+                  /*
+                    Have to search through arrays of values here, efficiently.
+                    If one of the conditions are true, the whole value is considered
+                    true
+                  */
+
+                  bools = []
+
+                  if(p.operator == "-") {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(!value[l].match(p.value))
+                    }
+                  } else if(p.operator == ">") {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(value[l] > p.value)
+                    }
+                  } else if(p.operator == "<") {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(value[l] < p.value)
+                    }
+                  } else if(p.operator == ".>") {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(value[l] >= p.value)
+                    }
+                  } else if(p.operator == ".<") {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(value[l] <= p.value)
+                    }
+                  } else {
+                    for(var l = 0; l < value.length; l++) {
+                      bools.push(value[l] > p.value)
+
+                      if(!isNaN(value[l])) {
+                        bools.push(value[l] == p.value)
+                      } else {
+                        bools.push(value[l].match(p.value))
+                      }
+                    }
+                  }
+
+                  currentData[i][j].push(bools.some(Boolean))
+
+                } else {
+
+                  if(p.operator == "-") {
+                    currentData[i][j].push(!value.match(p.value))
+                  } else if(p.operator == ">") {
+                    currentData[i][j].push(value > p.value)
+                  } else if(p.operator == "<") {
+                    currentData[i][j].push(value < p.value)
+                  } else if(p.operator == ".>") {
+                    currentData[i][j].push(value >= p.value)
+                  } else if(p.operator == ".<") {
+                    currentData[i][j].push(value <= p.value)
+                 } else {
+                   if(!isNaN(value)) {
+                     currentData[i][j].push(value == p.value)
+                   } else {
+                     currentData[i][j].push(value.match(p.value))
+                   }
+                 }
+
+                }
+
               }
+            }
+          }
 
-            And we have to evaluate if the statement is true or not, and then
-            append the necessary AND or OR logic to overall, come up with
-            whether the current meeting section is a yes or a no.
+          for(var i = 0; i < currentData.length; i++) {
+            for(var j = 0; j < currentData[i].length; j++) {
+              currentData[i][j] = currentData[i][j].some(Boolean)
+            }
+            currentData[i] = currentData[i].every(Boolean)
+          }
 
-          */
+          var isValidSection = currentData.every(Boolean)
 
-          /*if(["class_size", "class_enrolment"].indexOf(part.key) > -1) {
+          printjson(currentData)
 
-          } else if(["start", "end", "duration"].indexOf(part.key) > -1) {
+          if(isValidSection) {
+            filteredSections.push(s)
+          }
+        }
 
-          } else if(key == "instructors") {
 
-          } else if(key == "location") {
 
-          }*/
-        })
+        if(filteredSections.length > 0) {
+          this.matched_meeting_sections = filteredSections
+          emit(this._id, this)
+        }
 
-        this.matched_meeting_sections = filteredSections
-
-        emit(this._id, this)
       }
 
       o.reduce = function(key, values) {
@@ -195,14 +295,28 @@ router.get('/', function(req, res) {
       }
 
       Courses.mapReduce(o, function(err, docs) {
-        console.log(docs)
+        var timer = "MapReduce completed in " + Math.abs(new Date() - start) + "ms"
+        console.log(timer)
+
+        formattedDocs = []
+
+        docs.forEach(function(doc) {
+          delete doc.value["_id"]
+          formattedDocs.push(doc.value)
+        })
+
+        res.json(formattedDocs)
       })
+
     } else {
+
       Courses.find(search, function(err, docs) {
-        console.log("Done: " + Math.abs(new Date() - start) + "ms")
+        var timer = "Query completed in " + Math.abs(new Date() - start) + "ms"
+        console.log(timer)
 
         res.json(docs)
       })
+
     }
 
 
@@ -243,8 +357,8 @@ function parseQuery(key, query) {
           response.isMapReduce = true
 
           var filter = {
-            key: KEYMAP[key],
-            operation: part.mapReduceData.operation,
+            key: part.key,
+            operator: part.mapReduceData.operator,
             value: part.mapReduceData.value
           }
 
@@ -355,8 +469,7 @@ function formatPart(key, part) {
   } else if(["start", "end", "duration"].indexOf(key) > -1) {
     //time related
 
-    var time = part.value.split(':')
-    part.value = parseInt(time[0]) + (parseInt(time[1]) / 60)
+    part.value = parseInt(part.value)
 
     response.isMapReduce = true
     response.mapReduceData = part
