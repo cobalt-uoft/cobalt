@@ -1,79 +1,46 @@
 var express = require('express')
 var mongoose = require('mongoose')
+var Courses = require('../schemas/courses')
 var router = express.Router()
+var limit = 10
 
 // Valid parameters
-var PARAMS = [
-  "code", "name", "description", "division", "department", "prerequisite",
-  "exclusion", "level", "breadths", "campus", "term", "instructors",
-  "location", "size", "rating", "day", "start", "end", "duration", "class_size"
-]
+
 
 // What the parameters map to in MongoDB
-var KEYMAP = {
-  "code": "code",
-  "name": "name",
-  "description": "description",
-  "division": "division",
-  "department": "department",
-  "prerequisite": "prerequisites",
-  "exclusions": "exclusions",
-  "level": "course_level",
-  "breadths": "breadths",
-  "campus": "campus",
-  "term": "term",
-  "apsc_elec": "apsc_elec",
-  "meeting_code": "meeting_sections.code",
-  "instructors": "meeting_sections.instructors",
-  "day": "meeting_sections.times.day",
-  "start": "meeting_sections.times.start",
-  "end": "meeting_sections.times.end",
-  "duration": "meeting_sections.times.duration",
-  "location": "meeting_sections.times.location",
-  "class_size": "meeting_sections.class_size"
-}
 
-// The heavenly schema, mapping what our database holds data like
-var courseSchema = new mongoose.Schema({
-  course_id: String,
-  code: String,
-  name: String,
-  description: String,
-  division: String,
-  prerequisites: String,
-  exlusions: String,
-  course_level: Number,
-  campus: String,
-  term: String,
-  breadths: [Number],
-  apsc_elec: String,
-  meeting_sections: [new mongoose.Schema({
-    code: String,
-    instructors: [String],
-    times: [new mongoose.Schema({
-      day: String,
-      start: Number,
-      end: Number,
-      duration: Number,
-      location: String
-    })],
-    class_size: Number
-    //class_enrolment: Number
-  })]
-})
-
-var Courses = mongoose.model("courses", courseSchema)
 
 // When searching for exact ID
 router.get('/:id', function(req, res) {
-  if (req.params.id != undefined && req.params.id != "") {
-    var search = {}
-    search['course_id'] = req.params.id
-    Courses.find(search, function(err, docs) {
-      res.json(docs)
+  if (req.params.id) {
+    Courses.find({
+      course_id: req.params.id
+    }, function(err, docs) {
+      res.json(docs[0])
     })
   } else {
-    res.send(403)
+    res.status(403).end()
+    return
+  }
+})
+
+router.get('/', function(req, res) {
+  console.log('hallo')
+  if(req.query.q) {
+
+    var qLimit = limit
+    if(req.query.limit && req.query.limit < 100) {
+      qLimit = req.query.limit
+    }
+
+    Courses.find({
+      $text: {
+        $search: req.params.q
+      }
+    }).limit(qLimit).exec(function(err, docs) {
+      res.json(docs)
+    })
+
   }
 })
 
@@ -382,147 +349,7 @@ function parseQuery(key, query) {
 
 }
 
-function formatPart(key, part) {
 
-  // Response format
-  var response = {
-    key: key,
-    isValid: true,
-    isTimeQuery: false,
-    isMapReduce: false,
-    mapReduceData: {},
-    query: {},
-    timeQuery: {}
-  }
-
-
-  // Checking if the start of the segment is an operator (-, >, <, .>, .<)
-  if(part.indexOf("-") === 0) {
-    // Negation
-    part = {
-      operator: "-",
-      value: part.substring(1)
-    }
-  } else if(part.indexOf(">") === 0) {
-    part = {
-      operator: ">",
-      value: part.substring(1)
-    }
-  } else if(part.indexOf("<") === 0) {
-    part = {
-      operator: "<",
-      value: part.substring(1)
-    }
-  } else if(part.indexOf(".>") === 0) {
-    part = {
-      operator: ".>",
-      value: part.substring(2)
-    }
-  } else if(part.indexOf(".<") === 0) {
-    part = {
-      operator: ".<",
-      value: part.substring(2)
-    }
-  } else {
-    part = {
-      operator: undefined,
-      value: part
-    }
-  }
-
-  /*
-    WE STILL GOTTA VALIDATE THE QUERY HERE, WOW I KEEP PUTTING IT OFF.
-
-    Basically, if the query is valid, we're good to go. If it isn't, set
-    response.isValid to false and return the response object.
-  */
-
-  if (["breadths", "level", "class_size", "class_enrolment"].indexOf(key) > -1) {
-    // Integers and arrays of integers (mongo treats them the same)
-
-    part.value = parseInt(part.value)
-    if(part.operator == "-") {
-      response.query[KEYMAP[key]] = { $ne: part.value }
-    } else if(part.operator == ">") {
-      response.query[KEYMAP[key]] = { $gt: part.value }
-    } else if(part.operator == "<") {
-      response.query[KEYMAP[key]] = { $lt: part.value }
-    } else if(part.operator == ".>") {
-      response.query[KEYMAP[key]] = { $gte: part.value }
-    } else if(part.operator == ".<") {
-      response.query[KEYMAP[key]] = { $lte: part.value }
-    } else {
-      // Assume equality if no operator
-      response.query[KEYMAP[key]] = part.value
-    }
-
-    if(["class_size", "class_enrolment"].indexOf(key) > -1) {
-      response.isMapReduce = true
-      response.mapReduceData = part
-    }
-
-
-  } else if(["start", "end", "duration"].indexOf(key) > -1) {
-    //time related
-
-    part.value = parseInt(part.value)
-
-    response.isMapReduce = true
-    response.mapReduceData = part
-
-    if(part.operator == "-") {
-      response.query[KEYMAP[key]] = { $ne: part.value }
-    } else if(part.operator == ">") {
-      response.query[KEYMAP[key]] = { $gt: part.value }
-    } else if(part.operator == "<") {
-      response.query[KEYMAP[key]] = { $lt: part.value }
-    } else if(part.operator == ".>") {
-      response.query[KEYMAP[key]] = { $gte: part.value }
-    } else if(part.operator == ".<") {
-      response.query[KEYMAP[key]] = { $lte: part.value }
-    } else {
-      // Assume equality if no operator
-      response.query[KEYMAP[key]] = part.value
-    }
-
-  } else if(key == "instructors") {
-    // Array of strings
-
-    response.isMapReduce = true
-    response.mapReduceData = part
-
-    if(part.operator == "-") {
-      response.query[KEYMAP[key]] = { $not: {
-        $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
-      } }
-    } else {
-      response.query[KEYMAP[key]] = {
-        $elemMatch: { $regex: "(?i).*" + part.value + ".*" }
-      }
-    }
-
-  } else {
-    // Just your average string
-
-    if(part.operator == "-") {
-      response.query[KEYMAP[key]] = {
-        $regex: "^((?!" + part.value + ").)*$",
-        $options: 'i'
-      }
-    } else {
-      response.query[KEYMAP[key]] = { $regex: "(?i).*" + part.value + ".*" }
-    }
-
-    if(key == "location") {
-      response.isMapReduce = true
-      response.mapReduceData = part
-    }
-
-  }
-
-  return response
-
-}
 
 function timeToNumber(str) {
   var time = str.split(":")

@@ -6,15 +6,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
-var courses = require('./routes/courses');
 
+/* Courses imports */
+var courses = {
+  show: require('./routes/courses/show'),
+  search: require('./routes/courses/search'),
+  filter: require('./routes/courses/filter')
+}
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.set('api version', '1.0');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.set('api version', '1.0')
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -24,13 +29,14 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 
 mongoose.connect(process.env.MONGOLAB_URL)
 
-app.use('/', routes);
-app.use('/courses', courses);
-app.use('/courses/:id', courses);
+app.use('/', routes)
+app.use('/courses/show', courses.show)
+app.use('/courses/search', courses.search)
+app.use('/courses/filter', courses.filter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
