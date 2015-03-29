@@ -1,0 +1,279 @@
+body {
+  background: url(../img/bg.jpg) #fff;
+  font-family: "SourceSans", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+  .main {
+    height: auto;
+    background: url(../img/bahen.jpg) center center #101012;
+    background-size:cover;
+    padding-bottom: 68px;
+  }
+
+  .header {
+    font-family: "Gravity", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 48px;
+    height: 84px;
+    line-height: 84px;
+  }
+
+    .header .logo {
+      background: url(../img/logo.png) left center no-repeat;
+      background-size: 64px;
+      margin-top: 32px;
+      padding-left: 78px;
+      color: #fff;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .header .navigation {
+      margin-top: 32px;
+      color: #c6c6c6;
+      text-align: right;
+      font-size: 18px;
+      font-weight: 200;
+      transition: all 0.3s ease;
+    }
+
+      ul.nav {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+        ul.nav li {
+          display: inline-block;
+        }
+
+          ul.nav li a {
+            text-decoration: none;
+            padding: 6px 12px;
+            color: #c6c6c6;
+            transition: all 0.3s ease;
+          }
+
+          ul.nav li a:hover {
+            color: #ffffff;
+          }
+
+        ul.nav li.nav-spacer {
+          border-left: 1px solid rgba(255, 255, 255, 0.2);
+          height: 19px;
+          padding-left: 12px;
+          margin-left: 12px;
+          margin-bottom: -3px;
+        }
+
+  .splash {
+    margin-top: 100px;
+    color: #fff;
+    text-align: center;
+  }
+
+    .splash .title {
+      font-size: 68px;
+      transition: all 0.3s ease;
+    }
+
+      .splash .title b {
+        color: #00549a;
+      }
+
+    .splash .description {
+      font-size: 30px;
+      color: rgba(255,255,255,0.6);
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 0px;
+    }
+
+      .splash .description b {
+        color: rgba(255,255,255,0.8);
+      }
+
+    .splash .signup-button {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0b0b0a;
+      background: rgba(255,255,255,0.5);
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 54px;
+    }
+
+    .splash .signup-button:hover {
+      background: rgba(255,255,255,0.7);
+      transition: all 0.2s ease;
+    }
+
+    .splash .signup-button:active {
+      background: rgba(255,255,255,0.35);
+      transition: all 50ms ease;
+    }
+
+  .main.compact {
+    background:#121e35;
+    height: 80px;
+    line-height: 80px;
+    overflow: hidden;
+    padding: 0;
+  }
+
+    .main.compact .header {
+      height: 80px;
+      line-height: 80px;
+    }
+
+      .main.compact .header .logo {
+        background-size: 48px;
+        height: 80px;
+        margin: 0;
+        font-size: 36px;
+        padding-left: 64px;
+      }
+
+      .main.compact .header .navigation {
+        height: 80px;
+        margin: 0;
+      }
+
+  .content {
+    margin-top: 32px;
+    line-height: 26px;
+  }
+
+    .content .first-sentence {
+      font-size: 22px;
+      line-height: 34px;
+      margin-bottom: 24px;
+    }
+
+    .content .api-box {
+      background: #eee;
+      padding: 12px;
+      box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+      margin-bottom: 32px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .content .api-box:hover {
+      background: #fff;
+    }
+
+  .login {
+    max-width: 400px;
+  }
+
+  .login-text {
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+  }
+
+  .login-button {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0b0b0a;
+    background: rgba(0,0,0,0.1);
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 0;
+    cursor: pointer;
+    margin-bottom: 24px;
+    outline: 0;
+  }
+
+  .login-button:hover {
+    background: rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+  }
+
+  .login-button:active {
+    background: rgba(0,0,0,0.3);
+    transition: all 50ms ease;
+  }
+
+  .signup-info {
+    margin-bottom: 24px;
+  }
+
+  .footer {
+
+  }
+
+    .inner-footer {
+      margin-top:0px;
+      padding: 24px;
+      padding-bottom: 32px;
+      color: #2e2e2e;
+      text-align: center;
+      border-top: 1px solid #a4a4a4;
+    }
+
+  .sub-title {
+    height: 48px;
+    background: rgba(18, 30, 53, 0.5);
+    line-height: 48px;
+    font-weight: 200;
+    color: #fff;
+  }
+
+@media screen and (max-width: 767px) {
+
+  .main {
+    height: auto;
+    padding-bottom: 32px;
+  }
+
+  .main.compact {
+    padding-top: 32px;
+    height: 200px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .header .logo {
+    text-align: center;
+    background-position: top center !important;
+    background-size: 108px !important;
+    padding-left: 0px !important;
+    padding-top: 108px !important;
+  }
+
+  .sub-title {
+    text-align: center;
+  }
+
+  .header .navigation {
+    display: none;
+  }
+
+  .splash {
+    margin-top: 124px;
+  }
+
+  .splash .title {
+    font-size: 48px;
+    font-weight: 100;
+  }
+
+    .splash .title b {
+
+    }
+
+  .splash .description {
+    margin-top: 48px;
+    font-size: 24px;
+  }
+
+}

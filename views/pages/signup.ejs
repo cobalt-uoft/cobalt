@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <body>
+    <div class="sub-title">
+      <div class="grid-container">
+        <div class="grid-100">
+          Sign up
+        </div>
+      </div>
+    </div>
+    <div class="grid-container content">
+      <div class="grid-60 signup-info">
+        Fill in later. Facts about signing up.
+      </div>
+      <div class="grid-40">
+        <form action="/signup" method="post">
+          <input type="text" class="login-text" name="name" placeholder="Name" />
+          <input type="text" class="login-text" name="email" placeholder="Email" />
+          <input type="password" class="login-text" name="pass2" placeholder="Password" />
+          <input type="submit" class="login-button" value="Sign up" />
+        </form>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+</html>

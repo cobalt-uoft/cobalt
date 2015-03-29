@@ -5,7 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var routes = require('./routes/index');
+
+/* Page imports */
+var index = require('./routes/index')
+var login = require('./routes/login')
+var signup = require('./routes/signup')
+var docs = require('./routes/docs')
 
 /* Courses imports */
 var courses = {
@@ -33,7 +38,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 mongoose.connect(process.env.MONGOLAB_URL)
 
-app.use('/', routes)
+app.use('/', index)
+app.use('/login', login)
+app.use('/signup', signup)
+app.use('/docs', docs)
+
 app.use('/courses/show', courses.show)
 app.use('/courses/search', courses.search)
 app.use('/courses/filter', courses.filter)
