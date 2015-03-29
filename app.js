@@ -43,9 +43,9 @@ app.use('/login', login)
 app.use('/signup', signup)
 app.use('/docs', docs)
 
-app.use('/courses/show', courses.show)
-app.use('/courses/search', courses.search)
-app.use('/courses/filter', courses.filter)
+app.use('/api/courses/show', courses.show)
+app.use('/api/courses/search', courses.search)
+app.use('/api/courses/filter', courses.filter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

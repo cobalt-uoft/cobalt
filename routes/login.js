@@ -6,4 +6,9 @@ router.get('/', function(req, res) {
   res.render('pages/login', { title: 'Cobalt' });
 });
 
+router.post('/', function(req, res) {
+  // req.query.email/pass
+  res.send('logging in lol jk')
+})
+
 module.exports = router;
