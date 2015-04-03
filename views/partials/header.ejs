@@ -7,8 +7,13 @@
       <ul class="nav">
         <li><a href="/docs">Documentation</a></li>
         <li class="nav-spacer"></li>
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/signup">Sign up</a></li>
+        <% if(user) { %>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/logout">Log out</a></li>
+        <% } else { %>
+          <li><a href="/login">Log in</a></li>
+          <li><a href="/signup">Sign up</a></li>
+        <% } %>
       </ul>
     </div>
   </div>

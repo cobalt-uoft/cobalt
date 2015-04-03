@@ -1,14 +1,12 @@
 var express = require('express');
+var passport = require('passport')
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('pages/login', { title: 'Cobalt' });
+  req.logout();
+  res.redirect('/');
 });
 
-router.post('/', function(req, res) {
-  // req.query.email/pass
-  res.send('logging in lol jk')
-})
 
 module.exports = router;
