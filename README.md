@@ -5,7 +5,9 @@ This is a service that is currently in development by [Qasim Iqbal](https://gith
 
 The goal is to provide a collection of RESTful web APIs that can allow developers to create applications or services that utilize public data from the University of Toronto.
 
-We want our databases to be self-sufficient (fully automated curation). We also want the APIs themselves to be easy to understand and use, but yet still very comprehensive in what it can provide to a developer.
+The databases are being developed to be self-sufficient (fully automated curation).
+
+The APIs themselves are being made to be easy to understand and use, yet still very comprehensive in what it can provide to a developer. In order to achieve this, we are actively contacting developers at UofT to see what use cases are needed in each API.
 
 Web APIs
 ----------
