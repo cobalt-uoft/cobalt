@@ -13,3 +13,6 @@ timetables
 backup
 
 *.log
+
+api/courses
+api/buildings
