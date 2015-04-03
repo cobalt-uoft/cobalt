@@ -70,9 +70,9 @@ There are 3 endpoints for the course API.
 
 For any numerical or time parameter in the "filter" endpoint:
  - "**>**" indicates **GREATER THAN** (eg. `class_size:'>30'`)
- - "**<**" indicates **LESS THAN** (eg. `start_time:'<18:00'`)
- - "**>=**" indicates **GREATER THAN OR EQUAL TO** (eg. `class_enrolment:'>=1'`)
- - "**<=**" indicates **LESS THAN OR EQUAL TO** (eg. `course_level:'<=200'`)
+ - "**<**" indicates **LESS THAN** (eg. `start:'<18:00'`)
+ - "**>=**" indicates **GREATER THAN OR EQUAL TO** (eg. `enrolment:'>=1'`)
+ - "**<=**" indicates **LESS THAN OR EQUAL TO** (eg. `level:'<=200'`)
  - No operator indicates **EQUAL TO** (eg. `breadth:'5'`)
 
 For any string parameter:
