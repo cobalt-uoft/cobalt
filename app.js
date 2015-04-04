@@ -22,9 +22,9 @@ var docs = require('./routes/docs')
 
 /* Courses imports */
 var courses = {
-  show: require('./api/courses/routes/show'),
-  search: require('./api/courses/routes/search'),
-  filter: require('./api/courses/routes/filter')
+  show: require('./api/uoft-course-api/routes/show'),
+  search: require('./api/uoft-course-api/routes/search'),
+  filter: require('./api/uoft-course-api/routes/filter')
 }
 
 var app = express();
