@@ -8,10 +8,10 @@ var User = new Schema({
     first_name: String,
     last_name: String,
     emailVerified: Boolean,
-    api: new Schema({
+    api: {
       key: String,
       calls: [String]
-    })
+    }
 })
 
 /* TODO: Attach passport auth stuff from app.js to this model. */

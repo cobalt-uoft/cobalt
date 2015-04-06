@@ -29,7 +29,8 @@ var courses = {
 
 /* Buildings imports */
 var buildings = {
-  show: require('./api/uoft-building-api/routes/show')
+  show: require('./api/uoft-building-api/routes/show'),
+  search: require('./api/uoft-building-api/routes/search')
 }
 
 var app = express();
@@ -104,6 +105,7 @@ app.use('/api/courses/filter', courses.filter)
 
 /* Building API routes */
 app.use('/api/buildings/show', buildings.show)
+app.use('/api/buildings/search', buildings.search)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

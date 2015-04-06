@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
 
   if (err) {
     console.log(err)
-    return res.render('pages/signup', { user : user })
+    return res.render('pages/signup', { user : req.user })
   }
 
   passport.authenticate('local')(req, res, function () {
