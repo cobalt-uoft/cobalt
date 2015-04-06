@@ -27,6 +27,11 @@ var courses = {
   filter: require('./api/uoft-course-api/routes/filter')
 }
 
+/* Buildings imports */
+var buildings = {
+  show: require('./api/uoft-building-api/routes/show')
+}
+
 var app = express();
 
 // view engine setup
@@ -71,6 +76,8 @@ app.use('/docs', docs)
 app.use('/api/courses/show', courses.show)
 app.use('/api/courses/search', courses.search)
 app.use('/api/courses/filter', courses.filter)
+
+app.use('/api/buildings/show', buildings.show)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
