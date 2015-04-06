@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-/* User imports **/
+/* User imports */
 var User = require('./models/user');
 
 /* Page imports */
@@ -52,20 +52,44 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-// passport config
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
+//Initialize mongoose singleton
 mongoose.connect(process.env.MONGOLAB_URL)
 
+
+/* Passport plugins */
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, done) {
+
+    /* TODO: Ivan's login method gets called here */
+
+    var err = true //this will come from the login method
+    if (err) {
+      return done(null, false, { message: 'Error message here' });
+    }
+
+    return done(null, user);
+
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+/* Front end routes */
 app.use('/', index)
 app.use('/login', login)
 app.use('/logout', logout)
@@ -73,10 +97,12 @@ app.use('/signup', signup)
 app.use('/dashboard', dashboard)
 app.use('/docs', docs)
 
+/* Course API routes */
 app.use('/api/courses/show', courses.show)
 app.use('/api/courses/search', courses.search)
 app.use('/api/courses/filter', courses.filter)
 
+/* Building API routes */
 app.use('/api/buildings/show', buildings.show)
 
 // catch 404 and forward to error handler

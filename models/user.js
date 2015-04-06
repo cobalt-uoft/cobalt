@@ -1,17 +1,19 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    passportLocalMongoose = require('passport-local-mongoose');
+    Schema = mongoose.Schema;
 
 var User = new Schema({
     email: String,
     password: String,
-    name: String,
+    salt: String,
+    first_name: String,
+    last_name: String,
     emailVerified: Boolean,
-    apiKey: String
-});
+    api: new Schema({
+      key: String,
+      calls: [String]
+    })
+})
 
-User.plugin(passportLocalMongoose, {
-  usernameField: 'email'
-});
+/* TODO: Attach passport auth stuff from app.js to this model. */
 
 module.exports = mongoose.model('User', User);

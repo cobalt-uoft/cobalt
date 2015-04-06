@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', passport.authenticate('local'), function(req, res) {
+  /* TODO: passport.authenticate is going to run the method in app.js */
   res.redirect('/dashboard');
 });
 
