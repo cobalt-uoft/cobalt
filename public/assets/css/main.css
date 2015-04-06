@@ -31,6 +31,19 @@ body {
       cursor: pointer;
     }
 
+    .header .sub-logo {
+      font-size: 12px;
+      margin-top: 60px;
+      display: inline-block;
+      padding: 3px 6px;
+      background: #830300;
+      border-radius: 3px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      line-height: 24px;
+    }
+
     .header .navigation {
       margin-top: 32px;
       color: #c6c6c6;
@@ -247,7 +260,13 @@ body {
     background-position: top center !important;
     background-size: 108px !important;
     padding-left: 0px !important;
+    padding-right: 0px !important;
     padding-top: 108px !important;
+  }
+
+  .header .sub-logo {
+    display: block;
+    margin:0 auto;
   }
 
   .sub-title {
@@ -259,7 +278,7 @@ body {
   }
 
   .splash {
-    margin-top: 124px;
+    margin-top: 138px;
   }
 
   .splash .title {
