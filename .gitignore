@@ -14,5 +14,4 @@ backup
 
 *.log
 
-uoft-course-api
-uoft-building-api
+api/*

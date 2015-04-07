@@ -17,6 +17,7 @@
     "mongoose": "*",
     "passport":"*",
     "passport-local":"*",
-    "passport-local-mongoose": "*"
+    "passport-local-mongoose": "*",
+    "bcrypt": "*"
   }
 }

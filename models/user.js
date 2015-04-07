@@ -1,19 +1,56 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+var bcrypt = require('bcrypt')
+var SALT_WORK_FACTOR = 10
 
-var User = new Schema({
-    email: String,
-    password: String,
-    salt: String,
-    first_name: String,
-    last_name: String,
+var userSchema = new Schema({
+    email: { type: String, required: true, index: { unique: true } },
+    password: { type: String, required: true },
+    name: { type: String, required: true },
     emailVerified: Boolean,
     api: {
-      key: String,
-      calls: [String]
+      key: String
     }
 })
 
-/* TODO: Attach passport auth stuff from app.js to this model. */
+//Password hashing
+userSchema.pre('save', function(next) {
+    var user = this;
 
-module.exports = mongoose.model('User', User);
+    if (!user.isModified('password')) {
+      return next()
+    }
+
+    // generate a salt
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) {
+          return next(err)
+        }
+
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) {
+              return next(err)
+            }
+            user.password = hash
+            next()
+        })
+    })
+})
+
+userSchema.methods.verifyPassword = function(password, next) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+        if (err) {
+          return next(err)
+        }
+        next(null, isMatch)
+    })
+}
+
+var User = mongoose.model('User', userSchema)
+
+//Validation example
+User.schema.path('email').validate(function (value) {
+  return /blue|green|white|red|orange|periwinkle/i.test(value);
+}, 'Invalid email');
+
+module.exports = User

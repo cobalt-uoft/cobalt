@@ -22,6 +22,7 @@ var docs = require('./routes/docs')
 
 /* Courses imports */
 var courses = {
+  list: require('./api/uoft-course-api/routes/list'),
   show: require('./api/uoft-course-api/routes/show'),
   search: require('./api/uoft-course-api/routes/search'),
   filter: require('./api/uoft-course-api/routes/filter')
@@ -29,6 +30,7 @@ var courses = {
 
 /* Buildings imports */
 var buildings = {
+  list: require('./api/uoft-building-api/routes/list'),
   show: require('./api/uoft-building-api/routes/show'),
   search: require('./api/uoft-building-api/routes/search')
 }
@@ -99,11 +101,13 @@ app.use('/dashboard', dashboard)
 app.use('/docs', docs)
 
 /* Course API routes */
+app.use('/api/courses', courses.list)
 app.use('/api/courses/show', courses.show)
 app.use('/api/courses/search', courses.search)
 app.use('/api/courses/filter', courses.filter)
 
 /* Building API routes */
+app.use('/api/buildings', buildings.list)
 app.use('/api/buildings/show', buildings.show)
 app.use('/api/buildings/search', buildings.search)
 
