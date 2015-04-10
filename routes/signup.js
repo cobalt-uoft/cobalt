@@ -14,9 +14,15 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
 
-  /* TODO: Ivan's register method gets called here */
+  var user = new User({
+    email: req.query.email,
+    password: req.query.password,
+    name: req.query.name
+  })
 
-  var err = true
+  user.signup(function(err) {
+    
+  })
 
   if (err) {
     console.log(err)
