@@ -1,26 +1,19 @@
-var express = require('express');
+var express = require('express')
 var session = require('express-session')
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var mongoose = require('mongoose')
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy
 
-/* User imports */
-var User = require('./models/user');
-
-/* Page imports */
+/* Front end imports */
 var index = require('./routes/index')
-var login = require('./routes/login')
-var logout = require('./routes/logout')
-var signup = require('./routes/signup')
-var dashboard = require('./routes/dashboard')
 var docs = require('./routes/docs')
 
-/* Courses imports */
+/* Course API imports */
 var courses = {
   list: require('./api/uoft-course-api/routes/list'),
   show: require('./api/uoft-course-api/routes/show'),
@@ -28,36 +21,51 @@ var courses = {
   filter: require('./api/uoft-course-api/routes/filter')
 }
 
-/* Buildings imports */
+/* Building API imports */
 var buildings = {
   list: require('./api/uoft-building-api/routes/list'),
   show: require('./api/uoft-building-api/routes/show'),
   search: require('./api/uoft-building-api/routes/search')
 }
 
-var app = express();
+/* Food API imports */
+var foods = {
+  list: require('./api/uoft-food-api/routes/list'),
+  show: require('./api/uoft-food-api/routes/show'),
+  search: require('./api/uoft-food-api/routes/search')
+}
+
+/* User imports */
+var User = require('./user/model')
+var user = {
+  login: require('./user/routes/login'),
+  logout: require('./user/routes/logout'),
+  signup: require('./user/routes/signup'),
+  dashboard: require('./user/routes/dashboard')
+}
+
+var app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.set('api version', '1.0')
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(favicon(__dirname + '/public/favicon.ico'))
+app.use(logger('dev'))
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
+app.use(cookieParser())
 app.use(session({
   secret: 'pusheeeen',
   resave: false,
   saveUninitialized: false
-}));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(passport.initialize());
-app.use(passport.session());
+}))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(passport.initialize())
+app.use(passport.session())
 
 //Initialize mongoose singleton
 mongoose.connect(process.env.MONGOLAB_URL)
@@ -69,36 +77,34 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-
-    /* TODO: Ivan's login method gets called here */
-
-    var err = true //this will come from the login method
-    if (err) {
-      return done(null, false, { message: 'Error message here' });
-    }
-
-    return done(null, user);
-
+    User.login(email, password, function(err, user) {
+      if(err) {
+        return done(null, false, { message: err.message })
+      }
+      return done(null, user)
+    })
   }
-));
+))
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
+  done(null, user.id)
+})
 
 passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+    done(err, user)
+  })
+})
 
 /* Front end routes */
 app.use('/', index)
-app.use('/login', login)
-app.use('/logout', logout)
-app.use('/signup', signup)
-app.use('/dashboard', dashboard)
 app.use('/docs', docs)
+
+/* User routes */
+app.use('/login', user.login)
+app.use('/logout', user.logout)
+app.use('/signup', user.signup)
+app.use('/dashboard', user.dashboard)
 
 /* Course API routes */
 app.use('/api/courses', courses.list)
@@ -113,10 +119,10 @@ app.use('/api/buildings/search', buildings.search)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
 
 // error handlers
 
@@ -124,23 +130,23 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    res.status(err.status || 500)
     res.render('error', {
       message: err.message,
       error: err
-    });
-  });
+    })
+  })
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
+  res.status(err.status || 500)
   res.render('error', {
     message: err.message,
     error: {}
-  });
-});
+  })
+})
 
 
-module.exports = app;
+module.exports = app
