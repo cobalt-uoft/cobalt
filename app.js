@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var passport = require('passport')
+var flash = require('connect-flash')
 var LocalStrategy = require('passport-local').Strategy
 
 /* Front end imports */
@@ -64,13 +65,14 @@ app.use(session({
   saveUninitialized: false
 }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
 //Initialize mongoose singleton
 mongoose.connect(process.env.MONGOLAB_URL)
 
-
+console.log('pls')
 /* Passport plugins */
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -81,6 +83,7 @@ passport.use(new LocalStrategy({
       if(err) {
         return done(null, false, { message: err.message })
       }
+      console.log('Logged in successfully')
       return done(null, user)
     })
   }
