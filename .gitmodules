@@ -1,15 +1,15 @@
 [submodule "user"]
     path = user
-    url = git://github.com/cobalt-io/user.git
+    url = https://github.com/cobalt-io/user.git
 
 [submodule "uoft-course-api"]
     path = api/uoft-course-api
-    url = git://github.com/cobalt-io/uoft-course-api.git
+    url = https://github.com/cobalt-io/uoft-course-api.git
 
 [submodule "uoft-building-api"]
     path = api/uoft-building-api
-    url = git://github.com/cobalt-io/uoft-building-api.git
+    url = https://github.com/cobalt-io/uoft-building-api.git
 
 [submodule "uoft-food-api"]
     path = api/uoft-food-api
-    url = git://github.com/cobalt-io/uoft-food-api.git
+    url = https://github.com/cobalt-io/uoft-food-api.git
