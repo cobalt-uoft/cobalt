@@ -18,7 +18,6 @@
     "morgan": "~1.3.0",
     "passport": "*",
     "passport-local": "*",
-    "passport-local-mongoose": "*",
     "serve-favicon": "~2.1.3"
   }
 }
