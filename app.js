@@ -16,33 +16,33 @@ var docs = require('./routes/docs')
 
 /* Course API imports */
 var courses = {
-  list: require('./api/uoft-course-api/routes/list'),
-  show: require('./api/uoft-course-api/routes/show'),
-  search: require('./api/uoft-course-api/routes/search'),
-  filter: require('./api/uoft-course-api/routes/filter')
+	list: require('./api/uoft-course-api/routes/list'),
+	show: require('./api/uoft-course-api/routes/show'),
+	search: require('./api/uoft-course-api/routes/search'),
+	filter: require('./api/uoft-course-api/routes/filter')
 }
 
 /* Building API imports */
 var buildings = {
-  list: require('./api/uoft-building-api/routes/list'),
-  show: require('./api/uoft-building-api/routes/show'),
-  search: require('./api/uoft-building-api/routes/search')
+	list: require('./api/uoft-building-api/routes/list'),
+	show: require('./api/uoft-building-api/routes/show'),
+	search: require('./api/uoft-building-api/routes/search')
 }
 
 /* Food API imports */
 var foods = {
-  list: require('./api/uoft-food-api/routes/list'),
-  show: require('./api/uoft-food-api/routes/show'),
-  search: require('./api/uoft-food-api/routes/search')
+	list: require('./api/uoft-food-api/routes/list'),
+	show: require('./api/uoft-food-api/routes/show'),
+	search: require('./api/uoft-food-api/routes/search')
 }
 
 /* User imports */
 var User = require('./user/model')
 var user = {
-  login: require('./user/routes/login'),
-  logout: require('./user/routes/logout'),
-  signup: require('./user/routes/signup'),
-  dashboard: require('./user/routes/dashboard')
+	login: require('./user/routes/login'),
+	logout: require('./user/routes/logout'),
+	signup: require('./user/routes/signup'),
+	dashboard: require('./user/routes/dashboard')
 }
 
 var app = express()
@@ -56,13 +56,13 @@ app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-  extended: false
+	extended: false
 }));
 app.use(cookieParser())
 app.use(session({
-  secret: 'pusheeeen',
-  resave: false,
-  saveUninitialized: false
+	secret: 'pusheeeen',
+	resave: false,
+	saveUninitialized: false
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(flash())
@@ -72,31 +72,32 @@ app.use(passport.session())
 //Initialize mongoose singleton
 mongoose.connect(process.env.MONGOLAB_URL)
 
-console.log('pls')
 /* Passport plugins */
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-  function(email, password, done) {
-    User.login(email, password, function(err, user) {
-      if(err) {
-        return done(null, false, { message: err.message })
-      }
-      console.log('Logged in successfully')
-      return done(null, user)
-    })
-  }
+		usernameField: 'email',
+		passwordField: 'password'
+	},
+	function(email, password, done) {
+		User.login(email, password, function(err, user) {
+			if (err) {
+				return done(null, false, {
+					message: err.message
+				})
+			}
+			console.log('Logged in successfully')
+			return done(null, user)
+		})
+	}
 ))
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id)
+	done(null, user.id)
 })
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user)
-  })
+	User.findById(id, function(err, user) {
+		done(err, user)
+	})
 })
 
 /* Front end routes */
@@ -122,9 +123,9 @@ app.use('/api/buildings/search', buildings.search)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found')
-  err.status = 404
-  next(err)
+	var err = new Error('Not Found')
+	err.status = 404
+	next(err)
 })
 
 // error handlers
@@ -132,23 +133,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500)
-    res.render('error', {
-      message: err.message,
-      error: err
-    })
-  })
+	app.use(function(err, req, res, next) {
+		res.status(err.status || 500)
+		res.render('error', {
+			message: err.message,
+			error: err
+		})
+	})
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500)
-  res.render('error', {
-    message: err.message,
-    error: {}
-  })
+	res.status(err.status || 500)
+	res.render('error', {
+		message: err.message,
+		error: {}
+	})
 })
 
 
