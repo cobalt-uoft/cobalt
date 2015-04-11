@@ -1,0 +1,3 @@
+[submodule "user"]
+    path = user
+    url = git://github.com/cobalt-io/user.git
