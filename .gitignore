@@ -13,6 +13,3 @@ timetables
 backup
 
 *.log
-
-api/*
-user/*
