@@ -15,6 +15,7 @@ We are working on the following web APIs for Cobalt:
 
   - [UofT Course API](https://github.com/cobalt-io/uoft-course-api)
   - [UofT Building API](https://github.com/cobalt-io/uoft-building-api)
+  - [UofT Food API](https://github.com/cobalt-io/uoft-food-api)
 
 Web Scrapers
 ---------------
