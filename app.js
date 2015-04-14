@@ -112,9 +112,9 @@ app.use('/dashboard', user.dashboard)
 
 /* Course API routes */
 app.use('/api/courses', courses.list)
-app.use('/api/courses/show', courses.show)
-app.use('/api/courses/search', courses.search)
-app.use('/api/courses/filter', courses.filter)
+app.use('/api/courses', courses.show)
+app.use('/api/courses', courses.search)
+app.use('/api/courses', courses.filter)
 
 /* Building API routes */
 app.use('/api/buildings', buildings.list)
