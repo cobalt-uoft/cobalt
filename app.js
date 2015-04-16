@@ -53,7 +53,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Initialize mongoose singleton
-mongoose.connect(process.env.MONGOLAB_URL)
+mongoose.connect(process.env.MONGO_URL)
 
 /* Passport plugins */
 passport.use(new LocalStrategy({
