@@ -11,6 +11,7 @@
 		"connect-flash": "0.1.1",
 		"cookie-parser": "~1.3.3",
 		"debug": "~2.0.0",
+		"easyxml": "1.4.28",
 		"ejs": "~0.8.5",
 		"express": "~4.9.0",
 		"express-session": "1.11.1",
@@ -18,7 +19,7 @@
 		"morgan": "~1.3.0",
 		"passport": "0.2.1",
 		"passport-local": "1.0.0",
-		"serve-favicon": "~2.1.3",
-		"easyxml": "1.4.28"
+		"sendgrid": "^1.6.1",
+		"serve-favicon": "~2.1.3"
 	}
 }
