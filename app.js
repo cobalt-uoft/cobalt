@@ -25,7 +25,7 @@ var user = {
 	login: require('./user/routes/login'),
 	logout: require('./user/routes/logout'),
 	signup: require('./user/routes/signup'),
-	verify: require('./user/routes/verify')
+	verify: require('./user/routes/verify'),
 	dashboard: require('./user/routes/dashboard')
 }
 
@@ -91,7 +91,7 @@ app.use('/docs', docs)
 app.use('/login', user.login)
 app.use('/logout', user.logout)
 app.use('/signup', user.signup)
-app.user('/verify', user.verify)
+app.use('/verify', user.verify)
 app.use('/dashboard', user.dashboard)
 
 /* API routes */
