@@ -1,33 +1,33 @@
 <div class="main">
-	<div class="header grid-container">
-		<div class="grid-30 logo">
-			Cobalt
-		</div>
-		<div class="grid-15 sub-logo">
-			TEST BUILD <i><%= build %></i>
-		</div>
-		<div class="grid-55 navigation">
-			<ul class="nav">
-				<li><a href="/docs">Documentation</a></li>
-				<li class="nav-spacer"></li>
-				<% if(user) { %>
-					<li><a href="/user/dashboard">Dashboard</a></li>
-					<li><a href="/user/logout">Log out</a></li>
-				<% } else { %>
-					<li><a href="/user/login">Log in</a></li>
-					<li><a href="/user/signup">Sign up</a></li>
-				<% } %>
-			</ul>
-		</div>
-	</div>
-	<div class="splash grid-container">
-		<div class="grid-100">
-			<div class="description">
-				Utilize publicly available data from the <b>University of Toronto</b>.
-			</div>
-			<div class="signup-button">
-				Sign up for free
-			</div>
-		</div>
-	</div>
+  <div class="header grid-container">
+    <div class="grid-30 logo">
+      Cobalt
+    </div>
+    <div class="grid-15 sub-logo">
+      TEST BUILD <i><%= build %></i>
+    </div>
+    <div class="grid-55 navigation">
+      <ul class="nav">
+        <li><a href="/docs">Documentation</a></li>
+        <li class="nav-spacer"></li>
+        <% if(user) { %>
+          <li><a href="/user/dashboard">Dashboard</a></li>
+          <li><a href="/user/logout">Log out</a></li>
+        <% } else { %>
+          <li><a href="/user/login">Log in</a></li>
+          <li><a href="/user/signup">Sign up</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <div class="splash grid-container">
+    <div class="grid-100">
+      <div class="description">
+        Utilize publicly available data from the <b>University of Toronto</b>.
+      </div>
+      <div class="signup-button">
+        Sign up for free
+      </div>
+    </div>
+  </div>
 </div>

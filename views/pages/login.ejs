@@ -1,29 +1,29 @@
 <html>
-	<head>
-		<% include ../partials/head %>
-	</head>
-	<header>
-		<% include ../partials/header %>
-	</header>
-	<body>
-		<div class="sub-title">
-			<div class="grid-container">
-				<div class="grid-100">
-					Log in
-				</div>
-			</div>
-		</div>
-		<div class="grid-container content login">
-			<div class="grid-100">
-				<form action="/user/login" method="post">
-					<input type="text" class="login-text" name="email" placeholder="Email" />
-					<input type="password" class="login-text" name="password" placeholder="Password" />
-					<input type="submit" class="login-button" value="Log in" />
-				</form>
-			</div>
-		</div>
-	</body>
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <body>
+    <div class="sub-title">
+      <div class="grid-container">
+        <div class="grid-100">
+          Log in
+        </div>
+      </div>
+    </div>
+    <div class="grid-container content login">
+      <div class="grid-100">
+        <form action="/user/login" method="post">
+          <input type="text" class="login-text" name="email" placeholder="Email" />
+          <input type="password" class="login-text" name="password" placeholder="Password" />
+          <input type="submit" class="login-button" value="Log in" />
+        </form>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
 </html>

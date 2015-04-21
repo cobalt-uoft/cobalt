@@ -1,23 +1,23 @@
 <html>
-	<head>
-		<% include ../partials/head %>
-	</head>
-	<header>
-		<% include ../partials/header %>
-	</header>
-	<body>
-		<% if (errors) { %>
-				<br />
-				<ul>
-					<% errors.forEach(function(name){ %>
-						<li><%= name %></li>
-					<% }) %>
-				<% } %>
-		<% else { %>
-		yolo
-		<% } %>
-	</body>
-	<footer>
-			<% include ../partials/footer %>
-		</footer>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <body>
+    <% if (errors) { %>
+        <br />
+        <ul>
+          <% errors.forEach(function(name){ %>
+            <li><%= name %></li>
+          <% }) %>
+        <% } %>
+    <% else { %>
+    yolo
+    <% } %>
+  </body>
+  <footer>
+      <% include ../partials/footer %>
+    </footer>
 </html>
