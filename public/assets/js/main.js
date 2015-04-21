@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('.signup-button').click(function() {
-    location.href = "/signup"
+    location.href = "/user/signup"
   })
   $('.logo').click(function() {
     location.href = "/"
