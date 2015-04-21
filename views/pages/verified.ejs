@@ -7,17 +7,17 @@
 	</header>
 	<body>
 		<% if (errors) { %>
-        <br />
-        <ul>
-          <% errors.forEach(function(name){ %>
-            <li><%= name %></li>
-          <% }) %>
-        <% } %>
+				<br />
+				<ul>
+					<% errors.forEach(function(name){ %>
+						<li><%= name %></li>
+					<% }) %>
+				<% } %>
 		<% else { %>
 		yolo
 		<% } %>
 	</body>
 	<footer>
-    	<% include ../partials/footer %>
-  	</footer>
+			<% include ../partials/footer %>
+		</footer>
 </html>
