@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+// Enable ES6 via babel
+require('babel/register');
+
 var debug = require('debug')('uoft-course-api');
 var app = require('../app');
 
