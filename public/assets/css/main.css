@@ -30,17 +30,25 @@ body {
       cursor: pointer;
     }
 
-    .header .sub-logo {
-      font-size: 12px;
-      margin-top: 60px;
+    .sub-logo {
+      font-size: 10px;
       display: inline-block;
-      padding: 3px 6px;
+      padding: 3px 12px;
       background: #830300;
-      border-radius: 3px;
       color: #fff;
       font-weight: bold;
       text-align: center;
       line-height: 24px;
+      opacity: 0.4;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: auto;
+      cursor: default;
+    }
+
+    .sub-logo:hover {
+      opacity: 1;
     }
 
     .header .navigation {
@@ -82,7 +90,7 @@ body {
         }
 
   .splash {
-    margin-top: 100px;
+    margin-top: 88px;
     color: #fff;
     text-align: center;
   }
@@ -102,14 +110,13 @@ body {
       max-width: 500px;
       margin: 0 auto;
       margin-top: 0px;
-      margin-bottom: 64px;
     }
 
       .splash .description b {
         color: rgba(255,255,255,0.8);
       }
 
-    .first-sentence .signup-button {
+    .splash .signup-button {
       display: inline-block;
       font-size: 18px;
       font-weight: 600;
@@ -118,16 +125,16 @@ body {
       padding: 10px 20px;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 12px;
-      margin-bottom: 12px;
+      margin-top: 64px;
+      margin-bottom: 48px;
     }
 
-    .first-sentence .signup-button:hover {
+    .splash .signup-button:hover {
       background: rgba(255,255,255,0.7);
       transition: all 0.2s ease;
     }
 
-    .first-sentence .signup-button:active {
+    .splash .signup-button:active {
       background: rgba(255,255,255,0.35);
       transition: all 50ms ease;
     }
@@ -289,11 +296,6 @@ body {
     padding-top: 108px !important;
   }
 
-  .header .sub-logo {
-    display: block;
-    margin:0 auto;
-  }
-
   .sub-title {
     text-align: center;
   }
@@ -303,7 +305,7 @@ body {
   }
 
   .splash {
-    margin-top: 138px;
+    margin-top: 108px;
   }
 
   .splash .title {
@@ -318,6 +320,11 @@ body {
   .splash .description {
     margin-top: 48px;
     font-size: 24px;
+  }
+
+  .splash .signup-button {
+    margin-top: 36px;
+    margin-bottom: 12px;
   }
 
 }
