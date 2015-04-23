@@ -1,5 +1,5 @@
 body {
-  background: url(../img/bg.jpg) #fff;
+  background: url(../img/bg.jpg) #ddd;
   font-family: "SourceSans", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size: 18px;
   padding: 0;
@@ -10,7 +10,6 @@ body {
     height: auto;
     background: url(../img/bahen.jpg) center center #101012;
     background-size:cover;
-    padding-bottom: 68px;
   }
 
   .header {
@@ -103,13 +102,14 @@ body {
       max-width: 500px;
       margin: 0 auto;
       margin-top: 0px;
+      margin-bottom: 64px;
     }
 
       .splash .description b {
         color: rgba(255,255,255,0.8);
       }
 
-    .splash .signup-button {
+    .first-sentence .signup-button {
       display: inline-block;
       font-size: 18px;
       font-weight: 600;
@@ -118,15 +118,16 @@ body {
       padding: 10px 20px;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 54px;
+      margin-top: 12px;
+      margin-bottom: 12px;
     }
 
-    .splash .signup-button:hover {
+    .first-sentence .signup-button:hover {
       background: rgba(255,255,255,0.7);
       transition: all 0.2s ease;
     }
 
-    .splash .signup-button:active {
+    .first-sentence .signup-button:active {
       background: rgba(255,255,255,0.35);
       transition: all 50ms ease;
     }
@@ -177,7 +178,7 @@ body {
       background: #eee;
       padding: 12px;
       box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       cursor: pointer;
       transition: all 0.2s ease;
       font-weight: 200;
@@ -185,6 +186,24 @@ body {
 
     .content .api-box:hover {
       background: #fff;
+    }
+
+  .content-box {
+    font-weight: 200;
+    line-height: 28px;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: rgba(255,255,255, 0.4);
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+  }
+
+    .content-title {
+      font-size: 20px;
+      font-weight: 400;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      margin-bottom: 12px;
     }
 
   .login {
