@@ -24,3 +24,8 @@ The databases are being developed to allow for fully automated curation. In orde
  - [UTM Timetable Planner](https://student.utm.utoronto.ca/timetable/)
  - [UTSC Course Timetable](http://www.utsc.utoronto.ca/~registrar/scheduling/timetable)
  - [UofT Map](http://map.utoronto.ca)
+
+Wiki
+----
+
+Check out the [wiki](https://github.com/cobalt-io/cobalt/wiki) for developer information.
