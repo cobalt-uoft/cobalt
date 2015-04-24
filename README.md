@@ -1,4 +1,4 @@
-Cobalt @ UofT [![Slack][slackin-badge]][slackin]
+Cobalt @ UofT [![Slack][slackin-badge]][slackin] [![Circle CI][circleci-badge]][circleci]
 =============
 This is a service that is currently in development, led by [Qasim Iqbal](https://github.com/Qasim) and [Ivan Zhang](https://github.com/ivanzhangsolutions).
 
@@ -31,3 +31,5 @@ Check out the [wiki](https://github.com/cobalt-io/cobalt/wiki) for developer inf
 
 [slackin]: https://cobalt-slack.herokuapp.com/
 [slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
+[circleci]: https://circleci.com/gh/cobalt-io/cobalt
+[circleci-badge]: https://circleci.com/gh/cobalt-io/cobalt.svg?style=svg
