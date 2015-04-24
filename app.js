@@ -54,9 +54,10 @@ app.use('/user', user)
 import uoftCourseApi from 'uoft-course-api'
 import uoftBuildingApi from 'uoft-building-api'
 import uoftFoodApi from 'uoft-food-api'
-app.use('/api/courses', uoftCourseApi)
-app.use('/api/buildings', uoftBuildingApi)
-app.use('/api/food', uoftFoodApi)
+let apiVersion = app.get('api version')
+app.use(`/api/${apiVersion}/courses`, uoftCourseApi)
+app.use(`/api/${apiVersion}/buildings`, uoftBuildingApi)
+app.use(`/api/${apiVersion}/food`, uoftFoodApi)
 
 
 /* Error handlers */
