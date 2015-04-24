@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint .",
-    "test": "eslint ."
+    "test": "eslint .",
+    "prepush": "npm test"
   },
   "dependencies": {
     "babel": "^5.1.11",
@@ -28,5 +29,8 @@
     "uoft-course-api": "cobalt-io/uoft-course-api",
     "uoft-food-api": "cobalt-io/uoft-food-api",
     "user": "cobalt-io/user"
+  },
+  "devDependencies": {
+    "husky": "^0.7.0"
   }
 }
