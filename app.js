@@ -1,13 +1,13 @@
-var express = require('express')
-var session = require('express-session')
-var path = require('path')
-var favicon = require('serve-favicon')
-var logger = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
-var passport = require('passport')
-var flash = require('connect-flash')
+import express from 'express'
+import session from 'express-session'
+import path from 'path'
+import favicon from 'serve-favicon'
+import logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
+import passport from 'passport'
+import flash from 'connect-flash'
 
 /* Express setup */
 var app = express()
@@ -17,8 +17,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.set('api version', '1.0')
 
-app.use(favicon(__dirname + '/public/favicon.ico'))
-app.use(logger('dev'))
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
+app.use(logger('short'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: false
@@ -41,16 +41,22 @@ if (!process.env.MONGO_URL) {
 mongoose.connect(process.env.MONGO_URL)
 
 /* Front end routes */
-app.use('/', require('./routes/index') )
-app.use('/docs', require('./routes/docs') )
+import index from './routes/index'
+import docs from './routes/docs'
+app.use('/', index)
+app.use('/docs', docs)
 
 /* User routes */
-app.use('/user', require('user') )
+import user from 'user'
+app.use('/user', user)
 
 /* API routes */
-app.use('/api/courses', require('uoft-course-api') )
-app.use('/api/buildings', require('uoft-building-api') )
-app.use('/api/food', require('uoft-food-api') )
+import uoftCourseApi from 'uoft-course-api'
+import uoftBuildingApi from 'uoft-building-api'
+import uoftFoodApi from 'uoft-food-api'
+app.use('/api/courses', uoftCourseApi)
+app.use('/api/buildings', uoftBuildingApi)
+app.use('/api/food', uoftFoodApi)
 
 
 /* Error handlers */
