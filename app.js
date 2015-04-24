@@ -34,7 +34,10 @@ app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Initialize mongoose singleton
+// Initialize mongoose singleton
+if (!process.env.MONGO_URL) {
+  throw new Error('Missing MONGO_URL environment variable')
+}
 mongoose.connect(process.env.MONGO_URL)
 
 /* Front end routes */
