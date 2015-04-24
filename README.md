@@ -1,5 +1,4 @@
-
-Cobalt @ UofT
+Cobalt @ UofT [![Slack][slackin-badge]][slackin]
 =============
 This is a service that is currently in development, led by [Qasim Iqbal](https://github.com/Qasim) and [Ivan Zhang](https://github.com/ivanzhangsolutions).
 
@@ -29,3 +28,6 @@ Wiki
 ----
 
 Check out the [wiki](https://github.com/cobalt-io/cobalt/wiki) for developer information.
+
+[slackin]: https://cobalt-slack.herokuapp.com/
+[slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
