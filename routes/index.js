@@ -1,8 +1,8 @@
-var express = require('express')
-var router = express.Router()
+import express from 'express'
+let router = express.Router()
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   res.render('pages/index', { user: req.user, build: '0.0a12' })
 })
 
-module.exports = router
+export default router
