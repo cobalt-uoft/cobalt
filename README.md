@@ -1,6 +1,6 @@
 Cobalt @ UofT [![Slack][slackin-badge]][slackin] [![Circle CI][circleci-badge]][circleci]
 =============
-This is a service that is currently in development, led by [Qasim Iqbal](https://github.com/Qasim) and [Ivan Zhang](https://github.com/ivanzhangsolutions).
+This is a service that is currently in development.
 
 The mission is to provide a collection of RESTful web APIs that can allow developers to create applications or services that utilize public data from the University of Toronto.
 
