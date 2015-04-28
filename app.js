@@ -1,5 +1,6 @@
 import express from 'express'
 import session from 'express-session'
+import errorhandler from 'errorhandler'
 import path from 'path'
 import favicon from 'serve-favicon'
 import logger from 'morgan'
@@ -53,7 +54,7 @@ app.use('/', index)
 app.use('/docs', docs)
 
 /* User routes */
-import user from 'user'
+import user from './user'
 app.use('/user', user)
 
 /* API routes */
@@ -64,7 +65,6 @@ let apiVersion = app.get('api version')
 app.use(`/api/${apiVersion}/courses`, uoftCourseApi)
 app.use(`/api/${apiVersion}/buildings`, uoftBuildingApi)
 app.use(`/api/${apiVersion}/food`, uoftFoodApi)
-
 
 /* Error handlers */
 
@@ -78,15 +78,7 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-    res.json({
-      error: {
-        code: err.status,
-        message: err.message
-      }
-    })
-  })
+  app.use(errorhandler())
 }
 
 // production error handler
