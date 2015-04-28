@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 // Enable ES6 via babel
-require('babel/register')
+require('babel/register')({
+  sourceMap: 'both'
+})
 
 var app = require('../app')
 
