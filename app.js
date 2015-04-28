@@ -54,7 +54,7 @@ app.use('/', index)
 app.use('/docs', docs)
 
 /* User routes */
-import user from 'user'
+import user from './user'
 app.use('/user', user)
 
 /* API routes */
