@@ -1,4 +1,3 @@
-import passport from 'passport'
 import User from '../model'
 import md5 from 'MD5'
 
@@ -24,30 +23,30 @@ export function post(req, res) {
 
   var checkEmail = email.search(
     new RegExp(
-      "[a-z0-9!#$%&'*+/=?^_`{|}~-]+" +
-      "(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
-      "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+" +
-      "[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+      '[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+' +
+      '(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' +
+      '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+' +
+      '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
     )
   )
-  if (checkEmail == -1) {
-    req.flash('signup-error', "Bad email")
+  if (checkEmail === -1) {
+    req.flash('signup-error', 'Bad email')
     isError = true
   }
 
   var checkPassword = password.search(
     /^((?=.*\d)(?=.*[a-z@#$%]).{6,64})$/
   )
-  if (checkPassword == -1) {
-    req.flash('signup-error', "Bad password")
+  if (checkPassword === -1) {
+    req.flash('signup-error', 'Bad password')
     isError = true
   }
 
   var checkName = name.search(
     /^([ \u00c0-\u01ffa-zA-Z'\-])+$/
   )
-  if (checkName == -1) {
-    req.flash('signup-error', "Bad name")
+  if (checkName === -1) {
+    req.flash('signup-error', 'Bad name')
     isError = true
   }
 
@@ -93,10 +92,10 @@ export function post(req, res) {
       newUser.password = md5(name + email + password + newUser.salt)
       newUser.name = name
       newUser.generateKeys()
-      newUser.save(function(err) {
-        if (err) {
+      newUser.save(function(saveErr) {
+        if (saveErr) {
           /* TODO: not necessarily just 'bad email' */
-          req.flash('signup-error', "Bad email")
+          req.flash('signup-error', 'Bad email')
           res.render('pages/signup', {
             user: req.user,
             errors: req.flash('signup-error'),
@@ -105,8 +104,8 @@ export function post(req, res) {
           })
         } else {
           newUser.save() // success
-          req.login(newUser, function(err) {
-            if (err) {
+          req.login(newUser, function(loginErr) {
+            if (loginErr) {
               req.flash('signup-error', 'Passport error')
               res.render('pages/signup', {
                 user: req.user,

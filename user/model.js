@@ -32,10 +32,11 @@ var userSchema = new Schema({
 })
 
 userSchema.methods.getCount = function(call) {
-  count = 0
-  for (var i = 0; i < this.api.calls.length; i++) {
-    if (call == this.api.calls[i])
+  let count = 0
+  for (let i = 0; i < this.api.calls.length; i++) {
+    if (call === this.api.calls[i]) {
       count++
+    }
   }
   return count
 }
@@ -51,27 +52,26 @@ userSchema.methods.generateKeys = function() {
 
 userSchema.statics.login = function(email, password, next) {
   this.findOne({
-    "email.address": email
+    'email.address': email
   }, function(err, user) {
     if (err) {
       return next({
-        message: "Mongo error"
+        message: 'Mongo error'
       })
     }
-    if (user == undefined) {
+    if (user === undefined) {
       return next({
-        message: "User does not exist"
+        message: 'User does not exist'
       })
     }
 
-    var isMatch = (md5(user.name + email + password + user.salt) ==
-      user.password)
+    var isMatch = (md5(user.name + email + password + user.salt) === user.password)
 
     if (isMatch) {
       return next(null, user)
     } else {
       return next({
-        message: "Incorrect password"
+        message: 'Incorrect password'
       })
     }
   })

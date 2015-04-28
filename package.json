@@ -29,8 +29,7 @@
     "serve-favicon": "~2.2.0",
     "uoft-building-api": "cobalt-io/uoft-building-api",
     "uoft-course-api": "cobalt-io/uoft-course-api",
-    "uoft-food-api": "cobalt-io/uoft-food-api",
-    "user": "cobalt-io/user"
+    "uoft-food-api": "cobalt-io/uoft-food-api"
   },
   "devDependencies": {
     "babel-eslint": "^3.0.1",

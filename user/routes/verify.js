@@ -24,9 +24,9 @@ var get = function(req, res) {
       }
 
       //Update the db with email being verified
-      User.update(conditions, update, null, function(err,
+      User.update(conditions, update, null, function(updateErr,
         updateCount) {
-        if (err) {
+        if (updateErr) {
           return res.render('pages/verified', {
             errors: req.flash('verify-error')
           })
