@@ -1,8 +1,4 @@
-var passport = require('passport')
-
-var get = function(req, res) {
+export function get(req, res) {
   req.logout()
   res.redirect('/')
 }
-
-module.exports = get

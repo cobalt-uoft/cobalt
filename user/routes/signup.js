@@ -5,25 +5,23 @@ export function get(req, res) {
   if (req.user) {
     res.redirect('/user/dashboard')
   } else {
-    res.render('pages/signup', {
-      user: req.user,
-      errors: undefined,
-      name: '',
-      email: ''
-    })
+    res.render('pages/signup')
   }
 }
 
 export function post(req, res) {
-  User.register(new User({ email: req.body.email }), req.body.password, function(err, user) {
+  User.register(new User({
+    name: req.body.name,
+    email: req.body.email
+  }), req.body.password, (err, user) => {
+    console.log(err, user)
     if (err) {
-      return res.render('pages/signup', { user: user })
+      return res.render('pages/signup', {
+        errors: [err.message]
+      })
     }
-
-    passport.authenticate('local')(req, res, function () {
+    passport.authenticate('local')(req, res, () => {
       res.redirect('/')
     })
   })
 }
-
-export default { get, post }

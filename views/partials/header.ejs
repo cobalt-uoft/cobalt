@@ -7,7 +7,7 @@
       <ul class="nav">
         <li><a href="/docs">Documentation</a></li>
         <li class="nav-spacer"></li>
-        <% if(user) { %>
+        <% if (locals.user) { %>
           <li><a href="/user/dashboard">Dashboard</a></li>
           <li><a href="/user/logout">Log out</a></li>
         <% } else { %>

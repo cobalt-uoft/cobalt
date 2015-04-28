@@ -17,20 +17,20 @@
       <div class="grid-60 signup-info">
         Fill in later. Facts about signing up.
 
-        <% if (errors) { %>
-        <br />
-        <ul>
-          <% errors.forEach(function(name){ %>
+        <% if (locals.errors) { %>
+          <br />
+          <ul>
+          <% locals.errors.forEach(function(name){ %>
             <li><%= name %></li>
           <% }) %>
+          </ul>
         <% } %>
 
-        </ul>
       </div>
       <div class="grid-40">
         <form action="/user/signup" method="post">
-          <input type="text" class="login-text" name="name" placeholder="Name" value="<%= name ? name : '' %>"/>
-          <input type="text" class="login-text" name="email" placeholder="Email" value="<%= email ? email : '' %>" />
+          <input type="text" class="login-text" name="name" placeholder="Name" value="<%= locals.name ? locals.name : '' %>"/>
+          <input type="text" class="login-text" name="email" placeholder="Email" value="<%= locals.email ? locals.email : '' %>" />
           <input type="password" class="login-text" name="password" placeholder="Password" />
           <input type="submit" class="login-button" value="Sign up" />
         </form>

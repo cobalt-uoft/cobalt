@@ -14,19 +14,19 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-import login from './routes/login'
-router.get('/login', login.get)
-router.post('/login', login.post)
-
-import signup from './routes/signup'
+import * as signup from './routes/signup'
 router.get('/signup', signup.get)
 router.post('/signup', signup.post)
 
-import logout from './routes/logout'
+import * as login from './routes/login'
+router.get('/login', login.get)
+router.post('/login', login.post)
+
+import * as logout from './routes/logout'
 import verify from './routes/verify'
-import dashboard from './routes/dashboard'
-router.get('/logout', logout)
+import * as dashboard from './routes/dashboard'
+router.get('/logout', logout.get)
 router.get('/verify', verify)
-router.get('/dashboard', dashboard)
+router.get('/dashboard', dashboard.get)
 
 export default router

@@ -31,8 +31,8 @@ var get = function(req, res) {
             errors: req.flash('verify-error')
           })
         }
-        else{
-        return res.render('pages/verified')
+        else {
+          return res.render('pages/verified')
         }
       })
     }
