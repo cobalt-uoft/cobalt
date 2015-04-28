@@ -1,26 +1,21 @@
 import Building from '../model'
 import co from 'co'
 
+var limit = 10
+var skip = 0
+
 export default function get(req, res) {
-
-  var limit = 10
-  var skip = 0
-
   var qLimit = limit
   if(req.query.limit) {
-
-    if(req.query.limit <= 100) {
-      qLimit = req.query.limit
-    } else {
-      res.json({
-        "error": {
-          "code": 0,
-        "message": "Limit must be less than or equal to 100."
+    if(req.query.limit > 100) {
+      return res.json({
+        'error': {
+          'code': 0,
+          'message': 'Limit must be less than or equal to 100.'
         }
       })
-      return
     }
-
+    qLimit = req.query.limit
   }
 
   var qSkip = skip
@@ -28,20 +23,18 @@ export default function get(req, res) {
     qSkip = req.query.skip
   }
 
-  var filter = {}
-
+  var qFilter = {}
   if(req.query.campus) {
     let campus = req.query.campus.toUpperCase()
-    if(["UTSG", "UTSC", "UTM"].indexOf(campus) > -1) {
-      filter["campus"] = campus
+    if(['UTSG', 'UTSC', 'UTM'].indexOf(campus) > -1) {
+      qFilter.campus = campus
     }
   }
  
-  co(function* () {
-    var docs = yield Building.find(filter).skip(qSkip).limit(qLimit).exec()
+  co(function* (){
+    var docs = yield Building.find(qFilter).skip(qSkip).limit(qLimit).exec()
     res.json(docs)
-  }).catch((err) => {
+  }).catch(err => {
     res.json(err)
   })
-  
 }

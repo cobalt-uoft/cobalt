@@ -18,4 +18,4 @@ var buildingSchema = new Schema({
   }
 })
 
-export default mongoose.model("buildings", buildingSchema)
+export default mongoose.model('buildings', buildingSchema)

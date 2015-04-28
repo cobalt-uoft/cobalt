@@ -1,8 +1,5 @@
 import express from 'express'
-import mongoose from 'mongoose'
 let router = express.Router()
-
-mongoose.connect(process.env.MONGO_URL)
 
 import list from './routes/list'
 import show from './routes/show'
