@@ -7,30 +7,35 @@ import User from './model'
 let router = express.Router()
 
 /* Passport plugins */
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  }, (email, password, done) => {
-    User.login(email, password, (err, user) => {
-      if (err) {
-        return done(null, false, {
-          message: err.message
-        })
-      }
-      return done(null, user)
-    })
-  }
-))
+// passport.use(new LocalStrategy({
+//     usernameField: 'email',
+//     passwordField: 'password'
+//   }, (email, password, done) => {
+//     User.login(email, password, (err, user) => {
+//       if (err) {
+//         return done(null, false, {
+//           message: err.message
+//         })
+//       }
+//       return done(null, user)
+//     })
+//   }
+// ))
 
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
+passport.use(new LocalStrategy(User.authenticate()))
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user)
-  })
-})
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+// passport.serializeUser((user, done) => {
+//   done(null, user.id)
+// })
+
+// passport.deserializeUser((id, done) => {
+//   User.findById(id, (err, user) => {
+//     done(err, user)
+//   })
+// })
 
 import login from './routes/login'
 router.get('/login', login.get)

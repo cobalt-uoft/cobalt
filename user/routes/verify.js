@@ -1,4 +1,4 @@
-var User = require('../model')
+import User from '../model'
 
 var get = function(req, res) {
   //They request /user/verify?key=<KEY>
@@ -39,4 +39,4 @@ var get = function(req, res) {
   })
 }
 
-module.exports = get
+export default get
