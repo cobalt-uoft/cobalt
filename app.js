@@ -38,7 +38,11 @@ app.use(passport.session())
 if (!process.env.MONGO_URL) {
   throw new Error('Missing MONGO_URL environment variable')
 }
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URL, err => {
+  if (err) {
+    throw new Error(`Failed to connect to MongoDB [MONGO_URL=${process.env.MONGO_URL}]: ${err.message}`)
+  }
+})
 
 /* Front end routes */
 import index from './routes/index'
