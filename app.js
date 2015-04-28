@@ -41,6 +41,8 @@ if (!process.env.MONGO_URL) {
 mongoose.connect(process.env.MONGO_URL, err => {
   if (err) {
     throw new Error(`Failed to connect to MongoDB [MONGO_URL=${process.env.MONGO_URL}]: ${err.message}`)
+  } else {
+    console.log('Connected to MongoDB')
   }
 })
 
