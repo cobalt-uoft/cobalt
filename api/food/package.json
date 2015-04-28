@@ -1,0 +1,26 @@
+{
+  "name": "uoft-food-api",
+  "version": "0.0.1",
+  "description": "A web API for interfacing with UofT food vendors.",
+  "main": "index.js",
+  "engines": {
+    "node": "^0.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cobalt-io/uoft-food-api.git"
+  },
+  "author": "Cobalt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cobalt-io/uoft-food-api/issues"
+  },
+  "homepage": "https://github.com/cobalt-io/uoft-food-api#readme",
+  "dependencies": {
+    "express": "^4.12.3",
+    "mongoose": "^4.0.2"
+  }
+}
