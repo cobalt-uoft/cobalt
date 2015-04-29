@@ -8,9 +8,9 @@ Web APIs
 ----------
 The APIs are being made to be easy to understand and very comprehensive in what it can provide to a developer. In order to achieve this, we are actively contacting developers at UofT to see what use cases are needed in each API. Along with this, market research is performed to allow us to understand the viability of certain end points. We are working on the following web APIs for Cobalt:
 
-  - [UofT Course API](https://github.com/cobalt-io/cobalt/tree/master/api/courses)
-  - [UofT Building API](https://github.com/cobalt-io/cobalt/tree/master/api/buildings)
-  - [UofT Food API](https://github.com/cobalt-io/cobalt/tree/master/api/food)
+  - [x] [UofT Course API](https://github.com/cobalt-io/cobalt/tree/master/api/courses)
+  - [x] [UofT Building API](https://github.com/cobalt-io/cobalt/tree/master/api/buildings)
+  - [ ] [UofT Food API](https://github.com/cobalt-io/cobalt/tree/master/api/food)
 
 We encourage your feedback on our progress!
 
