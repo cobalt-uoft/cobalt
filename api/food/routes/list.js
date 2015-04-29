@@ -1,7 +1,5 @@
-var Building = require('../model')
+//import Food from '../model'
 
-var main = function(req, res) {
+export default function get(req, res) {
   res.json({})
 }
-
-module.exports = main

@@ -1,34 +1,29 @@
-var Course = require('../model')
-
+import Course from '../model'
+import co from 'co'
 var limit = 10
 var skip = 0
 
-var main = function(req, res) {
-
+export default function get(req, res) {
   if(!Course.hasOwnProperty(req.params.year)) {
     return res.json({
-      "error": {
-        "code": 0,
-      "message": "Invalid year."
+      'error': {
+        'code': 0,
+        'message': 'Invalid year.'
       }
     })
   }
 
   var qLimit = limit
   if(req.query.limit) {
-
-    if(req.query.limit <= 100) {
-      qLimit = req.query.limit
-    } else {
-      res.json({
-        "error": {
-          "code": 0,
-        "message": "Limit must be less than or equal to 100."
+    if(req.query.limit > 100) {
+      return res.json({
+        'error': {
+          'code': 0,
+          'message': 'Limit must be less than or equal to 100.'
         }
       })
-      return
     }
-
+    qLimit = req.query.limit
   }
 
   var qSkip = skip
@@ -36,21 +31,18 @@ var main = function(req, res) {
     qSkip = req.query.skip
   }
 
-  var filter = {}
-
+  var qFilter = {}
   if(req.query.campus) {
-    campus = req.query.campus.toUpperCase()
-    if(["UTSG", "UTSC", "UTM"].indexOf(campus) > -1) {
-      filter["campus"] = campus
+    let campus = req.query.campus.toUpperCase()
+    if(['UTSG', 'UTSC', 'UTM'].indexOf(campus) > -1) {
+      qFilter.campus = campus
     }
   }
 
-  Course[req.params.year].find(filter).skip(qSkip).limit(qLimit).exec(function(err, docs) {
-    if(err) {
-      res.json(err)
-    }
+  co(function* () {
+    var docs = yield Course[req.params.year].find(qFilter).skip(qSkip).limit(qLimit).exec()
     res.json(docs)
+  }).catch(err => {
+    res.json(err)
   })
 }
-
-module.exports = main

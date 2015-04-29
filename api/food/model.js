@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+import mongoose from 'mongoose'
+import { Schema } from 'mongoose'
 
 var foodSchema = new Schema({
   id: String,
@@ -44,4 +44,4 @@ var foodSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model("food", foodSchema)
+export default mongoose.model('food', foodSchema)

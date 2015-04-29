@@ -1,9 +1,10 @@
-var Building = require('../model')
+import Building from '../model'
+import co from 'co'
 
 var limit = 10
 var skip = 0
 
-var main = function(req, res) {
+export default function get(req, res) {
   if(!req.query.q) {
     return res.json({
       'error': {
@@ -41,13 +42,15 @@ var main = function(req, res) {
   }
 
   /* TODO: utilize promises and async control flow */
-  Building.find({
-    $text: {
-      $search: req.query.q
-    }
-  }).skip(qSkip).limit(qLimit).exec(function(err, docs) {
+  co(function* (){
+    var docs = yield Building.find({
+      $text: {
+        $search: req.query.q
+      }
+    }).skip(qSkip).limit(qLimit).exec()
     res.json(docs)
+  }).catch(err => {
+    res.json(err)
   })
-}
 
-module.exports = main
+}

@@ -1,79 +1,61 @@
-var Course = require('../model')
+import Course from '../model'
+import co from 'co'
 
 var limit = 10
 var skip = 0
 
-var main = function(req, res) {
-
+export default function get(req, res) {
   if(!Course.hasOwnProperty(req.params.year)) {
     return res.json({
-      "error": {
-        "code": 0,
-      "message": "Invalid year."
+      'error': {
+        'code': 0,
+        'message': 'Invalid year.'
       }
     })
   }
 
-  if(req.query.q) {
-
-    var qLimit = limit
-    if(req.query.limit) {
-
-      if(req.query.limit <= 100) {
-        qLimit = req.query.limit
-      } else {
-        res.json({
-          "error": {
-            "code": 0,
-          "message": "Limit must be less than or equal to 100."
-          }
-        })
-        return
-      }
-
-    }
-
-    var qSkip = skip
-    if(req.query.skip) {
-      qSkip = req.query.skip
-    }
-
-    if(req.query.q.length >= 3) {
-      Course[req.params.year].find({
-        "code": { $regex: "^.*" + escapeRe(req.query.q).toUpperCase() + ".*"}
-      }).skip(qSkip).limit(qLimit).exec(function(err, docs) {
-        if(docs.length == 0) {
-          Course[req.params.year].find({
-              $text: { $search: req.query.q }
-            }).skip(qSkip).limit(qLimit).exec(function(err, docs) {
-              res.json(docs)
-          })
-        } else {
-          res.json(docs)
-        }
-      })
-    } else {
-      res.json({
-        "error": {
-          "code": 0,
-        "message": "Query must be of at least length 3."
-        }
-      })
-    }
-
-  } else {
-    res.json({
-      "error": {
-        "code": 0,
-      "message": "Query must be specified."
+  if(!req.query.q) {
+    return res.json({
+      'error': {
+        'code': 0,
+        'message': 'Query must be specified.'
       }
     })
   }
 
-}
+  var qLimit = limit
+  if(req.query.limit) {
+    if(req.query.limit > 100) {
+      return res.json({
+        'error': {
+          'code': 0,
+          'message': 'Limit must be less than or equal to 100.'
+        }
+      })
+    }
+    qLimit = req.query.limit
+  }
 
-function escapeRe(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
+  var qSkip = skip
+  if(req.query.skip) {
+    qSkip = req.query.skip
+  }
 
-module.exports = main
+  if(req.query.q.length < 3) {
+    return res.json({
+      'error': {
+        'code': 0,
+        'message': 'Query must be of at least length 3.'
+      }
+    })
+  }
+
+  co(function* () {
+    var docs = yield Course[req.params.year].find({
+      $text: { $search: req.query.q }
+    }).skip(qSkip).limit(qLimit).exec()
+    res.json(docs)
+  }).catch(err => {
+    res.json(err)
+  })
+}

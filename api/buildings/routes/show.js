@@ -1,6 +1,7 @@
-var Building = require('../model')
+import Building from '../model'
+import co from 'co'
 
-var main = function(req, res) {
+export default function get(req, res) {
   if (!req.params.id) {
     res.json({
       'error': {
@@ -10,12 +11,10 @@ var main = function(req, res) {
     })
   }
 
-  /* TODO: utilize promises */
-  Building.find({
-    id: req.params.id
-  }, function(err, docs) {
-    res.json(docs[0])
+  co(function* (){
+    var doc = yield Building.findOne({ id: req.params.id }).exec()
+    res.json(doc)
+  }).catch(err => {
+    res.json(err)
   })
 }
-
-module.exports = main

@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+import mongoose from 'mongoose'
+import { Schema } from 'mongoose'
 
 var courseSchema = new Schema({
   id: String,
@@ -30,6 +30,6 @@ var courseSchema = new Schema({
 })
 
 module.exports = {
-  '2014': mongoose.model("courses_2014", courseSchema),
-  '2015': mongoose.model("courses_2015", courseSchema)
+  '2014': mongoose.model('courses_2014', courseSchema),
+  '2015': mongoose.model('courses_2015', courseSchema)
 }

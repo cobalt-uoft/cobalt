@@ -30,7 +30,7 @@ export default function get(req, res) {
       qFilter.campus = campus
     }
   }
- 
+
   co(function* (){
     var docs = yield Building.find(qFilter).skip(qSkip).limit(qLimit).exec()
     res.json(docs)

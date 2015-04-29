@@ -1,8 +1,12 @@
-var express = require('express')
-var router = express.Router()
+import express from 'express'
+let router = express.Router()
 
-router.get('/list', require('./routes/list') )
-router.get('/show/:id', require('./routes/show') )
-router.get('/search', require('./routes/search') )
+import list from './routes/list'
+import show from './routes/show'
+import search from './routes/search'
 
-module.exports = router
+router.get('/list', list)
+router.get('/show/:id', show)
+router.get('/search', search)
+
+export default router
