@@ -4,6 +4,16 @@
   "engines": {
     "node": "^0.10.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cobalt-io/cobalt.git"
+  },
+  "author": "Cobalt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cobalt-io/cobalt/issues"
+  },
+  "homepage": "https://github.com/cobalt-io/cobalt#readme",
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint .",
@@ -27,10 +37,7 @@
     "passport-local": "1.0.0",
     "passport-local-mongoose": "^1.0.0",
     "sendgrid": "^1.7.0",
-    "serve-favicon": "~2.2.0",
-    "uoft-building-api": "cobalt-io/uoft-building-api",
-    "uoft-course-api": "cobalt-io/uoft-course-api",
-    "uoft-food-api": "cobalt-io/uoft-food-api"
+    "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^3.0.1",
