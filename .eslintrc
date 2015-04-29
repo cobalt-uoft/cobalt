@@ -9,6 +9,8 @@
     "semi": [2, "never"],
     "quotes": [2, "single"],
     "no-unused-vars": [2, {"vars": "all", "args": "none"}],
-    "new-cap": [2, {"capIsNew": false}]
+    "new-cap": [2, {"capIsNew": false}],
+    "camelcase": [2, {"properties": "never"}],
+    "no-underscore-dangle": 0
   }
 }
