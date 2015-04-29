@@ -58,13 +58,13 @@ import user from './user'
 app.use('/user', user)
 
 /* API routes */
-import uoftCourseApi from 'uoft-course-api'
-import uoftBuildingApi from 'uoft-building-api'
-import uoftFoodApi from 'uoft-food-api'
+import courses from './api/courses'
+import buildings from './api/buildings'
+import food from './api/food'
 let apiVersion = app.get('api version')
-app.use(`/api/${apiVersion}/courses`, uoftCourseApi)
-app.use(`/api/${apiVersion}/buildings`, uoftBuildingApi)
-app.use(`/api/${apiVersion}/food`, uoftFoodApi)
+app.use(`/api/${apiVersion}/courses`, courses)
+app.use(`/api/${apiVersion}/buildings`, buildings)
+app.use(`/api/${apiVersion}/food`, food)
 
 /* Error handlers */
 
