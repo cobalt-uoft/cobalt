@@ -41,4 +41,8 @@ User.methods.generateKeys = function() {
   console.log(this.api.key)
 }
 
+User.statics.apiAuth = function (req, res, next) {
+  console.log("shrug")
+}
+
 export default mongoose.model('User', User)

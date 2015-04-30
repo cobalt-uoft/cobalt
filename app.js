@@ -53,18 +53,26 @@ import docs from './routes/docs'
 app.use('/', index)
 app.use('/docs', docs)
 
-/* User routes */
-import user from './user'
-app.use('/user', user)
+/* User imports */
+import { default as user, model as User }  from './user'
 
 /* API routes */
 import courses from './api/courses'
 import buildings from './api/buildings'
 import food from './api/food'
 let apiVersion = app.get('api version')
-app.use(`/api/${apiVersion}/courses`, courses)
-app.use(`/api/${apiVersion}/buildings`, buildings)
-app.use(`/api/${apiVersion}/food`, food)
+
+if(process.env.SELF_HOSTED === 'true') {
+  app.use(`/api/${apiVersion}/courses`, courses)
+  app.use(`/api/${apiVersion}/buildings`, buildings)
+  app.use(`/api/${apiVersion}/food`, food)
+} else {
+  app.use('/user', user)
+  app.use(`/api/${apiVersion}/courses`, User.apiAuth, courses)
+  app.use(`/api/${apiVersion}/buildings`, User.apiAuth, buildings)
+  app.use(`/api/${apiVersion}/food`, User.apiAuth, food)
+}
+
 
 /* Error handlers */
 

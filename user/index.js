@@ -1,7 +1,6 @@
 import express from 'express'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-
 import User from './model'
 
 let router = express.Router()
@@ -30,3 +29,4 @@ router.get('/verify', verify)
 router.get('/dashboard', dashboard.get)
 
 export default router
+export let model = User
