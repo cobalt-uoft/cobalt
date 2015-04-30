@@ -1,5 +1,6 @@
 import passport from 'passport'
 import User from '../model'
+import md5 from 'MD5'
 
 export function get(req, res) {
   if (req.user) {
@@ -12,7 +13,10 @@ export function get(req, res) {
 export function post(req, res) {
   User.register(new User({
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    api: {
+      key: md5(req.body.email + Math.random())
+    }
   }), req.body.password, (err, user) => {
     console.log(err, user)
     if (err) {
@@ -20,6 +24,9 @@ export function post(req, res) {
         errors: [err.message]
       })
     }
+
+    /* TODO: Log the user in upon signup, redirect to
+       dashboard */
     passport.authenticate('local')(req, res, () => {
       res.redirect('/')
     })

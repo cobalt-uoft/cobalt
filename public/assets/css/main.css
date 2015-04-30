@@ -30,6 +30,15 @@ body {
       cursor: pointer;
     }
 
+    .header .logo.self-hosted {
+      text-align: center;
+      background-position: top center !important;
+      background-size: 108px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      padding-top: 108px !important;
+    }
+
     .sub-logo {
       font-size: 10px;
       display: inline-block;
@@ -93,6 +102,10 @@ body {
     margin-top: 88px;
     color: #fff;
     text-align: center;
+  }
+
+  .splash.self-hosted {
+    margin-top: 184px;
   }
 
     .splash .title {
@@ -305,7 +318,7 @@ body {
   }
 
   .splash {
-    margin-top: 108px;
+    margin-top: 108px !important;
   }
 
   .splash .title {

@@ -42,7 +42,7 @@ User.methods.generateKeys = function() {
 }
 
 User.statics.apiAuth = function (req, res, next) {
-  console.log("shrug")
+
 }
 
 export default mongoose.model('User', User)

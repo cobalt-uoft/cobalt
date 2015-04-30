@@ -3,31 +3,43 @@
 </div>
 <div class="main">
   <div class="header grid-container">
+  <% if(selfHosted) { %>
+    <div class="grid-100 logo self-hosted">
+      Cobalt
+    </div>
+  <% } else { %>
     <div class="grid-45 logo">
       Cobalt
     </div>
     <div class="grid-55 navigation">
       <ul class="nav">
-        <li><a href="/docs">Documentation</a></li>
-        <li class="nav-spacer"></li>
-        <% if(user) { %>
-          <li><a href="/user/dashboard">Dashboard</a></li>
-          <li><a href="/user/logout">Log out</a></li>
-        <% } else { %>
-          <li><a href="/user/login">Log in</a></li>
-          <li><a href="/user/signup">Sign up</a></li>
-        <% } %>
+      <li><a href="/docs">Documentation</a></li>
+      <li class="nav-spacer"></li>
+      <% if(user) { %>
+        <li><a href="/user/dashboard">Dashboard</a></li>
+        <li><a href="/user/logout">Log out</a></li>
+      <% } else { %>
+        <li><a href="/user/login">Log in</a></li>
+        <li><a href="/user/signup">Sign up</a></li>
+      <% } %>
       </ul>
     </div>
+  <% } %>
   </div>
-  <div class="splash grid-container">
+  <div class="splash grid-container self-hosted">
     <div class="grid-100">
       <div class="description">
         Utilize publicly available data from the <b>University of Toronto</b>.
       </div>
     </div>
-    <div class="signup-button">
-      Sign up for free
-    </div>
+    <% if(selfHosted) { %>
+      <div class="signup-button">
+        Documentation
+      </div>
+    <% } else { %>
+      <div class="signup-button">
+        Sign up for free
+      </div>
+    <% } %>
   </div>
 </div>

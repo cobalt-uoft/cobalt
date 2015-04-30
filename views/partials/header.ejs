@@ -6,13 +6,15 @@
     <div class="grid-75 navigation">
       <ul class="nav">
         <li><a href="/docs">Documentation</a></li>
-        <li class="nav-spacer"></li>
-        <% if (locals.user) { %>
-          <li><a href="/user/dashboard">Dashboard</a></li>
-          <li><a href="/user/logout">Log out</a></li>
-        <% } else { %>
-          <li><a href="/user/login">Log in</a></li>
-          <li><a href="/user/signup">Sign up</a></li>
+        <% if (!selfHosted) { %>
+          <li class="nav-spacer"></li>
+          <% if (locals.user) { %>
+            <li><a href="/user/dashboard">Dashboard</a></li>
+            <li><a href="/user/logout">Log out</a></li>
+          <% } else { %>
+            <li><a href="/user/login">Log in</a></li>
+            <li><a href="/user/signup">Sign up</a></li>
+          <% } %>
         <% } %>
       </ul>
     </div>

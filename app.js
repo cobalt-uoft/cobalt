@@ -54,7 +54,7 @@ app.use('/', index)
 app.use('/docs', docs)
 
 /* User imports */
-import { default as user, model as User }  from './user'
+import { default as user, model as User } from './user'
 
 /* API routes */
 import courses from './api/courses'
