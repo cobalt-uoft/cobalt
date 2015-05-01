@@ -4,16 +4,16 @@ import passportLocalMongoose from 'passport-local-mongoose'
 import md5 from 'MD5'
 
 let User = new Schema({
-  // email: {
-  //   address: {
-  //     type: String,
-  //     required: true,
-  //     index: {
-  //       unique: true
-  //     }
-  //   },
-  //   verified: Boolean
-  // },
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  verified: {
+    type: Boolean
+  },
   name: {
     type: String,
     required: true
