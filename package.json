@@ -2,14 +2,14 @@
   "name": "cobalt",
   "version": "0.0.1",
   "engines": {
-    "node": "^0.10.0"
+    "node": "^0.12.7"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cobalt-io/cobalt.git"
   },
   "author": "Cobalt",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cobalt-io/cobalt/issues"
   },
@@ -21,24 +21,11 @@
     "prepush": "npm test"
   },
   "dependencies": {
-    "MD5": "^1.2.1",
-    "babel": "^5.1.13",
-    "body-parser": "~1.12.3",
-    "co": "^4.5.2",
-    "connect-flash": "0.1.1",
-    "cookie-parser": "~1.3.4",
-    "debug": "~2.1.3",
-    "ejs": "~2.3.1",
-    "express": "~4.12.3",
-    "errorhandler": "^1.3.5",
-    "express-session": "1.11.1",
-    "mongoose": "^4.0.2",
-    "morgan": "~1.5.2",
-    "passport": "0.2.1",
-    "passport-local": "1.0.0",
-    "passport-local-mongoose": "^1.0.0",
-    "sendgrid": "^1.7.0",
-    "serve-favicon": "~2.2.0"
+    "babel": "^5.8.23",
+    "co": "^4.6.0",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.7"
   },
   "devDependencies": {
     "babel-eslint": "^3.0.1",
