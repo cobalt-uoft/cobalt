@@ -1,5 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import errorhandler from 'errorhandler'
+import courses from './api/courses'
+import buildings from './api/buildings'
 
 /* Express setup */
 let app = express()
@@ -18,11 +21,7 @@ mongoose.connect(process.env.MONGO_URL, err => {
 })
 
 /* API routes */
-import courses from './api/courses'
-import buildings from './api/buildings'
-
 let apiVersion = '1.0'
-
 app.use(`/api/${apiVersion}/courses`, courses)
 app.use(`/api/${apiVersion}/buildings`, buildings)
 
