@@ -1,0 +1,3 @@
+[submodule "scraper/uoft-scrapers"]
+	path = scraper/uoft-scrapers
+	url = https://github.com/cobalt-io/uoft-scrapers
