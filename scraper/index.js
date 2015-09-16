@@ -4,47 +4,44 @@ import co from 'co'
 import cron from 'cron'
 import fs from 'fs'
 import Building from '../api/buildings/model'
+import Course from '../api/courses/model'
 
-let perform = () => {
-  // Buildings scrape automation
-  console.log('Performing automated building scrape.')
-  // Run python scraper
-  var child = childProcess.exec('python3 ./scraper/uoft-scrapers/main.py map', (err, stdin, stdout) => {
+let scrape = (type, Model) => {
+  console.log(`Starting automated ${type} scrape.`)
+  var child = childProcess.exec(`python3 ./scraper/uoft-scrapers/main.py ${type}`, (err, stdin, stdout) => {
     if(err) {
-      console.log('Failed automated building scrape.')
+      console.log(`Failed automated ${type} scrape.`)
     } else {
-      console.log('Completed automated building scrape.')
+      console.log(`Completed automated ${type} scrape.`)
     }
 
     // Find scraped JSON files
-    fs.readdir('./scraper/uoft-scrapers/scrapers/map/json/', (e, files) => {
+    fs.readdir(`./scraper/uoft-scrapers/scrapers/${type}/json/`, (e, files) => {
       assert.ifError(e)
       files.forEach(file => {
         // Read JSON file to object
-        fs.readFile(`./scraper/uoft-scrapers/scrapers/map/json/${file}`, 'utf8', (e, data) => {
+        fs.readFile(`./scraper/uoft-scrapers/scrapers/${type}/json/${file}`, 'utf8', (e, data) => {
           assert.ifError(e)
           co(function*() {
-            var buildingData = JSON.parse(data)
-
-            var building
+            var data = JSON.parse(data)
+            var doc
             try {
-              building = yield Building.findOne({ id: buildingData.id }).exec()
+              doc = yield Model.findOne({ id: data.id }).exec()
             } catch(e) {
               assert.ifError(e)
             }
-
-            if (building) {
+            if (doc) {
               // Update record if exists
               try {
-                yield building.update(buildingData).exec()
+                yield doc.update(data).exec()
               } catch(e) {
                 assert.ifError(e)
               }
             } else {
               // Create new record otherwise
-              building = new Building(buildingData)
+              doc = new Model(data)
               try {
-                yield building.save()
+                yield doc.save()
               } catch(e) {
                 assert.ifError(e)
               }
@@ -54,15 +51,19 @@ let perform = () => {
       })
     })
   })
-  child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
+}
 
-  // TODO: Courses scrape automation
+let perform = () => {
+  // Buildings scrape automation
+  scrape('map', Building)
+  // Courses scrape automation
+  scrape('coursefinder', Course)
 }
 
 export default () => {
   perform()
-  // Crontab for every day at 3:00 am
+  // Crontab for every morning at 3:00 am
   cron.CronJob('0 3 * * *', () => {
     perform()
   }, null, true)
