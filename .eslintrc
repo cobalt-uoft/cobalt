@@ -8,6 +8,7 @@
     "indent": [2, 2],
     "semi": [2, "never"],
     "quotes": [2, "single"],
+    "no-shadow": 0,
     "no-unused-vars": [2, {"vars": "all", "args": "none"}],
     "new-cap": [2, {"capIsNew": false}],
     "camelcase": [2, {"properties": "never"}],
