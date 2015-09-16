@@ -1,8 +1,9 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import errorhandler from 'errorhandler'
+import scraper from './scraper'
 import courses from './api/courses'
 import buildings from './api/buildings'
+import errorhandler from 'errorhandler'
 
 /* Express setup */
 let app = express()
@@ -20,10 +21,14 @@ mongoose.connect(process.env.MONGO_URL, err => {
   }
 })
 
+/* Scraper setup */
+console.log('scrape time bb')
+scraper()
+
 /* API routes */
 let apiVersion = '1.0'
-app.use(`/api/${apiVersion}/courses`, courses)
-app.use(`/api/${apiVersion}/buildings`, buildings)
+app.use(`/${apiVersion}/courses`, courses)
+app.use(`/${apiVersion}/buildings`, buildings)
 
 /* Error handlers */
 // catch 404 and forward to error handler
