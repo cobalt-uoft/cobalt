@@ -1,8 +1,9 @@
+import assert from 'assert'
 import childProcess from 'child_process'
 import co from 'co'
+import cron from 'cron'
 import fs from 'fs'
 import Building from '../api/buildings/model'
-import assert from 'assert'
 
 let perform = () => {
   // Buildings scrape automation
@@ -57,7 +58,7 @@ let perform = () => {
 
 export default () => {
   perform()
-  setInterval(() => {
+  new cron.CronJob('0 3 * * *', () => {
     perform()
-  }, 86400000)
+  }, null, true)
 }
