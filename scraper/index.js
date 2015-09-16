@@ -20,10 +20,10 @@ let scrape = (type, Model) => {
       assert.ifError(e)
       files.forEach(file => {
         // Read JSON file to object
-        fs.readFile(`./scraper/uoft-scrapers/scrapers/${type}/json/${file}`, 'utf8', (e, data) => {
+        fs.readFile(`./scraper/uoft-scrapers/scrapers/${type}/json/${file}`, 'utf8', (e, contents) => {
           assert.ifError(e)
           co(function*() {
-            var data = JSON.parse(data)
+            var data = JSON.parse(contents)
             var doc
             try {
               doc = yield Model.findOne({ id: data.id }).exec()
