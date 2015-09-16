@@ -1,24 +1,24 @@
-import mongoose from 'mongoose'
-import child_process from 'child_process'
-import fs from 'fs'
+import childProcess from 'child_process'
 import co from 'co'
+import fs from 'fs'
 import Building from '../api/buildings/model'
+import assert from 'assert'
 
 let perform = () => {
   // Buildings scrape automation
   console.log('Performing automated building scrape.')
-  var child = child_process.exec('python3 ./scraper/uoft-scrapers/main.py map', (err, stdin, stdout) => {
+  var child = childProcess.exec('python3 ./scraper/uoft-scrapers/main.py map', (err, stdin, stdout) => {
     if(err) {
       console.log('Failed automated building scrape.')
     } else {
       console.log('Completed automated building scrape.')
     }
 
-    fs.readdir('./scraper/uoft-scrapers/scrapers/map/json/', (err, files) => {
-      if (!err) {
+    fs.readdir('./scraper/uoft-scrapers/scrapers/map/json/', (err0, files) => {
+      if (!err0) {
         files.forEach(file => {
-          fs.readFile(`./scraper/uoft-scrapers/scrapers/map/json/${file}`, 'utf8', (err, data) => {
-            if (!err) {
+          fs.readFile(`./scraper/uoft-scrapers/scrapers/map/json/${file}`, 'utf8', (err1, data) => {
+            if (!err1) {
               co(function*() {
                 var buildingData = JSON.parse(data)
                 var building
@@ -57,7 +57,7 @@ let perform = () => {
 
 export default () => {
   perform()
-  let interval = setInterval(() => {
+  setInterval(() => {
     perform()
   }, 86400000)
 }
