@@ -8,6 +8,7 @@ import Building from '../api/buildings/model'
 let perform = () => {
   // Buildings scrape automation
   console.log('Performing automated building scrape.')
+  // Run python scraper
   var child = childProcess.exec('python3 ./scraper/uoft-scrapers/main.py map', (err, stdin, stdout) => {
     if(err) {
       console.log('Failed automated building scrape.')
@@ -15,39 +16,42 @@ let perform = () => {
       console.log('Completed automated building scrape.')
     }
 
-    fs.readdir('./scraper/uoft-scrapers/scrapers/map/json/', (err0, files) => {
-      if (!err0) {
-        files.forEach(file => {
-          fs.readFile(`./scraper/uoft-scrapers/scrapers/map/json/${file}`, 'utf8', (err1, data) => {
-            if (!err1) {
-              co(function*() {
-                var buildingData = JSON.parse(data)
-                var building
-                try {
-                  building = yield Building.findOne({ id: buildingData.id }).exec()
-                } catch(e) {
-                  assert.ifError(e)
-                }
+    // Find scraped JSON files
+    fs.readdir('./scraper/uoft-scrapers/scrapers/map/json/', (e, files) => {
+      assert.ifError(e)
+      files.forEach(file => {
+        // Read JSON file to object
+        fs.readFile(`./scraper/uoft-scrapers/scrapers/map/json/${file}`, 'utf8', (e, data) => {
+          assert.ifError(e)
+          co(function*() {
+            var buildingData = JSON.parse(data)
 
-                if (building) {
-                  try {
-                    yield building.update(buildingData).exec()
-                  } catch(e) {
-                    assert.ifError(e)
-                  }
-                } else {
-                  building = new Building(buildingData)
-                  try {
-                    yield building.save()
-                  } catch(e) {
-                    assert.ifError(e)
-                  }
-                }
-              })
+            var building
+            try {
+              building = yield Building.findOne({ id: buildingData.id }).exec()
+            } catch(e) {
+              assert.ifError(e)
+            }
+
+            if (building) {
+              // Update record if exists
+              try {
+                yield building.update(buildingData).exec()
+              } catch(e) {
+                assert.ifError(e)
+              }
+            } else {
+              // Create new record otherwise
+              building = new Building(buildingData)
+              try {
+                yield building.save()
+              } catch(e) {
+                assert.ifError(e)
+              }
             }
           })
         })
-      }
+      })
     })
   })
   child.stdout.pipe(process.stdout)
@@ -58,6 +62,7 @@ let perform = () => {
 
 export default () => {
   perform()
+  // Crontab for every day at 3:00 am
   cron.CronJob('0 3 * * *', () => {
     perform()
   }, null, true)
