@@ -58,7 +58,7 @@ let perform = () => {
 
 export default () => {
   perform()
-  new cron.CronJob('0 3 * * *', () => {
+  cron.CronJob('0 3 * * *', () => {
     perform()
   }, null, true)
 }
