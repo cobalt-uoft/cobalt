@@ -32,9 +32,12 @@ export default function get(req, res) {
   }
 
   co(function* (){
-    var docs = yield Building.find(qFilter).skip(qSkip).limit(qLimit).exec()
+    var docs
+    try {
+      docs = yield Building.find(qFilter).lean().skip(qSkip).limit(qLimit).exec()
+    } catch(e) {
+      assert.ifError(e)
+    }
     res.json(docs)
-  }).catch(err => {
-    res.json(err)
   })
 }

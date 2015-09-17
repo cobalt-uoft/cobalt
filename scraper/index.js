@@ -62,6 +62,7 @@ let perform = () => {
 }
 
 export default () => {
+  let args = process.argv.slice(2)
   perform()
   // Crontab for every morning at 3:00 am
   cron.CronJob('0 3 * * *', () => {

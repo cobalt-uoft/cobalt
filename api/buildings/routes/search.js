@@ -1,4 +1,5 @@
 import Building from '../model'
+import assert from 'assert'
 import co from 'co'
 
 var limit = 10
@@ -43,14 +44,17 @@ export default function get(req, res) {
 
   /* TODO: utilize promises and async control flow */
   co(function* (){
-    var docs = yield Building.find({
-      $text: {
-        $search: req.query.q
-      }
-    }).skip(qSkip).limit(qLimit).exec()
+    var docs
+    try {
+      docs = yield Building.find({
+        $text: {
+          $search: req.query.q
+        }
+      }).lean().skip(qSkip).limit(qLimit).exec()
+    } catch(e) {
+      assert.ifError(e)
+    }
     res.json(docs)
-  }).catch(err => {
-    res.json(err)
   })
 
 }
