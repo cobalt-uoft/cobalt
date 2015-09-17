@@ -1,4 +1,5 @@
 import Building from '../model'
+import assert from 'assert'
 import co from 'co'
 
 var limit = 10
