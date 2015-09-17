@@ -10,24 +10,24 @@ The APIs are being made to be easy to understand and very comprehensive in what 
 
   - [x] [UofT Course API](https://github.com/cobalt-io/cobalt/tree/master/api/courses)
   - [x] [UofT Building API](https://github.com/cobalt-io/cobalt/tree/master/api/buildings)
-  - [ ] [UofT Food API](https://github.com/cobalt-io/cobalt/tree/master/api/food)
 
 We encourage your feedback on our progress!
 
 Web Scrapers
 ---------------
-The databases are being developed to allow for fully automated curation. In order to do this, an intricate [scraping module](https://github.com/cobalt-io/uoft-scrapers) is also in development. We are working on scrapers for the following web services that are provided by UofT:
+The databases are being developed to allow for fully automated curation. In order to do this, a [scraping module](https://github.com/cobalt-io/uoft-scrapers) is also in development. We are working on scrapers for the following web services that are provided by UofT:
 
  - [x] [Course Finder](http://coursefinder.utoronto.ca/) 
- - [x] [A&S Fall/Winter Timetable](http://www.artsandscience.utoronto.ca/ofr/timetable/winter/sponsors.htm) + [A&S Summer Timetable](http://www.artsandscience.utoronto.ca/ofr/timetable/summer/sponsors.htm)
+ - [x] [UTSG Fall/Winter Timetable](http://www.artsandscience.utoronto.ca/ofr/timetable/winter/sponsors.htm) + [UTSG Summer Timetable](http://www.artsandscience.utoronto.ca/ofr/timetable/summer/sponsors.htm)
+ - [ ] [UTSG Calendar](http://www.artsandscience.utoronto.ca/ofr/calendar/)
  - [ ] [UTM Timetable Planner](https://student.utm.utoronto.ca/timetable/)
  - [ ] [UTSC Course Timetable](http://www.utsc.utoronto.ca/~registrar/scheduling/timetable)
  - [x] [UofT Map](http://map.utoronto.ca)
 
-Wiki
+Contributing
 ----
 
-Check out the [wiki](https://github.com/cobalt-io/cobalt/wiki) for developer information.
+Check out the [wiki](https://github.com/cobalt-io/cobalt/wiki) for developer information and how to contribute.
 
 [slackin]: https://cobalt-slack.herokuapp.com/
 [slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
