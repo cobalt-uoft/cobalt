@@ -1,6 +1,5 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import scraper from './scraper'
 import courses from './api/courses'
 import buildings from './api/buildings'
 import errorhandler from 'errorhandler'
@@ -20,9 +19,6 @@ mongoose.connect(process.env.MONGO_URL, err => {
     console.log(`Connected to MongoDB`)
   }
 })
-
-/* Scraper setup */
-scraper()
 
 /* API routes */
 let apiVersion = '1.0'
