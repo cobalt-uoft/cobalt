@@ -61,16 +61,6 @@ var KEYMAP2 = {
 }
 
 export default function main(req, res) {
-
-  if(!Course.hasOwnProperty(req.params.year)) {
-    return res.json({
-      'error': {
-        'code': 0,
-        'message': 'Invalid year.'
-      }
-    })
-  }
-
   if(!req.query.q) {
     return res.json({
       'error': {
@@ -260,7 +250,7 @@ export default function main(req, res) {
       /* eslint-enable */
 
       co(function* () {
-        var docs = yield Course[req.params.year].mapReduce(o).exec()
+        var docs = yield Course.mapReduce(o).exec()
         var formattedDocs = []
         for(let doc of docs) {
           delete doc.value._id
@@ -272,7 +262,7 @@ export default function main(req, res) {
       })
     } else {
       co(function* () {
-        var docs = yield Course[req.params.year].find(filter).skip(qSkip).limit(qLimit).exec()
+        var docs = yield Course.find(filter).skip(qSkip).limit(qLimit).exec()
         res.json(docs)
       }).catch(err => {
         res.json(err)

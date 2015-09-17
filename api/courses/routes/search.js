@@ -5,15 +5,6 @@ var limit = 10
 var skip = 0
 
 export default function get(req, res) {
-  if(!Course.hasOwnProperty(req.params.year)) {
-    return res.json({
-      'error': {
-        'code': 0,
-        'message': 'Invalid year.'
-      }
-    })
-  }
-
   if(!req.query.q) {
     return res.json({
       'error': {
@@ -51,7 +42,7 @@ export default function get(req, res) {
   }
 
   co(function* () {
-    var docs = yield Course[req.params.year].find({
+    var docs = yield Course.find({
       $text: { $search: req.query.q }
     }).skip(qSkip).limit(qLimit).exec()
     res.json(docs)

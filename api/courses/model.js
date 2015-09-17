@@ -29,7 +29,4 @@ var courseSchema = new Schema({
   })]
 })
 
-module.exports = {
-  '2014': mongoose.model('courses_2014', courseSchema),
-  '2015': mongoose.model('courses_2015', courseSchema)
-}
+module.exports = mongoose.model('courses', courseSchema)
