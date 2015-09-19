@@ -29,7 +29,7 @@ End Points
 * **Parameters**
     - `:id` the identifier for a specific course
 * **Examples**
-    - [`GET http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20149`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159`](#)
 
 - - - - - - - - - - - -
 
