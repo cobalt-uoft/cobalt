@@ -11,8 +11,6 @@ End Points
 * **Description**
     - Gets a list of courses
 * **Parameters**
-    - `:year` academic session to perform calls on
-        * `/courses/2014` would include Fall 2014, Winter 2015, and Summer 2015
     - `limit` number of results to return
         * `limit=10` is the default value
         * `limit=200` is the maximum amount of documents that can be returned
