@@ -19,7 +19,7 @@ End Points
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://api.cobalt.qas.im/1.0/courses/list`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/list`](http://api.cobalt.qas.im/1.0/courses/list)
 
 - - - - - - - - - - - -
 
@@ -29,7 +29,7 @@ End Points
 * **Parameters**
     - `:id` the identifier for a specific course
 * **Examples**
-    - [`GET http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159`](http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159)
 
 - - - - - - - - - - - -
 
@@ -44,7 +44,7 @@ End Points
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://api.cobalt.qas.im/1.0/courses/search?q=natural language computing`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/search?q=natural language computing`](http://api.cobalt.qas.im/1.0/courses/search?q=natural language computing)
 
 - - - - - - - - - - - -
 
@@ -69,4 +69,4 @@ End Points
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://api.cobalt.qas.im/1.0/courses/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200"`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200"`](http://api.cobalt.qas.im/1.0/courses/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200")
