@@ -2,7 +2,6 @@ import express from 'express'
 import mongoose from 'mongoose'
 import courses from './api/courses'
 import buildings from './api/buildings'
-import errorhandler from 'errorhandler'
 
 /* Express setup */
 let app = express()
