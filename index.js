@@ -8,7 +8,7 @@ let app = express()
 
 /* Mongoose setup */
 if (!process.env.COBALT_MONGO_URL) {
-  throw new Error('Missing MONGO_URL environment variable')
+  throw new Error('Missing COBALT_MONGO_URL environment variable')
 }
 
 mongoose.connect(process.env.COBALT_MONGO_URL, err => {
