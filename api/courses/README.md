@@ -5,37 +5,33 @@ This is a RESTful web API built to interface with the University of Toronto unde
 
 There are 4 endpoints for the course API. (optional parameters are within square brackets)
 
-All course end points need to have a specified year in which to apply calls within (`GET http://cobalt.qas.im/api/1.0/courses/:year/:action`). As an example, the year `2014` would include courses from Fall 2014, Winter 2015, and Summer 2015.
-
 End Points
 ----------
-##### **`GET http://cobalt.qas.im/api/1.0/courses/:year/list`**
+##### **`GET http://api.cobalt.qas.im/1.0/courses/list`**
 * **Description**
     - Gets a list of courses
 * **Parameters**
-    - `:year` academic session to perform calls on
-        * `/courses/2014` would include Fall 2014, Winter 2015, and Summer 2015
     - `limit` number of results to return
         * `limit=10` is the default value
         * `limit=200` is the maximum amount of documents that can be returned
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://cobalt.qas.im/api/1.0/courses/2014/list`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/list`](http://api.cobalt.qas.im/1.0/courses/list)
 
 - - - - - - - - - - - -
 
-##### **`GET http://cobalt.qas.im/api/1.0/courses/:year/show/:id`**
+##### **`GET http://api.cobalt.qas.im/1.0/courses/show/:id`**
 * **Description**
     - Gets a specific course.
 * **Parameters**
     - `:id` the identifier for a specific course
 * **Examples**
-    - [`GET http://cobalt.qas.im/api/1.0/courses/2014/show/CSC148H1F20149`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159`](http://api.cobalt.qas.im/1.0/courses/show/CSC148H1F20159)
 
 - - - - - - - - - - - -
 
-##### **`GET http://cobalt.qas.im/api/1.0/courses/:year/search`**
+##### **`GET http://api.cobalt.qas.im/1.0/courses/search`**
 * **Description**
     - Gets a list of courses that match a fuzzy search.
 * **Parameters**
@@ -46,11 +42,11 @@ End Points
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://cobalt.qas.im/api/1.0/courses/2014/search?q=natural language computing`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/search?q=natural language computing`](http://api.cobalt.qas.im/1.0/courses/search?q=natural language computing)
 
 - - - - - - - - - - - -
 
-##### **`GET http://cobalt.qas.im/api/1.0/courses/:year/filter`**
+##### **`GET http://api.cobalt.qas.im/1.0/courses/filter`**
 * **Description**
     - Gets a list of courses that match specified filters.
 * **Parameters**
@@ -71,4 +67,4 @@ End Points
     - `skip` number of results to skip
         * `skip=0` is the default value
 * **Examples**
-    - [`GET http://cobalt.qas.im/api/1.0/courses/2014/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200"`](#)
+    - [`GET http://api.cobalt.qas.im/1.0/courses/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200"`](http://api.cobalt.qas.im/1.0/courses/filter?q=instructor:"D Liu" AND code:"CSC" AND level:"<=200")
