@@ -8,13 +8,13 @@ import errorhandler from 'errorhandler'
 let app = express()
 
 /* Mongoose setup */
-if (!process.env.MONGO_URL) {
+if (!process.env.COBALT_MONGO_URL) {
   throw new Error('Missing MONGO_URL environment variable')
 }
 
-mongoose.connect(process.env.MONGO_URL, err => {
+mongoose.connect(process.env.COBALT_MONGO_URL, err => {
   if (err) {
-    throw new Error(`Failed to connect to MongoDB [MONGO_URL=${process.env.MONGO_URL}]: ${err.message}`)
+    throw new Error(`Failed to connect to MongoDB [COBALT_MONGO_URL=${process.env.COBALT_MONGO_URL}]: ${err.message}`)
   } else {
     console.log(`Connected to MongoDB`)
   }
@@ -33,14 +33,6 @@ app.use((req, res, next) => {
   next(err)
 })
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(errorhandler())
-}
-
-// production error handler
-// no stacktraces leaked to user
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
   res.json({
