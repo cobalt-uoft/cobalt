@@ -31,7 +31,7 @@ export default function get(req, res) {
   }
 
   co(function* () {
-    var docs = yield Course.find(qFilter).skip(qSkip).limit(qLimit).exec()
+    var docs = yield Course.find(qFilter, '-_id').skip(qSkip).limit(qLimit).exec()
     res.json(docs)
   }).catch(err => {
     res.json(err)

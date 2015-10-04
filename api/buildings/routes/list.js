@@ -35,7 +35,7 @@ export default function get(req, res) {
   co(function* (){
     var docs
     try {
-      docs = yield Building.find(qFilter).lean().skip(qSkip).limit(qLimit).exec()
+      docs = yield Building.find(qFilter, '-_id').skip(qSkip).limit(qLimit).exec()
     } catch(e) {
       assert.ifError(e)
     }
