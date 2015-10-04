@@ -50,7 +50,7 @@ export default function get(req, res) {
         $text: {
           $search: req.query.q
         }
-      }).lean().skip(qSkip).limit(qLimit).exec()
+      }, '-_id').skip(qSkip).limit(qLimit).exec()
     } catch(e) {
       assert.ifError(e)
     }

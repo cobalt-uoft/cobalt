@@ -251,6 +251,7 @@ export default function main(req, res) {
 
       co(function* () {
         var docs = yield Course.mapReduce(o).exec()
+        // TODO: revisit this formatting stuff, looks weird
         var formattedDocs = []
         for(let doc of docs) {
           delete doc.value._id
@@ -262,7 +263,7 @@ export default function main(req, res) {
       })
     } else {
       co(function* () {
-        var docs = yield Course.find(filter).skip(qSkip).limit(qLimit).exec()
+        var docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
         res.json(docs)
       }).catch(err => {
         res.json(err)

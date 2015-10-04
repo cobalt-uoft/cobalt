@@ -12,7 +12,7 @@ export default function get(req, res) {
   }
 
   co(function* (){
-    var doc = yield Course.findOne({ id: req.params.id }).exec()
+    var doc = yield Course.findOne({ id: req.params.id }, '-_id').exec()
     res.json(doc)
   }).catch(err => {
     res.json(err)
