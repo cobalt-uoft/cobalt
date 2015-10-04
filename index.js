@@ -7,13 +7,13 @@ import buildings from './api/buildings'
 let app = express()
 
 /* Mongoose setup */
-if (!process.env.COBALT_MONGO_URL) {
-  throw new Error('Missing COBALT_MONGO_URL environment variable')
+if (!process.env.COBALT_MONGO_URI) {
+  throw new Error('Missing COBALT_MONGO_URI environment variable')
 }
 
-mongoose.connect(process.env.COBALT_MONGO_URL, err => {
+mongoose.connect(process.env.COBALT_MONGO_URI, err => {
   if (err) {
-    throw new Error(`Failed to connect to MongoDB [COBALT_MONGO_URL=${process.env.COBALT_MONGO_URL}]: ${err.message}`)
+    throw new Error(`Failed to connect to MongoDB [COBALT_MONGO_URI=${process.env.COBALT_MONGO_URI}]: ${err.message}`)
   } else {
     console.log(`Connected to MongoDB`)
   }
