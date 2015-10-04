@@ -1,4 +1,5 @@
 import Course from '../model'
+import assert from 'assert'
 import co from 'co'
 
 var limit = 10
@@ -250,23 +251,27 @@ export default function main(req, res) {
       /* eslint-enable */
 
       co(function* () {
-        var docs = yield Course.mapReduce(o).exec()
-        // TODO: revisit this formatting stuff, looks weird
-        var formattedDocs = []
-        for(let doc of docs) {
-          delete doc.value._id
-          formattedDocs.push(doc.value)
+        try {
+          var docs = yield Course.mapReduce(o).exec()
+          // TODO: revisit this formatting stuff, looks weird
+          var formattedDocs = []
+          for(let doc of docs) {
+            delete doc.value._id
+            formattedDocs.push(doc.value)
+          }
+          res.json(formattedDocs)
+        } catch(e) {
+          assert.ifError(e)
         }
-        res.json(formattedDocs)
-      }).catch(err => {
-        res.json(err)
       })
     } else {
       co(function* () {
-        var docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
-        res.json(docs)
-      }).catch(err => {
-        res.json(err)
+        try {
+          var docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
+          res.json(docs)
+        } catch(e) {
+          assert.ifError(e)
+        }
       })
     }
   }

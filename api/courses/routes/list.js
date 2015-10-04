@@ -1,5 +1,6 @@
 import Course from '../model'
 import co from 'co'
+import assert from 'assert'
 var limit = 10
 var skip = 0
 
@@ -31,9 +32,11 @@ export default function get(req, res) {
   }
 
   co(function* () {
-    var docs = yield Course.find(qFilter, '-_id').skip(qSkip).limit(qLimit).exec()
-    res.json(docs)
-  }).catch(err => {
-    res.json(err)
+    try {
+      var docs = yield Course.find(qFilter, '-_id').skip(qSkip).limit(qLimit).exec()
+      res.json(docs)
+    } catch(e) {
+      assert.ifError(e)
+    }
   })
 }
