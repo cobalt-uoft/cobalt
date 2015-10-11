@@ -18,7 +18,7 @@ If you have an idea for a web API that would be a good fit for Cobalt, please le
 Contributing
 ----
 
-You're encouraged to help contribute towards making this service better. Learn more by reading out [contributing](https://cobalt.qas.im/docs/getting-started/contributing) guide.
+You're encouraged to help contribute towards making this service better. Learn more by reading the [contributing](https://cobalt.qas.im/docs/getting-started/contributing) guide.
 
 [slackin]: https://cobalt-slack.herokuapp.com/
 [slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
