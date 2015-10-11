@@ -1,4 +1,4 @@
-Cobalt @ UofT <img src="https://avatars0.githubusercontent.com/u/10912859" width="24" height="24" /> [![Slack][slackin-badge]][slackin]
+Cobalt @ UofT [<img src="https://avatars0.githubusercontent.com/u/10912859" width="24" height="24" />](https://cobalt.qas.im) [![Slack][slackin-badge]][slackin]
 =============
 Cobalt provides a collection of open data APIs that allow anyone to interface with public information from the University of Toronto in their applications or services.
 
