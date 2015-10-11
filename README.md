@@ -1,6 +1,4 @@
-<img src="https://avatars0.githubusercontent.com/u/10912859" width="64" height="64" />
-
-Cobalt @ UofT [![Slack][slackin-badge]][slackin]
+Cobalt @ UofT <img src="https://avatars0.githubusercontent.com/u/10912859" width="24" height="24" /> [![Slack][slackin-badge]][slackin]
 =============
 Cobalt provides a collection of open data APIs that allow anyone to interface with public information from the University of Toronto in their applications or services.
 
@@ -24,3 +22,4 @@ You're encouraged to help contribute towards making this service better. Learn m
 
 [slackin]: https://cobalt-slack.herokuapp.com/
 [slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
+
