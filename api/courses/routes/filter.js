@@ -90,7 +90,7 @@ export default function main(req, res) {
   }
 
   var q = req.query.q
-  q = q.split('AND')
+  q = q.split(' AND ')
 
   var queries = 0
   var isMapReduce = false
@@ -98,15 +98,15 @@ export default function main(req, res) {
 
   var filter = { $and: q }
 
-  for(var i = 0; i < filter.$and.length; i++) {
-    filter.$and[i] = { $or: q[i].trim().split('OR') }
+  for (var i = 0; i < filter.$and.length; i++) {
+    filter.$and[i] = { $or: q[i].trim().split(' OR ') }
     var mapReduceOr = []
-    for(var j = 0; j < filter.$and[i].$or.length; j++) {
+    for (var j = 0; j < filter.$and[i].$or.length; j++) {
       var part = filter.$and[i].$or[j].trim().split(':')
-      var x = formatPart(part[0], part[1].substr(1, part[1].length - 2))
+      var x = formatPart(part[0], part[1])
 
-      if(x.isValid) {
-        if(x.isMapReduce) {
+      if (x.isValid) {
+        if (x.isMapReduce) {
           isMapReduce = true
           x.mapReduceData.key = KEYMAP[x.key]
           mapReduceOr.push(x.mapReduceData)
@@ -119,7 +119,7 @@ export default function main(req, res) {
     }
 
 
-    if(mapReduceOr.length > 0) {
+    if (mapReduceOr.length > 0) {
       mapReduceData.push(mapReduceOr)
     }
 
@@ -252,7 +252,7 @@ export default function main(req, res) {
 
       co(function* () {
         try {
-          var docs = yield Course.mapReduce(o).exec()
+          var docs = yield Course.mapReduce(o)
           // TODO: revisit this formatting stuff, looks weird
           var formattedDocs = []
           for(let doc of docs) {
@@ -278,7 +278,6 @@ export default function main(req, res) {
 }
 
 function formatPart(key, part) {
-
   // Response format
   var response = {
     key: key,
@@ -287,7 +286,6 @@ function formatPart(key, part) {
     mapReduceData: {},
     query: {}
   }
-
 
   // Checking if the start of the segment is an operator (-, >, <, .>, .<)
   if(part.indexOf('-') === 0) {
@@ -323,37 +321,22 @@ function formatPart(key, part) {
     }
   }
 
+  if (isNaN(parseFloat(part.value)) || !isFinite(part.value)) {
+    // Is not a number
+    part.value = part.value.substring(1, part.value.length - 1)
+  } else {
+    part.value = parseInt(part.value)
+  }
+
   /* TODO: Validate query? */
 
-  if (['breadth', 'level', 'size', 'enrolment'].indexOf(key) > -1) {
+  if (['breadth', 'level', 'size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
     // Integers and arrays of integers (mongo treats them the same)
-    part.value = parseInt(part.value)
 
-    if(['size', 'enrolment'].indexOf(key) > -1) {
+    if(['size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
     }
-
-    if(part.operator === '-') {
-      response.query[KEYMAP2[key]] = { $ne: part.value }
-    } else if(part.operator === '>') {
-      response.query[KEYMAP2[key]] = { $gt: part.value }
-    } else if(part.operator === '<') {
-      response.query[KEYMAP2[key]] = { $lt: part.value }
-    } else if(part.operator === '>=') {
-      response.query[KEYMAP2[key]] = { $gte: part.value }
-    } else if(part.operator === '<=') {
-      response.query[KEYMAP2[key]] = { $lte: part.value }
-    } else {
-      // Assume equality if no operator
-      response.query[KEYMAP2[key]] = part.value
-    }
-  } else if(['start', 'end', 'duration'].indexOf(key) > -1) {
-    //time related
-    part.value = parseInt(part.value)
-
-    response.isMapReduce = true
-    response.mapReduceData = part
 
     if(part.operator === '-') {
       response.query[KEYMAP2[key]] = { $ne: part.value }
@@ -384,7 +367,7 @@ function formatPart(key, part) {
       }
     }
   } else {
-    // Just your average string
+    // Strings
     if(['location', 'meeting_code'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
