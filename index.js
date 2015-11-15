@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
 
@@ -7,16 +8,9 @@ import buildings from './api/buildings'
 let app = express()
 
 /* Mongoose setup */
-if (!process.env.COBALT_MONGO_URI) {
-  throw new Error('Missing COBALT_MONGO_URI environment variable')
-}
-
-mongoose.connect(process.env.COBALT_MONGO_URI, err => {
-  if (err) {
-    throw new Error(`Failed to connect to MongoDB [COBALT_MONGO_URI=${process.env.COBALT_MONGO_URI}]: ${err.message}`)
-  } else {
-    console.log(`Connected to MongoDB`)
-  }
+mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
+  if (err) throw new Error(`Failed to connect to MongoDB [${process.env.COBALT_MONGO_URI}]: ${err.message}`)
+  winston.debug('Connected to MongoDB')
 })
 
 /* API routes */
@@ -25,7 +19,6 @@ app.use(`/${apiVersion}/courses`, courses)
 app.use(`/${apiVersion}/buildings`, buildings)
 
 /* Error handlers */
-// catch 404 and forward to error handler
 app.use((req, res, next) => {
   let err = new Error('Not Found')
   err.status = 404
@@ -35,8 +28,10 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
   res.json({
-    code: err.status,
-    message: err.message
+    error: {
+      code: err.status,
+      message: err.message
+    }
   })
 })
 

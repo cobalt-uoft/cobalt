@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 // Enable ES6 via babel
-require('babel/register')({
+require('babel-core/register')({
   sourceMap: 'both'
 })
 
+var winston = require('winston')
 var app = require('../index')
 
 app.set('port', process.env.COBALT_PORT || 4242)
 
 var server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + server.address().port)
+  winston.info('Cobalt is listening at http://localhost:' + server.address().port)
 })

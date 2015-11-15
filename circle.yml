@@ -2,4 +2,4 @@ machine:
   node:
     version: 0.12.7
   environment:
-    MONGO_URL: mongodb://localhost/cobalt
+    COBALT_MONGO_URI: mongodb://localhost/cobalt
