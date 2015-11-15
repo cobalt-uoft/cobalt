@@ -13,11 +13,11 @@
   "bugs": {
     "url": "https://github.com/cobalt-io/cobalt/issues"
   },
-  "homepage": "https://github.com/cobalt-io/cobalt#readme",
+  "homepage": "https://cobalt.qas.im",
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint .",
-    "test": "eslint .",
+    "test": "eslint . && ava",
     "prepush": "npm test"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "mongoose": "^4.1.7"
   },
   "devDependencies": {
+    "ava": "^0.4.2",
     "babel-eslint": "^3.0.1",
     "eslint": "^0.20.0",
     "husky": "^0.7.0"
