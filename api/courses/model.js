@@ -29,4 +29,4 @@ var courseSchema = new Schema({
   })]
 })
 
-module.exports = mongoose.model('courses', courseSchema)
+export default mongoose.model('courses', courseSchema)

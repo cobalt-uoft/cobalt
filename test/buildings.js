@@ -9,7 +9,7 @@ test.before('setup', t => {
   t.end()
 })
 
-test('foo', t => {
+test('/list', t => {
   // example
   request(app)
     .get('/1.0/buildings/list')
@@ -20,11 +20,6 @@ test('foo', t => {
       t.pass()
       t.end()
     })
-})
-
-test('bar', t => {
-  t.pass()
-  t.end()
 })
 
 test.after('cleanup', t => {
