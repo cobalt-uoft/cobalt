@@ -1,16 +1,23 @@
 import 'babel-core/register'
 import test from 'ava'
+import testData from './testData.json'
 import request from 'supertest'
 import app from '../../index'
+import Building from '../../api/buildings/model'
 
 test.before('setup', t => {
-  // TODO: Drop all documents in buildings DB
-  // TODO: Insert test data
-  t.end()
+  // Drop all documents
+  Building.remove({}, err => {
+    if (err) t.fail(err.message)
+    // Insert test data
+    Building.create(testData, err => {
+      if (err) t.fail(err.message)
+      t.end()
+    })
+  })
 })
 
 test('/list', t => {
-  // example
   request(app)
     .get('/1.0/buildings/list')
     .expect('Content-Type', /json/)
@@ -23,6 +30,9 @@ test('/list', t => {
 })
 
 test.after('cleanup', t => {
-  // TODO: Drop all documents in buildings DB
+  /*Building.remove({}, err => {
+    if (err) t.fail(err.message)
+    t.end()
+  })*/
   t.end()
 })
