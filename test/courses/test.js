@@ -17,6 +17,8 @@ test.before('setup', t => {
   })
 })
 
+// list tests
+
 test('/list', t => {
   request(app)
     .get('/1.0/courses/list')
@@ -131,9 +133,40 @@ test('/list?campus=UTB', t => {
     })
 })
 
-/*test.after('cleanup', t => {
+// show tests
+
+test(`/show/${testData[0].id}`, t => {
+  request(app)
+    .get(`/1.0/courses/show/${testData[0].id}`)
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData[0]))
+    .end(function(err, res){
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test('/show/XYZ789H1F20159', t => {
+  request(app)
+    .get('/1.0/courses/show/XYZ789H1F20159')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end(function(err, res){
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+// search tests
+
+// filter tests (fun)
+
+test.after('cleanup', t => {
   Course.remove({}, err => {
     if (err) t.fail(err.message)
     t.end()
   })
-})*/
+})
