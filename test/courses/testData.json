@@ -91,8 +91,7 @@
             "start":10,
             "end":16,
             "duration":6,
-            "location":"MS 3381",
-            "_id":"56493e23cba6e64653bbe3d1"
+            "location":"MS 3381"
           }
         ],
         "instructors":[
@@ -127,24 +126,21 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3e1"
+            "location":"BA 1170"
           },
           {
             "day":"MONDAY",
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3e0"
+            "location":"BA 1170"
           },
           {
             "day":"FRIDAY",
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3df"
+            "location":"BA 1170"
           }
         ],
         "instructors":[
@@ -161,24 +157,21 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3dd"
+            "location":"BA 1170"
           },
           {
             "day":"WEDNESDAY",
             "start":13,
             "end":14,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3dc"
+            "location":"BA 1170"
           },
           {
             "day":"FRIDAY",
             "start":13,
             "end":14,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3db"
+            "location":"BA 1170"
           }
         ],
         "instructors":[
@@ -195,16 +188,14 @@
             "start":20,
             "end":21,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3d9"
+            "location":"BA 1170"
           },
           {
             "day":"THURSDAY",
             "start":18,
             "end":20,
             "duration":2,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3d8"
+            "location":"BA 1170"
           }
         ],
         "instructors":[
@@ -221,24 +212,21 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3d6"
+            "location":"BA 1170"
           },
           {
             "day":"WEDNESDAY",
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3d5"
+            "location":"BA 1170"
           },
           {
             "day":"MONDAY",
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BA 1170",
-            "_id":"56493e23cba6e64653bbe3d4"
+            "location":"BA 1170"
           }
         ],
         "instructors":[
@@ -273,16 +261,14 @@
             "start":13,
             "end":15,
             "duration":2,
-            "location":"UC 256",
-            "_id":"56493e23cba6e64653bbe3e5"
+            "location":"UC 256"
           },
           {
             "day":"THURSDAY",
             "start":13,
             "end":15,
             "duration":2,
-            "location":"UC 256",
-            "_id":"56493e23cba6e64653bbe3e4"
+            "location":"UC 256"
           }
         ],
         "instructors":[
@@ -317,8 +303,7 @@
             "start":13,
             "end":15,
             "duration":2,
-            "location":"KN 137",
-            "_id":"56493e23cba6e64653bbe3f8"
+            "location":"KN 137"
           }
         ],
         "instructors":[
@@ -335,8 +320,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"DV 2094",
-            "_id":"56493e23cba6e64653bbe3f6"
+            "location":"DV 2094"
           }
         ],
         "instructors":[
@@ -353,8 +337,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"DV 2094",
-            "_id":"56493e23cba6e64653bbe3f4"
+            "location":"DV 2094"
           }
         ],
         "instructors":[
@@ -371,8 +354,7 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"DV 2094",
-            "_id":"56493e23cba6e64653bbe3f2"
+            "location":"DV 2094"
           }
         ],
         "instructors":[
@@ -389,8 +371,7 @@
             "start":14,
             "end":15,
             "duration":1,
-            "location":"DV 3093",
-            "_id":"56493e23cba6e64653bbe3f0"
+            "location":"DV 3093"
           }
         ],
         "instructors":[
@@ -407,8 +388,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"DV 1158",
-            "_id":"56493e23cba6e64653bbe3ee"
+            "location":"DV 1158"
           }
         ],
         "instructors":[
@@ -425,8 +405,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"DV 2094",
-            "_id":"56493e23cba6e64653bbe3ec"
+            "location":"DV 2094"
           }
         ],
         "instructors":[
@@ -443,8 +422,7 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"DV 1147",
-            "_id":"56493e23cba6e64653bbe3ea"
+            "location":"DV 1147"
           }
         ],
         "instructors":[
@@ -461,8 +439,7 @@
             "start":14,
             "end":15,
             "duration":1,
-            "location":"DV 1147",
-            "_id":"56493e23cba6e64653bbe3e8"
+            "location":"DV 1147"
           }
         ],
         "instructors":[
@@ -497,16 +474,14 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BR 200",
-            "_id":"56493e23cba6e64653bbe414"
+            "location":"BR 200"
           },
           {
             "day":"WEDNESDAY",
             "start":11,
             "end":12,
             "duration":1,
-            "location":"BR 200",
-            "_id":"56493e23cba6e64653bbe413"
+            "location":"BR 200"
           }
         ],
         "instructors":[
@@ -523,8 +498,7 @@
             "start":10,
             "end":11,
             "duration":1,
-            "location":"RL 14081",
-            "_id":"56493e23cba6e64653bbe411"
+            "location":"RL 14081"
           }
         ],
         "instructors":[
@@ -541,8 +515,7 @@
             "start":10,
             "end":11,
             "duration":1,
-            "location":"RW 142",
-            "_id":"56493e23cba6e64653bbe40f"
+            "location":"RW 142"
           }
         ],
         "instructors":[
@@ -559,8 +532,7 @@
             "start":10,
             "end":11,
             "duration":1,
-            "location":"SS 1078",
-            "_id":"56493e23cba6e64653bbe40d"
+            "location":"SS 1078"
           }
         ],
         "instructors":[
@@ -577,8 +549,7 @@
             "start":10,
             "end":11,
             "duration":1,
-            "location":"UC 148",
-            "_id":"56493e23cba6e64653bbe40b"
+            "location":"UC 148"
           }
         ],
         "instructors":[
@@ -595,8 +566,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"RL 14081",
-            "_id":"56493e23cba6e64653bbe409"
+            "location":"RL 14081"
           }
         ],
         "instructors":[
@@ -613,8 +583,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"RW 142",
-            "_id":"56493e23cba6e64653bbe407"
+            "location":"RW 142"
           }
         ],
         "instructors":[
@@ -631,8 +600,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"SS 1078",
-            "_id":"56493e23cba6e64653bbe405"
+            "location":"SS 1078"
           }
         ],
         "instructors":[
@@ -649,8 +617,7 @@
             "start":11,
             "end":12,
             "duration":1,
-            "location":"UC 148",
-            "_id":"56493e23cba6e64653bbe403"
+            "location":"UC 148"
           }
         ],
         "instructors":[
@@ -667,8 +634,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"RL 14081",
-            "_id":"56493e23cba6e64653bbe401"
+            "location":"RL 14081"
           }
         ],
         "instructors":[
@@ -685,8 +651,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"RW 142",
-            "_id":"56493e23cba6e64653bbe3ff"
+            "location":"RW 142"
           }
         ],
         "instructors":[
@@ -703,8 +668,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"SS 1078",
-            "_id":"56493e23cba6e64653bbe3fd"
+            "location":"SS 1078"
           }
         ],
         "instructors":[
@@ -721,8 +685,7 @@
             "start":12,
             "end":13,
             "duration":1,
-            "location":"UC 148",
-            "_id":"56493e23cba6e64653bbe3fb"
+            "location":"UC 148"
           }
         ],
         "instructors":[
@@ -757,8 +720,7 @@
             "start":13,
             "end":15,
             "duration":2,
-            "location":"MW 140",
-            "_id":"56493e23cba6e64653bbe417"
+            "location":"MW 140"
           }
         ],
         "instructors":[
@@ -793,8 +755,7 @@
             "start":10,
             "end":12,
             "duration":2,
-            "location":"SS 1088",
-            "_id":"56493e23cba6e64653bbe41a"
+            "location":"SS 1088"
           }
         ],
         "instructors":[
@@ -829,8 +790,7 @@
             "start":17,
             "end":19,
             "duration":2,
-            "location":"SS 1083",
-            "_id":"56493e23cba6e64653bbe41d"
+            "location":"SS 1083"
           }
         ],
         "instructors":[
@@ -865,8 +825,7 @@
             "start":15,
             "end":17,
             "duration":2,
-            "location":"BV 363",
-            "_id":"56493e23cba6e64653bbe420"
+            "location":"BV 363"
           }
         ],
         "instructors":[
@@ -901,8 +860,7 @@
             "start":10,
             "end":12,
             "duration":2,
-            "location":"SS 2105",
-            "_id":"56493e23cba6e64653bbe423"
+            "location":"SS 2105"
           }
         ],
         "instructors":[
@@ -937,8 +895,7 @@
             "start":10,
             "end":12,
             "duration":2,
-            "location":"IB 345",
-            "_id":"56493e23cba6e64653bbe432"
+            "location":"IB 345"
           }
         ],
         "instructors":[
@@ -955,8 +912,7 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"IB 377",
-            "_id":"56493e23cba6e64653bbe430"
+            "location":"IB 377"
           }
         ],
         "instructors":[
@@ -973,8 +929,7 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"DV 1146",
-            "_id":"56493e23cba6e64653bbe42e"
+            "location":"DV 1146"
           }
         ],
         "instructors":[
@@ -991,8 +946,7 @@
             "start":13,
             "end":14,
             "duration":1,
-            "location":"DV 2094",
-            "_id":"56493e23cba6e64653bbe42c"
+            "location":"DV 2094"
           }
         ],
         "instructors":[
@@ -1009,8 +963,7 @@
             "start":15,
             "end":16,
             "duration":1,
-            "location":"DV 1158",
-            "_id":"56493e23cba6e64653bbe42a"
+            "location":"DV 1158"
           }
         ],
         "instructors":[
@@ -1027,8 +980,7 @@
             "start":15,
             "end":16,
             "duration":1,
-            "location":"IB 245",
-            "_id":"56493e23cba6e64653bbe428"
+            "location":"IB 245"
           }
         ],
         "instructors":[
@@ -1045,8 +997,7 @@
             "start":15,
             "end":16,
             "duration":1,
-            "location":"DH 3055",
-            "_id":"56493e23cba6e64653bbe426"
+            "location":"DH 3055"
           }
         ],
         "instructors":[
@@ -1081,8 +1032,7 @@
             "start":15,
             "end":17,
             "duration":2,
-            "location":"IB 340",
-            "_id":"56493e23cba6e64653bbe435"
+            "location":"IB 340"
           }
         ],
         "instructors":[
@@ -1117,8 +1067,7 @@
             "start":12,
             "end":14,
             "duration":2,
-            "location":"WW 126",
-            "_id":"56493e23cba6e64653bbe43a"
+            "location":"WW 126"
           }
         ],
         "instructors":[
@@ -1153,16 +1102,14 @@
             "start":13,
             "end":15,
             "duration":2,
-            "location":"JH 214",
-            "_id":"56493e23cba6e64653bbe43e"
+            "location":"JH 214"
           },
           {
             "day":"WEDNESDAY",
             "start":13,
             "end":15,
             "duration":2,
-            "location":"JH 214",
-            "_id":"56493e23cba6e64653bbe43d"
+            "location":"JH 214"
           }
         ],
         "instructors":[
@@ -1197,8 +1144,7 @@
             "start":15,
             "end":17,
             "duration":2,
-            "location":"MW 160",
-            "_id":"56493e23cba6e64653bbe441"
+            "location":"MW 160"
           }
         ],
         "instructors":[
@@ -1233,8 +1179,7 @@
             "start":14,
             "end":16,
             "duration":2,
-            "location":"IB 250",
-            "_id":"56493e23cba6e64653bbe444"
+            "location":"IB 250"
           }
         ],
         "instructors":[
@@ -1269,8 +1214,7 @@
             "start":10,
             "end":12,
             "duration":2,
-            "location":"UC 163",
-            "_id":"56493e23cba6e64653bbe447"
+            "location":"UC 163"
           }
         ],
         "instructors":[
@@ -1306,8 +1250,7 @@
             "start":16,
             "end":18,
             "duration":2,
-            "location":"TC 22",
-            "_id":"56493e23cba6e64653bbe44d"
+            "location":"TC 22"
           }
         ],
         "instructors":[
