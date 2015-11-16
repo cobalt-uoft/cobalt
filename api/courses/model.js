@@ -14,19 +14,19 @@ var courseSchema = new Schema({
   campus: String,
   term: String,
   breadths: [Number],
-  meeting_sections: [new Schema({
+  meeting_sections: [{
     code: String,
     instructors: [String],
-    times: [new Schema({
+    times: [{
       day: String,
       start: Number,
       end: Number,
       duration: Number,
       location: String
-    })],
+    }],
     size: Number,
     enrolment: Number
-  })]
+  }]
 })
 
 export default mongoose.model('courses', courseSchema)
