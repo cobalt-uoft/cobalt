@@ -18,4 +18,6 @@ var buildingSchema = new Schema({
   }
 })
 
+buildingSchema.index({ code: 'text', name: 'text', short_name: 'text' })
+
 export default mongoose.model('buildings', buildingSchema)

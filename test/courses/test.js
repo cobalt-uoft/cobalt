@@ -17,7 +17,7 @@ test.before('setup', t => {
   })
 })
 
-// list tests
+/* list tests */
 
 test('/list', t => {
   request(app)
@@ -25,7 +25,7 @@ test('/list', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 10)))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -37,7 +37,7 @@ test('/list?limit=0', t => {
     .get('/1.0/courses/list?limit=0')
     .expect('Content-Type', /json/)
     .expect(400)
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -50,7 +50,7 @@ test('/list?limit=2', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 2)))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -62,7 +62,7 @@ test('/list?limit=200', t => {
     .get('/1.0/courses/list?limit=200')
     .expect('Content-Type', /json/)
     .expect(400)
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -75,7 +75,7 @@ test('/list?skip=10', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(10, 20)))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -88,7 +88,7 @@ test('/list?skip=200', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect('[]')
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -101,7 +101,7 @@ test('/list?skip=2&limit=2', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(2, 4)))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -114,7 +114,7 @@ test('/list?campus=UTM', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.filter(doc => { return doc.campus === 'UTM' })))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -126,14 +126,14 @@ test('/list?campus=UTB', t => {
     .get('/1.0/courses/list?campus=UTB')
     .expect('Content-Type', /json/)
     .expect(400)
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
     })
 })
 
-// show tests
+/* show tests */
 
 test(`/show/${testData[0].id}`, t => {
   request(app)
@@ -141,7 +141,7 @@ test(`/show/${testData[0].id}`, t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData[0]))
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -153,16 +153,54 @@ test('/show/XYZ789H1F20159', t => {
     .get('/1.0/courses/show/XYZ789H1F20159')
     .expect('Content-Type', /json/)
     .expect(400)
-    .end(function(err, res){
+    .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
     })
 })
 
-// search tests
+/* search tests */
 
-// filter tests (fun)
+test('/search?q=', t => {
+  request(app)
+    .get('/1.0/courses/search?q=')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test('/search?q=%22recreational%20space%20and%20more%22', t => {
+  request(app)
+    .get('/1.0/courses/search?q=%22recreational%20space%20and%20more%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => { return doc.description.match('recreational space and more') })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test('/search?q=loremipsumdolorsitamet', t => {
+  request(app)
+    .get('/1.0/courses/search?q=loremipsumdolorsitamet')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+/* TODO: filter tests (fun) */
 
 test.after('cleanup', t => {
   Course.remove({}, err => {

@@ -29,4 +29,6 @@ var courseSchema = new Schema({
   }]
 })
 
+courseSchema.index({ code: 'text', name: 'text', description: 'text' })
+
 export default mongoose.model('courses', courseSchema)
