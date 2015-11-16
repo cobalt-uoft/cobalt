@@ -1,7 +1,7 @@
 import 'babel-core/register'
 import test from 'ava'
 import request from 'supertest'
-import app from '../index'
+import app from '../../index'
 
 test.before('setup', t => {
   // TODO: Drop all documents in buildings DB
