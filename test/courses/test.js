@@ -1,12 +1,9 @@
 import 'babel-core/register'
 import test from 'ava'
+import testData from './testData.json'
 import request from 'supertest'
-import app from '../index'
-import Course from '../api/courses/model'
-
-// TODO: Create 20 items in here [0 - 19] that can be used to effectively
-// test all points of the course API
-let testData = []
+import app from '../../index'
+import Course from '../../api/courses/model'
 
 test.before('setup', t => {
   // Drop all documents
@@ -19,8 +16,6 @@ test.before('setup', t => {
     })
   })
 })
-
-/* Tests for /list */
 
 test('/list', t => {
   request(app)
@@ -39,8 +34,7 @@ test('/list?limit=0', t => {
   request(app)
     .get('/1.0/courses/list?limit=0')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
+    .expect(400)
     .end(function(err, res){
       if (err) t.fail(err.message)
       t.pass()
@@ -65,8 +59,7 @@ test('/list?limit=200', t => {
   request(app)
     .get('/1.0/courses/list?limit=200')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('{"error":{"code":0,"message":"Limit must be less than or equal to 100."}}')
+    .expect(400)
     .end(function(err, res){
       if (err) t.fail(err.message)
       t.pass()
@@ -113,9 +106,34 @@ test('/list?skip=2&limit=2', t => {
     })
 })
 
-test.after('cleanup', t => {
+test('/list?campus=UTM', t => {
+  request(app)
+    .get('/1.0/courses/list?campus=UTM')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => { return doc.campus === 'UTM' })))
+    .end(function(err, res){
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test('/list?campus=UTB', t => {
+  request(app)
+    .get('/1.0/courses/list?campus=UTB')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end(function(err, res){
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+/*test.after('cleanup', t => {
   Course.remove({}, err => {
     if (err) t.fail(err.message)
     t.end()
   })
-})
+})*/

@@ -1,0 +1,1322 @@
+[
+  {
+    "id":"GGR498H1Y20159",
+    "code":"GGR498H1Y",
+    "name":"Independent Research ",
+    "description":"Independent research extension to one of the courses already completed in Physical Geography. Enrolment requires written permission from a faculty supervisor and Associate Chair, Undergraduate. Only open to students who have completed 10 FCEs and who are enrolled in a Specialist or Major program sponsored by the Department of Geography. Not eligible for CR/NCR option.",
+    "division":"Faculty of Arts and Science",
+    "department":"Geography and Planning",
+    "prerequisites":"10.0 FCE's",
+    "exclusions":"",
+    "level":400,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":9999,
+        "enrolment":0,
+        "times":[
+
+        ],
+        "instructors":[
+          "STAFF"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"SOC102H1S20161",
+    "code":"SOC102H1S",
+    "name":"Introduction to Sociology Social Inequalities",
+    "description":"What causes the emergence, persistence and decline of inequalities based on class, gender, race, ethnicity and country of residence? Variations in artistic, mathematical, athletic and other skills are strikingly evident; this course explores why they are associated with varying rewards, including income, power and prestige.",
+    "division":"Faculty of Arts and Science",
+    "department":"Sociology",
+    "prerequisites":"",
+    "exclusions":"SOC101Y1; SOC100H5; SOCA01H3",
+    "level":100,
+    "campus":"UTSG",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L3001",
+        "size":9999,
+        "enrolment":0,
+        "times":[
+
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"L3002",
+        "size":9999,
+        "enrolment":0,
+        "times":[
+
+        ],
+        "instructors":[
+
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  },
+  {
+    "id":"HMB489H1F20159",
+    "code":"HMB489H1F",
+    "name":"Advanced Laboratory in Human Biology",
+    "description":"Building on their experience in 3rd-year labs, students participate in inquiry-based laboratory experiments in diverse areas of current human biology research. Open to students in any Human Biology program.",
+    "division":"Faculty of Arts and Science",
+    "department":"Human Biology Program",
+    "prerequisites":"4th year status; HMB310H1/HMB311H1/HMB312H1/HMB314H1",
+    "exclusions":"",
+    "level":400,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":10,
+            "end":16,
+            "duration":6,
+            "location":"MS 3381",
+            "_id":"56493e23cba6e64653bbe3d1"
+          }
+        ],
+        "instructors":[
+          "J O'Leary"
+        ]
+      }
+    ],
+    "breadths":[
+      4
+    ]
+  },
+  {
+    "id":"CSC236H1F20159",
+    "code":"CSC236H1F",
+    "name":"Introduction to the Theory of Computation",
+    "description":"The application of logic and proof techniques to Computer Science. Mathematical induction; correctness proofs for iterative and recursive algorithms; recurrence equations and their solutions (including the Master Theorem); introduction to automata and formal languages.  This course assumes university-level experience with proof techniques and algorithmic complexity as provided by CSC165H1.  Very strong students who already have this experience (e.g. successful completion of MAT157Y1) may consult the undergraduate office about proceeeding directly into CSC236H1.",
+    "division":"Faculty of Arts and Science",
+    "department":"Computer Science",
+    "prerequisites":"60% or higher in CSC148H1/CSC150H1, 60% or higher in CSC165H1",
+    "exclusions":"CSC240H1",
+    "level":200,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":126,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3e1"
+          },
+          {
+            "day":"MONDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3e0"
+          },
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3df"
+          }
+        ],
+        "instructors":[
+          "A Farzan"
+        ]
+      },
+      {
+        "code":"L0201",
+        "size":130,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3dd"
+          },
+          {
+            "day":"WEDNESDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3dc"
+          },
+          {
+            "day":"FRIDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3db"
+          }
+        ],
+        "instructors":[
+          "A Farzan"
+        ]
+      },
+      {
+        "code":"L5101",
+        "size":128,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":20,
+            "end":21,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3d9"
+          },
+          {
+            "day":"THURSDAY",
+            "start":18,
+            "end":20,
+            "duration":2,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3d8"
+          }
+        ],
+        "instructors":[
+          "S Hejazi"
+        ]
+      },
+      {
+        "code":"L2000",
+        "size":0,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3d6"
+          },
+          {
+            "day":"WEDNESDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3d5"
+          },
+          {
+            "day":"MONDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BA 1170",
+            "_id":"56493e23cba6e64653bbe3d4"
+          }
+        ],
+        "instructors":[
+          "A Farzan"
+        ]
+      }
+    ],
+    "breadths":[
+      5
+    ]
+  },
+  {
+    "id":"MGR301H1S20161",
+    "code":"MGR301H1S",
+    "name":"Advanced Modern Greek II ",
+    "description":"The aim of this course is to facilitate fluency both in spoken and written Modern Greek.  Proficiency at this level will be attained through familiarization with various texts and genres including a Modern Greek literature anthology and selected academic articles. Emphasis will be placed on writing which will lead to the production of a short research paper in Modern Greek.",
+    "division":"Faculty of Arts and Science",
+    "department":"Centre for European, Russian and Eurasian Studies",
+    "prerequisites":"Completion of MGR300H1 or permission of instructor",
+    "exclusions":"",
+    "level":300,
+    "campus":"UTSG",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":30,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"TUESDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"UC 256",
+            "_id":"56493e23cba6e64653bbe3e5"
+          },
+          {
+            "day":"THURSDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"UC 256",
+            "_id":"56493e23cba6e64653bbe3e4"
+          }
+        ],
+        "instructors":[
+
+        ]
+      }
+    ],
+    "breadths":[
+      1
+    ]
+  },
+  {
+    "id":"GGR202H5S20161",
+    "code":"GGR202H5S",
+    "name":"Geography of Canada",
+    "description":"Canada continues to be one of the world's great storehouses of basic resources: fish, wood, minerals, grains, livestock, water, recreational space and more. Human impact, to the point of extinction, has varied across the country. The geography of regional change in Canada, over several centuries, is basic to this social science course. [24L, 12T]",
+    "division":"University of Toronto Mississauga",
+    "department":"Geography",
+    "prerequisites":"GGR111H5/117Y5/ ENV100Y5/4.0 credits",
+    "exclusions":"GGR228Y5, GGR246H1",
+    "level":200,
+    "campus":"UTM",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":200,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"TUESDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"KN 137",
+            "_id":"56493e23cba6e64653bbe3f8"
+          }
+        ],
+        "instructors":[
+          "N Laliberte"
+        ]
+      },
+      {
+        "code":"T0101",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"DV 2094",
+            "_id":"56493e23cba6e64653bbe3f6"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0102",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"DV 2094",
+            "_id":"56493e23cba6e64653bbe3f4"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0103",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"DV 2094",
+            "_id":"56493e23cba6e64653bbe3f2"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0104",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":14,
+            "end":15,
+            "duration":1,
+            "location":"DV 3093",
+            "_id":"56493e23cba6e64653bbe3f0"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0105",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"DV 1158",
+            "_id":"56493e23cba6e64653bbe3ee"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0106",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"DV 2094",
+            "_id":"56493e23cba6e64653bbe3ec"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0107",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"DV 1147",
+            "_id":"56493e23cba6e64653bbe3ea"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0108",
+        "size":25,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":14,
+            "end":15,
+            "duration":1,
+            "location":"DV 1147",
+            "_id":"56493e23cba6e64653bbe3e8"
+          }
+        ],
+        "instructors":[
+
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"PHL275H1F20159",
+    "code":"PHL275H1F",
+    "name":"Introduction to Ethics",
+    "description":"An introduction to central issues in ethics or moral philosophy, such as the objectivity of values, the nature of moral judgements, rights and duties, the virtues, and consequentialism. Readings may be drawn from a variety of contemporary and historical sources.",
+    "division":"Faculty of Arts and Science",
+    "department":"Philosophy",
+    "prerequisites":"",
+    "exclusions":"",
+    "level":200,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":250,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BR 200",
+            "_id":"56493e23cba6e64653bbe414"
+          },
+          {
+            "day":"WEDNESDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"BR 200",
+            "_id":"56493e23cba6e64653bbe413"
+          }
+        ],
+        "instructors":[
+          "T Hurka"
+        ]
+      },
+      {
+        "code":"T0101",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":10,
+            "end":11,
+            "duration":1,
+            "location":"RL 14081",
+            "_id":"56493e23cba6e64653bbe411"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0102",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":10,
+            "end":11,
+            "duration":1,
+            "location":"RW 142",
+            "_id":"56493e23cba6e64653bbe40f"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0103",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":10,
+            "end":11,
+            "duration":1,
+            "location":"SS 1078",
+            "_id":"56493e23cba6e64653bbe40d"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0104",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":10,
+            "end":11,
+            "duration":1,
+            "location":"UC 148",
+            "_id":"56493e23cba6e64653bbe40b"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0201",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"RL 14081",
+            "_id":"56493e23cba6e64653bbe409"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0202",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"RW 142",
+            "_id":"56493e23cba6e64653bbe407"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0203",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"SS 1078",
+            "_id":"56493e23cba6e64653bbe405"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0204",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":11,
+            "end":12,
+            "duration":1,
+            "location":"UC 148",
+            "_id":"56493e23cba6e64653bbe403"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0301",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"RL 14081",
+            "_id":"56493e23cba6e64653bbe401"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0302",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"RW 142",
+            "_id":"56493e23cba6e64653bbe3ff"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0303",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"SS 1078",
+            "_id":"56493e23cba6e64653bbe3fd"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0304",
+        "size":24,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":12,
+            "end":13,
+            "duration":1,
+            "location":"UC 148",
+            "_id":"56493e23cba6e64653bbe3fb"
+          }
+        ],
+        "instructors":[
+
+        ]
+      }
+    ],
+    "breadths":[
+      2
+    ]
+  },
+  {
+    "id":"COPD02H3Y20159",
+    "code":"COPD02H3Y",
+    "name":"Co-op IDS Work Prep ",
+    "description":"",
+    "division":"University of Toronto Scarborough",
+    "department":"Centre for Critical Development Studies (UTSC)",
+    "prerequisites":"",
+    "exclusions":"",
+    "level":400,
+    "campus":"UTSC",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"T0001",
+        "size":60,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"MW 140",
+            "_id":"56493e23cba6e64653bbe417"
+          }
+        ],
+        "instructors":[
+          "K Boomgaardt"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"PCJ360H1F20159",
+    "code":"PCJ360H1F",
+    "name":"Topics in Peace, Conflict, and Justice ",
+    "description":"An in-depth exploration of selected issues in the field of Peace, Conflict, and Justice. Topics may include: negotiation theory, ethnic and inter-group identity conflict, feminist perspectives on peace, war, and justice; mathematical modeling of arms races, war, and peacemaking; decision-making theory and conflict; environmental change and conflict; global justice institutions; and traditional perspectives on statecraft.",
+    "division":"Faculty of Arts and Science",
+    "department":"School of Global Affairs",
+    "prerequisites":"PCJ260Y1 or permission of the Program Director.",
+    "exclusions":"PCS360Y1, UNI360Y1",
+    "level":300,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":50,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":10,
+            "end":12,
+            "duration":2,
+            "location":"SS 1088",
+            "_id":"56493e23cba6e64653bbe41a"
+          }
+        ],
+        "instructors":[
+          "W Greaves"
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  },
+  {
+    "id":"EAS386Y1Y20159",
+    "code":"EAS386Y1Y",
+    "name":"Culture of Nature in China",
+    "description":"The course examines the cultural practice of nature in China’s past and present, focusing on literary, artistic, spiritual, ethical, political, and scientific aspects of human-nature relation. The content is drawn upon various kinds of scholarly and primary sources with special emphasis on eco-critical approach and methods of textual and historical studies.",
+    "division":"Faculty of Arts and Science",
+    "department":"East Asian Studies",
+    "prerequisites":"EAS209H1",
+    "exclusions":"",
+    "level":300,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L5101",
+        "size":50,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":17,
+            "end":19,
+            "duration":2,
+            "location":"SS 1083",
+            "_id":"56493e23cba6e64653bbe41d"
+          }
+        ],
+        "instructors":[
+          "Y Meng"
+        ]
+      }
+    ],
+    "breadths":[
+      1
+    ]
+  },
+  {
+    "id":"BIOD33H3F20159",
+    "code":"BIOD33H3F",
+    "name":"Comparative Animal Physiology",
+    "description":"This course will focus on the comparative aspects of animal physiology and address how various physiological systems are specialised to meet many of the environmental challenges encountered by terrestrial and aquatic environments. Topics include breathing, cardiovascular physiology, nutrition/feeding, energetics, thermal regulation, hibernation and ionic/osmotic regulation.",
+    "division":"University of Toronto Scarborough",
+    "department":"Biological Sciences (UTSC)",
+    "prerequisites":"BIOC33H3 or BIOC34H3",
+    "exclusions":"(BGYD33H3)",
+    "level":400,
+    "campus":"UTSC",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L01",
+        "size":50,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"THURSDAY",
+            "start":15,
+            "end":17,
+            "duration":2,
+            "location":"BV 363",
+            "_id":"56493e23cba6e64653bbe420"
+          }
+        ],
+        "instructors":[
+          "J Brown"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"HIS364H1S20161",
+    "code":"HIS364H1S",
+    "name":"From Revolution to Revolution: Hungary Since 1848",
+    "description":"This course offers a chronological survey of the history of Hungary from the 1848 revolution until the present.  It is ideal for students with little or no knowledge of Hungarian history but who posess an understanding of the main trends of European history in the 19th and 20th centuries.  The focus is on the revolutions of 1848-1849, 1918-1919, the 1956 Revolution against Soviet rule and the collapse of communism in 1989.  The story has not been invariably heroic, violent and tragic.",
+    "division":"Faculty of Arts and Science",
+    "department":"History",
+    "prerequisites":"A 100 level HIS course",
+    "exclusions":"None",
+    "level":300,
+    "campus":"UTSG",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":45,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":10,
+            "end":12,
+            "duration":2,
+            "location":"SS 2105",
+            "_id":"56493e23cba6e64653bbe423"
+          }
+        ],
+        "instructors":[
+          "R Austin"
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  },
+  {
+    "id":"ENG202Y5Y20159",
+    "code":"ENG202Y5Y",
+    "name":"British Literature: Medieval to Romantic",
+    "description":"An introduction to influential texts that have shaped the British literary heritage, covering approximately twelve writers of poetry, drama, and prose, from Chaucer to Keats, with attention to such questions as the development of the theatre, the growth of the novel form, and the emergence of women writers. [48L, 24T]",
+    "division":"University of Toronto Mississauga",
+    "department":"English and Drama",
+    "prerequisites":"All 200-series courses are open to students who are concurrently enrolled in ENG110Y or ENG140Y, or both DRE/ENG121H and DRE/ENG122H, or who have successfully completed at least 4.0 full credits.",
+    "exclusions":"",
+    "level":200,
+    "campus":"UTM",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":150,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":10,
+            "end":12,
+            "duration":2,
+            "location":"IB 345",
+            "_id":"56493e23cba6e64653bbe432"
+          }
+        ],
+        "instructors":[
+          "C Koenig-Woodyard"
+        ]
+      },
+      {
+        "code":"T0101",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"IB 377",
+            "_id":"56493e23cba6e64653bbe430"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0102",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"DV 1146",
+            "_id":"56493e23cba6e64653bbe42e"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0103",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":13,
+            "end":14,
+            "duration":1,
+            "location":"DV 2094",
+            "_id":"56493e23cba6e64653bbe42c"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0104",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":15,
+            "end":16,
+            "duration":1,
+            "location":"DV 1158",
+            "_id":"56493e23cba6e64653bbe42a"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0105",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":15,
+            "end":16,
+            "duration":1,
+            "location":"IB 245",
+            "_id":"56493e23cba6e64653bbe428"
+          }
+        ],
+        "instructors":[
+
+        ]
+      },
+      {
+        "code":"T0106",
+        "size":20,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":15,
+            "end":16,
+            "duration":1,
+            "location":"DH 3055",
+            "_id":"56493e23cba6e64653bbe426"
+          }
+        ],
+        "instructors":[
+
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"FAH451H5S20161",
+    "code":"FAH451H5S",
+    "name":"Curatorial Practice",
+    "description":"This course will consider the multi-level preparatory stages entailed in the mounting of an exhibition, placing particular emphasis on conceptualization, and on the premise that curatorial practice is an intellectual endeavour that manifests its ideas in form. Contemporary issues (at local, national, and international levels) in curatorial practice will be critically examined. Students will research and produce their own exhibitions (hypothetical or actual) with attendant textual documentation.[24S] FAH451H5 may be counted toward either the FAH or the FAS requirements in the Art and Art History program.",
+    "division":"University of Toronto Mississauga",
+    "department":"Visual Studies",
+    "prerequisites":"FAH101H5/FAH105H5/FAH202H5 and FAH310H5",
+    "exclusions":"FAH480H, VIS320H5",
+    "level":400,
+    "campus":"UTM",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":18,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":15,
+            "end":17,
+            "duration":2,
+            "location":"IB 340",
+            "_id":"56493e23cba6e64653bbe435"
+          }
+        ],
+        "instructors":[
+          "C Shaw"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"RSM429H1F20159",
+    "code":"RSM429H1F",
+    "name":"Financial Statement Analysis and Valuation",
+    "description":"This course is of interest to those pursuing a career where one needs to analyze financial statements \"intelligently\". This obviously includes those interested in finance related professions such as Investment Banking, Research and Investment Management.  Students interested in consulting and marketing will also find this course useful because of its approach that focuses on business analysis with tie-ins to corporate strategy. This is a capstone course for students completing the Financial Reporting and Control stream in the Accounting Specialist. Not eligible for CR/NCR option. Contact Rotman Commerce for details.",
+    "division":"Faculty of Arts and Science",
+    "department":"Rotman Commerce",
+    "prerequisites":"RSM219H1, RSM222H1",
+    "exclusions":"",
+    "level":400,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":80,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":12,
+            "end":14,
+            "duration":2,
+            "location":"WW 126",
+            "_id":"56493e23cba6e64653bbe43a"
+          }
+        ],
+        "instructors":[
+          "P Mohanram"
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  },
+  {
+    "id":"MHB256H1S20161",
+    "code":"MHB256H1S",
+    "name":"Intermediate Modern Hebrew ",
+    "description":"Continued intensive study of written and spoken Hebrew.",
+    "division":"Faculty of Arts and Science",
+    "department":"Department for the Study of Religion",
+    "prerequisites":"MHB255H1/NML156H1 or permission of instructor",
+    "exclusions":"Grade 8 Hebrew (or Ulpan level 2 in Israel)/NML255Y1",
+    "level":200,
+    "campus":"UTSG",
+    "term":"2016 Winter",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":8,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"MONDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"JH 214",
+            "_id":"56493e23cba6e64653bbe43e"
+          },
+          {
+            "day":"WEDNESDAY",
+            "start":13,
+            "end":15,
+            "duration":2,
+            "location":"JH 214",
+            "_id":"56493e23cba6e64653bbe43d"
+          }
+        ],
+        "instructors":[
+          "Y Nizri"
+        ]
+      }
+    ],
+    "breadths":[
+      1
+    ]
+  },
+  {
+    "id":"CITC16H3F20159",
+    "code":"CITC16H3F",
+    "name":"Planning and Governing the Metropolis",
+    "description":"Most of the world's population now lives in large urban regions. How such metropolitan areas should be planned and governed has been debated for over a century. Using examples, this course surveys and critically evaluates leading historical and contemporary perspectives on metropolitan planning and governance, and highlights the institutional and political challenges to regional coordination and policy development.",
+    "division":"University of Toronto Scarborough",
+    "department":"Human Geography (UTSC)",
+    "prerequisites":"At least 1.0 credit at the B-level in ONE of the following: City Studies or Human Geography or Management or Political Science or Sociology",
+    "exclusions":"",
+    "level":300,
+    "campus":"UTSC",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L01",
+        "size":60,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":15,
+            "end":17,
+            "duration":2,
+            "location":"MW 160",
+            "_id":"56493e23cba6e64653bbe441"
+          }
+        ],
+        "instructors":[
+          "T Wieditz"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"MGT374H5F20159",
+    "code":"MGT374H5F",
+    "name":"Operations Management",
+    "description":"Operations management is concerned with the facilities and their operation to deliver the goods and services of the organization. The course develops this theme and gives a theoretical framework for managing operations. Some of the major themes include aggregate planning, materials management, and inventory control. This course introduces students to modern quantitative and computing tools necessary for in-depth operational analysis and planning. [24L]",
+    "division":"University of Toronto Mississauga",
+    "department":"Management",
+    "prerequisites":"ECO220Y5/227Y5/STA(256H5, 260H5)/STA218H5",
+    "exclusions":"MGOC20H3, RSM270H1",
+    "level":300,
+    "campus":"UTM",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":60,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"FRIDAY",
+            "start":14,
+            "end":16,
+            "duration":2,
+            "location":"IB 250",
+            "_id":"56493e23cba6e64653bbe444"
+          }
+        ],
+        "instructors":[
+          "G Trippen"
+        ]
+      }
+    ],
+    "breadths":[
+
+    ]
+  },
+  {
+    "id":"POL370Y1Y20159",
+    "code":"POL370Y1Y",
+    "name":"International Political Economy",
+    "description":"Organized around important topics in the study of international political economy. The course explores the political underinnings of the global economy and the economic forces reshaping contemporary political environments. Specific policy issues are treated in a context that evaluates the explanatory power of various theoretical approaches.",
+    "division":"Faculty of Arts and Science",
+    "department":"Political Science",
+    "prerequisites":"1.0 POL credit; ECO100Y1/ECO105Y1",
+    "exclusions":"POL370H1",
+    "level":300,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":70,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":10,
+            "end":12,
+            "duration":2,
+            "location":"UC 163",
+            "_id":"56493e23cba6e64653bbe447"
+          }
+        ],
+        "instructors":[
+          "TBA",
+          "L Pauly"
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  },
+  {
+    "id":"TRN421Y1Y20159",
+    "code":"TRN421Y1Y",
+    "name":"The Practice and Institutions of Diplomacy (formerly JHP420Y1)",
+    "description":"Evaluation of the nature of foreign policy negotiation and decision-making from the perspective of the practitioner.",
+    "division":"Faculty of Arts and Science",
+    "department":"Trinity College",
+    "prerequisites":"ECO342Y1/HIS311Y1/POL312Y1",
+    "exclusions":"",
+    "level":400,
+    "campus":"UTSG",
+    "term":"2015 Fall",
+    "meeting_sections":[
+      {
+        "code":"L0101",
+        "size":15,
+        "enrolment":0,
+        "times":[
+          {
+            "day":"WEDNESDAY",
+            "start":16,
+            "end":18,
+            "duration":2,
+            "location":"TC 22",
+            "_id":"56493e23cba6e64653bbe44d"
+          }
+        ],
+        "instructors":[
+          "P SOMERVILLE"
+        ]
+      }
+    ],
+    "breadths":[
+      3
+    ]
+  }
+]

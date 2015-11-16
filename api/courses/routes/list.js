@@ -1,42 +1,46 @@
 import Course from '../model'
 import co from 'co'
-import assert from 'assert'
-var limit = 10
-var skip = 0
+let limit = 10
+let skip = 0
 
-export default function get(req, res) {
-  var qLimit = limit
-  if(req.query.limit) {
-    if(req.query.limit > 100) {
-      return res.json({
-        'error': {
-          'code': 0,
-          'message': 'Limit must be less than or equal to 100.'
-        }
-      })
+export default function get(req, res, next) {
+  let qLimit = limit
+  if (req.query.limit) {
+    if (isNaN(req.query.limit) || req.query.limit < 1 || req.query.limit > 100) {
+      let err = new Error('Limit must be a positive integer greater than 1 and less than or equal to 100.')
+      err.status = 400
+      return next(err)
     }
     qLimit = req.query.limit
   }
 
-  var qSkip = skip
-  if(req.query.skip) {
+  let qSkip = skip
+  if (req.query.skip) {
+    if (isNaN(req.query.skip) || req.query.skip < 0) {
+      let err = new Error('Skip must be a positive integer.')
+      err.status = 400
+      return next(err)
+    }
     qSkip = req.query.skip
   }
 
-  var qFilter = {}
-  if(req.query.campus) {
+  let qFilter = {}
+  if (req.query.campus) {
     let campus = req.query.campus.toUpperCase()
-    if(['UTSG', 'UTSC', 'UTM'].indexOf(campus) > -1) {
-      qFilter.campus = campus
+    if (['UTSG', 'UTSC', 'UTM'].indexOf(campus) === -1) {
+      let err = new Error('Campus must be UTSG, UTSC, or UTM.')
+      err.status = 400
+      return next(err)
     }
+    qFilter.campus = campus
   }
 
   co(function* () {
     try {
-      var docs = yield Course.find(qFilter, '-_id').skip(qSkip).limit(qLimit).exec()
+      var docs = yield Course.find(qFilter, '-_id -__v -meeting_sections._id').skip(qSkip).limit(qLimit).exec()
       res.json(docs)
-    } catch(e) {
-      assert.ifError(e)
+    } catch (e) {
+      return next(e)
     }
   })
 }

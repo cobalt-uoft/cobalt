@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint .",
-    "test": "eslint . && ava test/*",
+    "test": "eslint . && ava test/courses test/buildings.js",
     "prepush": "npm test"
   },
   "dependencies": {
