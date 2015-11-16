@@ -174,7 +174,7 @@ test('/search?q=', t => {
     })
 })
 
-test('/search?q=%22recreational%20space%20and%20more%22', t => {
+/* test('/search?q=%22recreational%20space%20and%20more%22', t => {
   request(app)
     .get('/1.0/courses/search?q=%22recreational%20space%20and%20more%22')
     .expect('Content-Type', /json/)
@@ -198,7 +198,7 @@ test('/search?q=loremipsumdolorsitamet', t => {
       t.pass()
       t.end()
     })
-})
+}) */
 
 /* TODO: filter tests (fun) */
 
