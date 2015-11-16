@@ -174,6 +174,8 @@ test('/search?q=', t => {
     })
 })
 
+// TODO: Make search work in CircleCI somehow
+
 /* test('/search?q=%22recreational%20space%20and%20more%22', t => {
   request(app)
     .get('/1.0/courses/search?q=%22recreational%20space%20and%20more%22')
@@ -201,6 +203,18 @@ test('/search?q=loremipsumdolorsitamet', t => {
 }) */
 
 /* TODO: filter tests (fun) */
+
+test('/filter?q=', t => {
+  request(app)
+    .get('/1.0/courses/filter?q=')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
 
 test.after('cleanup', t => {
   Course.remove({}, err => {
