@@ -4,21 +4,21 @@ import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
 
-/* Express setup */
-let app = express()
-
-/* Mongoose setup */
+// Database connection setup
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
   if (err) throw new Error(`Failed to connect to MongoDB [${process.env.COBALT_MONGO_URI}]: ${err.message}`)
   winston.debug('Connected to MongoDB')
 })
 
-/* API routes */
+// Express setup
+let app = express()
+
+// API routes
 let apiVersion = '1.0'
 app.use(`/${apiVersion}/courses`, courses)
 app.use(`/${apiVersion}/buildings`, buildings)
 
-/* Error handlers */
+// Error handlers
 app.use((req, res, next) => {
   let err = new Error('Not Found')
   err.status = 404

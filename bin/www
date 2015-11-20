@@ -5,9 +5,10 @@ require('babel-core/register')({
   sourceMap: 'both'
 })
 
+// Logging
 var winston = require('winston')
-var app = require('../index')
 
+var app = require('../index')
 app.set('port', process.env.COBALT_PORT || 4242)
 
 var server = app.listen(app.get('port'), function() {
