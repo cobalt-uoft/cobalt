@@ -1,5 +1,4 @@
 import Course from '../model'
-import assert from 'assert'
 import co from 'co'
 
 var limit = 10
@@ -264,7 +263,7 @@ export default function main(req, res, next) {
           }
           res.json(formattedDocs)
         } catch(e) {
-          assert.ifError(e)
+          return next(e)
         }
       })
     } else {
@@ -273,7 +272,7 @@ export default function main(req, res, next) {
           var docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
           res.json(docs)
         } catch(e) {
-          assert.ifError(e)
+          return next(e)
         }
       })
     }

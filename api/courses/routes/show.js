@@ -15,11 +15,10 @@ export default function get(req, res, next) {
         let err = new Error('A course with the specified identifier does not exist.')
         err.status = 400
         return next(err)
-      } else {
-        res.json(doc)
       }
+      res.json(doc)
     } catch (e) {
-      next(e)
+      return next(e)
     }
   })
 }

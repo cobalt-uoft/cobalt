@@ -1,48 +1,40 @@
 import Building from '../model'
-import assert from 'assert'
 import co from 'co'
 
 var limit = 10
 var skip = 0
 
-export default function get(req, res) {
-  if(!req.query.q) {
-    return res.json({
-      'error': {
-        'code': 0,
-        'message': 'Query must be specified.'
-      }
-    })
+export default function get(req, res, next) {
+  if (!req.query.q) {
+    let err = new Error('Query must be specified.')
+    err.status = 400
+    return next(err)
+  } else if (req.query.q.length < 3) {
+    let err = new Error('Query must be of length greater than 2.')
+    err.status = 400
+    return next(err)
   }
 
-  var qLimit = limit
-  if(req.query.limit) {
-    if(req.query.limit > 100) {
-      return res.json({
-        'error': {
-          'code': 0,
-          'message': 'Limit must be less than or equal to 100.'
-        }
-      })
+  let qLimit = limit
+  if (req.query.limit) {
+    if (isNaN(req.query.limit) || req.query.limit < 1 || req.query.limit > 100) {
+      let err = new Error('Limit must be a positive integer greater than 1 and less than or equal to 100.')
+      err.status = 400
+      return next(err)
     }
     qLimit = req.query.limit
   }
 
-  var qSkip = skip
-  if(req.query.skip) {
+  let qSkip = skip
+  if (req.query.skip) {
+    if (isNaN(req.query.skip) || req.query.skip < 0) {
+      let err = new Error('Skip must be a positive integer.')
+      err.status = 400
+      return next(err)
+    }
     qSkip = req.query.skip
   }
 
-  if(req.query.q.length < 2) {
-    return res.json({
-      'error': {
-        'code': 0,
-        'message': 'Query must be of at least length 2.'
-      }
-    })
-  }
-
-  /* TODO: utilize promises and async control flow */
   co(function* (){
     var docs
     try {
@@ -50,9 +42,9 @@ export default function get(req, res) {
         $text: {
           $search: req.query.q
         }
-      }, '-_id').skip(qSkip).limit(qLimit).exec()
+      }, '-_id').skip(qSkip).limit(qLimit).sort('id').exec()
     } catch(e) {
-      assert.ifError(e)
+      next(e)
     }
     res.json(docs)
   })

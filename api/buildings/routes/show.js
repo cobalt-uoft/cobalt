@@ -1,32 +1,24 @@
 import Building from '../model'
-import assert from 'assert'
 import co from 'co'
 
-export default function get(req, res) {
+export default function get(req, res, next) {
   if (!req.params.id) {
-    res.json({
-      'error': {
-        'code': 0,
-        'message': 'Does not exist.'
-      }
-    })
+    let err = new Error('Identifier must be specified.')
+    err.status = 400
+    return next(err)
   }
 
   co(function* (){
     try {
       var doc = yield Building.findOne({ id: req.params.id }, '-_id').exec()
       if (!doc) {
-        res.json({
-          'error': {
-            'code': 0,
-            'message': 'Does not exist.'
-          }
-        })
-      } else {
-        res.json(doc)
+        let err = new Error('A course with the specified identifier does not exist.')
+        err.status = 400
+        return next(err)
       }
+      res.json(doc)
     } catch(e) {
-      assert.ifError(e)
+      next(e)
     }
   })
 }
