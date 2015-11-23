@@ -27,11 +27,12 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
+  let error = {
+    code: err.status,
+    message: err.message
+  }
   res.json({
-    error: {
-      code: err.status,
-      message: err.message
-    }
+    error: error
   })
 })
 
