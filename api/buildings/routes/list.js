@@ -26,11 +26,14 @@ export default function get(req, res, next) {
   }
 
   let qFilter = {}
-  if(req.query.campus) {
+  if (req.query.campus) {
     let campus = req.query.campus.toUpperCase()
-    if(['UTSG', 'UTSC', 'UTM'].indexOf(campus) > -1) {
-      qFilter.campus = campus
+    if (['UTSG', 'UTSC', 'UTM'].indexOf(campus) === -1) {
+      let err = new Error('Campus must be UTSG, UTSC, or UTM.')
+      err.status = 400
+      return next(err)
     }
+    qFilter.campus = campus
   }
 
   co(function* (){
