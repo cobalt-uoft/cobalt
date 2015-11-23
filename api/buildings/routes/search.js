@@ -36,17 +36,16 @@ export default function get(req, res, next) {
   }
 
   co(function* (){
-    var docs
     try {
-      docs = yield Building.find({
+      let docs = yield Building.find({
         $text: {
           $search: req.query.q
         }
       }, '-_id').skip(qSkip).limit(qLimit).sort('id').exec()
+      res.json(docs)
     } catch(e) {
       next(e)
     }
-    res.json(docs)
   })
 
 }

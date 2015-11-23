@@ -10,7 +10,7 @@ export default function get(req, res, next) {
 
   co(function* (){
     try {
-      var doc = yield Building.findOne({ id: req.params.id }, '-_id').exec()
+      let doc = yield Building.findOne({ id: req.params.id }, '-_id').exec()
       if (!doc) {
         let err = new Error('A course with the specified identifier does not exist.')
         err.status = 400

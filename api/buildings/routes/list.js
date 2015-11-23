@@ -25,7 +25,7 @@ export default function get(req, res, next) {
     qSkip = req.query.skip
   }
 
-  var qFilter = {}
+  let qFilter = {}
   if(req.query.campus) {
     let campus = req.query.campus.toUpperCase()
     if(['UTSG', 'UTSC', 'UTM'].indexOf(campus) > -1) {
@@ -34,12 +34,11 @@ export default function get(req, res, next) {
   }
 
   co(function* (){
-    var docs
     try {
-      docs = yield Building.find(qFilter, '-_id').skip(qSkip).limit(qLimit).sort('id').exec()
+      let docs = yield Building.find(qFilter, '-_id').skip(qSkip).limit(qLimit).sort('id').exec()
+      res.json(docs)
     } catch(e) {
       next(e)
     }
-    res.json(docs)
   })
 }
