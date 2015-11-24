@@ -4,6 +4,7 @@ import co from 'co'
 // Default values
 let limit = 10
 let skip = 0
+let sort = 'id'
 
 export default function get(req, res, next) {
   if (!req.query.q) {
@@ -36,9 +37,19 @@ export default function get(req, res, next) {
     qSkip = req.query.skip
   }
 
+  let qSort = sort
+  if (req.query.sort) {
+    if (req.query.sort.length < 2) {
+      let err = new Error('Sort must be a string of length greater than 1.')
+      err.status = 400
+      return next(err)
+    }
+    qSort = req.query.sort
+  }
+
   co(function* () {
     try {
-      let docs = yield Course.find({ $text: { $search: req.query.q } }, '-_id -__v -meeting_sections._id -meeting_sections.times._id').skip(qSkip).limit(qLimit).sort('id').exec()
+      let docs = yield Course.find({ $text: { $search: req.query.q } }, '-__v -_id -meeting_sections._id -meeting_sections.times._id').skip(qSkip).limit(qLimit).sort(qSort).exec()
       res.json(docs)
     } catch (e) {
       return next(e)

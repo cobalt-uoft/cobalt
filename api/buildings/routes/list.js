@@ -4,6 +4,7 @@ import co from 'co'
 // Default values
 let limit = 10
 let skip = 0
+let sort = 'id'
 
 export default function get(req, res, next) {
   let qLimit = limit
@@ -26,22 +27,21 @@ export default function get(req, res, next) {
     qSkip = req.query.skip
   }
 
-  let qFilter = {}
-  if (req.query.campus) {
-    let campus = req.query.campus.toUpperCase()
-    if (['UTSG', 'UTSC', 'UTM'].indexOf(campus) === -1) {
-      let err = new Error('Campus must be UTSG, UTSC, or UTM.')
+  let qSort = sort
+  if (req.query.sort) {
+    if (req.query.sort.length < 2) {
+      let err = new Error('Sort must be a string of length greater than 1.')
       err.status = 400
       return next(err)
     }
-    qFilter.campus = campus
+    qSort = req.query.sort
   }
 
   co(function* (){
     try {
-      let docs = yield Building.find(qFilter, '-_id').skip(qSkip).limit(qLimit).sort('id').exec()
+      let docs = yield Building.find({}, '-__v -_id -address._id').skip(qSkip).limit(qLimit).sort(qSort).exec()
       res.json(docs)
-    } catch(e) {
+    } catch(e__v
       next(e)
     }
   })

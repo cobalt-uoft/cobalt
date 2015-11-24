@@ -4,6 +4,7 @@ import co from 'co'
 // Default values
 let limit = 10
 let skip = 0
+let sort = 'id'
 
 //The flat (relative to first root) keymap
 let KEYMAP = {
@@ -82,6 +83,16 @@ export default function main(req, res, next) {
       return next(err)
     }
     qSkip = req.query.skip
+  }
+
+  let qSort = sort
+  if (req.query.sort) {
+    if (req.query.sort.length < 2) {
+      let err = new Error('Sort must be a string of length greater than 1.')
+      err.status = 400
+      return next(err)
+    }
+    qSort = req.query.sort
   }
 
   var q = req.query.q
@@ -262,7 +273,7 @@ export default function main(req, res, next) {
     } else {
       co(function* () {
         try {
-          let docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
+          let docs = yield Course.find(filter, '-__v -_id -meeting_sections._id -meeting_sections.times._id').skip(qSkip).limit(qLimit).sort(qSort).exec()
           res.json(docs)
         } catch(e) {
           return next(e)
