@@ -1,19 +1,12 @@
 import Course from '../model'
 import co from 'co'
 
-var limit = 10
-var skip = 0
-
-/*
-  POSSIBLE PARAMETERS:
-  'code', 'name', 'description', 'division', 'department', 'prerequisite',
-  'exclusion', 'level', 'breadth', 'campus', 'term', 'instructor',
-  'location', 'rating', 'day', 'start', 'end', 'duration', 'size',
-  'session'
-*/
+// Default values
+let limit = 10
+let skip = 0
 
 //The flat (relative to first root) keymap
-var KEYMAP = {
+let KEYMAP = {
   'code': 'code',
   'name': 'name',
   'description': 'description',
@@ -37,7 +30,7 @@ var KEYMAP = {
 }
 
 //The absolute (from main root) keymap
-var KEYMAP2 = {
+let KEYMAP2 = {
   'code': 'code',
   'name': 'name',
   'description': 'description',
@@ -254,9 +247,9 @@ export default function main(req, res, next) {
 
       co(function* () {
         try {
-          var docs = yield Course.mapReduce(o)
+          let docs = yield Course.mapReduce(o)
           // TODO: revisit this formatting stuff, looks weird
-          var formattedDocs = []
+          let formattedDocs = []
           for(let doc of docs) {
             delete doc.value._id
             formattedDocs.push(doc.value)
@@ -269,7 +262,7 @@ export default function main(req, res, next) {
     } else {
       co(function* () {
         try {
-          var docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
+          let docs = yield Course.find(filter, '-_id').skip(qSkip).limit(qLimit).exec()
           res.json(docs)
         } catch(e) {
           return next(e)

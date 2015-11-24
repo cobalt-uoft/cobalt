@@ -1,5 +1,7 @@
 import Course from '../model'
 import co from 'co'
+
+// Default values
 let limit = 10
 let skip = 0
 
@@ -37,7 +39,7 @@ export default function get(req, res, next) {
 
   co(function* () {
     try {
-      var docs = yield Course.find(qFilter, '-_id -__v -meeting_sections._id -meeting_sections.times._id').skip(qSkip).limit(qLimit).sort('id').exec()
+      let docs = yield Course.find(qFilter, '-_id -__v -meeting_sections._id -meeting_sections.times._id').skip(qSkip).limit(qLimit).sort('id').exec()
       res.json(docs)
     } catch (e) {
       return next(e)

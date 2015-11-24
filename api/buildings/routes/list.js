@@ -1,8 +1,9 @@
 import Building from '../model'
 import co from 'co'
 
-var limit = 10
-var skip = 0
+// Default values
+let limit = 10
+let skip = 0
 
 export default function get(req, res, next) {
   let qLimit = limit
