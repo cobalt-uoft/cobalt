@@ -108,31 +108,6 @@ test('/list?skip=2&limit=2', t => {
     })
 })
 
-test('/list?campus=UTM', t => {
-  request(app)
-    .get('/1.0/courses/list?campus=UTM')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(JSON.stringify(testData.filter(doc => { return doc.campus === 'UTM' })))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test('/list?campus=UTB', t => {
-  request(app)
-    .get('/1.0/courses/list?campus=UTB')
-    .expect('Content-Type', /json/)
-    .expect(400)
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 /* show tests */
 
 test(`/show/${testData[0].id}`, t => {

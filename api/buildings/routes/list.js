@@ -41,7 +41,7 @@ export default function get(req, res, next) {
     try {
       let docs = yield Building.find({}, '-__v -_id -address._id').skip(qSkip).limit(qLimit).sort(qSort).exec()
       res.json(docs)
-    } catch(e__v
+    } catch (e) {
       next(e)
     }
   })
