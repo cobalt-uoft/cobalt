@@ -1,13 +1,13 @@
-import Building from '../model'
+/* import Building from '../model'
 import co from 'co'
 
 // Default values
 let limit = 10
 let skip = 0
-let sort = 'id'
+let sort = 'id' */
 
 export default function get(req, res, next) {
-  let qLimit = limit
+  /*let qLimit = limit
   if (req.query.limit) {
     if (isNaN(req.query.limit) || req.query.limit < 1 || req.query.limit > 100) {
       let err = new Error('Limit must be a positive integer greater than 1 and less than or equal to 100.')
@@ -35,7 +35,7 @@ export default function get(req, res, next) {
       return next(err)
     }
     qSort = req.query.sort
-  }
+  }*/
 
   res.json({})
 }
