@@ -6,9 +6,30 @@ import show from './routes/show'
 import search from './routes/search'
 import filter from './routes/filter'
 
-router.get('/list', list)
-router.get('/show/:id', show)
-router.get('/search', search)
-router.get('/filter', filter)
+import validation from '../validation'
+
+router.get('/list',
+  validation.limit,
+  validation.skip,
+  validation.sort,
+  list)
+
+router.get('/show/:id',
+  validation.id,
+  show)
+
+router.get('/search',
+  validation.query,
+  validation.limit,
+  validation.skip,
+  validation.sort,
+  search)
+
+router.get('/filter',
+  validation.query,
+  validation.limit,
+  validation.skip,
+  validation.sort,
+  filter)
 
 export default router
