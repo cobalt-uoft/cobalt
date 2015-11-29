@@ -57,6 +57,11 @@ validation.query = (req, res, next) => {
   next()
 }
 
+validation.filterQuery = (req, res, next) => {
+  // TODO: Loosely validate the format of the filter query
+  next()
+}
+
 validation.id = (req, res, next) => {
   if (!req.params.id) {
     let err = new Error('Identifier must be specified.')

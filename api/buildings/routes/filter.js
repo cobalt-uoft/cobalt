@@ -2,6 +2,6 @@
 import co from 'co'
 */
 
-export default function get(req, res, next) {
+export default function filter(req, res, next) {
   res.json({})
 }

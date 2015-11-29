@@ -27,6 +27,7 @@ router.get('/search',
 
 router.get('/filter',
   validation.query,
+  validation.filterQuery,
   validation.limit,
   validation.skip,
   validation.sort,

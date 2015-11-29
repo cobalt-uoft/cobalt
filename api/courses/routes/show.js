@@ -1,7 +1,7 @@
 import Course from '../model'
 import co from 'co'
 
-export default function get(req, res, next) {
+export default function show(req, res, next) {
   co(function* (){
     try {
       let doc = yield Course

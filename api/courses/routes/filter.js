@@ -1,8 +1,8 @@
 import Course from '../model'
 import co from 'co'
 
-//The flat (relative to first root) keymap
-let KEYMAP = {
+// The flat keymap
+const KEYMAP = {
   'code': 'code',
   'name': 'name',
   'description': 'description',
@@ -25,8 +25,8 @@ let KEYMAP = {
   'enrolment': 'enrolment'
 }
 
-//The absolute (from main root) keymap
-let KEYMAP2 = {
+// The absolute (from root) keymap
+const ABSOLUTE_KEYMAP = {
   'code': 'code',
   'name': 'name',
   'description': 'description',
@@ -49,22 +49,22 @@ let KEYMAP2 = {
   'enrolment': 'meeting_sections.enrolment'
 }
 
-export default function main(req, res, next) {
-  var q = req.query.q
+export default function filter(req, res, next) {
+  let q = req.query.q
   q = q.split(' AND ')
 
-  var queries = 0
-  var isMapReduce = false
-  var mapReduceData = []
+  let queries = 0
+  let isMapReduce = false
+  let mapReduceData = []
 
-  var filter = { $and: q }
+  let filter = { $and: q }
 
-  for (var i = 0; i < filter.$and.length; i++) {
+  for (let i = 0; i < filter.$and.length; i++) {
     filter.$and[i] = { $or: q[i].trim().split(' OR ') }
-    var mapReduceOr = []
-    for (var j = 0; j < filter.$and[i].$or.length; j++) {
-      var part = filter.$and[i].$or[j].trim().split(':')
-      var x = formatPart(part[0], part[1])
+    let mapReduceOr = []
+    for (let j = 0; j < filter.$and[i].$or.length; j++) {
+      let part = filter.$and[i].$or[j].trim().split(':')
+      let x = formatPart(part[0], part[1])
 
       if (x.isValid) {
         if (x.isMapReduce) {
@@ -74,22 +74,17 @@ export default function main(req, res, next) {
         }
 
         filter.$and[i].$or[j] = x.query
-
         queries++
       }
     }
 
-
     if (mapReduceOr.length > 0) {
       mapReduceData.push(mapReduceOr)
     }
-
   }
 
   if(queries > 0) {
-
     if(isMapReduce) {
-
       if(filter.$and.length === 0) {
         filter = {}
       }
@@ -108,57 +103,57 @@ export default function main(req, res, next) {
       */
 
       /* eslint-disable */
-      o.map = function() {
-        var matchedSections = []
+      o.map = () => {
+        let matchedSections = []
 
-        for(let h = 0; h < this.meeting_sections.length; h++) {
-          var s = this.meeting_sections[h]
+        for (let h = 0; h < this.meeting_sections.length; h++) {
+          let s = this.meeting_sections[h]
 
-          var currentData = []
+          let currentData = []
 
-          for(let i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             currentData[i] = []
 
-            for(let j = 0; j < data[i].length; j++) {
+            for (let j = 0; j < data[i].length; j++) {
               currentData[i][j] = false
-              var p = data[i][j]
-              var value
+              let p = data[i][j]
+              let value = undefined
 
-              if(['code', 'size', 'enrolment', 'instructors'].indexOf(p.key) > -1) {
+              if (['code', 'size', 'enrolment', 'instructors'].indexOf(p.key) > -1) {
                 value = s[p.key]
-              } else if(['day', 'start', 'end', 'duration', 'location'].indexOf(p.key) > -1) {
+              } else if (['day', 'start', 'end', 'duration', 'location'].indexOf(p.key) > -1) {
                 value = []
-                for(var l = 0; l < s.times.length; l++) {
+                for(let l = 0; l < s.times.length; l++) {
                   value.push(s.times[l][p.key])
                 }
               }
 
-              if(value.constructor === Array) {
-                var bools = []
+              if (value.constructor === Array) {
+                let bools = []
 
-                if(p.operator === '-') {
-                  for(let l = 0; l < value.length; l++) {
+                if (p.operator === '-') {
+                  for (let l = 0; l < value.length; l++) {
                     bools.push(!value[l].match(p.value))
                   }
-                } else if(p.operator === '>') {
-                  for(let l = 0; l < value.length; l++) {
+                } else if (p.operator === '>') {
+                  for (let l = 0; l < value.length; l++) {
                     bools.push(value[l] > p.value)
                   }
-                } else if(p.operator === '<') {
-                  for(let l = 0; l < value.length; l++) {
+                } else if (p.operator === '<') {
+                  for (let l = 0; l < value.length; l++) {
                     bools.push(value[l] < p.value)
                   }
-                } else if(p.operator === '>=') {
-                  for(let l = 0; l < value.length; l++) {
+                } else if (p.operator === '>=') {
+                  for (let l = 0; l < value.length; l++) {
                     bools.push(value[l] >= p.value)
                   }
-                } else if(p.operator === '<=') {
-                  for(let l = 0; l < value.length; l++) {
+                } else if (p.operator === '<=') {
+                  for (let l = 0; l < value.length; l++) {
                     bools.push(value[l] <= p.value)
                   }
                 } else {
-                  for(let l = 0; l < value.length; l++) {
-                    if(!isNaN(value[l])) {
+                  for (let l = 0; l < value.length; l++) {
+                    if (!isNaN(value[l])) {
                       bools.push(value[l] === p.value)
                     } else {
                       bools.push(value[l].match(p.value))
@@ -168,18 +163,18 @@ export default function main(req, res, next) {
 
                 currentData[i][j] = bools.some(Boolean)
               } else {
-                if(p.operator === '-') {
+                if (p.operator === '-') {
                   currentData[i][j] = !value.match(p.value)
-                } else if(p.operator === '>') {
+                } else if (p.operator === '>') {
                   currentData[i][j] = value > p.value
-                } else if(p.operator === '<') {
+                } else if (p.operator === '<') {
                   currentData[i][j] = value < p.value
-                } else if(p.operator === '>=') {
+                } else if (p.operator === '>=') {
                   currentData[i][j] = value >= p.value
-                } else if(p.operator === '<=') {
+                } else if (p.operator === '<=') {
                   currentData[i][j] = value <= p.value
                 } else {
-                  if(!isNaN(value)) {
+                  if (!isNaN(value)) {
                     currentData[i][j] = value === p.value
                   } else {
                     currentData[i][j] = value.match(p.value)
@@ -189,24 +184,24 @@ export default function main(req, res, next) {
             }
           }
 
-          for(let i = 0; i < currentData.length; i++) {
+          for (let i = 0; i < currentData.length; i++) {
             currentData[i] = currentData[i].some(Boolean)
           }
 
           currentData = currentData.every(Boolean)
 
-          if(currentData) {
+          if (currentData) {
             matchedSections.push(s)
           }
         }
 
-        if(matchedSections.length > 0) {
+        if (matchedSections.length > 0) {
           this.matched_meeting_sections = matchedSections
           emit(this._id, this)
         }
       }
 
-      o.reduce = function(key, values) {
+      o.reduce = (key, values) => {
         return values[0]
       }
       /* eslint-enable */
@@ -245,7 +240,7 @@ export default function main(req, res, next) {
 
 function formatPart(key, part) {
   // Response format
-  var response = {
+  let response = {
     key: key,
     isValid: true,
     isMapReduce: false,
@@ -254,28 +249,28 @@ function formatPart(key, part) {
   }
 
   // Checking if the start of the segment is an operator (-, >, <, .>, .<)
-  if(part.indexOf('-') === 0) {
+  if (part.indexOf('-') === 0) {
     // Negation
     part = {
       operator: '-',
       value: part.substring(1)
     }
-  } else if(part.indexOf('>=') === 0) {
+  } else if (part.indexOf('>=') === 0) {
     part = {
       operator: '>=',
       value: part.substring(2)
     }
-  } else if(part.indexOf('<=') === 0) {
+  } else if (part.indexOf('<=') === 0) {
     part = {
       operator: '<=',
       value: part.substring(2)
     }
-  } else if(part.indexOf('>') === 0) {
+  } else if (part.indexOf('>') === 0) {
     part = {
       operator: '>',
       value: part.substring(1)
     }
-  } else if(part.indexOf('<') === 0) {
+  } else if (part.indexOf('<') === 0) {
     part = {
       operator: '<',
       value: part.substring(1)
@@ -294,58 +289,52 @@ function formatPart(key, part) {
     part.value = parseInt(part.value)
   }
 
-  /* TODO: Validate query? */
-
   if (['breadth', 'level', 'size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
     // Integers and arrays of integers (mongo treats them the same)
 
-    if(['size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
+    if (['size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
     }
 
-    if(part.operator === '-') {
-      response.query[KEYMAP2[key]] = { $ne: part.value }
-    } else if(part.operator === '>') {
-      response.query[KEYMAP2[key]] = { $gt: part.value }
-    } else if(part.operator === '<') {
-      response.query[KEYMAP2[key]] = { $lt: part.value }
-    } else if(part.operator === '>=') {
-      response.query[KEYMAP2[key]] = { $gte: part.value }
-    } else if(part.operator === '<=') {
-      response.query[KEYMAP2[key]] = { $lte: part.value }
+    if (part.operator === '-') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
+    } else if (part.operator === '>') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
+    } else if (part.operator === '<') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }
+    } else if (part.operator === '>=') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $gte: part.value }
+    } else if (part.operator === '<=') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $lte: part.value }
     } else {
       // Assume equality if no operator
-      response.query[KEYMAP2[key]] = part.value
+      response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
-  } else if(key.match('instructor')) {
+  } else if (key.match('instructor')) {
     // Array of strings
     response.isMapReduce = true
     response.mapReduceData = part
 
-    if(part.operator === '-') {
-      response.query[KEYMAP2[key]] = { $not: {
-        $elemMatch: { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
-      } }
+    if (part.operator === '-') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $not: { $elemMatch: { $regex: '(?i).*' + escapeRe(part.value) + '.*' } } }
     } else {
-      response.query[KEYMAP2[key]] = {
-        $elemMatch: { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
-      }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $elemMatch: { $regex: '(?i).*' + escapeRe(part.value) + '.*' } }
     }
   } else {
     // Strings
-    if(['location', 'meeting_code'].indexOf(key) > -1) {
+    if (['location', 'meeting_code'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
     }
 
-    if(part.operator === '-') {
-      response.query[KEYMAP2[key]] = {
+    if (part.operator === '-') {
+      response.query[ABSOLUTE_KEYMAP[key]] = {
         $regex: '^((?!' + escapeRe(part.value) + ').)*$',
         $options: 'i'
       }
     } else {
-      response.query[KEYMAP2[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
     }
   }
 
