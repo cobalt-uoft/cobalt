@@ -14,7 +14,9 @@ To learn more about how to use Cobalt in your software, take a look at the [Gett
 
 If you have an idea for a web API, please let the community know by opening an [issue](https://github.com/cobalt-uoft/cobalt/issues) on this GitHub repository.
 
+## Documentation
 
+Cobalt's documentation is located [here](https://github.com/cobalt-uoft/documentation).
 
 ## Contributing
 
