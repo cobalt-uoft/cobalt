@@ -110,9 +110,9 @@ test('/list?skip=2&limit=2', t => {
 
 /* show tests */
 
-test(`/show/${testData[0].id}`, t => {
+test(`/${testData[0].id}`, t => {
   request(app)
-    .get(`/1.0/courses/show/${testData[0].id}`)
+    .get(`/1.0/courses/${testData[0].id}`)
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData[0]))
@@ -123,9 +123,9 @@ test(`/show/${testData[0].id}`, t => {
     })
 })
 
-test('/show/XYZ789H1F20159', t => {
+test('/XYZ789H1F20159', t => {
   request(app)
-    .get('/1.0/courses/show/XYZ789H1F20159')
+    .get('/1.0/courses/XYZ789H1F20159')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {
