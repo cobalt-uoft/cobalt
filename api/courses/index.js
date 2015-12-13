@@ -14,10 +14,6 @@ router.get('/list',
   validation.sort,
   list)
 
-router.get('/show/:id',
-  validation.id,
-  show)
-
 router.get('/search',
   validation.query,
   validation.limit,
@@ -32,5 +28,9 @@ router.get('/filter',
   validation.skip,
   validation.sort,
   filter)
+
+router.get('/:id',
+  validation.id,
+  show)
 
 export default router
