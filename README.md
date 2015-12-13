@@ -8,7 +8,7 @@ To learn more about how to use Cobalt in your software, take a look at the [Gett
 
 ## APIs
 
-[Courses](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/course-api/introduction.md): Undergraduate course API with up to date calendar and timetable information.
+[Courses](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/introduction.md): Undergraduate course API with up to date calendar and timetable information.
 
 [Buildings](https://cobalt.qas.im/documentation/building-api/introduction): Campus building API with geographic location information.
 
