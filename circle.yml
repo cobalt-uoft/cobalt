@@ -1,5 +1,0 @@
-machine:
-  node:
-    version: 0.12.7
-  environment:
-    COBALT_MONGO_URI: mongodb://localhost/cobalt
