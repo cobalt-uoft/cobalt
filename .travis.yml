@@ -1,9 +1,22 @@
 language: node_js
+
 node_js:
-  - "4.1"
-services:
-  - mongodb
+  - "4.2"
+
+env:
+  - COBALT_MONGO_URI=mongodb://localhost:27017/cobalt
+
 install:
   - npm install
+
+before_script:
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.0.tgz -O /tmp/mongodb.tgz
+  - tar -xvf /tmp/mongodb.tgz
+  - mkdir /tmp/data
+  - ${PWD}/mongodb-linux-x86_64-3.2.0/bin/mongod --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
+  - until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done
+
 script:
   - npm test
+
+sudo: false
