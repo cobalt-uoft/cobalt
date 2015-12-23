@@ -22,7 +22,6 @@ test('/list', t => {
     .get('/1.0/buildings/list')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect('[]')
     .end(function(err, res){
       if (err) t.fail(err.message)
       t.pass()
