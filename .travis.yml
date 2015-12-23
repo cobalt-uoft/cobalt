@@ -3,9 +3,10 @@ node_js:
   - "4.1"
 services:
   - mongodb
+before_install:
+  - sleep 5
+  - "sudo mongo cobalt --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
 install:
   - npm install
-before_script:
-  - "mongo cobalt --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
 script:
   - npm test
