@@ -12,6 +12,7 @@ validation.limit = (req, res, next) => {
       err.status = 400
       return next(err)
     }
+    req.query.limit = parseInt(req.query.limit)
   } else {
     req.query.limit = LIMIT
   }
@@ -25,6 +26,7 @@ validation.skip = (req, res, next) => {
       err.status = 400
       return next(err)
     }
+    req.query.skip = parseInt(req.query.skip)
   } else {
     req.query.skip = SKIP
   }
