@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-  - "4.1"
+  - "0.12.9"
 services:
   - mongodb
 before_install:
   - "until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done"
-  - "mongo cobalt --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})'"
+  - "mongo cobalt --eval 'db.adminCommand( { setParameter: true, textSearchEnabled: true})'"
 install:
   - npm install
 script:
