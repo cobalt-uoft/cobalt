@@ -3,6 +3,8 @@ node_js:
   - "4.1"
 services:
   - mongodb
+before_install:
+  - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
 install:
   - npm install
 script:
