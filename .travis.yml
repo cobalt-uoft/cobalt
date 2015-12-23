@@ -3,8 +3,8 @@ language: node_js
 node_js:
   - "4.2"
 
-services:
-  - mongodb
+env:
+  - COBALT_MONGO_URI=mongodb://localhost:27017/cobalt
 
 install:
   - npm install
