@@ -51,6 +51,7 @@ test('/list?limit=2', t => {
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 2)))
     .end((err, res) => {
+      console.log(res)
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -156,7 +157,6 @@ test('/search?q=%22recreational%20space%20and%20more%22', t => {
     .expect(200)
     .expect(JSON.stringify(testData.filter(doc => { return doc.description.match('recreational space and more') })))
     .end((err, res) => {
-      console.log(res)
       if (err) t.fail(err.message)
       t.pass()
       t.end()
@@ -170,7 +170,6 @@ test('/search?q=loremipsumdolorsitamet', t => {
     .expect(200)
     .expect('[]')
     .end((err, res) => {
-      console.log(res)
       if (err) t.fail(err.message)
       t.pass()
       t.end()
