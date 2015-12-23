@@ -51,7 +51,6 @@ test('/list?limit=2', t => {
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 2)))
     .end((err, res) => {
-      console.log(res)
       if (err) t.fail(err.message)
       t.pass()
       t.end()
