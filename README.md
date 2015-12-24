@@ -18,6 +18,10 @@ If you have an idea for a web API, please let the community know by opening an [
 
 Cobalt's documentation is located [here](https://github.com/cobalt-uoft/documentation).
 
+## Data
+
+Current and historical datasets for Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
+
 ## Contributing
 
 Help contribute towards making this service better. Learn more by reading the [contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md) guide.
