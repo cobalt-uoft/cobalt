@@ -17,12 +17,11 @@ test.before('setup', t => {
   })
 })
 
-test('/list', t => {
+test('/', t => {
   request(app)
-    .get('/1.0/buildings/list')
+    .get('/1.0/buildings')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect('[]')
     .end(function(err, res){
       if (err) t.fail(err.message)
       t.pass()

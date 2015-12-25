@@ -19,9 +19,9 @@ test.before('setup', t => {
 
 /* list tests */
 
-test('/list', t => {
+test('/', t => {
   request(app)
-    .get('/1.0/courses/list')
+    .get('/1.0/courses')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 10)))
@@ -32,9 +32,9 @@ test('/list', t => {
     })
 })
 
-test('/list?limit=0', t => {
+test('/?limit=0', t => {
   request(app)
-    .get('/1.0/courses/list?limit=0')
+    .get('/1.0/courses?limit=0')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {
@@ -44,9 +44,9 @@ test('/list?limit=0', t => {
     })
 })
 
-test('/list?limit=2', t => {
+test('/?limit=2', t => {
   request(app)
-    .get('/1.0/courses/list?limit=2')
+    .get('/1.0/courses?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(0, 2)))
@@ -57,9 +57,9 @@ test('/list?limit=2', t => {
     })
 })
 
-test('/list?limit=200', t => {
+test('/?limit=200', t => {
   request(app)
-    .get('/1.0/courses/list?limit=200')
+    .get('/1.0/courses?limit=200')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {
@@ -69,9 +69,9 @@ test('/list?limit=200', t => {
     })
 })
 
-test('/list?skip=10', t => {
+test('/?skip=10', t => {
   request(app)
-    .get('/1.0/courses/list?skip=10')
+    .get('/1.0/courses?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(10, 20)))
@@ -82,9 +82,9 @@ test('/list?skip=10', t => {
     })
 })
 
-test('/list?skip=200', t => {
+test('/?skip=200', t => {
   request(app)
-    .get('/1.0/courses/list?skip=200')
+    .get('/1.0/courses?skip=200')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect('[]')
@@ -95,9 +95,9 @@ test('/list?skip=200', t => {
     })
 })
 
-test('/list?skip=2&limit=2', t => {
+test('/?skip=2&limit=2', t => {
   request(app)
-    .get('/1.0/courses/list?skip=2&limit=2')
+    .get('/1.0/courses?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(2, 4)))

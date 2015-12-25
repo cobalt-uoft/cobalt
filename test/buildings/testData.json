@@ -1,1 +1,322 @@
-[]
+[
+  {
+    "id":"001",
+    "code":"UC",
+    "name":"University College",
+    "short_name":"UC",
+    "campus":"UTSG",
+    "lat":43.6632,
+    "lng":-79.39582,
+    "address":{
+      "street":"15  King's College Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3H7"
+    }
+  },
+  {
+    "id":"002",
+    "code":"HH",
+    "name":"Hart House",
+    "short_name":"Hart House",
+    "campus":"UTSG",
+    "lat":43.6637,
+    "lng":-79.39452,
+    "address":{
+      "street":"7  Hart House Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3H3"
+    }
+  },
+  {
+    "id":"003",
+    "code":"SM",
+    "name":"Gerstein Science Information Centre in the Sigmund Samuel Library Bldg",
+    "short_name":"Sig Samuel",
+    "campus":"UTSG",
+    "lat":43.6622,
+    "lng":-79.39385,
+    "address":{
+      "street":"7 and 9 King's College Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3K1"
+    }
+  },
+  {
+    "id":"004",
+    "code":"MR",
+    "name":"McMurrich Building",
+    "short_name":"McMurrich",
+    "campus":"UTSG",
+    "lat":43.66111,
+    "lng":-79.39287,
+    "address":{
+      "street":"12  Queen's Park Crescent W",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1S8"
+    }
+  },
+  {
+    "id":"005",
+    "code":"MS",
+    "name":"Medical Sciences Building",
+    "short_name":"MSB",
+    "campus":"UTSG",
+    "lat":43.66074,
+    "lng":-79.39373,
+    "address":{
+      "street":"1  King's College Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1A8"
+    }
+  },
+  {
+    "id":"006",
+    "code":"RL",
+    "name":"John P. Robarts Library Building",
+    "short_name":"Robarts",
+    "campus":"UTSG",
+    "lat":43.66445,
+    "lng":-79.39945,
+    "address":{
+      "street":"130  St. George Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1A5"
+    }
+  },
+  {
+    "id":"006A",
+    "code":"BL",
+    "name":"Claude T. Bissell Building",
+    "short_name":"Bissell Bldg",
+    "campus":"UTSG",
+    "lat":43.66503,
+    "lng":-79.3993,
+    "address":{
+      "street":"140  St. George Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3G6"
+    }
+  },
+  {
+    "id":"006B",
+    "code":"RB",
+    "name":"Thomas Fisher Rare Book Library Building",
+    "short_name":"Rare Book",
+    "campus":"UTSG",
+    "lat":43.66405,
+    "lng":-79.39894,
+    "address":{
+      "street":"120  St. George Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1A5"
+    }
+  },
+  {
+    "id":"007",
+    "code":"MB",
+    "name":"Lassonde Mining Building",
+    "short_name":"Mining",
+    "campus":"UTSG",
+    "lat":43.6595,
+    "lng":-79.39339,
+    "address":{
+      "street":"170  College Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3E3"
+    }
+  },
+  {
+    "id":"008",
+    "code":"WB",
+    "name":"Wallberg Building",
+    "short_name":"Wallberg",
+    "campus":"UTSG",
+    "lat":43.65912,
+    "lng":-79.39519,
+    "address":{
+      "street":"184-200   College Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M56 3E5"
+    }
+  },
+  {
+    "id":"008A",
+    "code":"PT",
+    "name":"D.L. Pratt Building",
+    "short_name":"D.L. Pratt",
+    "campus":"UTSG",
+    "lat":43.65963,
+    "lng":-79.39469,
+    "address":{
+      "street":"6  King's College Road",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3H5"
+    }
+  },
+  {
+    "id":"009",
+    "code":"SF",
+    "name":"Sandford Fleming Building",
+    "short_name":"Sandford Flm",
+    "campus":"UTSG",
+    "lat":43.66012,
+    "lng":-79.3951,
+    "address":{
+      "street":"10  King's College Road",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3G4"
+    }
+  },
+  {
+    "id":"010",
+    "code":"SI",
+    "name":"Simcoe Hall",
+    "short_name":"Simcoe Hall",
+    "campus":"UTSG",
+    "lat":43.66076,
+    "lng":-79.39594,
+    "address":{
+      "street":"27  King's College Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1A1"
+    }
+  },
+  {
+    "id":"010A",
+    "code":"CH",
+    "name":"Convocation Hall",
+    "short_name":"Con Hall",
+    "campus":"UTSG",
+    "lat":43.66077,
+    "lng":-79.39539,
+    "address":{
+      "street":"31  King's College Circle",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 1A1"
+    }
+  },
+  {
+    "id":"011",
+    "code":"TZ",
+    "name":"C. David Naylor Building (Formerly Tanz Building)",
+    "short_name":"Naylor",
+    "campus":"UTSG",
+    "lat":43.66043,
+    "lng":-79.39176,
+    "address":{
+      "street":"6  Queen's Park Crescent West",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3H2"
+    }
+  },
+  {
+    "id":"012A",
+    "code":"MU",
+    "name":"Munk School of Global Affairs at Trinity",
+    "short_name":"Munk-Trinity",
+    "campus":"UTSG",
+    "lat":43.6653,
+    "lng":-79.39679,
+    "address":{
+      "street":"1  Devonshire Place",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3K7"
+    }
+  },
+  {
+    "id":"012C",
+    "code":"MU",
+    "name":"Munk School of Global Affairs - Graham Library",
+    "short_name":"Munk East",
+    "campus":"UTSG",
+    "lat":43.66507,
+    "lng":-79.39635,
+    "address":{
+      "street":"5  Devonshire Place",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 3K7"
+    }
+  },
+  {
+    "id":"013",
+    "code":"WT",
+    "name":"Whitney Hall",
+    "short_name":"Whitney Hall",
+    "campus":"UTSG",
+    "lat":43.66376,
+    "lng":-79.39794,
+    "address":{
+      "street":"85  St. George Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 2E5"
+    }
+  },
+  {
+    "id":"014",
+    "code":"FE",
+    "name":"Bloor Street West-371",
+    "short_name":"Bloor W-371",
+    "campus":"UTSG",
+    "lat":43.66668,
+    "lng":-79.40223,
+    "address":{
+      "street":"371  Bloor Street West",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5S 2R7"
+    }
+  },
+  {
+    "id":"016",
+    "code":"BI",
+    "name":"Banting Institute",
+    "short_name":"Banting Inst",
+    "campus":"UTSG",
+    "lat":43.66049,
+    "lng":-79.38859,
+    "address":{
+      "street":"100  College Street",
+      "city":"Toronto",
+      "province":"ON",
+      "country":"Canada",
+      "postal":"M5G 1L5"
+    }
+  }
+]
