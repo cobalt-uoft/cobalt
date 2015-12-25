@@ -8,7 +8,7 @@ import filter from './routes/filter'
 
 import validation from '../validation'
 
-router.get('/list',
+router.get('/',
   validation.limit,
   validation.skip,
   validation.sort,
