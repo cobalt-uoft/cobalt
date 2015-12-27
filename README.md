@@ -16,7 +16,7 @@ If you have an idea for a web API, please let the community know by opening an [
 
 ## Documentation
 
-Cobalt's documentation is located [here](https://github.com/cobalt-uoft/documentation).
+Cobalt's documentation is located at [cobalt-uoft/documentation](https://github.com/cobalt-uoft/documentation).
 
 ## Data
 
