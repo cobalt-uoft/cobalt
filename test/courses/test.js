@@ -175,7 +175,7 @@ test('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
-/* TODO: filter tests (fun) */
+/* TODO: filter tests */
 
 test('/filter?q=', t => {
   request(app)
