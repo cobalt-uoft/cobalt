@@ -10,7 +10,7 @@ To learn more about how to use Cobalt in your software, take a look at the [Gett
 
 [Courses](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/introduction.md): Undergraduate course API with up to date calendar and timetable information.
 
-[Buildings](https://cobalt.qas.im/documentation/building-api/introduction): Campus building API with geographic location information.
+[Buildings](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/introduction.md): Campus building API with geographic location information.
 
 If you have an idea for a web API, please let the community know by opening an [issue](https://github.com/cobalt-uoft/cobalt/issues) on this GitHub repository.
 
@@ -28,4 +28,3 @@ Help contribute towards making this service better. Learn more by reading the [c
 
 [slackin]: https://cobalt-slack.herokuapp.com/
 [slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
-
