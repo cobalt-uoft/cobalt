@@ -19,7 +19,7 @@
     "lint": "eslint .",
     "test": "ava test/courses test/buildings",
     "prepush": "npm run lint && npm test",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | perl test/covfix.pl | coveralls"
   },
   "dependencies": {
     "babel-core": "^5.8.23",
