@@ -18,9 +18,9 @@
     "start": "node ./bin/www",
     "lint": "eslint .",
     "test": "ava test/courses test/buildings",
+    "prepush": "npm run lint && npm test",
     "coverage": "nyc npm test",
-    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
-    "prepush": "npm lint && npm test"
+    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "babel-core": "^5.8.23",
