@@ -1,4 +1,4 @@
-# Cobalt @ University of Toronto [<img src="https://avatars0.githubusercontent.com/u/10912859" width="20" height="20" />](https://cobalt.qas.im) [![Slack][slackin-badge]][slackin] [![Build Status](https://travis-ci.org/cobalt-uoft/cobalt.svg?branch=master)](https://travis-ci.org/cobalt-uoft/cobalt)
+# Cobalt @ University of Toronto [<img src="https://avatars0.githubusercontent.com/u/10912859" width="20" height="20" />](https://cobalt.qas.im) [![Slack][slackin-badge]][slackin] [![Build Status](https://travis-ci.org/cobalt-uoft/cobalt.svg?branch=master)](https://travis-ci.org/cobalt-uoft/cobalt) [![Coverage Status](https://coveralls.io/repos/github/cobalt-uoft/cobalt/badge.svg?branch=master)](https://coveralls.io/github/cobalt-uoft/cobalt?branch=master)
 
 Cobalt provides a collection of open data APIs that allow anyone to interface with public information from the University of Toronto in their applications or services.
 
