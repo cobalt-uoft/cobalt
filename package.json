@@ -17,9 +17,10 @@
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint .",
-    "test": "eslint . && ava test/courses test/buildings",
-    "coverage": "nyc ava test/courses test/buildings",
-    "prepush": "npm test"
+    "test": "ava test/courses test/buildings",
+    "coverage": "nyc npm test",
+    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
+    "prepush": "npm lint && npm test"
   },
   "dependencies": {
     "babel-core": "^5.8.23",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "ava": "^0.4.2",
     "babel-eslint": "^5.0.0-beta10",
+    "coveralls": "^2.11.6",
     "eslint": "^0.20.0",
     "husky": "^0.7.0",
     "nyc": "^5.5.0",
