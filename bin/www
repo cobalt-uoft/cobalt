@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 // Enable ES6 via babel
-require('babel-core/register')({
-  sourceMap: 'both'
-})
+require('babel-core/register')
+require("babel-polyfill")
 
 // Logging
 var winston = require('winston')
 
-var app = require('../index')
+var app = require('../index').default
 app.set('port', process.env.COBALT_PORT || 4242)
 
 var server = app.listen(app.get('port'), function() {

@@ -1,11 +1,13 @@
-import 'babel-core/register'
 import test from 'ava'
 import testData from './testData.json'
 import request from 'supertest'
+
+import 'babel-core/register'
+import 'babel-polyfill'
 import app from '../../index'
 import Building from '../../api/buildings/model'
 
-test.before('setup', t => {
+test.cb.before('setup', t => {
   // Drop all documents
   Building.remove({}, err => {
     if (err) t.fail(err.message)
@@ -19,7 +21,7 @@ test.before('setup', t => {
 
 /* list tests */
 
-test('/', t => {
+test.cb('/', t => {
   request(app)
     .get('/1.0/buildings')
     .expect('Content-Type', /json/)
@@ -32,7 +34,7 @@ test('/', t => {
     })
 })
 
-test('/?limit=0', t => {
+test.cb('/?limit=0', t => {
   request(app)
     .get('/1.0/buildings?limit=0')
     .expect('Content-Type', /json/)
@@ -44,7 +46,7 @@ test('/?limit=0', t => {
     })
 })
 
-test('/?limit=2', t => {
+test.cb('/?limit=2', t => {
   request(app)
     .get('/1.0/buildings?limit=2')
     .expect('Content-Type', /json/)
@@ -57,7 +59,7 @@ test('/?limit=2', t => {
     })
 })
 
-test('/?limit=200', t => {
+test.cb('/?limit=200', t => {
   request(app)
     .get('/1.0/buildings?limit=200')
     .expect('Content-Type', /json/)
@@ -69,7 +71,7 @@ test('/?limit=200', t => {
     })
 })
 
-test('/?skip=10', t => {
+test.cb('/?skip=10', t => {
   request(app)
     .get('/1.0/buildings?skip=10')
     .expect('Content-Type', /json/)
@@ -82,7 +84,7 @@ test('/?skip=10', t => {
     })
 })
 
-test('/?skip=200', t => {
+test.cb('/?skip=200', t => {
   request(app)
     .get('/1.0/buildings?skip=200')
     .expect('Content-Type', /json/)
@@ -95,7 +97,7 @@ test('/?skip=200', t => {
     })
 })
 
-test('/?skip=2&limit=2', t => {
+test.cb('/?skip=2&limit=2', t => {
   request(app)
     .get('/1.0/buildings?skip=2&limit=2')
     .expect('Content-Type', /json/)
@@ -110,7 +112,7 @@ test('/?skip=2&limit=2', t => {
 
 /* show tests */
 
-test(`/${testData[0].id}`, t => {
+test.cb(`/${testData[0].id}`, t => {
   request(app)
     .get(`/1.0/buildings/${testData[0].id}`)
     .expect('Content-Type', /json/)
@@ -123,7 +125,7 @@ test(`/${testData[0].id}`, t => {
     })
 })
 
-test('/XYZ', t => {
+test.cb('/XYZ', t => {
   request(app)
     .get('/1.0/buildings/XYZ')
     .expect('Content-Type', /json/)
@@ -137,7 +139,7 @@ test('/XYZ', t => {
 
 /* search tests */
 
-test('/search?q=', t => {
+test.cb('/search?q=', t => {
   request(app)
     .get('/1.0/buildings/search?q=')
     .expect('Content-Type', /json/)
@@ -149,7 +151,7 @@ test('/search?q=', t => {
     })
 })
 
-test('/search?q=Wallberg', t => {
+test.cb('/search?q=Wallberg', t => {
   request(app)
     .get('/1.0/buildings/search?q=Wallberg')
     .expect('Content-Type', /json/)
@@ -162,7 +164,7 @@ test('/search?q=Wallberg', t => {
     })
 })
 
-test('/search?q=loremipsumdolorsitamet', t => {
+test.cb('/search?q=loremipsumdolorsitamet', t => {
   request(app)
     .get('/1.0/buildings/search?q=loremipsumdolorsitamet')
     .expect('Content-Type', /json/)
@@ -177,7 +179,7 @@ test('/search?q=loremipsumdolorsitamet', t => {
 
 /* TODO: filter tests */
 
-test('/filter?q=', t => {
+test.cb('/filter?q=', t => {
   request(app)
     .get('/1.0/buildings/filter?q=')
     .expect('Content-Type', /json/)
@@ -189,7 +191,7 @@ test('/filter?q=', t => {
     })
 })
 
-test.after('cleanup', t => {
+test.cb.after('cleanup', t => {
   Building.remove({}, err => {
     if (err) t.fail(err.message)
     t.end()

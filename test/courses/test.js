@@ -1,11 +1,13 @@
-import 'babel-core/register'
 import test from 'ava'
 import testData from './testData.json'
 import request from 'supertest'
+
+import 'babel-core/register'
+import 'babel-polyfill'
 import app from '../../index'
 import Course from '../../api/courses/model'
 
-test.before('setup', t => {
+test.cb.before('setup', t => {
   // Drop all documents
   Course.remove({}, err => {
     if (err) t.fail(err.message)
@@ -19,7 +21,7 @@ test.before('setup', t => {
 
 /* list tests */
 
-test('/', t => {
+test.cb('/', t => {
   request(app)
     .get('/1.0/courses')
     .expect('Content-Type', /json/)
@@ -32,7 +34,7 @@ test('/', t => {
     })
 })
 
-test('/?limit=0', t => {
+test.cb('/?limit=0', t => {
   request(app)
     .get('/1.0/courses?limit=0')
     .expect('Content-Type', /json/)
@@ -44,7 +46,7 @@ test('/?limit=0', t => {
     })
 })
 
-test('/?limit=2', t => {
+test.cb('/?limit=2', t => {
   request(app)
     .get('/1.0/courses?limit=2')
     .expect('Content-Type', /json/)
@@ -57,7 +59,7 @@ test('/?limit=2', t => {
     })
 })
 
-test('/?limit=200', t => {
+test.cb('/?limit=200', t => {
   request(app)
     .get('/1.0/courses?limit=200')
     .expect('Content-Type', /json/)
@@ -69,7 +71,7 @@ test('/?limit=200', t => {
     })
 })
 
-test('/?skip=10', t => {
+test.cb('/?skip=10', t => {
   request(app)
     .get('/1.0/courses?skip=10')
     .expect('Content-Type', /json/)
@@ -82,7 +84,7 @@ test('/?skip=10', t => {
     })
 })
 
-test('/?skip=200', t => {
+test.cb('/?skip=200', t => {
   request(app)
     .get('/1.0/courses?skip=200')
     .expect('Content-Type', /json/)
@@ -95,7 +97,7 @@ test('/?skip=200', t => {
     })
 })
 
-test('/?skip=2&limit=2', t => {
+test.cb('/?skip=2&limit=2', t => {
   request(app)
     .get('/1.0/courses?skip=2&limit=2')
     .expect('Content-Type', /json/)
@@ -110,7 +112,7 @@ test('/?skip=2&limit=2', t => {
 
 /* show tests */
 
-test(`/${testData[0].id}`, t => {
+test.cb(`/${testData[0].id}`, t => {
   request(app)
     .get(`/1.0/courses/${testData[0].id}`)
     .expect('Content-Type', /json/)
@@ -123,7 +125,7 @@ test(`/${testData[0].id}`, t => {
     })
 })
 
-test('/XYZ789H1F20159', t => {
+test.cb('/XYZ789H1F20159', t => {
   request(app)
     .get('/1.0/courses/XYZ789H1F20159')
     .expect('Content-Type', /json/)
@@ -137,7 +139,7 @@ test('/XYZ789H1F20159', t => {
 
 /* search tests */
 
-test('/search?q=', t => {
+test.cb('/search?q=', t => {
   request(app)
     .get('/1.0/courses/search?q=')
     .expect('Content-Type', /json/)
@@ -149,7 +151,7 @@ test('/search?q=', t => {
     })
 })
 
-test('/search?q=%22recreational%20space%20and%20more%22', t => {
+test.cb('/search?q=%22recreational%20space%20and%20more%22', t => {
   request(app)
     .get('/1.0/courses/search?q=%22recreational%20space%20and%20more%22')
     .expect('Content-Type', /json/)
@@ -162,7 +164,7 @@ test('/search?q=%22recreational%20space%20and%20more%22', t => {
     })
 })
 
-test('/search?q=loremipsumdolorsitamet', t => {
+test.cb('/search?q=loremipsumdolorsitamet', t => {
   request(app)
     .get('/1.0/courses/search?q=loremipsumdolorsitamet')
     .expect('Content-Type', /json/)
@@ -177,7 +179,7 @@ test('/search?q=loremipsumdolorsitamet', t => {
 
 /* TODO: filter tests */
 
-test('/filter?q=', t => {
+test.cb('/filter?q=', t => {
   request(app)
     .get('/1.0/courses/filter?q=')
     .expect('Content-Type', /json/)
@@ -189,7 +191,7 @@ test('/filter?q=', t => {
     })
 })
 
-test.after('cleanup', t => {
+test.cb.after('cleanup', t => {
   Course.remove({}, err => {
     if (err) t.fail(err.message)
     t.end()

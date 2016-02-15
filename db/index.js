@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose'
 
 let db = {
-  sync: () => {
+  update: () => {
     // Grab database dumps, update mongodb
   }
 }
