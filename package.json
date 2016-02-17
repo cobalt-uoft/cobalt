@@ -20,7 +20,7 @@
     "test": "ava test/courses test/buildings",
     "prepush": "npm run lint && npm test",
     "coverage": "nyc npm test",
-    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | perl test/covfix.pl | coveralls"
   },
   "dependencies": {
     "babel-core": "^5.8.23",

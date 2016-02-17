@@ -2,8 +2,7 @@ import https from 'https'
 import winston from 'winston'
 import fs from 'fs'
 import schedule from 'node-schedule'
-import child_process from 'child_process'
-import co from 'co'
+import childProcess from 'child_process'
 import mongoose from 'mongoose'
 
 let db = {}
@@ -26,7 +25,7 @@ db.update = (collection) => {
           return winston.warn(`Could not import ${collection} to MongoDB.`, e)
         }
 
-        let shell = child_process.spawn('mongoimport', [
+        let shell = childProcess.spawn('mongoimport', [
           '-d', 'cobalt',
           '-c', collection,
           '--file', filePath
@@ -55,7 +54,7 @@ db.sync = () => {
 
 db.syncCron = () => {
   db.sync()
-  let job = schedule.scheduleJob('30 4 * * *', () => {
+  schedule.scheduleJob('30 4 * * *', () => {
     db.sync()
   })
 }
