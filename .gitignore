@@ -38,3 +38,6 @@ node_modules
 
 # Code coverage output
 .nyc_output
+
+# Dataset output
+.data

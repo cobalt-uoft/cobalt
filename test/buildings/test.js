@@ -3,7 +3,6 @@ import testData from './testData.json'
 import request from 'supertest'
 
 import 'babel-core/register'
-import 'babel-polyfill'
 import app from '../../index'
 import Building from '../../api/buildings/model'
 

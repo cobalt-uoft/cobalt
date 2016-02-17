@@ -2,12 +2,11 @@
 
 // Enable ES6 via babel
 require('babel-core/register')
-require("babel-polyfill")
 
 // Logging
 var winston = require('winston')
 
-var app = require('../index').default
+var app = require('../index')
 app.set('port', process.env.COBALT_PORT || 4242)
 
 var server = app.listen(app.get('port'), function() {
