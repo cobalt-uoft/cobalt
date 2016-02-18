@@ -1,0 +1,5 @@
+# Dataset output
+.data
+
+# Babel.js output
+lib/
