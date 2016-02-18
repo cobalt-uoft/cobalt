@@ -16,9 +16,6 @@ mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', e
 // Express setup
 let app = express()
 
-// Update database
-db.syncCron()
-
 // API routes
 let apiVersion = '1.0'
 app.use(`/${apiVersion}/courses`, courses)

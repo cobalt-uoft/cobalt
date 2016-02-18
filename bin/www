@@ -6,9 +6,15 @@ require('babel-core/register')
 // Logging
 var winston = require('winston')
 
+// Express app
 var app = require('../index')
 app.set('port', process.env.COBALT_PORT || 4242)
 
+// Start listening
 var server = app.listen(app.get('port'), function() {
   winston.info('Cobalt is listening at http://localhost:' + server.address().port)
 })
+
+// Database sync keeper
+var db = require('../db')
+db.syncCron()
