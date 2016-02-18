@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
-import db from './db'
 
 // Database connection setup
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
