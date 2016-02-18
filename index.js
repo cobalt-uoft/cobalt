@@ -8,7 +8,9 @@ import db from './db'
 // Database connection setup
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
   if (err) throw new Error(`Failed to connect to MongoDB [${process.env.COBALT_MONGO_URI}]: ${err.message}`)
-  winston.info('Connected to MongoDB')
+  if (!process.argv.join().match("/ava/")) {
+    winston.info('Connected to MongoDB')
+  }
 })
 
 // Express setup
