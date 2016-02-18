@@ -1,29 +1,37 @@
 {
-  "name": "cobalt",
-  "version": "0.0.1",
+  "name": "cobalt-uoft",
+  "version": "0.2.1",
+  "description": "A collection of open data APIs that allow anyone to interface with public information from the University of Toronto.",
+  "main": "lib/index.js",
   "engines": {
-    "node": "^4.2"
+    "node": "^5.6"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cobalt-io/cobalt.git"
+    "url": "https://github.com/cobalt-uoft/cobalt.git"
   },
   "author": "Cobalt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cobalt-io/cobalt/issues"
+    "url": "https://github.com/cobalt-uoft/cobalt/issues"
   },
   "homepage": "https://cobalt.qas.im",
   "scripts": {
-    "start": "node ./bin/www",
+    "build": "rm -rf lib && ./node_modules/.bin/babel src/ -d lib/",
+    "dev": "npm run build && bin/dev",
+    "start": "./bin/cobalt",
     "lint": "eslint .",
     "test": "ava test/courses test/buildings",
     "prepush": "npm run lint && npm test",
+    "prepublish": "npm run build",
     "coverage": "nyc npm test",
     "coveralls": "npm run coverage && nyc report --reporter=text-lcov | perl test/covfix.pl | coveralls"
   },
+  "bin": {
+    "cobalt": "./bin/cobalt"
+  },
   "dependencies": {
-    "babel-core": "^5.8.23",
+    "babel-core": "^6.5.2",
     "co": "^4.6.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.3",
@@ -32,10 +40,15 @@
   },
   "devDependencies": {
     "ava": "^0.12.0",
+    "babel-cli": "^6.5.1",
     "babel-eslint": "^5.0.0-beta10",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
     "coveralls": "^2.11.6",
     "eslint": "^2.1.0",
+    "gaze": "^0.5.2",
     "husky": "^0.11.1",
+    "nodemon": "^1.8.1",
     "nyc": "^5.6.0",
     "supertest": "^1.2.0"
   }

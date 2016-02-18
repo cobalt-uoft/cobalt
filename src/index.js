@@ -3,17 +3,24 @@ import mongoose from 'mongoose'
 import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
+import db from './db'
 
 // Database connection setup
+let test = process.argv.join().match('/ava/')
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
   if (err) throw new Error(`Failed to connect to MongoDB [${process.env.COBALT_MONGO_URI}]: ${err.message}`)
-  if (!process.argv.join().match('/ava/')) {
+  if (!test) {
     winston.info('Connected to MongoDB')
   }
 })
 
 // Express setup
 let app = express()
+
+// Database sync keeper
+if (!test) {
+  db.syncCron()
+}
 
 // API routes
 let apiVersion = '1.0'

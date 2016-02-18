@@ -3,8 +3,10 @@ import testData from './testData.json'
 import request from 'supertest'
 
 import 'babel-core/register'
-import app from '../../index'
-import Building from '../../api/buildings/model'
+import 'babel-polyfill'
+
+import app from '../../src/index'
+import Building from '../../src/api/buildings/model'
 
 test.cb.before('setup', t => {
   // Drop all documents
