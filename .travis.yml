@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "4.2"
+  - "5.6"
 
 env:
   - COBALT_MONGO_URI=mongodb://localhost:27017/cobalt
