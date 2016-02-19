@@ -10,7 +10,7 @@ let db = {}
 db.update = (collection) => {
   let url = `https://raw.githubusercontent.com/cobalt-uoft/datasets/master/${collection}.json`
   https.get(url, res => {
-    let filePath = `.data/${collection}.json`
+    let filePath = `.cobalt_data/${collection}.json`
     let stream = fs.createWriteStream(filePath, {'flags': 'w'})
 
     res.on('data', chunk => {
@@ -53,6 +53,13 @@ db.sync = () => {
 }
 
 db.syncCron = () => {
+  // Make data directory if it doesn't exist
+  try {
+    fs.statSync('.cobalt_data')
+  } catch(e) {
+    fs.mkdirSync('.cobalt_data')
+  }
+
   db.sync()
   schedule.scheduleJob('30 4 * * *', () => {
     db.sync()
