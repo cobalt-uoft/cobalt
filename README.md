@@ -1,5 +1,6 @@
 # Cobalt @ University of Toronto [<img src="https://avatars0.githubusercontent.com/u/10912859" width="20" height="20" />](https://cobalt.qas.im)
 
+[![npm version](https://badge.fury.io/js/cobalt-uoft.svg)](https://badge.fury.io/js/cobalt-uoft)
 [![Build Status](https://travis-ci.org/cobalt-uoft/cobalt.svg?branch=master)](https://travis-ci.org/cobalt-uoft/cobalt) 
 [![Coverage Status](https://coveralls.io/repos/github/cobalt-uoft/cobalt/badge.svg?branch=master)](https://coveralls.io/github/cobalt-uoft/cobalt?branch=master) 
 [![Join the chat at https://gitter.im/cobalt-uoft/cobalt](https://badges.gitter.im/cobalt-uoft/cobalt.svg)](https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
