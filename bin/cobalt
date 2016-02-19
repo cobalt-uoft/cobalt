@@ -3,11 +3,14 @@
 // Logging
 var winston = require('winston')
 
+// Command line arguments
+var argv = require('minimist')(process.argv.slice(2))
+var port = argv.p || argv.port || process.env.PORT || 4242
+
 // Express app
 var app = require('../lib/index').Server
-app.set('port', process.env.COBALT_PORT || 4242)
 
 // Start listening
-var server = app.listen(app.get('port'), function() {
+var server = app.listen(port, function() {
   winston.info('Cobalt is listening at http://localhost:' + server.address().port)
 })
