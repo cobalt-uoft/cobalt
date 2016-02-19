@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 
-// Babel regenerator runtime
-require('babel-polyfill')
-
 // Logging
 var winston = require('winston')
 
 // Express app
-var app = require('../lib/index').default
+var app = require('../lib/index').Server
 app.set('port', process.env.COBALT_PORT || 4242)
 
 // Start listening

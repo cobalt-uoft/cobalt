@@ -2,10 +2,7 @@ import test from 'ava'
 import testData from './testData.json'
 import request from 'supertest'
 
-import 'babel-core/register'
-import 'babel-polyfill'
-
-import app from '../../src/index'
+import cobalt from '../../src/index'
 import Building from '../../src/api/buildings/model'
 
 test.cb.before('setup', t => {
@@ -23,7 +20,7 @@ test.cb.before('setup', t => {
 /* list tests */
 
 test.cb('/', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -36,7 +33,7 @@ test.cb('/', t => {
 })
 
 test.cb('/?limit=0', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?limit=0')
     .expect('Content-Type', /json/)
     .expect(400)
@@ -48,7 +45,7 @@ test.cb('/?limit=0', t => {
 })
 
 test.cb('/?limit=2', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -61,7 +58,7 @@ test.cb('/?limit=2', t => {
 })
 
 test.cb('/?limit=200', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?limit=200')
     .expect('Content-Type', /json/)
     .expect(400)
@@ -73,7 +70,7 @@ test.cb('/?limit=200', t => {
 })
 
 test.cb('/?skip=10', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -86,7 +83,7 @@ test.cb('/?skip=10', t => {
 })
 
 test.cb('/?skip=200', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?skip=200')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -99,7 +96,7 @@ test.cb('/?skip=200', t => {
 })
 
 test.cb('/?skip=2&limit=2', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -114,7 +111,7 @@ test.cb('/?skip=2&limit=2', t => {
 /* show tests */
 
 test.cb(`/${testData[0].id}`, t => {
-  request(app)
+  request(cobalt.Server)
     .get(`/1.0/buildings/${testData[0].id}`)
     .expect('Content-Type', /json/)
     .expect(200)
@@ -127,7 +124,7 @@ test.cb(`/${testData[0].id}`, t => {
 })
 
 test.cb('/XYZ', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings/XYZ')
     .expect('Content-Type', /json/)
     .expect(400)
@@ -141,7 +138,7 @@ test.cb('/XYZ', t => {
 /* search tests */
 
 test.cb('/search?q=', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings/search?q=')
     .expect('Content-Type', /json/)
     .expect(400)
@@ -153,7 +150,7 @@ test.cb('/search?q=', t => {
 })
 
 test.cb('/search?q=Wallberg', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings/search?q=Wallberg')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -166,7 +163,7 @@ test.cb('/search?q=Wallberg', t => {
 })
 
 test.cb('/search?q=loremipsumdolorsitamet', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings/search?q=loremipsumdolorsitamet')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -181,7 +178,7 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
 /* TODO: filter tests */
 
 test.cb('/filter?q=', t => {
-  request(app)
+  request(cobalt.Server)
     .get('/1.0/buildings/filter?q=')
     .expect('Content-Type', /json/)
     .expect(400)
