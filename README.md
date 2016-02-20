@@ -23,6 +23,7 @@ If you have an idea for a web API, please let the community know by opening an [
 
 Cobalt's documentation is located at [cobalt-uoft/documentation](https://github.com/cobalt-uoft/documentation).
 
+
 ## Data
 
 Current and historical datasets for Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
