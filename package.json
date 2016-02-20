@@ -1,8 +1,9 @@
 {
   "name": "cobalt-uoft",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A collection of open data APIs that allow anyone to interface with public information from the University of Toronto.",
   "main": "lib/index.js",
+  "readmeFilename": "PACKAGE.md",
   "engines": {
     "node": "^5.6"
   },
@@ -16,6 +17,19 @@
     "url": "https://github.com/cobalt-uoft/cobalt/issues"
   },
   "homepage": "https://cobalt.qas.im",
+  "keywords": [
+    "cobalt",
+    "uoft",
+    "api",
+    "opendata",
+    "course-api",
+    "building-api",
+    "courses",
+    "buildings",
+    "university of toronto",
+    "toronto",
+    "express"
+  ],
   "scripts": {
     "build": "rm -rf lib && ./node_modules/.bin/babel src/ -d lib/",
     "dev": "npm run build && ./bin/dev",
