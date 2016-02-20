@@ -19,32 +19,32 @@ Suggest more APIs by opening an [issue](https://github.com/cobalt-uoft/cobalt/is
 
 ## Documentation
 
-#### Getting started
+##### Getting started
 
-* [Introduction](./getting-started/introduction.md)
-* [Authenticating](./getting-started/authenticating.md)
-* [Self hosting](./getting-started/self-hosting.md)
-* [Contributing](./getting-started/contributing.md)
+* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/introduction.md)
+* [Authenticating](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/authenticating.md)
+* [Self hosting](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/self-hosting.md)
+* [Contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md)
 
-#### Course API
+##### Course API
 
-* [Introduction](./endpoints/courses/introduction.md)
-* [GET courses](./endpoints/courses/list.md)
-* [GET courses/:id](./endpoints/courses/show.md)
-* [GET courses/search](./endpoints/courses/search.md)
-* [GET courses/filter](./endpoints/courses/filter.md)
+* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/introduction.md)
+* [GET courses](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/list.md)
+* [GET courses/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/show.md)
+* [GET courses/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/search.md)
+* [GET courses/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/filter.md)
 
-#### Building API
+##### Building API
 
-* [Introduction](./endpoints/buildings/introduction.md)
-* [GET buildings](./endpoints/buildings/list.md)
-* [GET buildings/:id](./endpoints/buildings/show.md)
-* [GET buildings/search](./endpoints/buildings/search.md)
-* [GET buildings/filter](./endpoints/buildings/filter.md)
+* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/introduction.md)
+* [GET buildings](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/list.md)
+* [GET buildings/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/show.md)
+* [GET buildings/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/search.md)
+* [GET buildings/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/filter.md)
 
 ## Data
 
-Current and historical datasets for Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
+Current and historical datasets that power Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
 
 ## Contributing
 
