@@ -7,9 +7,7 @@
 
 Cobalt provides a collection of open data APIs that allow anyone to interface with public information from the University of Toronto in their applications or services.
 
-[Sign up](https://cobalt.qas.im/signup) to use the APIs immediately, or run Cobalt on your own server by following the [Self hosting](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/self-hosting.md) guide.
-
-To learn more about how to use Cobalt in your software, take a look at the [Getting started](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/introduction.md) guide.
+[Sign up](https://cobalt.qas.im/signup) to use the APIs immediately, or run Cobalt on your own server by following the [self hosting](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/self-hosting.md) guide.
 
 ## APIs
 
@@ -17,12 +15,32 @@ To learn more about how to use Cobalt in your software, take a look at the [Gett
 
 [Buildings](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/introduction.md): Campus building API with geographic location information.
 
-If you have an idea for a web API, please let the community know by opening an [issue](https://github.com/cobalt-uoft/cobalt/issues) on this GitHub repository.
+Suggest more APIs by opening an [issue](https://github.com/cobalt-uoft/cobalt/issues) on the GitHub repository.
 
 ## Documentation
 
-Cobalt's documentation is located at [cobalt-uoft/documentation](https://github.com/cobalt-uoft/documentation).
+#### Getting started
 
+* [Introduction](./getting-started/introduction.md)
+* [Authenticating](./getting-started/authenticating.md)
+* [Self hosting](./getting-started/self-hosting.md)
+* [Contributing](./getting-started/contributing.md)
+
+#### Course API
+
+* [Introduction](./endpoints/courses/introduction.md)
+* [GET courses](./endpoints/courses/list.md)
+* [GET courses/:id](./endpoints/courses/show.md)
+* [GET courses/search](./endpoints/courses/search.md)
+* [GET courses/filter](./endpoints/courses/filter.md)
+
+#### Building API
+
+* [Introduction](./endpoints/buildings/introduction.md)
+* [GET buildings](./endpoints/buildings/list.md)
+* [GET buildings/:id](./endpoints/buildings/show.md)
+* [GET buildings/search](./endpoints/buildings/search.md)
+* [GET buildings/filter](./endpoints/buildings/filter.md)
 
 ## Data
 
@@ -30,7 +48,4 @@ Current and historical datasets for Cobalt's APIs are publicly available at [cob
 
 ## Contributing
 
-Help contribute towards making this service better. Learn more by reading the [contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md) guide.
-
-[slackin]: https://cobalt-slack.herokuapp.com/
-[slackin-badge]: https://cobalt-slack.herokuapp.com/badge.svg
+Cobalt is a student-driven project at the University of Toronto. Help contribute towards making this service better. Learn more by reading the [contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md) guide.
