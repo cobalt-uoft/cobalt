@@ -6,6 +6,8 @@ import childProcess from 'child_process'
 import mongoose from 'mongoose'
 
 let db = {}
+//I'm not sure why you guys use let 
+let lastCommit	=	'';
 
 db.update = (collection) => {
   let url = `https://raw.githubusercontent.com/cobalt-uoft/datasets/master/${collection}.json`
@@ -52,6 +54,39 @@ db.sync = () => {
   db.update('courses')
 }
 
+db.check = (callback) => {
+	
+	let options	=	{
+		host: `api.github.com`,
+		port: 443,
+		path:`/repos/cobalt-uoft/datasets/git/refs/heads/master`,
+		headers: {'user-agent': 'cobalt-selfhost-user'}
+	}
+	
+	https.get(options, res	=> {
+		let data	=	""
+
+		res.on('data', chunk => {
+			data+=chunk
+		})
+
+		res.on('end', () => {
+			data	=	JSON.parse(data)
+			
+			//Compare the last commit hash to the current one
+			if(data.object.sha==lastCommit)
+				 return;
+
+			db.lastCommit = data.object.sha;
+			
+			//Execute the callback
+			callback&&callback();
+		})
+	})
+
+}
+
+
 db.syncCron = () => {
   // Make data directory if it doesn't exist
   try {
@@ -61,8 +96,9 @@ db.syncCron = () => {
   }
 
   db.sync()
-  schedule.scheduleJob('30 4 * * *', () => {
-    db.sync()
+	//Cool we can make this more accurate
+  schedule.scheduleJob('30 1 * * *', () => {
+		db.check(()=>db.sync())
   })
 }
 
