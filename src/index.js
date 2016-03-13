@@ -6,7 +6,7 @@ import buildings from './api/buildings'
 import db from './db'
 
 let test = process.argv.join().match('/ava/')
-let enableSync = process.env.COBALT_ENABLE_DB_SYNC || true
+let enableSync = process.env.COBALT_ENABLE_DB_SYNC || 'true'
 
 // Database connection setup
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
@@ -20,7 +20,7 @@ mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', e
 let app = express()
 
 // Database sync keeper
-if (!test && enableSync) {
+if (!test && enableSync == 'true') {
   db.syncCron()
 }
 
