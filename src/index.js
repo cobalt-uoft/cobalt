@@ -5,8 +5,10 @@ import courses from './api/courses'
 import buildings from './api/buildings'
 import db from './db'
 
-// Database connection setup
 let test = process.argv.join().match('/ava/')
+let enableSync = process.env.COBALT_ENABLE_DB_SYNC || true
+
+// Database connection setup
 mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', err => {
   if (err) throw new Error(`Failed to connect to MongoDB [${process.env.COBALT_MONGO_URI}]: ${err.message}`)
   if (!test) {
@@ -18,7 +20,7 @@ mongoose.connect(process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt', e
 let app = express()
 
 // Database sync keeper
-if (!test) {
+if (!test && enableSync) {
   db.syncCron()
 }
 
