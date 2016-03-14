@@ -1,13 +1,13 @@
-# Cobalt @ University of Toronto [<img src="https://avatars0.githubusercontent.com/u/10912859" width="20" height="20" />](https://cobalt.qas.im)
-
-[![npm version](https://badge.fury.io/js/cobalt-uoft.svg)](https://www.npmjs.com/package/cobalt-uoft)
-[![Build Status](https://travis-ci.org/cobalt-uoft/cobalt.svg?branch=master)](https://travis-ci.org/cobalt-uoft/cobalt) 
-[![Coverage Status](https://coveralls.io/repos/github/cobalt-uoft/cobalt/badge.svg?branch=master)](https://coveralls.io/github/cobalt-uoft/cobalt?branch=master) 
-[![Join the chat at https://gitter.im/cobalt-uoft/cobalt](https://badges.gitter.im/cobalt-uoft/cobalt.svg)](https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
-
-Cobalt provides a collection of open data APIs that allow anyone to interface with public information from the University of Toronto in their applications or services.
-
-[Sign up](https://cobalt.qas.im/signup) to use the APIs immediately, or run Cobalt on your own server by following the [self hosting](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/self-hosting.md) guide.
+<p align="center">
+  <a href="https://cobalt.qas.im"><img src="https://cobalt.qas.im/assets/img/github_header.png" alt="Cobalt @ University of Toronto" width="526" height="194" /></a>
+  <br />
+  <a href="https://www.npmjs.com/package/cobalt-uoft"><img src="https://badge.fury.io/js/cobalt-uoft.svg" alt="npm version" /></a>
+  <a href="https://travis-ci.org/cobalt-uoft/cobalt"><img src="https://travis-ci.org/cobalt-uoft/cobalt.svg?branch=master" alt="Build Status" /></a>
+  <a href="https://coveralls.io/github/cobalt-uoft/cobalt?branch=master"><img src="https://coveralls.io/repos/github/cobalt-uoft/cobalt/badge.svg?branch=master" alt="Coverage Status" /></a>
+  <a href="https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/cobalt-uoft/cobalt.svg" alt="Join the chat at https://gitter.im/cobalt-uoft/cobalt" /></a>
+  <br /> <br />
+  A collection of open data APIs for interfacing with public information from the University of Toronto.
+</p>
 
 ## APIs
 
