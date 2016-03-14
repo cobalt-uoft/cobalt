@@ -13,8 +13,6 @@
   <a href="https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/cobalt-uoft/cobalt.svg" alt="Join the chat at https://gitter.im/cobalt-uoft/cobalt"></a>
 </p>
 
-<br /> <br />
-
 ## Documentation
 
 ##### Getting started
