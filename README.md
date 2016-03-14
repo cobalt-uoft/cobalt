@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  A collection of open data APIs for interfacing with public information from the University of Toronto.
+  Open data APIs for interfacing with public information from the University of Toronto.
 </p>
 
 <p align="center">
