@@ -1,9 +1,7 @@
 <p align="center">
   <a href="https://cobalt.qas.im"><img src="https://cobalt.qas.im/assets/img/github_header.png" alt="Cobalt @ University of Toronto" width="526" /></a>
-</p>
-
-<p align="center">
-  A collection of open data APIs for interfacing with public information from the University of Toronto.
+  <br />
+  A collection of open data APIs for interfacing with public information from the University of Toronto. <br /> <br />
 </p>
 
 <p align="center">
