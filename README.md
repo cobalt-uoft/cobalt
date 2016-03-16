@@ -12,6 +12,7 @@
   <a href="https://coveralls.io/github/cobalt-uoft/cobalt?branch=master"><img src="https://coveralls.io/repos/github/cobalt-uoft/cobalt/badge.svg?branch=master" alt="Coverage Status"></a>
   <a href="https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/cobalt-uoft/cobalt.svg" alt="Join the chat at https://gitter.im/cobalt-uoft/cobalt"></a>
 </p>
+<br />
 
 ## Documentation
 
