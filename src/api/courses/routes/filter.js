@@ -98,12 +98,14 @@ export default function filter(req, res, next) {
       }
 
       /*
-        Disabling eslint, because this method goes to MongoDB, making the
-        linter get confused.
+        NOTE: Disabling eslint, because this method goes to MongoDB, making
+        the linter get confused. On another note, no arrow syntax because
+        babel makes `this` turn to `_this`, which is undefined inside the
+        map-reduce functions.
       */
 
       /* eslint-disable */
-      o.map = () => {
+      o.map = function() {
         let matchedSections = []
 
         for (let h = 0; h < this.meeting_sections.length; h++) {
@@ -201,7 +203,7 @@ export default function filter(req, res, next) {
         }
       }
 
-      o.reduce = (key, values) => {
+      o.reduce = function(key, values) {
         return values[0]
       }
       /* eslint-enable */
