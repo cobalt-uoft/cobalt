@@ -14,6 +14,8 @@
 </p>
 <br />
 
+- - -
+
 ## Documentation
 
 ##### Getting started
@@ -46,3 +48,17 @@ Current and historical datasets that power Cobalt's APIs are publicly available 
 ## Contributing
 
 Cobalt is a student-driven project at the University of Toronto. Help contribute towards making this service better. Learn more by reading the [contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md) guide.
+
+- - -
+
+<br />
+
+<p align="center">
+  Cobalt is kindly sponsored by <b><a href="http://thinkdataworks.com">ThinkData Works</a></b>.
+</p>
+
+<p align="center">
+  <a href="http://thinkdataworks.com">
+    <img src="http://thinkdataworks.com/images/tdwlogo.svg" alt="ThinkData Works" width="310" />
+  </a>
+</p>
