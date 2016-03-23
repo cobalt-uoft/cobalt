@@ -6,6 +6,10 @@ node_js:
 env:
   - COBALT_MONGO_URI=mongodb://localhost:27017/cobalt
 
+cache:
+  directories:
+    - node_modules
+
 install:
   - npm install
 
