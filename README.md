@@ -54,7 +54,7 @@ Cobalt is a student-driven project at the University of Toronto. Help contribute
 <br />
 
 <p align="center">
-  Cobalt is kindly sponsored by <b><a href="http://thinkdataworks.com">ThinkData Works</a></b>.
+  Cobalt is kindly sponsored by <b><a href="http://thinkdataworks.com">ThinkData</a></b>.
 </p>
 
 <p align="center">
