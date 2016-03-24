@@ -7,15 +7,16 @@ var buildingSchema = new Schema({
   name: String,
   short_name: String,
   campus: String,
-  lat: Number,
-  lng: Number,
   address: {
     street: String,
     city: String,
     province: String,
     country: String,
     postal: String
-  }
+  },
+  lat: Number,
+  lng: Number,
+  polygon: { type: Schema.Types.Mixed, default: [] }
 })
 
 buildingSchema.index({ code: 'text', name: 'text', short_name: 'text' })
