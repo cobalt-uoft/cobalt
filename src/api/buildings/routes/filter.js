@@ -1,21 +1,6 @@
 import Building from '../model'
 import co from 'co'
 
-// The flat keymap
-const KEYMAP = {
-  'code': 'code',
-  'name': 'name',
-  'short_name': 'short_name',
-  'campus': 'campus',
-  'street': 'street',
-  'city': 'city',
-  'country': 'country',
-  'postal': 'postal',
-  'lat': 'lat',
-  'lng': 'lng',
-  'polygon': 'polygon'
-}
-
 // The absolute (from root) keymap
 const ABSOLUTE_KEYMAP = {
   'code': 'code',
