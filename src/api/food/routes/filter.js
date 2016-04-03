@@ -149,6 +149,42 @@ function formatPart(key, part) {
       // Assume equality if no operator
       response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
+  } else if ('open'.indexOf(key) > -1) {
+    let days = part.value.split(',')
+    for (let i = 0; i < days.length; i++) {
+      let day
+
+      if (days[i].indexOf('(') > -1) {
+        // Hour bound is provided
+        day = days[i].substring(0, days[i].indexOf('('))
+        let hours = days[i].substring(days[i].indexOf('(') + 1, days[i].length - 1)
+
+        console.log(hours)
+        let hour, lower, upper
+
+        if (hours.indexOf('|') > -1) {
+          // Checking if vendor is open between hour range
+          lower = parseInt(hours.split('|')[1])
+          upper = parseInt(hours.split('|')[0])
+        } else if (hours.indexOf('>') > -1) {
+          // Open after provided hour
+          hour = parseInt(hours.slice(1))
+        } else if (hours.indexOf('<') > -1) {
+          // Open before provided hour
+          hour = parseInt(hours.slice(1))
+        } else {
+          // Open at hour
+          hour = parseInt(hours)
+        }
+
+        response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lte: lower || hour }
+        response.query[ABSOLUTE_KEYMAP[day]['close']] = { $gte: upper || hour }
+      } else {
+        // No hours provided, check if open at any time
+        day = days[i]
+        response.query[ABSOLUTE_KEYMAP[day]['is_closed']] = { $ne: true }
+      }
+    }
   } else {
     // Strings
 
@@ -161,7 +197,6 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
     }
   }
-  console.log(response)
   return response
 }
 
