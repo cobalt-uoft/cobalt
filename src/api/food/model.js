@@ -48,6 +48,6 @@ var foodSchema = new Schema({
   }
 })
 
-foodSchema.index({ name: 'text', description: 'text', address: 'text', campus: 'text', tags: 'text' })
+foodSchema.index({ name: 'text', description: 'text', campus: 'text', tags: 'text' })
 
 export default mongoose.model('foods', foodSchema)
