@@ -93,6 +93,7 @@ function formatPart(key, part) {
   }
 
   // Checking if the start of the segment is an operator (-, >, <, .>, .<)
+
   if (part.indexOf('-') === 0) {
     // Negation
     part = {
@@ -151,7 +152,6 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
   } else if ('open'.indexOf(key) > -1) {
-    // open:"monday,tuesday(>9),wednesday(12|4),-sunday"
     let days = part.value.split(',')
     for (let i = 0; i < days.length; i++) {
       let day
@@ -191,21 +191,32 @@ function formatPart(key, part) {
       }
     }
   } else if ('tags'.indexOf(key) > -1) {
-    // tags:"pizza,indian,-coffee"
     let tags = part.value.split(',')
 
     let contains = []
     let notContains = []
 
     for (let i = 0; i < tags.length; i++) {
-      let tag = tags[i]
-      if (tag.substr(0, 1) == '-') {
-        notContains.push(tag.substr(1))
+      let tag = tags[i].trim().toLowerCase()
+      if (tag[0] === '-') {
+        notContains.push(escapeRe(tag.substr(1)))
       } else {
-        contains.push(tag)
+        contains.push(escapeRe(tag))
       }
     }
-    response.query[ABSOLUTE_KEYMAP['tags']] = { $in: contains, $nin: notContains }
+
+    if (contains.length > 0 || notContains.length > 0) {
+      response.query[ABSOLUTE_KEYMAP['tags']] = {}
+
+      if (contains.length > 0) {
+        response.query[ABSOLUTE_KEYMAP['tags']]['$all'] = contains
+      }
+
+      if (notContains.length > 0) {
+        response.query[ABSOLUTE_KEYMAP['tags']]['$nin'] = notContains
+      }
+    }
+
   } else {
     // Strings
 
