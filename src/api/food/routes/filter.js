@@ -8,6 +8,7 @@ const ABSOLUTE_KEYMAP = {
   'address': 'address',
   'lat': 'lat',
   'lng': 'lng',
+  'tags': 'tags',
   'sunday': {
     'open': 'hours.sunday.open',
     'close': 'hours.sunday.close',
@@ -150,6 +151,7 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
   } else if ('open'.indexOf(key) > -1) {
+    // open:"monday,tuesday(>9),wednesday(12|4),-sunday"
     let days = part.value.split(',')
     for (let i = 0; i < days.length; i++) {
       let day
@@ -158,12 +160,10 @@ function formatPart(key, part) {
         // Hour bound is provided
         day = days[i].substring(0, days[i].indexOf('('))
         let hours = days[i].substring(days[i].indexOf('(') + 1, days[i].length - 1)
-
-        console.log(hours)
         let hour, lower, upper
 
         if (hours.indexOf('|') > -1) {
-          // Checking if vendor is open between hour range
+          // Check if vendor is open between hour range
           lower = parseInt(hours.split('|')[1])
           upper = parseInt(hours.split('|')[0])
         } else if (hours.indexOf('>') > -1) {
@@ -182,9 +182,30 @@ function formatPart(key, part) {
       } else {
         // No hours provided, check if open at any time
         day = days[i]
-        response.query[ABSOLUTE_KEYMAP[day]['is_closed']] = { $ne: true }
+        let val = true
+        if (day.substr(0, 1) == '-') {
+          day = day.substr(1)
+          val = false
+        }
+        response.query[ABSOLUTE_KEYMAP[day]['is_closed']] = { $ne: val }
       }
     }
+  } else if ('tags'.indexOf(key) > -1) {
+    // tags:"pizza,indian,-coffee"
+    let tags = part.value.split(',')
+
+    let contains = []
+    let notContains = []
+
+    for (let i = 0; i < tags.length; i++) {
+      let tag = tags[i]
+      if (tag.substr(0, 1) == '-') {
+        notContains.push(tag.substr(1))
+      } else {
+        contains.push(tag)
+      }
+    }
+    response.query[ABSOLUTE_KEYMAP['tags']] = { $in: contains, $nin: notContains }
   } else {
     // Strings
 
