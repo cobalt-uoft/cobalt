@@ -44,6 +44,11 @@ var foodSchema = new Schema({
       closed: Boolean,
       open: Number,
       close: Number
+    },
+    saturday: {
+      closed: Boolean,
+      open: Number,
+      close: Number
     }
   }
 })
