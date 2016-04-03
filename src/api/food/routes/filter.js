@@ -164,17 +164,17 @@ function formatPart(key, part) {
 
         if (hours.indexOf('|') > -1) {
           // Check if vendor is open between hour range
-          lower = parseInt(hours.split('|')[1])
-          upper = parseInt(hours.split('|')[0])
+          lower = parseFloat(hours.split('|')[1])
+          upper = parseFloat(hours.split('|')[0])
         } else if (hours.indexOf('>') > -1) {
           // Open after provided hour
-          hour = parseInt(hours.slice(1))
+          hour = parseFloat(hours.slice(1))
         } else if (hours.indexOf('<') > -1) {
           // Open before provided hour
-          hour = parseInt(hours.slice(1))
+          hour = parseFloat(hours.slice(1))
         } else {
           // Open at hour
-          hour = parseInt(hours)
+          hour = parseFloat(hours)
         }
 
         response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lte: lower || hour }
