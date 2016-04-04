@@ -177,8 +177,8 @@ function formatPart(key, part) {
           hour = parseFloat(hours)
         }
 
-        response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lte: lower || hour }
-        response.query[ABSOLUTE_KEYMAP[day]['close']] = { $gte: upper || hour }
+        response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lt: lower || hour }
+        response.query[ABSOLUTE_KEYMAP[day]['close']] = { $gt: upper || hour }
       } else {
         // No hours provided, check if open at any time
         day = days[i]
