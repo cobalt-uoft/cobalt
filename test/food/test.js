@@ -202,9 +202,9 @@ test.cb('/filter?q=open:%22sunday%22', t => {
     })
 })
 
-test.cb('/filter?q=tags:%22innis%22', t => {
+test.cb('/filter?q=tag:%22innis%22', t => {
   request(cobalt.Server)
-    .get('/1.0/food/filter?q=tags:%22innis%22')
+    .get('/1.0/food/filter?q=tag:%22innis%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => { return doc.tags.indexOf('innis') > -1 }))
@@ -215,9 +215,9 @@ test.cb('/filter?q=tags:%22innis%22', t => {
     })
 })
 
-test.cb('/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22', t => {
+test.cb('/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22%20OR%20open:%22sunday%22', t => {
   request(cobalt.Server)
-    .get('/1.0/food/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22')
+    .get('/1.0/food/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22%20OR%20open:%22sunday%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => { return doc.name.match('Café Reznikoff') }))
