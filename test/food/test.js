@@ -74,7 +74,7 @@ test.cb('/?skip=10', t => {
     .get('/1.0/food?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.encode(JSON.stringify(testData.slice(10, 20))))
+    .expect(testData.slice(10, 20))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
