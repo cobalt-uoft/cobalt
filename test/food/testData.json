@@ -1051,64 +1051,6 @@
     }
   },
   {
-    "id":"276",
-    "building_id":"068A",
-    "name":"Athletic Centre Starbucks",
-    "short_name":"starbucks_ac",
-    "description":"Starbucks location with seating. Serving Starbucks snacks, beverages and merchandise. Located on the lower level of the Athletic Centre.",
-    "url":"http://www.starbucks.com/ ",
-    "tags":[
-      "starbucks",
-      "coffee",
-      "beverage",
-      "muffins",
-      "cookies",
-      "ac"
-    ],
-    "image":"http://map.utoronto.ca/_assets/_m_b/AC_Starbucks.jpg",
-    "campus":"UTSG",
-    "lat":43.66292,
-    "lng":-79.40131,
-    "address":"55 Harbord St, Toronto, ON M5S 2W6",
-    "hours":{
-      "sunday":{
-        "closed":false,
-        "open":9,
-        "close":18
-      },
-      "monday":{
-        "closed":false,
-        "open":7,
-        "close":21
-      },
-      "tuesday":{
-        "closed":false,
-        "open":7,
-        "close":21
-      },
-      "wednesday":{
-        "closed":false,
-        "open":7,
-        "close":21
-      },
-      "thursday":{
-        "closed":false,
-        "open":7,
-        "close":21
-      },
-      "friday":{
-        "closed":false,
-        "open":7,
-        "close":21
-      },
-      "saturday":{
-        "closed":false,
-        "open":7,
-        "close":18
-      }
-    }
-  },
-  {
     "id":"274",
     "building_id":"152",
     "name":"Rehabilitation Sciences Veda",
@@ -1164,6 +1106,64 @@
         "closed":true,
         "open":0,
         "close":0
+      }
+    }
+  },
+  {
+    "id":"276",
+    "building_id":"068A",
+    "name":"Athletic Centre Starbucks",
+    "short_name":"starbucks_ac",
+    "description":"Starbucks location with seating. Serving Starbucks snacks, beverages and merchandise. Located on the lower level of the Athletic Centre.",
+    "url":"http://www.starbucks.com/ ",
+    "tags":[
+      "starbucks",
+      "coffee",
+      "beverage",
+      "muffins",
+      "cookies",
+      "ac"
+    ],
+    "image":"http://map.utoronto.ca/_assets/_m_b/AC_Starbucks.jpg",
+    "campus":"UTSG",
+    "lat":43.66292,
+    "lng":-79.40131,
+    "address":"55 Harbord St, Toronto, ON M5S 2W6",
+    "hours":{
+      "sunday":{
+        "closed":false,
+        "open":9,
+        "close":18
+      },
+      "monday":{
+        "closed":false,
+        "open":7,
+        "close":21
+      },
+      "tuesday":{
+        "closed":false,
+        "open":7,
+        "close":21
+      },
+      "wednesday":{
+        "closed":false,
+        "open":7,
+        "close":21
+      },
+      "thursday":{
+        "closed":false,
+        "open":7,
+        "close":21
+      },
+      "friday":{
+        "closed":false,
+        "open":7,
+        "close":21
+      },
+      "saturday":{
+        "closed":false,
+        "open":7,
+        "close":18
       }
     }
   },
