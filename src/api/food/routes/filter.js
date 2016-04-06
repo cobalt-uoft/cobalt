@@ -8,7 +8,7 @@ const ABSOLUTE_KEYMAP = {
   'address': 'address',
   'lat': 'lat',
   'lng': 'lng',
-  'tags': 'tags',
+  'tag': 'tags',
   'sunday': {
     'open': 'hours.sunday.open',
     'close': 'hours.sunday.close',
@@ -152,71 +152,28 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
   } else if ('open'.indexOf(key) > -1) {
-    let days = part.value.split(',')
-    for (let i = 0; i < days.length; i++) {
-      let day
+    if (part.value.indexOf(')') > -1 && part.value.indexOf('(') > -1)  {
+      let day = part.value.substring(0, part.value.indexOf('('))
+      let bound = part.value.substring(part.value.indexOf('(') + 1, part.value.indexOf(')'))
+      let hr, lower, upper
 
-      if (days[i].indexOf('(') > -1) {
-        // Hour bound is provided
-        day = days[i].substring(0, days[i].indexOf('('))
-        let hours = days[i].substring(days[i].indexOf('(') + 1, days[i].length - 1)
-        let hour, lower, upper
-
-        if (hours.indexOf('|') > -1) {
-          // Check if vendor is open between hour range
-          lower = parseFloat(hours.split('|')[1])
-          upper = parseFloat(hours.split('|')[0])
-        } else if (hours.indexOf('>') > -1) {
-          // Open after provided hour
-          hour = parseFloat(hours.slice(1))
-        } else if (hours.indexOf('<') > -1) {
-          // Open before provided hour
-          hour = parseFloat(hours.slice(1))
-        } else {
-          // Open at hour
-          hour = parseFloat(hours)
-        }
-
-        response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lt: lower || hour }
-        response.query[ABSOLUTE_KEYMAP[day]['close']] = { $gt: upper || hour }
+      if (bound.indexOf('|') > -1) {
+        lower = parseFloat(bound.split('|')[1])
+        upper = parseFloat(bound.split('|')[0])
+      } else if (bound.indexOf('>') > -1 || bound.indexOf('<') > - 1) {
+        hr = parseFloat(bound.slice(1))
       } else {
-        // No hours provided, check if open at any time
-        day = days[i]
-        let val = true
-        if (day.substr(0, 1) == '-') {
-          day = day.substr(1)
-          val = false
-        }
-        response.query[ABSOLUTE_KEYMAP[day]['is_closed']] = { $ne: val }
+        hr = parseFloat(bound)
+      }
+
+      response.query[ABSOLUTE_KEYMAP[day]['open']] = { $lt: lower || hr }
+      response.query[ABSOLUTE_KEYMAP[day]['close']] = { $gt: upper || hr }
+    } else {
+      let checkOpen = part.operator !== '-'
+      if (ABSOLUTE_KEYMAP.hasOwnProperty(part.value)) {
+        response.query[ABSOLUTE_KEYMAP[part.value]['is_closed']] = { $ne: checkOpen }
       }
     }
-  } else if ('tags'.indexOf(key) > -1) {
-    let tags = part.value.split(',')
-
-    let contains = []
-    let notContains = []
-
-    for (let i = 0; i < tags.length; i++) {
-      let tag = tags[i].trim().toLowerCase()
-      if (tag[0] === '-') {
-        notContains.push(escapeRe(tag.substr(1)))
-      } else {
-        contains.push(escapeRe(tag))
-      }
-    }
-
-    if (contains.length > 0 || notContains.length > 0) {
-      response.query[ABSOLUTE_KEYMAP['tags']] = {}
-
-      if (contains.length > 0) {
-        response.query[ABSOLUTE_KEYMAP['tags']]['$all'] = contains
-      }
-
-      if (notContains.length > 0) {
-        response.query[ABSOLUTE_KEYMAP['tags']]['$nin'] = notContains
-      }
-    }
-
   } else {
     // Strings
 
