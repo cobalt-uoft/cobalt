@@ -24,7 +24,7 @@ test.cb('/', t => {
     .get('/1.0/food')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.slice(0, 10)))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -49,7 +49,7 @@ test.cb('/?limit=2', t => {
     .get('/1.0/food?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.slice(0, 2)))
+    .expect(testData.slice(0, 2))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -74,7 +74,7 @@ test.cb('/?skip=10', t => {
     .get('/1.0/food?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.slice(10, 20)))
+    .expect(JSON.encode(JSON.stringify(testData.slice(10, 20))))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -100,7 +100,7 @@ test.cb('/?skip=2&limit=2', t => {
     .get('/1.0/food?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.slice(2, 4)))
+    .expect(testData.slice(2, 4))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -115,7 +115,7 @@ test.cb(`/${testData[0].id}`, t => {
     .get(`/1.0/food/${testData[0].id}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData[0]))
+    .expect(testData[0])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -149,12 +149,12 @@ test.cb('/search?q=', t => {
     })
 })
 
-test.cb('/search?q=%22seating%20is%20available%22', t => {
+test.cb('/search?q=%22bright,%20vibrant%20hub%20of%20social%20and%20academic%20activity%22', t => {
   request(cobalt.Server)
-    .get('/1.0/food/search?q=%22seating%20is%20available%22')
+    .get('/1.0/food/search?q=%22bright,%20vibrant%20hub%20of%20social%20and%20academic%20activity%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.filter(doc => { return doc.description.match('Seating is available') })))
+    .expect(testData.filter(doc => { return doc.name.match('Kelly Cafe') }))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -175,7 +175,7 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
-/* TODO: filter tests */
+/* filter tests */
 
 test.cb('/filter?q=', t => {
   request(cobalt.Server)
