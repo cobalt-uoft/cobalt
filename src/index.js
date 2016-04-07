@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
+import food from './api/food'
 import db from './db'
 
 let test = process.argv.join().match('/ava/')
@@ -28,6 +29,7 @@ if (!test && enableSync == 'true') {
 let apiVersion = '1.0'
 app.use(`/${apiVersion}/courses`, courses)
 app.use(`/${apiVersion}/buildings`, buildings)
+app.use(`/${apiVersion}/food`, food)
 
 // Error handlers
 app.use((req, res, next) => {
