@@ -46,6 +46,7 @@
     "files": [
       "test/courses",
       "test/buildings",
+      "test/textbooks",
       "test/food"
     ],
     "failFast": true,
