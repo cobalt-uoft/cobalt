@@ -41,6 +41,22 @@
 * [GET buildings/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/search.md)
 * [GET buildings/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/filter.md)
 
+#### Textbook API
+
+* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/introduction.md)
+* [GET textbooks](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/list.md)
+* [GET textbooks/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/show.md)
+* [GET textbooks/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/search.md)
+* [GET textbooks/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/filter.md)
+
+#### Food API
+
+* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/introduction.md)
+* [GET food](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/list.md)
+* [GET food/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/show.md)
+* [GET food/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/search.md)
+* [GET food/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/filter.md)
+
 ## Data
 
 Current and historical datasets that power Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
