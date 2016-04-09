@@ -51,7 +51,7 @@ var foodSchema = new Schema({
       close: Number
     }
   }
-})
+}, { collection: 'food' })
 
 foodSchema.index({ name: 'text', description: 'text', campus: 'text', tags: 'text' })
 
