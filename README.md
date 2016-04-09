@@ -41,7 +41,7 @@
 * [GET buildings/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/search.md)
 * [GET buildings/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/filter.md)
 
-#### Textbook API
+##### Textbook API
 
 * [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/introduction.md)
 * [GET textbooks](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/list.md)
@@ -49,7 +49,7 @@
 * [GET textbooks/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/search.md)
 * [GET textbooks/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/filter.md)
 
-#### Food API
+##### Food API
 
 * [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/introduction.md)
 * [GET food](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/list.md)
