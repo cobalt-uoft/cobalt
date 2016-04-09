@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import winston from 'winston'
 import courses from './api/courses'
 import buildings from './api/buildings'
+import textbooks from './api/textbooks'
 import food from './api/food'
 import db from './db'
 
@@ -29,6 +30,7 @@ if (!test && enableSync == 'true') {
 let apiVersion = '1.0'
 app.use(`/${apiVersion}/courses`, courses)
 app.use(`/${apiVersion}/buildings`, buildings)
+app.use(`/${apiVersion}/textbooks`, textbooks)
 app.use(`/${apiVersion}/food`, food)
 
 // Error handlers
