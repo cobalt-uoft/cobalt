@@ -1,4 +1,4 @@
-UofT Textbooks API
+UofT Textbook API
 =================
 
 This is a RESTful web API built to interface with University of Toronto textbooks across all 3 campuses.
