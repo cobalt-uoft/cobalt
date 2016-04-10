@@ -1,9 +1,12 @@
-import https from 'https'
-import winston from 'winston'
-import fs from 'fs'
-import schedule from 'node-schedule'
 import childProcess from 'child_process'
+import fs from 'fs'
+import https from 'https'
 import mongoose from 'mongoose'
+import schedule from 'node-schedule'
+import winston from 'winston'
+
+// Holds the last commit that was synchronized
+let lastCommit  =  ''
 
 let db = {}
 
@@ -43,7 +46,8 @@ db.update = (collection) => {
     })
 
   }).on('error', e => {
-    winston.warn('Could not update database, online datasets are currently inaccessible.', e)
+    winston.warn('Could not update database, online datasets are \
+      currently inaccessible.', e)
   })
 }
 
@@ -54,6 +58,34 @@ db.sync = () => {
   db.update('courses')
 }
 
+db.check = (callback) => {
+  let options  =  {
+    host: 'api.github.com',
+    port: 443,
+    path: '/repos/cobalt-uoft/datasets/git/refs/heads/master',
+  }
+
+  https.get(options, res  => {
+    let data = ''
+
+    res.on('data', chunk => {
+      data += chunk
+    })
+
+    res.on('end', () => {
+      data = JSON.parse(data)
+
+      // Compare the last commit hash to the current one
+      if (data.object.sha == lastCommit) return
+
+      lastCommit = data.object.sha
+
+      // Execute the callback
+      if (callback) callback()
+    })
+  })
+}
+
 db.syncCron = () => {
   // Make data directory if it doesn't exist
   try {
@@ -62,9 +94,12 @@ db.syncCron = () => {
     fs.mkdirSync('.cobalt_data')
   }
 
+  // Perform sync on startup
   db.sync()
-  schedule.scheduleJob('30 4 * * *', () => {
-    db.sync()
+
+  // Schedule checking for sync every hour
+  schedule.scheduleJob('0 * * * *', () => {
+    db.check(() => { db.sync() })
   })
 }
 
