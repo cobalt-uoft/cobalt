@@ -54,6 +54,11 @@
       "babel-register"
     ]
   },
+  "nyc": {
+    "exclude": [
+      "src/db/index.js"
+    ]
+  },
   "bin": {
     "cobalt": "./bin/cobalt"
   },

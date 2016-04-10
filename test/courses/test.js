@@ -82,6 +82,18 @@ test.cb('/?skip=10', t => {
     })
 })
 
+test.cb('/?skip=-5', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses?skip=-5')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/?skip=200', t => {
   request(cobalt.Server)
     .get('/1.0/courses?skip=200')
@@ -175,7 +187,7 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
-/* TODO: filter tests */
+/* filter tests */
 
 test.cb('/filter?q=', t => {
   request(cobalt.Server)
@@ -188,6 +200,79 @@ test.cb('/filter?q=', t => {
       t.end()
     })
 })
+
+test.cb('/filter?q=name:%22theory%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=name:%22theory%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => { return doc.code.includes('CSC236') })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=level:100%20OR%20name:%22econ%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=level:100%20OR%20name:%22econ%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('POL370') || doc.code.includes('SOC102')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=level:>300%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('GGR498') || doc.code.includes('RSM429') || doc.code.includes('TRN421')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=prerequisite:%22ECO%22%20AND%20level:-400', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=prerequisite:%22ECO%22%20AND%20level:-400')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('MGT374') || doc.code.includes('POL370')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+/* TODO filter tests for meeting sections */
+
+// test.cb('/filter?q=instructor:%22Brown%22', t => {
+//   request(cobalt.Server)
+//     .get('/1.0/courses/filter?q=instructor:%22Brown%22')
+//     .expect('Content-Type', /json/)
+//     .expect(200)
+//     .expect(JSON.stringify(testData.filter(doc => { doc.code.includes('BIOD33') })))
+//     .end((err, res) => {
+//       if (err) t.fail(err.message)
+//       t.pass()
+//       t.end()
+//     })
+// })
 
 test.cb.after('cleanup', t => {
   Course.remove({}, err => {

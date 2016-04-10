@@ -108,6 +108,18 @@ test.cb('/?skip=2&limit=2', t => {
     })
 })
 
+test.cb('/?sort=+', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings?sort=+')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 /* show tests */
 
 test.cb(`/${testData[0].id}`, t => {
@@ -175,13 +187,69 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
-/* TODO: filter tests */
+/* filter tests */
 
 test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/buildings/filter?q=')
     .expect('Content-Type', /json/)
     .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=name:%22library%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=name:%22library%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.name.toLowerCase().includes('library')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=code:%22UC%22%20OR%20code:%22HH%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=code:%22UC%22%20OR%20code:%22HH%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.name.match('Hart House') || doc.name.match('University College')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=lat:>=43%20AND%20lng:<=-79.1', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=lat:>=43%20AND%20lng:<=-79.1')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.slice(0, 10)))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
