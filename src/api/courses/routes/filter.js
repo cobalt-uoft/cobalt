@@ -109,6 +109,12 @@ export default function filter(req, res, next) {
         let matchedSections = []
 
         for (let h = 0; h < this.meeting_sections.length; h++) {
+
+          delete this.meeting_sections[h]._id
+          for (let i = 0; i < this.meeting_sections[h].times.length; i++) {
+            delete this.meeting_sections[h].times[i]._id
+          }
+
           let s = this.meeting_sections[h]
 
           let currentData = []
@@ -199,7 +205,9 @@ export default function filter(req, res, next) {
 
         if (matchedSections.length > 0) {
           this.matched_meeting_sections = matchedSections
-          emit(this._id, this)
+          delete this._id
+          delete this.__v
+          emit(this.id, this)
         }
       }
 
@@ -211,10 +219,9 @@ export default function filter(req, res, next) {
       co(function* () {
         try {
           let docs = yield Course.mapReduce(o)
-          // TODO: revisit this formatting stuff, looks weird
+
           let formattedDocs = []
-          for(let doc of docs) {
-            delete doc.value._id
+          for (let doc of docs) {
             formattedDocs.push(doc.value)
           }
           res.json(formattedDocs)
