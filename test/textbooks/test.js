@@ -204,6 +204,73 @@ test.cb('/filter?q=price:>330', t => {
     })
 })
 
+test.cb('/filter?q=author:%22milton%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=author:%22milton%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.isbn.match('9780072468366') }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=edition:<=5', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=edition:<=5&limit=20')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.edition <= 5 }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=edition:7', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=edition:7')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.title.match('Scientific Revolutions') }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=course_code:%22NEW%22%20AND%20price:%3C16.50', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=course_code:%22NEW%22%20AND%20price:%3C16.50')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.id.match('10561713') }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=course_requirement:-%22required%22%20AND%20course_requirement:-%22referenced%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=course_requirement:-%22required%22%20AND%20course_requirement:-%22referenced%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.title.match('Judaism: Revelation And Tradition')
+    }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Textbook.remove({}, err => {
     if (err) t.fail(err.message)

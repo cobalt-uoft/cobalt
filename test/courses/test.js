@@ -32,6 +32,18 @@ test.cb('/', t => {
     })
 })
 
+test.cb('/', t => {
+  request(cobalt.Server)
+    .get('/1.0/course/')
+    .expect('Content-Type', /json/)
+    .expect(404)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/courses?limit=0')
@@ -75,6 +87,18 @@ test.cb('/?skip=10', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.slice(10, 20)))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/?skip=-5', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses?skip=-5')
+    .expect('Content-Type', /json/)
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -175,13 +199,119 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
-/* TODO: filter tests */
+/* filter tests */
 
 test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/courses/filter?q=')
     .expect('Content-Type', /json/)
     .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=name:%22theory%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=name:%22theory%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => { return doc.code.includes('CSC236') })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=level:100%20OR%20name:%22econ%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=level:100%20OR%20name:%22econ%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('POL370') || doc.code.includes('SOC102')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=level:>300%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('GGR498') || doc.code.includes('RSM429') || doc.code.includes('TRN421')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=prerequisite:%22ECO%22%20AND%20level:-400', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=prerequisite:%22ECO%22%20AND%20level:-400')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.filter(doc => {
+      return doc.code.includes('MGT374') || doc.code.includes('POL370')
+    })))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=size:15', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=size:15')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=instructor:%22Brown%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=instructor:%22Brown%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect([testData.reduce(doc => {
+      if (doc.code.includes('BIOD33')) {
+        doc['matched_meeting_sections'] = [
+          {
+            "code": "L01",
+            "size": 50,
+            "enrolment": 0,
+            "times": [
+              {
+                "day": "THURSDAY",
+                "start": 15,
+                "end": 17,
+                "duration": 2,
+                "location": "BV 363"
+                }
+            ],
+            "instructors": [
+              "J Brown"
+            ]
+          }
+        ]
+        return doc
+      }
+    })])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

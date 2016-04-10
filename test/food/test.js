@@ -202,12 +202,53 @@ test.cb('/filter?q=open:%22sunday%22', t => {
     })
 })
 
+test.cb('/filter?q=open:%22monday(22.5|23.5)%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=open:%22monday(22.5|23.5)%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {return doc.id.match('1150') || doc.id.match('1189')}))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=tag:%22innis%22', t => {
   request(cobalt.Server)
     .get('/1.0/food/filter?q=tag:%22innis%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => { return doc.tags.indexOf('innis') > -1 }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:-%22UTSG%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=campus:-%22UTSG%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.campus.match('UTM') || doc.campus.match('UTSC')
+    }).slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=lng:<=-79.05%20AND%20lat:>=43.1', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=lng:<=-79.05%20AND%20lat:>=43.1')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

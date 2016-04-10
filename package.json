@@ -54,6 +54,12 @@
       "babel-register"
     ]
   },
+  "nyc": {
+    "exclude": [
+      "src/db/index.js",
+      "src/api/courses/routes/filterMapReduce.js"
+    ]
+  },
   "bin": {
     "cobalt": "./bin/cobalt"
   },
