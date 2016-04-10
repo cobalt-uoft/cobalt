@@ -292,20 +292,20 @@ test.cb('/filter?q=instructor:%22Brown%22', t => {
       if (doc.code.includes('BIOD33')) {
         doc['matched_meeting_sections'] = [
           {
-            "code": "L01",
-            "size": 50,
-            "enrolment": 0,
-            "times": [
+            'code': 'L01',
+            'size': 50,
+            'enrolment': 0,
+            'times': [
               {
-                "day": "THURSDAY",
-                "start": 15,
-                "end": 17,
-                "duration": 2,
-                "location": "BV 363"
-                }
+                'day': 'THURSDAY',
+                'start': 15,
+                'end': 17,
+                'duration': 2,
+                'location': 'BV 363'
+              }
             ],
-            "instructors": [
-              "J Brown"
+            'instructors': [
+              'J Brown'
             ]
           }
         ]
