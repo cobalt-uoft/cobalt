@@ -244,6 +244,34 @@ test.cb('/filter?q=lat:>=43%20AND%20lng:<=-79.1', t => {
     })
 })
 
+test.cb('/filter?q=lat:>43%20AND%20lng:<-79.1', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=lat:>43%20AND%20lng:<-79.1')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(JSON.stringify(testData.slice(0, 10)))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=lat:43.65963205070242%20AND%20lng:-79.3946933827686', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=lat:43.65963205070242%20AND%20lng:-79.3946933827686')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.id === '008A'
+    }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22', t => {
   request(cobalt.Server)
     .get('/1.0/buildings/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22')

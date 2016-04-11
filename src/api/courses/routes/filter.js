@@ -86,10 +86,6 @@ export default function filter(req, res, next) {
 
   if(queries > 0) {
     if(isMapReduce) {
-      if(filter.$and.length === 0) {
-        filter = {}
-      }
-
       var o = {
         query: filter,
         scope: {
@@ -180,9 +176,6 @@ function formatPart(key, part) {
     part.value = part.value.substring(1, part.value.length - 1)
   } else {
     part.value = parseInt(part.value)
-    if (part.operator === '-') {
-      part.value = -part.value
-    }
   }
 
   if (['breadth', 'level', 'size', 'enrolment', 'start', 'end', 'duration'].indexOf(key) > -1) {
