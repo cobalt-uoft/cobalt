@@ -199,6 +199,18 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
+test.cb('/search?q=kk', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/search?q=kk')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 /* filter tests */
 
 test.cb('/filter?q=', t => {

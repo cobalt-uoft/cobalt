@@ -190,9 +190,7 @@ function formatPart(key, part) {
       response.mapReduceData = part
     }
 
-    if (part.operator === '-') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
-    } else if (part.operator === '>') {
+    if (part.operator === '>') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
     } else if (part.operator === '<') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }

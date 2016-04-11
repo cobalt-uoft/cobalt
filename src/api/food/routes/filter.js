@@ -137,9 +137,7 @@ function formatPart(key, part) {
   if (['lat', 'lng'].indexOf(key) > -1) {
     // Numbers and arrays of Numbers
 
-    if (part.operator === '-') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
-    } else if (part.operator === '>') {
+    if (part.operator === '>') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
     } else if (part.operator === '<') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }
