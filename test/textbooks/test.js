@@ -271,6 +271,19 @@ test.cb('/filter?q=course_requirement:-%22required%22%20AND%20course_requirement
     })
 })
 
+test.cb('/filter?q=price:%3E%3D320', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks/filter?q=price:%3E%3D320')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.id.match('10554272') }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Textbook.remove({}, err => {
     if (err) t.fail(err.message)

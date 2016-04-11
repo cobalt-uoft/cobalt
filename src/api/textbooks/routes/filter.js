@@ -104,6 +104,9 @@ function formatPart(key, part) {
     part.value = part.value.substring(1, part.value.length - 1)
   } else {
     part.value = parseFloat(part.value)
+    if (part.operator === '-') {
+      part.value = -part.value
+    }
   }
 
   if (['edition', 'price'].indexOf(key) > -1) {

@@ -268,21 +268,6 @@ test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22U
     })
 })
 
-test.cb('/filter?q=prerequisite:%22ECO%22%20AND%20level:-400', t => {
-  request(cobalt.Server)
-    .get('/1.0/courses/filter?q=prerequisite:%22ECO%22%20AND%20level:-400')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(JSON.stringify(testData.filter(doc => {
-      return doc.code.includes('MGT374') || doc.code.includes('POL370')
-    })))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 test.cb('/filter?q=size:15', t => {
   request(cobalt.Server)
     .get('/1.0/courses/filter?q=size:15')
