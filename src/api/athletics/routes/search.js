@@ -5,7 +5,7 @@ export default function search(req, res, next) {
   co(function* () {
     try {
       let docs = yield Athletics
-        .find({ $text: { $search: req.query.q } }, '-__v -_id')
+        .find({ $text: { $search: req.query.q } }, '-__v -_id -events._id')
         .limit(req.query.limit)
         .skip(req.query.skip)
         .sort(req.query.sort)

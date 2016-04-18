@@ -2,11 +2,12 @@ import Athletics from '../model'
 import co from 'co'
 
 const ABSOLUTE_KEYMAP = {
-  'date': 'date',
-  'title': 'events.title',
-  'location': 'events.location',
-  'start': 'events.start_time',
-  'end': 'events.end'
+  date: 'date',
+  campus: 'campus',
+  title: 'events.title',
+  location: 'events.location',
+  start: 'events.start_time',
+  end: 'events.end'
 }
 
 export default function filter(req, res, next) {
@@ -34,7 +35,7 @@ export default function filter(req, res, next) {
     co(function* () {
       try {
         let docs = yield Athletics
-          .find(filter, '-__v -_id')
+          .find(filter, '-__v -_id -events._id')
           .limit(req.query.limit)
           .skip(req.query.skip)
           .sort(req.query.sort)
@@ -103,7 +104,7 @@ function formatPart(key, part) {
     let dateValues = part.value.split(',')
     let d = dateValues.concat(new Array(7 - dateValues.length).fill(0))
 
-    // Months [1] started at index 0, hours [3] are altered for EST
+    // Months[1] start at index 0 (Jan->0, Dec->11), hours[3] are altered for EST
     let date = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
     if (isNaN(date)) {
       date = new Date()
@@ -135,7 +136,6 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
     }
   }
-  console.log(response)
   return response
 }
 
