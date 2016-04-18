@@ -4,6 +4,7 @@ import https from 'https'
 import mongoose from 'mongoose'
 import schedule from 'node-schedule'
 import winston from 'winston'
+import { version } from '../../package.json'
 
 // Holds the last commit that was synchronized
 let lastCommit  =  ''
@@ -75,7 +76,7 @@ db.check = (callback) => {
     host: 'api.github.com',
     port: 443,
     path: '/repos/cobalt-uoft/datasets/git/refs/heads/master',
-    headers: {'user-agent': 'cobalt-uoft/0.4.2'}
+    headers: {'user-agent': `cobalt-uoft/${version}`}
   }
 
   https.get(options, res  => {
