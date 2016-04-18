@@ -37,6 +37,17 @@ db.update = (collection) => {
         shell.on('close', code => {
           if (code == 0) {
             winston.info(`Synced ${collection}.`)
+
+            if (collection === 'athletics') {
+              let cmd = 'mongo cobalt --eval "db.athletics.find().forEach((doc) => {doc.date = new Date(doc.date);doc.events.forEach((_, i) => {doc.events[i].start_time = new Date(doc.events[i].start_time);doc.events[i].end_time = new Date(doc.events[i].end_time);});db.athletics.save(doc)});"'
+              childProcess.exec(cmd, (error, stdout, stderr) => {
+                if (!error) {
+                  winston.info(`Updated dates for ${collection}.`)
+                } else {
+                  winston.warn('Could not update date values for ${collection}.')
+                }
+              })
+            }
           } else {
             winston.warn(`Could not import ${collection} to MongoDB. \
               The 'mongoexport' command left us with exit code ${code}.`)
@@ -56,6 +67,7 @@ db.sync = () => {
   db.update('food')
   db.update('textbooks')
   db.update('courses')
+  db.update('athletics')
 }
 
 db.check = (callback) => {
