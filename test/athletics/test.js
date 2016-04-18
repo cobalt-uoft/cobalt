@@ -177,6 +177,72 @@ test.cb('/search?q=utsg', t => {
     })
 })
 
+/* filter tests */
+
+test.cb('/filter?q=', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:%22utm%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=campus:%22utm%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {return doc.id.includes('M')}).slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:%22utm%22%20AND%20campus:%22utsc%22%20OR%20campus:%22utsg%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=campus:%22utm%22%20AND%20campus:%22utsc%22%20OR%20campus:%22utsg%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:>%222016%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:>%222016%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:<%222016%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:<%222016%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 // test.cb.after('cleanup', t => {
 //   Athletics.remove({}, err => {
 //     if (err) t.fail(err.message)
