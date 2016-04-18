@@ -108,3 +108,79 @@ test.cb('/?skip=2&limit=2', t => {
     })
 })
 
+/* show tests */
+
+test.cb(`/${testData[0].id}`, t => {
+  request(cobalt.Server)
+    .get(`/1.0/athletics/${testData[0].id}`)
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData[0])
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/01', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/01')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+/* search tests */
+
+test.cb('/search?q=', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/search?q=')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/search?q=barre', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/search?q=barre')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.id.match('07SC') || doc.id.match('14SC') || doc.id.match('21SC')
+    }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/search?q=utsg', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/search?q=utsg')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+// test.cb.after('cleanup', t => {
+//   Athletics.remove({}, err => {
+//     if (err) t.fail(err.message)
+//     t.end()
+//   })
+// })
+
