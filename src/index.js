@@ -43,7 +43,8 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  res.status(err.status || 500)
+  err.status = err.status || 500
+  res.status(err.status)
   let error = {
     code: err.status,
     message: err.message
