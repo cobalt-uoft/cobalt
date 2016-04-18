@@ -41,7 +41,7 @@ db.update = (collection) => {
 
             // TODO clean this up
             if (collection === 'athletics') {
-              let cmd = 'mongo cobalt --eval "db.athletics.find().forEach((doc) => {doc.date = new Date(doc.date); doc.events.forEach((_, i) => {doc.events[i].start_time = new Date(doc.events[i].start_time); doc.events[i].end_time = new Date(doc.events[i].end_time); }); db.athletics.save(doc)});"'
+              let cmd = 'mongo cobalt --eval "db.athletics.find().forEach(doc=>{doc.date=new Date(doc.date);doc.events.forEach((_,i)=>{doc.events[i].start_time=new Date(doc.events[i].start_time);doc.events[i].end_time=new Date(doc.events[i].end_time)});db.athletics.save(doc)});"'
               childProcess.exec(cmd, error => {
                 if (!error) {
                   winston.info(`Updated dates for ${collection}.`)
