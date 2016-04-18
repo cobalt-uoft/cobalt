@@ -65,10 +65,10 @@ db.update = (collection) => {
 }
 
 db.sync = () => {
-  // db.update('buildings')
-  // db.update('food')
-  // db.update('textbooks')
-  // db.update('courses')
+  db.update('buildings')
+  db.update('food')
+  db.update('textbooks')
+  db.update('courses')
   db.update('athletics')
 }
 
