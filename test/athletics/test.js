@@ -328,11 +328,11 @@ test.cb('/filter?q=start:>="2016,04,25,4"', t => {
     })
 })
 
-test.cb('/filter?q=date:"TEST"', t => {
+test.cb('/filter?q=date:"INVALID_DATE"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:%22TEST%22')
+    .get('/1.0/athletics/filter?q=start:%22INVALID_DATE%22')
     .expect('Content-Type', /json/)
-    .expect(500)
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

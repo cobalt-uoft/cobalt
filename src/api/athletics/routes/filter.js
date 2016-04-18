@@ -28,6 +28,8 @@ export default function filter(req, res, next) {
       if (x.isValid) {
         filter.$and[i].$or[j] = x.query
         queries++
+      } else if (x.error) {
+        return next(x.error)
       }
     }
   }
@@ -52,6 +54,7 @@ function formatPart(key, part) {
   // Response format
   let response = {
     key: key,
+    error: null,
     isValid: true,
     query: {}
   }
@@ -106,8 +109,12 @@ function formatPart(key, part) {
 
     // Months[1] start at index 0 (Jan->0, Dec->11), hours[3] are altered for EST
     let date = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
+
     if (isNaN(date)) {
-      throw new Error('Invalid date parameter.')
+      response.isValid = false
+      response.error = new Error('Invalid date parameter.')
+      response.error.status = 400
+      return response
     }
 
     if (part.operator === '-') {
