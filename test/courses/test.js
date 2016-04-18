@@ -199,6 +199,18 @@ test.cb('/search?q=loremipsumdolorsitamet', t => {
     })
 })
 
+test.cb('/search?q=kk', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/search?q=kk')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 /* filter tests */
 
 test.cb('/filter?q=', t => {
@@ -243,11 +255,12 @@ test.cb('/filter?q=level:100%20OR%20name:%22econ%22', t => {
 
 test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22', t => {
   request(cobalt.Server)
-    .get('/1.0/courses/filter?q=level:>300%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22')
+    .get('/1.0/courses/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.filter(doc => {
-      return doc.code.includes('GGR498') || doc.code.includes('RSM429') || doc.code.includes('TRN421')
+      return doc.code.includes('GGR498') || doc.code.includes('RSM429') ||
+        doc.code.includes('TRN421')
     })))
     .end((err, res) => {
       if (err) t.fail(err.message)
@@ -256,14 +269,28 @@ test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22U
     })
 })
 
-test.cb('/filter?q=prerequisite:%22ECO%22%20AND%20level:-400', t => {
+test.cb('/filter?q=level:<100', t => {
   request(cobalt.Server)
-    .get('/1.0/courses/filter?q=prerequisite:%22ECO%22%20AND%20level:-400')
+    .get('/1.0/courses/filter?q=level:<100')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(JSON.stringify(testData.filter(doc => {
-      return doc.code.includes('MGT374') || doc.code.includes('POL370')
-    })))
+    .expect([])
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=breadth:<=1', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=breadth:<=1')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.code.includes('EAS386') || doc.code.includes('MGR301') ||
+        doc.code.includes('MHB256')
+    }))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -283,6 +310,33 @@ test.cb('/filter?q=size:15', t => {
     })
 })
 
+test.cb('/filter?q=size:>5000', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=size:>5000')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(res => {
+      res.body[0].code = 'SOC102H1S'
+    })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=instructor:-"D Liu"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=instructor:-"D Liu"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=instructor:%22Brown%22', t => {
   request(cobalt.Server)
     .get('/1.0/courses/filter?q=instructor:%22Brown%22')
@@ -290,25 +344,21 @@ test.cb('/filter?q=instructor:%22Brown%22', t => {
     .expect(200)
     .expect([testData.reduce(doc => {
       if (doc.code.includes('BIOD33')) {
-        doc['matched_meeting_sections'] = [
-          {
-            'code': 'L01',
-            'size': 50,
-            'enrolment': 0,
-            'times': [
-              {
-                'day': 'THURSDAY',
-                'start': 15,
-                'end': 17,
-                'duration': 2,
-                'location': 'BV 363'
-              }
-            ],
-            'instructors': [
-              'J Brown'
-            ]
-          }
-        ]
+        doc['matched_meeting_sections'] = [{
+          'code': 'L01',
+          'size': 50,
+          'enrolment': 0,
+          'times': [{
+            'day': 'THURSDAY',
+            'start': 15,
+            'end': 17,
+            'duration': 2,
+            'location': 'BV 363'
+          }],
+          'instructors': [
+            'J Brown'
+          ]
+        }]
         return doc
       }
     })])

@@ -65,11 +65,6 @@ validation.filterQuery = (req, res, next) => {
 }
 
 validation.id = (req, res, next) => {
-  if (!req.params.id) {
-    let err = new Error('Identifier must be specified.')
-    err.status = 400
-    return next(err)
-  }
   next()
 }
 
