@@ -256,12 +256,53 @@ test.cb('/filter?q=lng:<=-79.05%20AND%20lat:>=43.1', t => {
     })
 })
 
+test.cb('/filter?q=lng:<-79.05%20AND%20lat:>43.1', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=lng:<-79.05%20AND%20lat:>43.1')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=lng:-79.66178%20AND%20lat:43.54807', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=lng:-79.66178%20AND%20lat:43.54807')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => {
+      return doc.lng === -79.66178 && doc.lat === 43.54807
+    }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22%20OR%20open:%22sunday%22', t => {
   request(cobalt.Server)
     .get('/1.0/food/filter?q=address:%22st.%20george%22%20AND%20open:%22monday(>14)%22%20OR%20open:%22sunday%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => { return doc.name.match('Café Reznikoff') }))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=address:"1265%20Military%20Trail"%20AND%20open:"sunday(9.75)"', t => {
+  request(cobalt.Server)
+    .get('/1.0/food/filter?q=address:"1265%20Military%20Trail"%20AND%20open:"sunday(9.75)"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.filter(doc => { return doc.id.match('1231') }))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

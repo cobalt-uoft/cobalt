@@ -63,6 +63,7 @@ db.check = (callback) => {
     host: 'api.github.com',
     port: 443,
     path: '/repos/cobalt-uoft/datasets/git/refs/heads/master',
+    headers: {'user-agent': 'cobalt-uoft/0.4.2'}
   }
 
   https.get(options, res  => {

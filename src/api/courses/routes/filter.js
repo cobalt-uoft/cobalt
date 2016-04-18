@@ -86,10 +86,6 @@ export default function filter(req, res, next) {
 
   if(queries > 0) {
     if(isMapReduce) {
-      if(filter.$and.length === 0) {
-        filter = {}
-      }
-
       var o = {
         query: filter,
         scope: {
@@ -190,9 +186,7 @@ function formatPart(key, part) {
       response.mapReduceData = part
     }
 
-    if (part.operator === '-') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
-    } else if (part.operator === '>') {
+    if (part.operator === '>') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
     } else if (part.operator === '<') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }
