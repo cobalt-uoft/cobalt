@@ -58,7 +58,8 @@
   "nyc": {
     "exclude": [
       "src/db/index.js",
-      "src/api/courses/routes/filterMapReduce.js"
+      "src/api/courses/routes/filterMapReduce.js",
+      "src/api/athletics/routes/filterMapReduce.js"
     ]
   },
   "bin": {

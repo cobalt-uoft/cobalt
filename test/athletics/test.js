@@ -230,21 +230,29 @@ test.cb('/filter?q=campus:"utm" AND campus:"utsc" OR campus:"utsg"', t => {
     })
 })
 
-test.cb('/filter?q=title:"rock climbing"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.filter(doc => {
-      // TODO: find matches w/o hardcoding IDs
-      return ['04SC', '05SC', '07SC', '14SC', '21SC'].indexOf(doc.id) > -1
-    }))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
+// test.cb('/filter?q=title:"rock climbing" AND date:"2016,04,04"', t => {
+//   request(cobalt.Server)
+//     .get('/1.0/athletics/filter?q=title:"rock climbing" AND date:"2016,04,04"')
+//     .expect('Content-Type', /json/)
+//     .expect(200)
+//     .expect([testData.reduce(doc => {
+//       if (doc.id.match('04SC')) {
+//         doc['matched_events'] = [{
+//           title: "Rock Climbing Club",
+//           location: "Climbing Wall",
+//           building_id: "208",
+//           start_time: "2016-04-04T18:00:00.000Z",
+//           end_time: "2016-04-04T20:30:00.000Z"
+//         }]
+//         return doc
+//       }
+//     })])
+//     .end((err, res) => {
+//       if (err) t.fail(err.message)
+//       t.pass()
+//       t.end()
+//     })
+// })
 
 test.cb('/filter?q=date:"2016"', t => {
   request(cobalt.Server)
@@ -285,20 +293,29 @@ test.cb('/filter?q=date:"2016,04,01"', t => {
     })
 })
 
-test.cb('/filter?q=date:<="2016,04,02"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:<%222016,04,02%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.filter(doc => {
-      return new Date(doc.date) >= new Date(2016, 4, 3)
-    }))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
+// test.cb('/filter?q=start:<"2016,04,02,13"', t => {
+//   request(cobalt.Server)
+//     .get('/1.0/athletics/filter?q=start:%3C%222016,04,02,13%22')
+//     .expect('Content-Type', /json/)
+//     .expect(200)
+//     .expect([testData.reduce(doc => {
+//       if (doc.id.match('02SC')) {
+//         doc['matched_events'] = [{
+//           title: "Zumba",
+//           location: "Studio 2",
+//           building_id: "208",
+//           start_time: "2016-04-02T12:00:00.000Z",
+//           end_time: "2016-04-02T12:50:00.000Z"
+//         }]
+//         return doc
+//       }
+//     })])
+//     .end((err, res) => {
+//       if (err) t.fail(err.message)
+//       t.pass()
+//       t.end()
+//     })
+// })
 
 test.cb('/filter?q=date:-"2016,04,02"', t => {
   request(cobalt.Server)
@@ -313,24 +330,34 @@ test.cb('/filter?q=date:-"2016,04,02"', t => {
     })
 })
 
-test.cb('/filter?q=start:>="2016,04,25,4"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:>=%222016,04,25,4%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.filter(doc => {
-      return doc.id.includes('25') || doc.id.includes('26')
-    }))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
 
-test.cb('/filter?q=date:"INVALID_DATE"', t => {
+// test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016,04,10"', t => {
+//   request(cobalt.Server)
+//     .get('/1.0/athletics/filter?q=location:%22gym%22%20AND%20end:%3C=%222016,04,11,13%22%20AND%20start:%3E=%222016,04,10%22')
+//     .expect('Content-Type', /json/)
+//     .expect(200)
+//     .expect([testData.reduce(doc => {
+//       if (doc.id.match('11SC')) {
+//         doc['matched_events'] = [{
+//           title: "Badminton/Table Tennis",
+//           location: "Gym 4",
+//           building_id: "208",
+//           start_time: "2016-04-11T10:00:00.000Z",
+//           end_time: "2016-04-11T13:00:00.000Z"
+//         }]
+//         return doc
+//       }
+//     })])
+//     .end((err, res) => {
+//       if (err) t.fail(err.message)
+//       t.pass()
+//       t.end()
+//     })
+// })
+
+test.cb('/filter?q=date:"2016-04-01"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:%22INVALID_DATE%22')
+    .get('/1.0/athletics/filter?q=start:%222016-04-0122')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {
@@ -340,10 +367,10 @@ test.cb('/filter?q=date:"INVALID_DATE"', t => {
     })
 })
 
-// test.cb.after('cleanup', t => {
-//   Athletics.remove({}, err => {
-//     if (err) t.fail(err.message)
-//     t.end()
-//   })
-// })
+test.cb.after('cleanup', t => {
+  Athletics.remove({}, err => {
+    if (err) t.fail(err.message)
+    t.end()
+  })
+})
 
