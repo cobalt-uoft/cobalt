@@ -67,8 +67,6 @@ export default function filter(req, res, next) {
         reduce: mapReduce.reduce
       }
 
-      console.log(JSON.stringify(o))
-
       co(function* () {
         try {
           let docs = yield Athletics.mapReduce(o)
@@ -169,6 +167,13 @@ function formatPart(key, part) {
       return response
     }
 
+    if (['start', 'end'].indexOf(key) > -1) {
+      part.value = date
+
+      response.isMapReduce = true
+      response.mapReduceData = part
+    }
+
     if (part.operator === '-') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $ne: date }
     } else if (part.operator === '>') {
@@ -183,15 +188,6 @@ function formatPart(key, part) {
       // Assume equality if no operator
       response.query[ABSOLUTE_KEYMAP[key]] = date
     }
-
-
-    if (['start', 'end'].indexOf(key) > -1) {
-      part.value = date
-
-      response.isMapReduce = true
-      response.mapReduceData = part
-    }
-
   } else {
     // Strings
     if (['location', 'title'].indexOf(key) > -1) {
@@ -209,7 +205,6 @@ function formatPart(key, part) {
     }
   }
 
-  console.log(response)
   return response
 }
 
