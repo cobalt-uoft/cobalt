@@ -29,7 +29,7 @@ o.map = function() {
         } else if (p.operator === '<=') {
           currentData[i][j] = value <= p.value
         } else {
-          currentData[i][j] = value === p.value
+          currentData[i][j] = value.includes(p.value)
         }
       }
     }
