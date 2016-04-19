@@ -1,5 +1,15 @@
 import Athletics from '../model'
 import co from 'co'
+import mapReduce from './filterMapReduce'
+
+const KEYMAP = {
+  date: 'date',
+  campus: 'campus',
+  title: 'title',
+  location: 'location',
+  start: 'start_time',
+  end: 'end_time'
+}
 
 const ABSOLUTE_KEYMAP = {
   date: 'date',
@@ -7,7 +17,7 @@ const ABSOLUTE_KEYMAP = {
   title: 'events.title',
   location: 'events.location',
   start: 'events.start_time',
-  end: 'events.end'
+  end: 'events.end_time'
 }
 
 export default function filter(req, res, next) {
@@ -15,38 +25,78 @@ export default function filter(req, res, next) {
   q = q.split(' AND ')
 
   let queries = 0
+  let isMapReduce = false
+  let mapReduceData = []
 
   let filter = { $and: q }
 
   for (let i = 0; i < filter.$and.length; i++) {
-    filter.$and[i] = { $or: q[i].trim().split(' OR ')}
-
+    filter.$and[i] = { $or: q[i].trim().split(' OR ') }
+    let mapReduceOr = []
     for (let j = 0; j < filter.$and[i].$or.length; j++) {
       let part = filter.$and[i].$or[j].trim().split(':')
       let x = formatPart(part[0], part[1])
 
       if (x.isValid) {
+        if (x.isMapReduce) {
+          isMapReduce = true
+          x.mapReduceData.key = KEYMAP[x.key]
+          mapReduceOr.push(x.mapReduceData)
+        }
+
         filter.$and[i].$or[j] = x.query
         queries++
       } else if (x.error) {
         return next(x.error)
       }
+
+      if (mapReduceOr.length > 0) {
+        mapReduceData.push(mapReduceOr)
+      }
     }
   }
   if(queries > 0) {
-    co(function* () {
-      try {
-        let docs = yield Athletics
-          .find(filter, '-__v -_id -events._id')
-          .limit(req.query.limit)
-          .skip(req.query.skip)
-          .sort(req.query.sort)
-          .exec()
-        res.json(docs)
-      } catch(e) {
-        return next(e)
+    if(isMapReduce) {
+      var o = {
+        query: filter,
+        scope: {
+          data: mapReduceData
+        },
+        limit: req.query.limit,
+        map: mapReduce.map,
+        reduce: mapReduce.reduce
       }
-    })
+
+      console.log(JSON.stringify(o))
+
+      co(function* () {
+        try {
+          let docs = yield Athletics.mapReduce(o)
+
+          let formattedDocs = []
+          for (let doc of docs) {
+            formattedDocs.push(doc.value)
+          }
+          res.json(formattedDocs)
+        } catch(e) {
+          return next(e)
+        }
+      })
+    } else {
+      co(function* () {
+        try {
+          let docs = yield Athletics
+            .find(filter, '-__v -_id -events._id')
+            .limit(req.query.limit)
+            .skip(req.query.skip)
+            .sort(req.query.sort)
+            .exec()
+          res.json(docs)
+        } catch(e) {
+          return next(e)
+        }
+      })
+    }
   }
 }
 
@@ -56,6 +106,8 @@ function formatPart(key, part) {
     key: key,
     error: null,
     isValid: true,
+    isMapReduce: false,
+    mapReduceData: {},
     query: {}
   }
 
@@ -131,8 +183,21 @@ function formatPart(key, part) {
       // Assume equality if no operator
       response.query[ABSOLUTE_KEYMAP[key]] = date
     }
+
+
+    if (['start', 'end'].indexOf(key) > -1) {
+      part.value = date
+
+      response.isMapReduce = true
+      response.mapReduceData = part
+    }
+
   } else {
     // Strings
+    if (['location', 'title'].indexOf(key) > -1) {
+      response.isMapReduce = true
+      response.mapReduceData = part
+    }
 
     if (part.operator === '-') {
       response.query[ABSOLUTE_KEYMAP[key]] = {
@@ -143,6 +208,8 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
     }
   }
+
+  console.log(response)
   return response
 }
 
