@@ -14,6 +14,6 @@ var athleticsSchema = new Schema({
   }]
 })
 
-athleticsSchema.index({ id: 'text', date: 'text', campus: 'text', 'events.title': 'text' })
+athleticsSchema.index({ id: 'text', campus: 'text', 'events.title': 'text', 'events.location': 'text'})
 
 export default mongoose.model('athletics', athleticsSchema)
