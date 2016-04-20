@@ -327,7 +327,7 @@ test.cb('/filter?q=start:<"2016,04,02,13"', t => {
 
 test.cb('/filter?q=date:-"2016,04,02"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:-"2016,04,02"')
+    .get('/1.0/athletics/filter?q=date:-%222016,04,02%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.slice(1, 11))
