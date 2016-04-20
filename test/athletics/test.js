@@ -241,11 +241,11 @@ test.cb('/filter?q=title:"rock climbing" AND date:"2016,04,04"', t => {
       })
 
       expected['matched_events'] = [{
-        'title': 'Rock Climbing Club',
-        'location': 'Climbing Wall',
-        'building_id': '208',
-        'start_time': '2016-04-04T18:00:00.000Z',
-        'end_time': '2016-04-04T20:30:00.000Z'
+        title: 'Rock Climbing Club',
+        location: 'Climbing Wall',
+        building_id: '208',
+        start_time: '2016-04-04T18:00:00.000Z',
+        end_time: '2016-04-04T20:30:00.000Z'
       }]
 
       return expected
@@ -309,11 +309,11 @@ test.cb('/filter?q=start:<"2016,04,02,13"', t => {
       })
 
       expected['matched_events'] = [{
-        title: "Zumba",
-        location: "Studio 2",
-        building_id: "208",
-        start_time: "2016-04-02T12:00:00.000Z",
-        end_time: "2016-04-02T12:50:00.000Z"
+        title: 'Zumba',
+        location: 'Studio 2',
+        building_id: '208',
+        start_time: '2016-04-02T12:00:00.000Z',
+        end_time: '2016-04-02T12:50:00.000Z'
       }]
 
       return expected
@@ -350,11 +350,11 @@ test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016,04
       })
 
       expected['matched_events'] = [{
-        title: "Badminton/Table Tennis",
-        location: "Gym 4",
-        building_id: "208",
-        start_time: "2016-04-11T10:00:00.000Z",
-        end_time: "2016-04-11T13:00:00.000Z"
+        title: 'Badminton/Table Tennis',
+        location: 'Gym 4',
+        building_id: '208',
+        start_time: '2016-04-11T10:00:00.000Z',
+        end_time: '2016-04-11T13:00:00.000Z'
       }]
 
       return expected
