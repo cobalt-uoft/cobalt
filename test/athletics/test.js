@@ -257,8 +257,6 @@ test.cb('/filter?q=title:"rock climbing" AND date:"2016,04,04"', t => {
     })
 })
 
-
-
 test.cb('/filter?q=date:"2016"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:>%222016%22')
@@ -324,20 +322,6 @@ test.cb('/filter?q=start:<"2016,04,02,13"', t => {
       t.end()
     })
 })
-
-test.cb('/filter?q=date:-"2016,04,02"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:-%222016,04,02%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.slice(1, 11))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 
 test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016,04,10"', t => {
   request(cobalt.Server)
