@@ -40,9 +40,18 @@ db.update = (collection) => {
             winston.info(`Synced ${collection}.`)
 
             // TODO clean this up
-            if (collection === 'athletics') {
-              let cmd = 'mongo cobalt --eval "db.athletics.find().forEach(doc=>{doc.date=new Date(doc.date);doc.events.forEach((_,i)=>{doc.events[i].start_time=new Date(doc.events[i].start_time);doc.events[i].end_time=new Date(doc.events[i].end_time)});db.athletics.save(doc)});"'
-              childProcess.exec(cmd, error => {
+            if (collection === 'athletics' || collection === 'exams') {
+              let cmd = ''
+
+              switch (collection) {
+                case 'athletics':
+                  cmd = 'db.athletics.find().forEach(doc=>{doc.date=new Date(doc.date);doc.events.forEach((_,i)=>{doc.events[i].start_time=new Date(doc.events[i].start_time);doc.events[i].end_time=new Date(doc.events[i].end_time)});db.athletics.save(doc)});'
+                  break
+                case 'exams':
+                  cmd = 'db.exams.find().forEach(doc=>{doc.date=new Date(doc.date);doc.start_time=new Date(doc.start_time);doc.end_time=new Date(doc.end_time);db.exams.save(doc)});'
+                  break
+              }
+              childProcess.exec(`mongo cobalt --eval "${cmd}"`, error => {
                 if (!error) {
                   winston.info(`Updated dates for ${collection}.`)
                 } else {
@@ -70,6 +79,7 @@ db.sync = () => {
   db.update('textbooks')
   db.update('courses')
   db.update('athletics')
+  db.update('exams')
 }
 
 db.check = (callback) => {
