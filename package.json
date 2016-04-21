@@ -47,7 +47,8 @@
       "test/courses",
       "test/buildings",
       "test/textbooks",
-      "test/food"
+      "test/food",
+      "test/athletics"
     ],
     "failFast": true,
     "require": [
@@ -57,7 +58,8 @@
   "nyc": {
     "exclude": [
       "src/db/index.js",
-      "src/api/courses/routes/filterMapReduce.js"
+      "src/api/courses/routes/filterMapReduce.js",
+      "src/api/athletics/routes/filterMapReduce.js"
     ]
   },
   "bin": {
