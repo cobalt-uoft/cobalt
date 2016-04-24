@@ -13,8 +13,7 @@
   <a href="https://gitter.im/cobalt-uoft/cobalt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/cobalt-uoft/cobalt.svg" alt="Join the chat at https://gitter.im/cobalt-uoft/cobalt"></a>
 </p>
 <br />
-
-- - -
+<br />
 
 ## Documentation
 
@@ -31,6 +30,8 @@ Current and historical datasets that power Cobalt's APIs are publicly available 
 ## Contributing
 
 Cobalt is a student-driven project at the University of Toronto. Help contribute towards making this service better. Learn more by reading the [contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md) guide.
+
+<br />
 
 - - -
 
