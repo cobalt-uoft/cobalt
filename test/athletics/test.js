@@ -296,6 +296,44 @@ test.cb('/filter?q=date:"2016,04,01"', t => {
     })
 })
 
+test.cb('/filter?q=date:"2016-04-01"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%222016-04-0122')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:-1461470262870', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:-146147026287')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:"today"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:%22today22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=start:<"2016,04,02,13"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%3C%222016,04,02,13%22')
@@ -323,7 +361,7 @@ test.cb('/filter?q=start:<"2016,04,02,13"', t => {
     })
 })
 
-test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016,04,10"', t => {
+test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016-04-10"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=location:%22gym%22%20AND%20end:%3C=%222016,04,11,13%22%20AND%20start:%3E=%222016,04,10%22')
     .expect('Content-Type', /json/)
@@ -350,22 +388,9 @@ test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016,04
     })
 })
 
-test.cb('/filter?q=date:"2016-04-01"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:%222016-04-0122')
-    .expect('Content-Type', /json/)
-    .expect(400)
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 test.cb.after('cleanup', t => {
   Athletics.remove({}, err => {
     if (err) t.fail(err.message)
     t.end()
   })
 })
-
