@@ -159,7 +159,7 @@ function formatPart(key, part) {
     let value = part.value
     let dateValue = undefined
 
-    if (value.indexOf(',') !== -1) {
+    if (typeof value !== 'number' && value.indexOf(',') !== -1) {
       // Date format is Y,m,d,H,M,S
       let d = part.value.split(',')
       d = d.concat(new Array(7 - d.length).fill(0))

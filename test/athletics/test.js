@@ -309,6 +309,31 @@ test.cb('/filter?q=date:"2016-04-01"', t => {
     })
 })
 
+test.cb('/filter?q=date:-1461470262870', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:-146147026287')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(testData.slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:"today"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:%22today22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=start:<"2016,04,02,13"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%3C%222016,04,02,13%22')
@@ -369,4 +394,3 @@ test.cb.after('cleanup', t => {
     t.end()
   })
 })
-
