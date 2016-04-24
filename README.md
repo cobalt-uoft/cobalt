@@ -18,44 +18,11 @@
 
 ## Documentation
 
-##### Getting started
-
-* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/introduction.md)
-* [Authenticating](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/authenticating.md)
-* [Self hosting](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/self-hosting.md)
-* [Contributing](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/contributing.md)
-
-##### Course API
-
-* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/introduction.md)
-* [GET courses](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/list.md)
-* [GET courses/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/show.md)
-* [GET courses/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/search.md)
-* [GET courses/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/filter.md)
-
-##### Building API
-
-* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/introduction.md)
-* [GET buildings](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/list.md)
-* [GET buildings/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/show.md)
-* [GET buildings/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/search.md)
-* [GET buildings/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/filter.md)
-
-##### Textbook API
-
-* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/introduction.md)
-* [GET textbooks](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/list.md)
-* [GET textbooks/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/show.md)
-* [GET textbooks/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/search.md)
-* [GET textbooks/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/filter.md)
-
-##### Food API
-
-* [Introduction](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/introduction.md)
-* [GET food](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/list.md)
-* [GET food/:id](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/show.md)
-* [GET food/search](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/search.md)
-* [GET food/filter](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/filter.md)
+* [Getting started](https://github.com/cobalt-uoft/documentation/blob/master/getting-started/README.md)
+* [Course API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/courses/README.md)
+* [Building API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/README.md)
+* [Textbook API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/README.md)
+* [Food API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/README.md)
 
 ## Data
 
