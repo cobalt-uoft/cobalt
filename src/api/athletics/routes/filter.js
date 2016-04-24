@@ -34,7 +34,9 @@ export default function filter(req, res, next) {
     filter.$and[i] = { $or: q[i].trim().split(' OR ') }
     let mapReduceOr = []
     for (let j = 0; j < filter.$and[i].$or.length; j++) {
-      let part = filter.$and[i].$or[j].trim().split(':')
+      let query = filter.$and[i].$or[j].trim()
+      let part = [query.slice(0, query.indexOf(':')), query.slice(query.indexOf(':') + 1)]
+
       let x = formatPart(part[0], part[1])
 
       if (x.isValid) {
@@ -154,11 +156,20 @@ function formatPart(key, part) {
   if (['date', 'start', 'end'].indexOf(key) > -1) {
     // Dates
 
-    let dateValues = part.value.split(',')
-    let d = dateValues.concat(new Array(7 - dateValues.length).fill(0))
+    let value = part.value
+    let dateValue = undefined
 
-    // Months[1] start at index 0 (Jan->0, Dec->11), hours[3] are altered for EST
-    let date = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
+    if (value.indexOf(',') !== -1) {
+      // Date format is Y,m,d,H,M,S
+      let d = part.value.split(',')
+      d = d.concat(new Array(7 - d.length).fill(0))
+      dateValue = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
+    } else {
+      // Date format is ISO-8601, milliseconds since 01-01-1970, or empty
+      dateValue = part.value
+    }
+
+    let date = dateValue ? new Date(dateValue) : new Date
 
     if (isNaN(date)) {
       response.isValid = false
