@@ -2,9 +2,9 @@ import express from 'express'
 let router = express.Router()
 
 import list from './routes/list'
-import show from './routes/show'
+// import show from './routes/show'
 import search from './routes/search'
-import filter from './routes/filter'
+// import filter from './routes/filter'
 
 import validation from '../../validation'
 
