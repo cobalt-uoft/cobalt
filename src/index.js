@@ -1,12 +1,14 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import winston from 'winston'
+import db from './db'
+
 import courses from './api/courses'
 import buildings from './api/buildings'
 import textbooks from './api/textbooks'
 import food from './api/food'
 import athletics from './api/athletics'
-import db from './db'
+import transportation from './api/transportation'
 
 let test = process.argv.join().match('/ava/')
 let enableSync = process.env.COBALT_ENABLE_DB_SYNC || 'true'
@@ -34,6 +36,7 @@ app.use(`/${apiVersion}/buildings`, buildings)
 app.use(`/${apiVersion}/textbooks`, textbooks)
 app.use(`/${apiVersion}/food`, food)
 app.use(`/${apiVersion}/athletics`, athletics)
+app.use(`/${apiVersion}/transportation`, transportation)
 
 // Error handlers
 app.use((req, res, next) => {
