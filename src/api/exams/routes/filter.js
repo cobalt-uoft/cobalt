@@ -202,7 +202,7 @@ function formatPart(key, part) {
     }
   } else {
     // Strings
-    if (['location', 'section'].indexOf(key) > -1) {
+    if (['lecture', 'section', 'location'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
     }
