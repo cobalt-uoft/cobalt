@@ -17,6 +17,6 @@ var examsSchema = new Schema({
   }]
 })
 
-examsSchema.index({ id: 'text', course_code: 'text', campus: 'text', period: 'text' })
+examsSchema.index({ course_code: 'text', campus: 'text', period: 'text' })
 
 export default mongoose.model('exams', examsSchema)
