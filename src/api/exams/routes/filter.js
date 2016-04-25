@@ -3,20 +3,28 @@ import co from 'co'
 import mapReduce from './filterMapReduce'
 
 const KEYMAP = {
+  id: 'course_id',
   code: 'course_code',
+  campus: 'campus',
+  period: 'period',
   date: 'date',
   start: 'start_time',
   end: 'end_time',
-  section: 'section',
+  lecture: 'lecture_code',
+  section: 'exam_section',
   location: 'location'
 }
 
 const ABSOLUTE_KEYMAP = {
+  id: 'course_id',
   code: 'course_code',
+  campus: 'campus',
+  period: 'period',
   date: 'date',
   start: 'start_time',
   end: 'end_time',
-  section: 'sections.section',
+  lecture: 'sections.lecture_code',
+  section: 'sections.exam_section',
   location: 'sections.location'
 }
 
