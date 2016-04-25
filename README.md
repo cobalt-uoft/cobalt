@@ -21,6 +21,7 @@
 * [Building API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/buildings/README.md)
 * [Textbook API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/README.md)
 * [Food API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/README.md)
+* [Athletics API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/athletics/README.md)
 
 ## Data
 
