@@ -1,6 +1,6 @@
 {
   "name": "cobalt-uoft",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A collection of open data APIs that allow anyone to interface with public information from the University of Toronto.",
   "main": "lib/index.js",
   "engines": {
@@ -35,7 +35,7 @@
     "build": "rm -rf lib && ./node_modules/.bin/babel src/ -d lib/",
     "dev": "npm run build && ./bin/dev",
     "start": "./bin/cobalt",
-    "lint": "eslint .",
+    "lint": "eslint ./src",
     "test": "ava",
     "prepush": "npm run lint && npm test",
     "prepublish": "npm run build",
