@@ -39,13 +39,43 @@ db.update = (collection) => {
           if (code == 0) {
             winston.info(`Synced ${collection}.`)
 
-            // TODO clean this up
+            let runDate = false
+            let js = ''
+
             if (collection === 'athletics') {
-              let cmd = 'mongo cobalt --eval "db.athletics.find().forEach(doc=>{doc.date=new Date(doc.date);doc.events.forEach((_,i)=>{doc.events[i].start_time=new Date(doc.events[i].start_time);doc.events[i].end_time=new Date(doc.events[i].end_time)});db.athletics.save(doc)});"'
+              runDate = true
+              js = `db.athletics.find().forEach(doc => {
+                doc.date = new Date(doc.date);
+                doc.events.forEach((_, i) => {
+                  doc.events[i].start_time = new Date(doc.events[i].start_time);
+                  doc.events[i].end_time = new Date(doc.events[i].end_time);
+                });
+                db.athletics.save(doc);
+              });`
+            }
+
+            if (collection === 'shuttles') {
+              runDate = true
+              js = `db.shuttles.find().forEach(doc => {
+                doc.date = new Date(doc.date);
+                doc.routes.forEach((_, i) => {
+                  doc.routes[i].stops.forEach((_, j) => {
+                    doc.routes[i].stops[j].times.forEach((_, k) => {
+                      doc.routes[i].stops[j].times[k].time = new Date(doc.routes[i].stops[j].times[k].time);
+                    });
+                  });
+                });
+                db.shuttles.save(doc);
+              });`
+            }
+
+            if (runDate) {
+              let cmd = `mongo cobalt --eval "${js}"`
               childProcess.exec(cmd, error => {
                 if (!error) {
                   winston.info(`Updated dates for ${collection}.`)
                 } else {
+                  console.log(error)
                   winston.warn(`Could not update date values for ${collection}.`)
                 }
               })

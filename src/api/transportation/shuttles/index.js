@@ -2,7 +2,7 @@ import express from 'express'
 let router = express.Router()
 
 import list from './routes/list'
-// import show from './routes/show'
+import show from './routes/show'
 import search from './routes/search'
 // import filter from './routes/filter'
 
@@ -29,11 +29,11 @@ router.get('/filter',
   validation.skip,
   validation.sort,
   filter)
-
-
-router.get('/:id',
-  validation.id,
-  show)
 */
+
+router.get('/:date',
+  validation.date,
+  show)
+
 
 export default router
