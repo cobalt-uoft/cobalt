@@ -46,7 +46,7 @@ db.update = (collection) => {
               runDate = true
               js = `db.${collection}.find().forEach(doc => {
                 doc.date_num = parseInt(doc.date.replace(/\-/g, ''))
-                db.shuttles.save(doc)
+                db.${collection}.save(doc)
               })`
             }
 
