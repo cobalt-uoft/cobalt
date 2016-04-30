@@ -184,10 +184,11 @@ function formatPart(key, part) {
       part.value = date
     } else {
       // Times
+      let validTime = true
+
       if (typeof part.value !== 'number' && part.value.indexOf(':') > -1) {
         // Time formatted as 'HH:MM:SS' or 'HH:MM'
         let timeValue = part.value.split(':')
-        let validTime = false
         let time = 0
 
         for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
@@ -200,14 +201,17 @@ function formatPart(key, part) {
           time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
         }
 
-        if (!validTime || time > 86400) {
-          response.isValid = false
-          response.error = new Error('Invalid time parameter.')
-          response.error.status = 400
-          return response
-        }
-
         part.value = time
+
+      } else if (typeof part.value !== 'number') {
+        validTime = false
+      }
+
+      if (!validTime || part.value > 86400) {
+        response.isValid = false
+        response.error = new Error('Invalid time parameter.')
+        response.error.status = 400
+        return response
       }
 
       response.isMapReduce = true
