@@ -44,11 +44,7 @@
   },
   "ava": {
     "files": [
-      "test/courses",
-      "test/buildings",
-      "test/textbooks",
-      "test/food",
-      "test/athletics"
+      "test/*"
     ],
     "failFast": true,
     "require": [
