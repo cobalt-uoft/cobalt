@@ -184,7 +184,7 @@ function formatPart(key, part) {
       part.value = date
     } else {
       // Times
-      if (part.value.indexOf(':') > -1) {
+      if (typeof part.value !== 'number' && part.value.indexOf(':') > -1) {
         // Time formatted as 'HH:MM:SS' or 'HH:MM'
         let timeValue = part.value.split(':')
         let validTime = false
