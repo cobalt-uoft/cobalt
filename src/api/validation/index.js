@@ -68,4 +68,8 @@ validation.id = (req, res, next) => {
   next()
 }
 
+validation.date = (req, res, next) => {
+  next()
+}
+
 export default validation
