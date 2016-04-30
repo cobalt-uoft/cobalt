@@ -29,7 +29,7 @@ o.map = function() {
         } else if (p.operator === '<=') {
           currentData[i][j] = value <= p.value
         } else {
-          if (p.value.constructor === Date) {
+          if (p.value.constructor === Date || !isNaN(value)) {
             currentData[i][j] = value === p.value
           } else {
             currentData[i][j] = value.toLowerCase().includes(p.value.toLowerCase())

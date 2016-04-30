@@ -4,20 +4,24 @@ import mapReduce from './filterMapReduce'
 
 const KEYMAP = {
   date: 'date',
-  campus: 'campus',
   title: 'title',
+  campus: 'campus',
   location: 'location',
+  building_id: 'building_id',
   start: 'start_time',
-  end: 'end_time'
+  end: 'end_time',
+  duration: 'duration'
 }
 
 const ABSOLUTE_KEYMAP = {
   date: 'date',
-  campus: 'campus',
   title: 'events.title',
+  campus: 'events.campus',
   location: 'events.location',
+  building_id: 'events.building_id',
   start: 'events.start_time',
-  end: 'events.end_time'
+  end: 'events.end_time',
+  duration: 'events.duration'
 }
 
 export default function filter(req, res, next) {
@@ -153,55 +157,55 @@ function formatPart(key, part) {
     part.value = parseFloat(part.value)
   }
 
-  if (['date', 'start', 'end'].indexOf(key) > -1) {
-    // Dates
+  if (['date', 'start', 'end', 'duration'].indexOf(key) > -1) {
+    // Dates & numbers
 
-    let value = part.value
-    let dateValue = undefined
+    if (key === 'date') {
+      let dateValue = undefined
+      if (typeof part.value !== 'number' && part.value.indexOf(',') !== -1) {
+        // Date format is Y,m,d,H,M,S
+        let d = part.value.split(',')
+        d = d.concat(new Array(7 - d.length).fill(0))
+        dateValue = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
+      } else {
+        // Date format is ISO-8601, milliseconds since 01-01-1970, or empty
+        dateValue = part.value
+      }
 
-    if (typeof value !== 'number' && value.indexOf(',') !== -1) {
-      // Date format is Y,m,d,H,M,S
-      let d = part.value.split(',')
-      d = d.concat(new Array(7 - d.length).fill(0))
-      dateValue = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
-    } else {
-      // Date format is ISO-8601, milliseconds since 01-01-1970, or empty
-      dateValue = part.value
-    }
+      let date = dateValue ? new Date(dateValue) : new Date
 
-    let date = dateValue ? new Date(dateValue) : new Date
+      if (isNaN(date)) {
+        response.isValid = false
+        response.error = new Error('Invalid date parameter.')
+        response.error.status = 400
+        return response
+      }
 
-    if (isNaN(date)) {
-      response.isValid = false
-      response.error = new Error('Invalid date parameter.')
-      response.error.status = 400
-      return response
-    }
-
-    if (['start', 'end'].indexOf(key) > -1) {
       part.value = date
+    } else {
+      // TODO advanced time parsing
 
       response.isMapReduce = true
       response.mapReduceData = part
     }
 
     if (part.operator === '-') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: date }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
     } else if (part.operator === '>') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $gt: date }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
     } else if (part.operator === '<') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $lt: date }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }
     } else if (part.operator === '>=') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $gte: date }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $gte: part.value }
     } else if (part.operator === '<=') {
-      response.query[ABSOLUTE_KEYMAP[key]] = { $lte: date }
+      response.query[ABSOLUTE_KEYMAP[key]] = { $lte: part.value }
     } else {
       // Assume equality if no operator
-      response.query[ABSOLUTE_KEYMAP[key]] = date
+      response.query[ABSOLUTE_KEYMAP[key]] = part.value
     }
   } else {
     // Strings
-    if (['location', 'title'].indexOf(key) > -1) {
+    if (['title', 'campus', 'location', 'building_id'].indexOf(key) > -1) {
       response.isMapReduce = true
       response.mapReduceData = part
     }
