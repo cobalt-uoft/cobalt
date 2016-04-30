@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 var Schema = mongoose.Schema
 
 var athleticsSchema = new Schema({
-  date: Date,
+  date: String,
+  date_num: Number,
   events: [{
     title: String,
     campus: String,
@@ -14,6 +15,10 @@ var athleticsSchema = new Schema({
   }]
 })
 
-athleticsSchema.index({ campus: 'text', 'events.title': 'text', 'events.campus': 'text', 'events.location': 'text'})
+athleticsSchema.index({
+  'events.title': 'text',
+  'events.campus': 'text',
+  'events.location': 'text'
+})
 
 export default mongoose.model('athletics', athleticsSchema)
