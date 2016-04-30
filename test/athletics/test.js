@@ -24,7 +24,11 @@ test.cb('/', t => {
     .get('/1.0/athletics')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {delete docs[i].date_num})
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -74,7 +78,13 @@ test.cb('/?skip=10', t => {
     .get('/1.0/athletics?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(10, 20))
+    .expect(() => {
+      let expected = testData.slice(10, 20)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -128,7 +138,7 @@ test.cb('/2016-04-02', t => {
     .get('/1.0/athletics/2016-04-02')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => doc.date.match('2016-04-02T00:00:00.000Z'))[0])
+    .expect(testData.filter(doc => doc.date.match('2016-04-02'))[0])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -207,20 +217,7 @@ test.cb('/filter?q=date:"2016-04-01"', t => {
     .get('/1.0/athletics/filter?q=date:%222016-04-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => doc.date.includes('2016-04-01')))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/filter?q=date:"2017,04,01"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:%222017,04,01%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
+    .expect(testData.filter(doc => doc.date.match('2016-04-01')))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -234,7 +231,7 @@ test.cb('/filter?q=campus:"utm" AND date:"2016-04-03"', t => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
-      let expected = testData.filter(doc => doc.date.includes('2016-04-03'))
+      let expected = testData.filter(doc => doc.date.match('2016-04-03'))
       expected['matched_events'] = [{
         title: 'Fun Swim',
         campus: 'UTM',
@@ -356,9 +353,9 @@ test.cb('/filter?q=campus:"utm" AND campus:"utsc" OR campus:"utsg"', t => {
     })
 })
 
-test.cb('/filter?q=title:"rock climbing" AND date:>=1461816000000', t => {
+test.cb('/filter?q=title:"rock climbing" AND date:>="2016-04-28"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22%20AND%20date:%3E=1461816000000')
+    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22%20AND%20date:%3E=%222016-04-28%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
@@ -387,8 +384,7 @@ test.cb('/filter?q=date:>"2016"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:%3E%222016%22')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -400,8 +396,7 @@ test.cb('/filter?q=date:<"2016"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:%3C%222016%22')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -409,9 +404,9 @@ test.cb('/filter?q=date:<"2016"', t => {
     })
 })
 
-test.cb('/filter?q=date:-1461470262870', t => {
+test.cb('/filter?q=date:-"2016-05-01"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:-146147026287')
+    .get('/1.0/athletics/filter?q=date:-%222016-05-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.slice(0, 10))
@@ -524,22 +519,13 @@ test.cb('/filter?q=duration:<1800 OR duration:>38400', t => {
     })
 })
 
-test.cb('/filter?q=duration:>=38400', t => {
+test.cb('/filter?q=duration:>=38400 AND date:>="2016-04-27"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=duration:%3E=38400')
+    .get('/1.0/athletics/filter?q=duration:%3E=38400%20AND%20date:%3E=%222016-04-27%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
-      let expected = testData.filter(doc => {
-        return ['2016-04-06T00:00:00.000Z',
-                '2016-04-07T00:00:00.000Z',
-                '2016-04-13T00:00:00.000Z',
-                '2016-04-14T00:00:00.000Z',
-                '2016-04-20T00:00:00.000Z',
-                '2016-04-21T00:00:00.000Z',
-                '2016-04-27T00:00:00.000Z',
-                '2016-04-28T00:00:00.000Z'].indexOf(doc.date) > -1
-      })
+      let expected = testData.filter(doc => doc.date.match('2016-04-27') || doc.date.match('2016-04-28') )
 
       expected.forEach((doc, i, docs) => {
         docs[i]['matched_events'] = [{
