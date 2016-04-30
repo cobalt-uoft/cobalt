@@ -178,7 +178,7 @@ function formatPart(key, part) {
         dateValue = part.value
       }
 
-      let date = dateValue && dateValue.length ? new Date(dateValue) : new Date
+      let date = dateValue ? new Date(dateValue) : new Date
 
       if (isNaN(date)) {
         response.isValid = false
@@ -220,7 +220,6 @@ function formatPart(key, part) {
       response.query[ABSOLUTE_KEYMAP[key]] = { $regex: '(?i).*' + escapeRe(part.value) + '.*' }
     }
   }
-
   return response
 }
 
