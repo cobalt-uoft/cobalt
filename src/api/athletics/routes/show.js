@@ -5,7 +5,7 @@ export default function show(req, res, next) {
   co(function* (){
     try {
       let doc = yield Athletics
-        .findOne({ id: req.params.id }, '-__v -_id -events._id')
+        .findOne({ date: req.params.id }, '-__v -_id -events._id')
         .exec()
       if (!doc) {
         let err = new Error('An entry with the specified identifier does not exist.')

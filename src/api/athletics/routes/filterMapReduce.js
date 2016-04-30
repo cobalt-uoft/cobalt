@@ -53,7 +53,7 @@ o.map = function() {
     this.matched_events = matchedEvents
     delete this._id
     delete this.__v
-    emit(this.id, this)
+    emit(this.date, this)
   }
 }
 
