@@ -161,20 +161,14 @@ function formatPart(key, part) {
     // Dates / times / numbers
 
     if (key === 'date') {
-      let dateValue = undefined
-      if (typeof part.value !== 'number' && part.value.indexOf(',') > -1) {
-        // Date format is Y,m,d,H,M,S
-        let d = part.value.split(',')
-        d = d.concat(new Array(7 - d.length).fill(0))
-        dateValue = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
-      } else {
-        // Date format is ISO-8601, milliseconds since 01-01-1970, or empty
-        dateValue = part.value
+      let date = undefined
+      let dateValue = String(part.value).split('-')
+
+      if (dateValue.length === 3) {
+        date = parseInt(dateValue.join(''))
       }
 
-      let date = dateValue ? new Date(dateValue) : new Date
-
-      if (isNaN(date)) {
+      if (!date || isNaN(date) || isNaN(new Date(part.value))) {
         response.isValid = false
         response.error = new Error('Invalid date parameter.')
         response.error.status = 400
@@ -187,6 +181,7 @@ function formatPart(key, part) {
       let validTime = true
 
       if (typeof part.value !== 'number' && part.value.indexOf(':') > -1) {
+        // TODO add period support (AM/PM)
         // Time formatted as 'HH:MM:SS' or 'HH:MM'
         let timeValue = part.value.split(':')
         let time = 0
@@ -197,7 +192,6 @@ function formatPart(key, part) {
             break
           }
 
-          validTime = true
           time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
         }
 
