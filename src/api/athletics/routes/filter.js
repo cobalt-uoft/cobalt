@@ -3,7 +3,7 @@ import co from 'co'
 import mapReduce from './filterMapReduce'
 
 const KEYMAP = {
-  date: 'date',
+  date: 'date_num',
   title: 'title',
   campus: 'campus',
   location: 'location',
@@ -14,7 +14,7 @@ const KEYMAP = {
 }
 
 const ABSOLUTE_KEYMAP = {
-  date: 'date',
+  date: 'date_num',
   title: 'events.title',
   campus: 'events.campus',
   location: 'events.location',
@@ -90,7 +90,7 @@ export default function filter(req, res, next) {
       co(function* () {
         try {
           let docs = yield Athletics
-            .find(filter, '-__v -_id -events._id')
+            .find(filter, '-__v -_id -events._id -date_num')
             .limit(req.query.limit)
             .skip(req.query.skip)
             .sort(req.query.sort)
