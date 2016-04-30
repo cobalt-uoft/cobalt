@@ -5,7 +5,7 @@
   },
   "rules": {
     "strict": [2, "never"],
-    "indent": [2, 2],
+    "indent": [2, 2, "SwitchCase": 1],
     "semi": [2, "never"],
     "quotes": [2, "single"],
     "no-shadow": 0,

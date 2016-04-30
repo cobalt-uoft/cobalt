@@ -55,7 +55,8 @@
     "exclude": [
       "src/db/index.js",
       "src/api/courses/routes/filterMapReduce.js",
-      "src/api/athletics/routes/filterMapReduce.js"
+      "src/api/athletics/routes/filterMapReduce.js",
+      "src/api/exams/routes/filterMapReduce.js"
     ]
   },
   "bin": {

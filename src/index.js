@@ -6,6 +6,7 @@ import buildings from './api/buildings'
 import textbooks from './api/textbooks'
 import food from './api/food'
 import athletics from './api/athletics'
+import exams from './api/exams'
 import db from './db'
 
 let test = process.argv.join().match('/ava/')
@@ -34,6 +35,7 @@ app.use(`/${apiVersion}/buildings`, buildings)
 app.use(`/${apiVersion}/textbooks`, textbooks)
 app.use(`/${apiVersion}/food`, food)
 app.use(`/${apiVersion}/athletics`, athletics)
+app.use(`/${apiVersion}/exams`, exams)
 
 // Error handlers
 app.use((req, res, next) => {
