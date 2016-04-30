@@ -158,7 +158,7 @@ function formatPart(key, part) {
   }
 
   if (['date', 'start', 'end', 'duration'].indexOf(key) > -1) {
-    // Dates & numbers
+    // Dates / times / numbers
 
     if (key === 'date') {
       let dateValue = undefined
@@ -183,7 +183,32 @@ function formatPart(key, part) {
 
       part.value = date
     } else {
-      // TODO advanced time parsing
+      // Times
+      if (part.value.indexOf(':') > -1) {
+        // Time formatted as 'HH:MM:SS' or 'HH:MM'
+        let timeValue = part.value.split(':')
+        let validTime = false
+        let time = 0
+
+        for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
+          if (isNaN(parseInt(timeValue[i]))) {
+            validTime = false
+            break
+          }
+
+          validTime = true
+          time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
+        }
+
+        if (!validTime || time > 86400) {
+          response.isValid = false
+          response.error = new Error('Invalid time parameter.')
+          response.error.status = 400
+          return response
+        }
+
+        part.value = time
+      }
 
       response.isMapReduce = true
       response.mapReduceData = part
