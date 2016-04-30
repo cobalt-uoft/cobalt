@@ -1,0 +1,677 @@
+[
+  {
+    "id":"ABS201Y1Y20149DEC15",
+    "course_id":"ABS201Y1Y20149",
+    "course_code":"ABS201Y1Y",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-15T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":61200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"A - K",
+        "location":"MP 202"
+      },
+      {
+        "lecture_code":"",
+        "exam_section":"L - Z",
+        "location":"MP 203"
+      }
+    ]
+  },
+  {
+    "id":"ABS201Y1Y20159APR16",
+    "course_id":"ABS201Y1Y20159",
+    "course_code":"ABS201Y1Y",
+    "campus":"UTSG",
+    "period":"APR16",
+    "date":"2016-04-15T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":61200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"A - L",
+        "location":"SS 2102"
+      },
+      {
+        "lecture_code":"",
+        "exam_section":"M - Z",
+        "location":"SS 2135"
+      }
+    ]
+  },
+  {
+    "id":"ACMA01H3S20161APR16",
+    "course_id":"ACMA01H3S20161",
+    "course_code":"ACMA01H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-11T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":39600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"AC223"
+      }
+    ]
+  },
+  {
+    "id":"ACMA02H3S20161APR16",
+    "course_id":"ACMA02H3S20161",
+    "course_code":"ACMA02H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-19T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":57600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"MW170"
+      }
+    ]
+  },
+  {
+    "id":"ACT230H1F20159DEC15",
+    "course_id":"ACT230H1F20159",
+    "course_code":"ACT230H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-16T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":57600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"ST VLAD"
+      }
+    ]
+  },
+  {
+    "id":"CHM342H1F20159DEC15",
+    "course_id":"CHM342H1F20159",
+    "course_code":"CHM342H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-21T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":61200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"MC 102"
+      }
+    ]
+  },
+  {
+    "id":"CHM343H1S20161APR16",
+    "course_id":"CHM343H1S20161",
+    "course_code":"CHM343H1S",
+    "campus":"UTSG",
+    "period":"APR16",
+    "date":"2016-04-28T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":43200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"BN 2S"
+      }
+    ]
+  },
+  {
+    "id":"CHM345H5S20161APR16",
+    "course_id":"CHM345H5S20161",
+    "course_code":"CHM345H5S",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-12T00:00:00.000Z",
+    "start_time":61200,
+    "end_time":72000,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IB 345"
+      }
+    ]
+  },
+  {
+    "id":"CHM347H1F20159DEC15",
+    "course_id":"CHM347H1F20159",
+    "course_code":"CHM347H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-14T00:00:00.000Z",
+    "start_time":68400,
+    "end_time":79200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"A - LIN",
+        "location":"RW 110"
+      },
+      {
+        "lecture_code":"",
+        "exam_section":"LIU - Z",
+        "location":"RW 117"
+      }
+    ]
+  },
+  {
+    "id":"CHM348H1F20159DEC15",
+    "course_id":"CHM348H1F20159",
+    "course_code":"CHM348H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-11T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":43200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"BN 3"
+      }
+    ]
+  },
+  {
+    "id":"CSCD37H3S20161APR16",
+    "course_id":"CSCD37H3S20161",
+    "course_code":"CSCD37H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-22T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":61200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC230"
+      }
+    ]
+  },
+  {
+    "id":"CSCD58H3S20161APR16",
+    "course_id":"CSCD58H3S20161",
+    "course_code":"CSCD58H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-11T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":43200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC220"
+      }
+    ]
+  },
+  {
+    "id":"CSCD84H3S20161APR16",
+    "course_id":"CSCD84H3S20161",
+    "course_code":"CSCD84H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-20T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":59400,
+    "duration":9000,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC200"
+      }
+    ]
+  },
+  {
+    "id":"CTLA01H3S20161APR16",
+    "course_id":"CTLA01H3S20161",
+    "course_code":"CTLA01H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-18T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":43200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"MW120"
+      }
+    ]
+  },
+  {
+    "id":"DRE122H5S20161APR16",
+    "course_id":"DRE122H5S20161",
+    "course_code":"DRE122H5S",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-16T00:00:00.000Z",
+    "start_time":61200,
+    "end_time":72000,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"Gym C"
+      }
+    ]
+  },
+  {
+    "id": "ECO100Y1Y20159APR16",
+    "course_id": "ECO100Y1Y20159",
+    "course_code": "ECO100Y1Y",
+    "campus": "UTSG",
+    "period": "APR16",
+    "date": "2016-04-12T00:00:00.000Z",
+    "start_time": 68400,
+    "end_time": 79200,
+    "duration": 10800,
+    "sections": [
+      {
+        "lecture_code": "L0101",
+        "exam_section": "A - LE",
+        "location": "BN 2N"
+      },
+      {
+        "lecture_code": "L0101",
+        "exam_section": "LI - WA",
+        "location": "BN 2S"
+      },
+      {
+        "lecture_code": "L0101",
+        "exam_section": "WE - Z",
+        "location": "BN 3"
+      },
+      {
+        "lecture_code": "L0201",
+        "exam_section": "A - GA",
+        "location": "BN 3"
+      },
+      {
+        "lecture_code": "L0201",
+        "exam_section": "GE - Y",
+        "location": "EX 100"
+      },
+      {
+        "lecture_code": "L0201",
+        "exam_section": "Z - Z",
+        "location": "EX 200"
+      },
+      {
+        "lecture_code": "L0301",
+        "exam_section": "A - P",
+        "location": "EX 200"
+      },
+      {
+        "lecture_code": "L0301",
+        "exam_section": "Q - W",
+        "location": "EX 300"
+      },
+      {
+        "lecture_code": "L0301",
+        "exam_section": "X - Z",
+        "location": "EX 310"
+      },
+      {
+        "lecture_code": "L0401",
+        "exam_section": "A - DO",
+        "location": "GB 304"
+      },
+      {
+        "lecture_code": "L0401",
+        "exam_section": "DU - J",
+        "location": "GB 404"
+      },
+      {
+        "lecture_code": "L0401",
+        "exam_section": "K - ME",
+        "location": "GB 405"
+      },
+      {
+        "lecture_code": "L0401",
+        "exam_section": "MI - V",
+        "location": "NR 25"
+      },
+      {
+        "lecture_code": "L0401",
+        "exam_section": "W - Z",
+        "location": "ST VLAD"
+      },
+      {
+        "lecture_code": "L2001",
+        "exam_section": "",
+        "location": "HA 401"
+      },
+      {
+        "lecture_code": "L5101",
+        "exam_section": "A - LE",
+        "location": "BR 200"
+      },
+      {
+        "lecture_code": "L5101",
+        "exam_section": "LI - O",
+        "location": "EM 119"
+      },
+      {
+        "lecture_code": "L5101",
+        "exam_section": "P - WA",
+        "location": "TC 239"
+      },
+      {
+        "lecture_code": "L5101",
+        "exam_section": "WE - Z",
+        "location": "WY 119"
+      },
+      {
+        "lecture_code": "L5201",
+        "exam_section": "A - CHA",
+        "location": "EX 310"
+      },
+      {
+        "lecture_code": "L5201",
+        "exam_section": "CHE - KI",
+        "location": "EX 320"
+      },
+      {
+        "lecture_code": "L5201",
+        "exam_section": "KO - Q",
+        "location": "SF 3202"
+      },
+      {
+        "lecture_code": "L5201",
+        "exam_section": "R - X",
+        "location": "UC 266"
+      },
+      {
+        "lecture_code": "L5201",
+        "exam_section": "Y - Z",
+        "location": "UC 273"
+      }
+    ]
+  },
+  {
+    "id":"ENG353Y5Y20159APR16",
+    "course_id":"ENG353Y5Y20159",
+    "course_code":"ENG353Y5Y",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-14T00:00:00.000Z",
+    "start_time":46800,
+    "end_time":54000,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IB 335"
+      }
+    ]
+  },
+  {
+    "id":"ENG354Y1Y20159APR16",
+    "course_id":"ENG354Y1Y20159",
+    "course_code":"ENG354Y1Y",
+    "campus":"UTSG",
+    "period":"APR16",
+    "date":"2016-04-25T00:00:00.000Z",
+    "start_time":68400,
+    "end_time":75600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"EX 320"
+      }
+    ]
+  },
+  {
+    "id":"ENG354Y5Y20159APR16",
+    "course_id":"ENG354Y5Y20159",
+    "course_code":"ENG354Y5Y",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-16T00:00:00.000Z",
+    "start_time":61200,
+    "end_time":68400,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"TFC Cafeteria"
+      }
+    ]
+  },
+  {
+    "id":"ENG357H5S20161APR16",
+    "course_id":"ENG357H5S20161",
+    "course_code":"ENG357H5S",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-18T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":43200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"Gym A/B"
+      }
+    ]
+  },
+  {
+    "id":"ENG364Y1Y20159APR16",
+    "course_id":"ENG364Y1Y20159",
+    "course_code":"ENG364Y1Y",
+    "campus":"UTSG",
+    "period":"APR16",
+    "date":"2016-04-13T00:00:00.000Z",
+    "start_time":68400,
+    "end_time":75600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"L5101",
+        "exam_section":"",
+        "location":"HI CART"
+      }
+    ]
+  },
+  {
+    "id":"GGR333H5S20161APR16",
+    "course_id":"GGR333H5S20161",
+    "course_code":"GGR333H5S",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-13T00:00:00.000Z",
+    "start_time":46800,
+    "end_time":54000,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"Gym C"
+      }
+    ]
+  },
+  {
+    "id":"GGR334H1F20159DEC15",
+    "course_id":"GGR334H1F20159",
+    "course_code":"GGR334H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-21T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":57600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"A - LE",
+        "location":"RW 110"
+      },
+      {
+        "lecture_code":"",
+        "exam_section":"LI - Z",
+        "location":"RW 117"
+      }
+    ]
+  },
+  {
+    "id":"GGR335H5S20161APR16",
+    "course_id":"GGR335H5S20161",
+    "course_code":"GGR335H5S",
+    "campus":"UTM",
+    "period":"APR16",
+    "date":"2016-04-21T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":39600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"Gym C"
+      }
+    ]
+  },
+  {
+    "id":"GGR337H1S20161APR16",
+    "course_id":"GGR337H1S20161",
+    "course_code":"GGR337H1S",
+    "campus":"UTSG",
+    "period":"APR16",
+    "date":"2016-04-19T00:00:00.000Z",
+    "start_time":68400,
+    "end_time":75600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"BR 200"
+      }
+    ]
+  },
+  {
+    "id":"GGR338H1F20159DEC15",
+    "course_id":"GGR338H1F20159",
+    "course_code":"GGR338H1F",
+    "campus":"UTSG",
+    "period":"DEC15",
+    "date":"2015-12-17T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":39600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"HA 403"
+      }
+    ]
+  },
+  {
+    "id":"MGAD20H3S20161APR16",
+    "course_id":"MGAD20H3S20161",
+    "course_code":"MGAD20H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-22T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":61200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC220"
+      }
+    ]
+  },
+  {
+    "id":"MGAD40H3S20161APR16",
+    "course_id":"MGAD40H3S20161",
+    "course_code":"MGAD40H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-19T00:00:00.000Z",
+    "start_time":32400,
+    "end_time":39600,
+    "duration":7200,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC204, IC208"
+      }
+    ]
+  },
+  {
+    "id":"MGAD50H3S20161APR16",
+    "course_id":"MGAD50H3S20161",
+    "course_code":"MGAD50H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-15T00:00:00.000Z",
+    "start_time":68400,
+    "end_time":79200,
+    "duration":10800,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC130"
+      }
+    ]
+  },
+  {
+    "id":"MGEA05H3S20161APR16",
+    "course_id":"MGEA05H3S20161",
+    "course_code":"MGEA05H3S",
+    "campus":"UTSC",
+    "period":"APR16",
+    "date":"2016-04-12T00:00:00.000Z",
+    "start_time":50400,
+    "end_time":59400,
+    "duration":9000,
+    "sections":[
+      {
+        "lecture_code":"",
+        "exam_section":"",
+        "location":"IC120, IC130, IC220"
+      }
+    ]
+  }
+]
