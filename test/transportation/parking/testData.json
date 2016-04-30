@@ -1,0 +1,222 @@
+[
+  {
+    "id":"0123",
+    "title":"371 Bloor Street West",
+    "building_id":"014",
+    "campus":"UTSG",
+    "type":"car",
+    "description":"Cash Parking\n$3.00 half hour\n$10.00 Maximum until 10pm\nOvernight parking 4pm to 6:00am $7.00\nWeekends $7.00\nUnreserved Permit Parking\n24/7 parking \nCash parking receipts are not transferable and are valid at the parking lot where purchased.",
+    "lat":43.66623,
+    "lng":-79.4025,
+    "address":"371 Bloor St W, Toronto, ON M5S 2R7, Canada"
+  },
+  {
+    "id":"0127",
+    "title":"Bicycle Parking: Banting Institute",
+    "building_id":"16",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"3 post & ring bicycle stands",
+    "lat":43.66034,
+    "lng":-79.38876,
+    "address":""
+  },
+  {
+    "id":"0216",
+    "title":"Bicycle Parking: Bahen Centre",
+    "building_id":"80",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"73 post & ring bicycle stands",
+    "lat":43.66027,
+    "lng":-79.39717,
+    "address":""
+  },
+  {
+    "id":"0217",
+    "title":"Bicycle Parking: Architecture Building",
+    "building_id":"28",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"18 post & ring bicycle stands",
+    "lat":43.65861,
+    "lng":-79.39817,
+    "address":""
+  },
+  {
+    "id":"0230",
+    "title":"Bicycle Parking: Claude T. Bissell Building",
+    "building_id":"6A",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"29 post & ring bicycle stands",
+    "lat":43.6652,
+    "lng":-79.39921,
+    "address":""
+  },
+  {
+    "id":"0231",
+    "title":"Bicycle Parking: Clara Benson Building",
+    "building_id":"68",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"38 post & ring bicycle stands",
+    "lat":43.66333,
+    "lng":-79.40032,
+    "address":""
+  },
+  {
+    "id":"0233",
+    "title":"Bicycle Parking: 370 Huron Street",
+    "building_id":"138",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"7 post & ring bicycle stands",
+    "lat":43.66463,
+    "lng":-79.40041,
+    "address":""
+  },
+  {
+    "id":"0237",
+    "title":"Bicycle Parking: Best Institute",
+    "building_id":"52",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"9 post & ring bicycle stands",
+    "lat":43.66026,
+    "lng":-79.38918,
+    "address":""
+  },
+  {
+    "id":"0240",
+    "title":"Bicycle Parking: 56 Spadina Road",
+    "building_id":"153",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"2 post & ring bicycle stands",
+    "lat":43.66971,
+    "lng":-79.40531,
+    "address":""
+  },
+  {
+    "id":"0242",
+    "title":"Bicycle Parking: Institute for Christian Studies",
+    "building_id":"",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"5 post & ring bicycle stands",
+    "lat":43.65833,
+    "lng":-79.39751,
+    "address":""
+  },
+  {
+    "id":"0247",
+    "title":"Bicycle Parking: Canadiana Gallery",
+    "building_id":"47",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"1 bicycle rack",
+    "lat":43.66204,
+    "lng":-79.39277,
+    "address":""
+  },
+  {
+    "id":"0249",
+    "title":"Bicycle Parking: 89 Chestnut",
+    "building_id":"158",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"19 post & ring bicycle stands",
+    "lat":43.65439,
+    "lng":-79.38499,
+    "address":""
+  },
+  {
+    "id":"0250",
+    "title":"Bicycle Parking: Cumberland House",
+    "building_id":"26",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"1 post & ring bicycle stand",
+    "lat":43.65941,
+    "lng":-79.39613,
+    "address":""
+  },
+  {
+    "id":"0251",
+    "title":"Bicycle Parking: 243 College",
+    "building_id":"",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"3 post & ring bicycle stands",
+    "lat":43.65808,
+    "lng":-79.39878,
+    "address":""
+  },
+  {
+    "id":"0252",
+    "title":"Bicycle Parking: Dentistry Building",
+    "building_id":"65",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"32 post & ring stands and 3 bicycle racks",
+    "lat":43.65585,
+    "lng":-79.38688,
+    "address":""
+  },
+  {
+    "id":"0253",
+    "title":"Bicycle Parking: Edward Johnson Building",
+    "building_id":"51",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"32 post & ring stands and 3 bicycle racks",
+    "lat":43.66657,
+    "lng":-79.39429,
+    "address":""
+  },
+  {
+    "id":"0254",
+    "title":"Bicycle Parking: Early Learning Centre",
+    "building_id":"129",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"5 post & ring bicycle stands",
+    "lat":43.66402,
+    "lng":-79.40122,
+    "address":""
+  },
+  {
+    "id":"0255",
+    "title":"Bicycle Parking: Earth Sciences Centre",
+    "building_id":"62",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"43 post & ring stands and 1 bicycle rack",
+    "lat":43.66082,
+    "lng":-79.39927,
+    "address":""
+  },
+  {
+    "id":"0256",
+    "title":"Bicycle Parking: 720 Spadina Avenue",
+    "building_id":"189",
+    "campus":"UTSG",
+    "type":"bicycle",
+    "description":"6 post & ring bicycle stands",
+    "lat":43.66546,
+    "lng":-79.40331,
+    "address":""
+  },
+  {
+    "id":"0257",
+    "title":"Graduate House Garage",
+    "building_id":"064",
+    "campus":"UTSG",
+    "type":"car",
+    "description":"Cash Parking\n$4.00 half hour\n$18.00 Maximum until 10pm\nOvernight parking 4pm to 6:00am $7.00\nWeekends $7.00\n24/7 parking \nCash parking receipts are not transferable and are valid at the parking \nlot where purchased.\nLot Reserved \"N\" Permit Parking",
+    "lat":43.66373,
+    "lng":-79.4018,
+    "address":"17 Glen Morris St"
+  }
+]

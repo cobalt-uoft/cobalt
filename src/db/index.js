@@ -42,26 +42,12 @@ db.update = (collection) => {
             let runDate = false
             let js = ''
 
-            if (collection === 'athletics') {
+            if (['athletics', 'exams', 'shuttles'].indexOf(collection) > -1) {
               runDate = true
-              js = `db.athletics.find().forEach(doc => {
-                doc.date = new Date(doc.date);
-                doc.events.forEach((_, i) => {
-                  doc.events[i].start_time = new Date(doc.events[i].start_time);
-                  doc.events[i].end_time = new Date(doc.events[i].end_time);
-                });
-                db.athletics.save(doc);
-              });`
-            }
-
-            if (collection === 'shuttles') {
-              runDate = true
-              js = `
-                db.shuttles.find().forEach(doc => {
-                  doc.date_num = parseInt(doc.date.replace(/\-/g, ''));
-                  db.shuttles.save(doc);
-                });
-              `
+              js = `db.${collection}.find().forEach(doc => {
+                doc.date_num = parseInt(doc.date.replace(/\-/g, ''))
+                db.shuttles.save(doc)
+              })`
             }
 
             if (runDate) {
@@ -70,7 +56,6 @@ db.update = (collection) => {
                 if (!error) {
                   winston.info(`Updated dates for ${collection}.`)
                 } else {
-                  console.log(error)
                   winston.warn(`Could not update date values for ${collection}.`)
                 }
               })
@@ -90,13 +75,14 @@ db.update = (collection) => {
 }
 
 db.sync = () => {
-  db.update('buildings')
-  db.update('food')
-  db.update('textbooks')
-  db.update('courses')
   db.update('athletics')
+  db.update('buildings')
+  db.update('courses')
+  db.update('exams')
+  db.update('food')
   db.update('parking')
   db.update('shuttles')
+  db.update('textbooks')
 }
 
 db.check = (callback) => {

@@ -3,9 +3,10 @@ let router = express.Router()
 
 import list from './routes/list'
 import show from './routes/show'
-// import filter from './routes/filter'
+import search from './routes/search'
+import filter from './routes/filter'
 
-import validation from '../../validation'
+import validation from '../validation'
 
 router.get('/',
   validation.limit,
@@ -13,7 +14,13 @@ router.get('/',
   validation.sort,
   list)
 
-/*
+router.get('/search',
+  validation.query,
+  validation.limit,
+  validation.skip,
+  validation.sort,
+  search)
+
 router.get('/filter',
   validation.query,
   validation.filterQuery,
@@ -21,10 +28,9 @@ router.get('/filter',
   validation.skip,
   validation.sort,
   filter)
-*/
 
-router.get('/:date',
-  validation.date,
+router.get('/:id',
+  validation.id,
   show)
 
 export default router
