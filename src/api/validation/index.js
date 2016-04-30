@@ -1,7 +1,7 @@
 // Default values
 const LIMIT = 10
 const SKIP = 0
-const SORT = 'id'
+const SORT = 'id date'
 
 let validation = {}
 
@@ -65,6 +65,10 @@ validation.filterQuery = (req, res, next) => {
 }
 
 validation.id = (req, res, next) => {
+  next()
+}
+
+validation.date = (req, res, next) => {
   next()
 }
 

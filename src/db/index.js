@@ -39,11 +39,20 @@ db.update = (collection) => {
           if (code == 0) {
             winston.info(`Synced ${collection}.`)
 
-            // TODO clean this up
-            if (['athletics', 'exams'].indexOf(collection) > -1) {
-              let cmd = `db.${collection}.find().forEach(doc=>{doc.date=new Date(doc.date);db.${collection}.save(doc)});`
+            let runDate = false
+            let js = ''
 
-              childProcess.exec(`mongo cobalt --eval "${cmd}"`, error => {
+            if (['athletics', 'exams', 'shuttles'].indexOf(collection) > -1) {
+              runDate = true
+              js = `db.${collection}.find().forEach(doc => {
+                doc.date_num = parseInt(doc.date.replace(/\-/g, ''))
+                db.${collection}.save(doc)
+              })`
+            }
+
+            if (runDate) {
+              let cmd = `mongo cobalt --eval "${js}"`
+              childProcess.exec(cmd, error => {
                 if (!error) {
                   winston.info(`Updated dates for ${collection}.`)
                 } else {
@@ -66,12 +75,14 @@ db.update = (collection) => {
 }
 
 db.sync = () => {
-  db.update('buildings')
-  db.update('food')
-  db.update('textbooks')
-  db.update('courses')
   db.update('athletics')
+  db.update('buildings')
+  db.update('courses')
   db.update('exams')
+  db.update('food')
+  db.update('parking')
+  db.update('shuttles')
+  db.update('textbooks')
 }
 
 db.check = (callback) => {

@@ -55,4 +55,4 @@ var foodSchema = new Schema({
 
 foodSchema.index({ name: 'text', description: 'text', campus: 'text', tags: 'text' })
 
-export default mongoose.model('foods', foodSchema)
+export default mongoose.model('food', foodSchema)
