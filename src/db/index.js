@@ -40,19 +40,8 @@ db.update = (collection) => {
             winston.info(`Synced ${collection}.`)
 
             // TODO clean this up
-            if (['athletics', 'exams'].indexOf(collection) !== -1) {
-              let cmd = undefined
-
-              switch (collection) {
-                case 'athletics':
-                  cmd = 'db.athletics.find().forEach(doc=>{doc.date=new Date(doc.date);doc.events.forEach((_,i)=>{doc.events[i].start_time=new Date(doc.events[i].start_time);doc.events[i].end_time=new Date(doc.events[i].end_time)});db.athletics.save(doc)});'
-                  break
-                case 'exams':
-                  cmd = 'db.exams.find().forEach(doc=>{doc.date=new Date(doc.date);doc.start_time=new Date(doc.start_time);doc.end_time=new Date(doc.end_time);db.exams.save(doc)});'
-                  break
-                default:
-                  cmd = undefined
-              }
+            if (['athletics', 'exams'].indexOf(collection) > -1) {
+              let cmd = `db.${collection}.find().forEach(doc=>{doc.date=new Date(doc.date);db.${collection}.save(doc)});`
 
               childProcess.exec(`mongo cobalt --eval "${cmd}"`, error => {
                 if (!error) {
