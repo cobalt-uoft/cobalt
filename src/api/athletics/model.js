@@ -2,15 +2,15 @@ import mongoose from 'mongoose'
 var Schema = mongoose.Schema
 
 var athleticsSchema = new Schema({
-  id: String,
   date: Date,
-  campus: String,
   events: [{
     title: String,
+    campus: String,
     location: String,
     building_id: String,
-    start_time: Date,
-    end_time: Date
+    start_time: Number,
+    end_time: Number,
+    duration: Number
   }]
 })
 
