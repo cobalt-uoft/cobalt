@@ -8,8 +8,9 @@ var examsSchema = new Schema({
   campus: String,
   period: String,
   date: Date,
-  start_time: Date,
-  end_time: Date,
+  start_time: Number,
+  end_time: Number,
+  duration: Number,
   sections: [{
     lecture_code: String,
     exam_section: String,
