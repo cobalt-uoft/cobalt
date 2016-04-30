@@ -44,11 +44,7 @@
   },
   "ava": {
     "files": [
-      "test/courses",
-      "test/buildings",
-      "test/textbooks",
-      "test/food",
-      "test/athletics"
+      "test/*"
     ],
     "failFast": true,
     "require": [
@@ -59,7 +55,8 @@
     "exclude": [
       "src/db/index.js",
       "src/api/courses/routes/filterMapReduce.js",
-      "src/api/athletics/routes/filterMapReduce.js"
+      "src/api/athletics/routes/filterMapReduce.js",
+      "src/api/exams/routes/filterMapReduce.js"
     ]
   },
   "bin": {
