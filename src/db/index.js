@@ -56,17 +56,12 @@ db.update = (collection) => {
 
             if (collection === 'shuttles') {
               runDate = true
-              js = `db.shuttles.find().forEach(doc => {
-                doc.date = new Date(doc.date);
-                doc.routes.forEach((_, i) => {
-                  doc.routes[i].stops.forEach((_, j) => {
-                    doc.routes[i].stops[j].times.forEach((_, k) => {
-                      doc.routes[i].stops[j].times[k].time = new Date(doc.routes[i].stops[j].times[k].time);
-                    });
-                  });
+              js = `
+                db.shuttles.find().forEach(doc => {
+                  doc.date_num = parseInt(doc.date.replace(/\-/g, ''));
+                  db.shuttles.save(doc);
                 });
-                db.shuttles.save(doc);
-              });`
+              `
             }
 
             if (runDate) {

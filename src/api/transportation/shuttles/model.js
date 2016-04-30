@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 var Schema = mongoose.Schema
 
 var shuttlesSchema = new Schema({
-  date: Date,
+  date: String,
   routes: [{
     id: String,
     name: String,
@@ -10,7 +10,7 @@ var shuttlesSchema = new Schema({
       location: String,
       building_id: String,
       times: [{
-        time: Date,
+        time: Number,
         rush_hour: Boolean,
         no_overload: Boolean
       }]

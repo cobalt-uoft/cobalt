@@ -1,7 +1,7 @@
 // Default values
 const LIMIT = 10
 const SKIP = 0
-const SORT = 'id'
+const SORT = 'id date'
 
 let validation = {}
 
@@ -69,14 +69,6 @@ validation.id = (req, res, next) => {
 }
 
 validation.date = (req, res, next) => {
-  let date = req.params.date.split('-')
-  if (date.length != 3) {
-    let err = new Error('Date must be of format `YYYY-MM-DD`.')
-    err.status = 400
-    return next(err)
-  }
-  date = new Date(date[0], date[1] - 1, date[2])
-  req.params.date = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
   next()
 }
 

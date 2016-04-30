@@ -5,7 +5,7 @@ export default function list(req, res, next) {
   co(function* () {
     try {
       let docs = yield Shuttle
-        .find({}, '-__v -_id -routes._id -stops._id -times._id')
+        .find({}, '-__v -_id -date_num -routes._id -stops._id -times._id')
         .limit(req.query.limit)
         .skip(req.query.skip)
         .sort(req.query.sort)
