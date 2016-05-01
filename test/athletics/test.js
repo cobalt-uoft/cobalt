@@ -26,7 +26,9 @@ test.cb('/', t => {
     .expect(200)
     .expect(() => {
       let expected = testData.slice(0, 10)
-      expected.forEach((doc, i, docs) => {delete docs[i].date_num})
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
       return expected
     })
     .end((err, res) => {
@@ -53,7 +55,13 @@ test.cb('/?limit=2', t => {
     .get('/1.0/athletics?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 2))
+    .expect(() => {
+      let expected = testData.slice(0, 2)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -110,7 +118,13 @@ test.cb('/?skip=2&limit=2', t => {
     .get('/1.0/athletics?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(2, 4))
+    .expect(() => {
+      let expected = testData.slice(2, 4)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -125,7 +139,11 @@ test.cb(`/${testData[0].date}`, t => {
     .get(`/1.0/athletics/${testData[0].date}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData[0])
+    .expect(() => {
+      let expected = testData[0]
+      delete expected.date_num
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -138,7 +156,11 @@ test.cb('/2016-04-02', t => {
     .get('/1.0/athletics/2016-04-02')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => doc.date.match('2016-04-02'))[0])
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-02'))[0]
+      delete expected.date_num
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -177,7 +199,13 @@ test.cb('/search?q=utm', t => {
     .get('/1.0/athletics/search?q=utm')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -217,7 +245,13 @@ test.cb('/filter?q=date:"2016-04-01"', t => {
     .get('/1.0/athletics/filter?q=date:%222016-04-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => doc.date.match('2016-04-01')))
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-01'))
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -241,6 +275,9 @@ test.cb('/filter?q=campus:"utm" AND date:"2016-04-03"', t => {
         end_time: 61200,
         duration: 10200
       }]
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
       return expected
     })
     .end((err, res) => {
@@ -331,6 +368,9 @@ test.cb('/filter?q=campus:-"utm" AND date:"2016-04-03"', t => {
           duration: 3000
         }
       ]
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
       return expected
     })
     .end((err, res) => {
@@ -371,6 +411,9 @@ test.cb('/filter?q=title:"rock climbing" AND date:>="2016-04-28"', t => {
         duration: 9000
       }]
 
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
       return expected
     })
     .end((err, res) => {
@@ -409,7 +452,13 @@ test.cb('/filter?q=date:-"2016-05-01"', t => {
     .get('/1.0/athletics/filter?q=date:-%222016-05-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -439,6 +488,7 @@ test.cb('/filter?q=start:>=0', t => {
 
       expected.forEach((doc, i, docs) => {
         docs[i]['matched_events'] = docs[i]['events']
+        delete docs[i].date_num
       })
 
       return expected
@@ -469,6 +519,7 @@ test.cb('/filter?q=start:<"5:30" AND date:<="2016-04-12"', t => {
           end_time: 32400,
           duration: 14400
         }]
+        delete docs[i].date_num
       })
       return expected
     })
@@ -496,6 +547,7 @@ test.cb('/filter?q=start:<19800 AND date:<="2016-04-12"', t => {
           end_time: 32400,
           duration: 14400
         }]
+        delete docs[i].date_num
       })
       return expected
     })
@@ -537,6 +589,7 @@ test.cb('/filter?q=duration:>=38400 AND date:>="2016-04-27"', t => {
           end_time: 85200,
           duration: 38400
         }]
+        delete docs[i].date_num
       })
 
       return expected
