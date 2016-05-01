@@ -3,6 +3,7 @@ var Schema = mongoose.Schema
 
 var shuttlesSchema = new Schema({
   date: String,
+  date_num: Number,
   routes: [{
     id: String,
     name: String,
@@ -16,11 +17,6 @@ var shuttlesSchema = new Schema({
       }]
     }]
   }]
-})
-
-shuttlesSchema.index({
-  'routes.id': 'text',
-  'routes.stops.location': 'text'
 })
 
 export default mongoose.model('shuttles', shuttlesSchema)

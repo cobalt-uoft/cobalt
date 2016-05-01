@@ -342,26 +342,30 @@ test.cb('/filter?q=instructor:%22Brown%22', t => {
     .get('/1.0/courses/filter?q=instructor:%22Brown%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect([testData.reduce(doc => {
-      if (doc.code.includes('BIOD33')) {
-        doc['matched_meeting_sections'] = [{
-          'code': 'L01',
-          'size': 50,
-          'enrolment': 0,
-          'times': [{
-            'day': 'THURSDAY',
-            'start': 15,
-            'end': 17,
-            'duration': 2,
-            'location': 'BV 363'
-          }],
-          'instructors': [
-            'J Brown'
-          ]
-        }]
-        return doc
-      }
-    })])
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=location:"BA"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=location:"BA"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:>"1:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=duration:>"1:00"')
+    .expect('Content-Type', /json/)
+    .expect(200)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

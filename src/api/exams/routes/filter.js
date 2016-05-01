@@ -9,7 +9,7 @@ const KEYMAP = {
   code: 'course_code',
   campus: 'campus',
   period: 'period',
-  date: 'date',
+  date: 'date_num',
   start: 'start_time',
   duration: 'duration',
   end: 'end_time',
@@ -22,7 +22,7 @@ const ABSOLUTE_KEYMAP = {
   code: 'course_code',
   campus: 'campus',
   period: 'period',
-  date: 'date',
+  date: 'date_num',
   start: 'start_time',
   end: 'end_time',
   duration: 'duration',
@@ -96,7 +96,7 @@ export default function filter(req, res, next) {
       co(function* () {
         try {
           let docs = yield Athletics
-            .find(filter, '-__v -_id -sections._id')
+            .find(filter, '-__v -_id -sections._id -date_num')
             .limit(req.query.limit)
             .skip(req.query.skip)
             .sort(req.query.sort)
@@ -165,29 +165,54 @@ function formatPart(key, part) {
 
 
   if (['date', 'start', 'end', 'duration'].indexOf(key) > -1) {
-    if (key == 'date') {
-      let dateValue = undefined
+    // Dates, times, numbers
 
-      if (typeof part.value !== 'number' && part.value.indexOf(',') !== -1) {
-        // Date format is Y,m,d,H,M,S
-        let d = part.value.split(',')
-        d = d.concat(new Array(7 - d.length).fill(0))
-        dateValue = new Date(d[0], d[1]-1, d[2], d[3]-4, d[4], d[5], d[6], d[7])
-      } else {
-        // Date format is ISO-8601, milliseconds since 01-01-1970, or empty
-        dateValue = part.value
+    if (key === 'date') {
+      let date = undefined
+      let dateValue = String(part.value).split('-')
+
+      if (dateValue.length === 3) {
+        date = parseInt(dateValue.join(''))
       }
 
-      let date = dateValue ? new Date(dateValue) : new Date
-
-      if (isNaN(date)) {
+      if (!date || isNaN(date) || isNaN(new Date(part.value))) {
         response.isValid = false
         response.error = new Error('Invalid date parameter.')
         response.error.status = 400
         return response
       }
-
       part.value = date
+    } else {
+      // Times
+      let validTime = true
+
+      if (typeof part.value !== 'number' && part.value.indexOf(':') > -1) {
+        // TODO add period support (AM/PM)
+        // Time formatted as 'HH:MM:SS' or 'HH:MM'
+        let timeValue = part.value.split(':')
+        let time = 0
+
+        for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
+          if (isNaN(parseInt(timeValue[i]))) {
+            validTime = false
+            break
+          }
+
+          time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
+        }
+
+        part.value = time
+
+      } else if (typeof part.value !== 'number') {
+        validTime = false
+      }
+
+      if (!validTime || part.value > 86400) {
+        response.isValid = false
+        response.error = new Error('Invalid time parameter.')
+        response.error.status = 400
+        return response
+      }
     }
 
     if (part.operator === '-') {

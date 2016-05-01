@@ -15,10 +15,4 @@ var athleticsSchema = new Schema({
   }]
 })
 
-athleticsSchema.index({
-  'events.title': 'text',
-  'events.campus': 'text',
-  'events.location': 'text'
-})
-
 export default mongoose.model('athletics', athleticsSchema)
