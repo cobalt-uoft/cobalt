@@ -5,24 +5,23 @@ import list from './routes/list'
 import show from './routes/show'
 import filter from './routes/filter'
 
-import validation from '../utils/validation'
+import Validator from '../utils/validator'
 
 router.get('/',
-  validation.limit,
-  validation.skip,
-  validation.sort,
+  Validator.limit,
+  Validator.skip,
+  Validator.sort,
   list)
 
 router.get('/filter',
-  validation.query,
-  validation.filterQuery,
-  validation.limit,
-  validation.skip,
-  validation.sort,
+  Validator.query,
+  Validator.limit,
+  Validator.skip,
+  Validator.sort,
   filter)
 
 router.get('/:id',
-  validation.id,
+  Validator.id,
   show)
 
 export default router

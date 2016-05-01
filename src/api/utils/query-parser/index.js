@@ -1,27 +1,29 @@
-let queryParser = {}
+class QueryParser {
 
-queryParser.tokenize = (query) => {
+  static tokenize (query) {
+
+  }
+
+  static parse (token) {
+
+  }
+
+  static parseString (value) {
+
+  }
+
+  static parseNumber (value) {
+
+  }
+
+  static parseDate (value) {
+
+  }
+
+  static parseTime (value) {
+
+  }
 
 }
 
-queryParser.parse = (token) => {
-
-}
-
-queryParser.parseString = (value) => {
-
-}
-
-queryParser.parseNumber = (value) => {
-
-}
-
-queryParser.parseDate = (value) => {
-
-}
-
-queryParser.parseTime = (value) => {
-
-}
-
-export default queryParser
+export default QueryParser
