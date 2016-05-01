@@ -387,6 +387,30 @@ test.cb('/filter?q=start:>50000 AND end:<62000 AND location:"SS"', t => {
     })
 })
 
+test.cb('/filter?q=start:>86401', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=start:>86401')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:"ab:cd"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=start:>86401')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Exams.remove({}, err => {
     if (err) t.fail(err.message)
