@@ -14,13 +14,6 @@ router.get('/',
   validation.sort,
   list)
 
-router.get('/search',
-  validation.query,
-  validation.limit,
-  validation.skip,
-  validation.sort,
-  search)
-
 router.get('/filter',
   validation.query,
   validation.filterQuery,
