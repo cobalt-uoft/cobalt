@@ -18,6 +18,7 @@ test.cb.before('setup', t => {
       for (let i = 0; i < testData.length; i++) {
         let doc = testData[i]
         delete doc.date_num
+        Object.freeze(doc)
         expectedTestData.push(doc)
       }
       t.end()
