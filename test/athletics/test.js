@@ -259,6 +259,30 @@ test.cb('/filter?q=duration:<1800 OR duration:>38400', t => {
     })
 })
 
+test.cb('/filter?q=start:"k4:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%22k4:00%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:"now" AND end:"later"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%22now%22%20AND%20end:%22later%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=duration:"25:00"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=duration:%22250:00%22')
