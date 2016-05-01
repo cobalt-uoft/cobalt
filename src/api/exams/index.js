@@ -5,7 +5,7 @@ import list from './routes/list'
 import show from './routes/show'
 import filter from './routes/filter'
 
-import validation from '../validation'
+import validation from '../utils/validation'
 
 router.get('/',
   validation.limit,

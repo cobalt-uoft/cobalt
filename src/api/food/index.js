@@ -6,7 +6,7 @@ import show from './routes/show'
 import search from './routes/search'
 import filter from './routes/filter'
 
-import validation from '../validation'
+import validation from '../utils/validation'
 
 router.get('/',
   validation.limit,
