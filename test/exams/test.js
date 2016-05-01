@@ -301,12 +301,12 @@ test.cb('/filter?q=duration:-7200', t => {
     })
 })
 
-test.cb('/filter?q=duration:-7200', t => {
+test.cb('/filter?q=duration:>=21600', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=duration:-7200')
+    .get('/1.0/exams/filter?q=duration:>=21600')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.duration !== 7200).slice(0, 10))
+    .expect([])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -345,6 +345,19 @@ test.cb('/filter?q=date:"today"', t => {
     .get('/1.0/exams/filter?q=date:%22today22')
     .expect('Content-Type', /json/)
     .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=date:"2016-04-25"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=date:"2016-04-25"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(expectedTestData.filter(doc => doc.date === '2016-04-25'))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -402,7 +415,19 @@ test.cb('/filter?q=start:>86401', t => {
 
 test.cb('/filter?q=start:"ab:cd"', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=start:>86401')
+    .get('/1.0/exams/filter?q=start:%22ab:cd%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:"abc"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=start:%22abc%22')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {

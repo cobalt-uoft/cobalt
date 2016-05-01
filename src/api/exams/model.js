@@ -8,6 +8,7 @@ var examsSchema = new Schema({
   campus: String,
   period: String,
   date: String,
+  date_num: Number,
   start_time: Number,
   end_time: Number,
   duration: Number,
