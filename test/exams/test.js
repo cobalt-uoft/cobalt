@@ -351,6 +351,42 @@ test.cb('/filter?q=date:"today"', t => {
     })
 })
 
+test.cb('/filter?q=code:"ECO100" AND lecture:"L0201"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=code:%22ECO100%22%20AND%20lecture:%22L0201%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=location:"HI CART"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=location:%22HI%20CART%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:>50000 AND end:<62000 AND location:"SS"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=start:%3E50000%20AND%20end:%3C62000%20AND%20location:%22SS%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Exams.remove({}, err => {
     if (err) t.fail(err.message)

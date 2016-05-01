@@ -319,6 +319,90 @@ test.cb('/filter?q=start:"now" AND end:"later"', t => {
     })
 })
 
+test.cb('/filter?q=campus:"utm" AND date:"2016-04-03"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=campus:%22utm%22%20AND%20date:%222016-04-03%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:-"utm" AND date:"2016-04-03"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=campus:-%22UTM%22%20AND%20date:%222016-04-03%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=title:"rock climbing" AND date:>="2016-04-28"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22%20AND%20date:%3E=%222016-04-28%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:>=0', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%3E=0')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:<"5:30" AND date:<="2016-04-12"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%3C%225:30%22%20AND%20date:%3C=%222016-04-12%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:<19800 AND date:<="2016-04-12"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%3C19800%20AND%20date:%3C=%222016-04-12%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:>=38400 AND date:>="2016-04-27"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=duration:%3E=38400%20AND%20date:%3E=%222016-04-27%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Athletics.remove({}, err => {
     if (err) t.fail(err.message)

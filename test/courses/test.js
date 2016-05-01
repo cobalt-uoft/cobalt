@@ -337,6 +337,19 @@ test.cb('/filter?q=instructor:-"D Liu"', t => {
     })
 })
 
+test.cb('/filter?q=instructor:%22Brown%22', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=instructor:%22Brown%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+
 test.cb.after('cleanup', t => {
   Course.remove({}, err => {
     if (err) t.fail(err.message)
