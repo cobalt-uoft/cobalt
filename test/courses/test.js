@@ -349,6 +349,29 @@ test.cb('/filter?q=instructor:%22Brown%22', t => {
     })
 })
 
+test.cb('/filter?q=location:"BA"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=location:"BA"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:>"1:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=duration:>"1:00"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
 
 test.cb.after('cleanup', t => {
   Course.remove({}, err => {
