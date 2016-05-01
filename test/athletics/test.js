@@ -24,7 +24,13 @@ test.cb('/', t => {
     .get('/1.0/athletics')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -49,7 +55,13 @@ test.cb('/?limit=2', t => {
     .get('/1.0/athletics?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(0, 2))
+    .expect(() => {
+      let expected = testData.slice(0, 2)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -74,7 +86,13 @@ test.cb('/?skip=10', t => {
     .get('/1.0/athletics?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(10, 20))
+    .expect(() => {
+      let expected = testData.slice(10, 20)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -100,7 +118,13 @@ test.cb('/?skip=2&limit=2', t => {
     .get('/1.0/athletics?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.slice(2, 4))
+    .expect(() => {
+      let expected = testData.slice(2, 4)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -108,14 +132,18 @@ test.cb('/?skip=2&limit=2', t => {
     })
 })
 
-/* show tests */
+// /* show tests */
 
-test.cb(`/${testData[0].id}`, t => {
+test.cb(`/${testData[0].date}`, t => {
   request(cobalt.Server)
-    .get(`/1.0/athletics/${testData[0].id}`)
+    .get(`/1.0/athletics/${testData[0].date}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData[0])
+    .expect(() => {
+      let expected = testData[0]
+      delete expected.date_num
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -123,9 +151,26 @@ test.cb(`/${testData[0].id}`, t => {
     })
 })
 
-test.cb('/01', t => {
+test.cb('/2016-04-02', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/01')
+    .get('/1.0/athletics/2016-04-02')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-02'))[0]
+      delete expected.date_num
+      return expected
+    })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/2018-04-02', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/2018-04-02')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {
@@ -149,14 +194,18 @@ test.cb('/search?q=', t => {
     })
 })
 
-test.cb('/search?q=barre', t => {
+test.cb('/search?q=utm', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/search?q=barre')
+    .get('/1.0/athletics/search?q=utm')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => {
-      return doc.id.match('07SC') || doc.id.match('14SC') || doc.id.match('21SC')
-    }))
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -191,12 +240,18 @@ test.cb('/filter?q=', t => {
     })
 })
 
-test.cb('/filter?q=campus:"utm"', t => {
+test.cb('/filter?q=date:"2016-04-01"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=campus:%22utm%22')
+    .get('/1.0/athletics/filter?q=date:%222016-04-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => {return doc.id.includes('M')}).slice(0, 10))
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-01'))
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -204,12 +259,120 @@ test.cb('/filter?q=campus:"utm"', t => {
     })
 })
 
-test.cb('/filter?q=campus:-"utm"', t => {
+test.cb('/filter?q=campus:"utm" AND date:"2016-04-03"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=campus:-%22utm%22')
+    .get('/1.0/athletics/filter?q=campus:%22utm%22%20AND%20date:%222016-04-03%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(testData.filter(doc => {return doc.id.includes('SC')}).slice(0, 10))
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-03'))
+      expected['matched_events'] = [{
+        title: 'Fun Swim',
+        campus: 'UTM',
+        location: 'Pool',
+        building_id: '332',
+        start_time: 51000,
+        end_time: 61200,
+        duration: 10200
+      }]
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=campus:-"utm" AND date:"2016-04-03"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=campus:-%22UTM%22%20AND%20date:%222016-04-03%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.includes('2016-04-03'))
+      expected['matched_events'] = [
+        {
+          title: 'Basketball',
+          campus: 'UTSC',
+          location: 'Gym 2',
+          building_id: '208',
+          start_time: 21600,
+          end_time: 36000,
+          duration: 14400
+        },
+        {
+          title: 'Muscleworks',
+          campus: 'UTSC',
+          location: 'Studio 1',
+          building_id: '208',
+          start_time: 32400,
+          end_time: 35400,
+          duration: 3000
+        },
+        {
+          title: 'Yoga',
+          campus: 'UTSC',
+          location: 'Studio 1',
+          building_id: '208',
+          start_time: 36000,
+          end_time: 39000,
+          duration: 3000
+        },
+        {
+          title: 'Zumba',
+          campus: 'UTSC',
+          location: 'Studio 1',
+          building_id: '208',
+          start_time: 39600,
+          end_time: 42600,
+          duration: 3000
+        },
+        {
+          title: 'Drop-In Climbing',
+          campus: 'UTSC',
+          location: 'Climbing Wall',
+          building_id: '208',
+          start_time: 43200,
+          end_time: 54000,
+          duration: 10800
+        },
+        {
+          title: 'Basketball',
+          campus: 'UTSC',
+          location: 'Gym 2',
+          building_id: '208',
+          start_time: 43200,
+          end_time: 68400,
+          duration: 25200
+        },
+        {
+          title: 'Barre',
+          campus: 'UTSC',
+          location: 'Studio 1',
+          building_id: '208',
+          start_time: 46800,
+          end_time: 49800,
+          duration: 3000
+        },
+        {
+          title: 'Yoga',
+          campus: 'UTSC',
+          location: 'Studio 1',
+          building_id: '208',
+          start_time: 50400,
+          end_time: 53400,
+          duration: 3000
+        }
+      ]
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
+    })
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -230,24 +393,27 @@ test.cb('/filter?q=campus:"utm" AND campus:"utsc" OR campus:"utsg"', t => {
     })
 })
 
-test.cb('/filter?q=title:"rock climbing" AND date:"2016,04,04"', t => {
+test.cb('/filter?q=title:"rock climbing" AND date:>="2016-04-28"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22%20AND%20date:%222016,04,04%22')
+    .get('/1.0/athletics/filter?q=title:%22rock%20climbing%22%20AND%20date:%3E=%222016-04-28%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
-      let expected = testData.filter((doc, i, data) => {
-        return doc.id === '04SC'
-      })
+      let expected = testData.filter(doc => doc.date.includes('2016-04-29'))
 
       expected['matched_events'] = [{
         title: 'Rock Climbing Club',
+        campus: 'UTSC',
         location: 'Climbing Wall',
         building_id: '208',
-        start_time: '2016-04-04T18:00:00.000Z',
-        end_time: '2016-04-04T20:30:00.000Z'
+        start_time: 43200,
+        end_time: 52200,
+        duration: 9000
       }]
 
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
       return expected
     })
     .end((err, res) => {
@@ -257,12 +423,11 @@ test.cb('/filter?q=title:"rock climbing" AND date:"2016,04,04"', t => {
     })
 })
 
-test.cb('/filter?q=date:"2016"', t => {
+test.cb('/filter?q=date:>"2016"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:>%222016%22')
+    .get('/1.0/athletics/filter?q=date:%3E%222016%22')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.slice(0, 10))
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -272,10 +437,9 @@ test.cb('/filter?q=date:"2016"', t => {
 
 test.cb('/filter?q=date:<"2016"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:<%222016%22')
+    .get('/1.0/athletics/filter?q=date:%3C%222016%22')
     .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -283,38 +447,18 @@ test.cb('/filter?q=date:<"2016"', t => {
     })
 })
 
-test.cb('/filter?q=date:"2016,04,01"', t => {
+test.cb('/filter?q=date:-"2016-05-01"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:%222016,04,01%22')
+    .get('/1.0/athletics/filter?q=date:-%222016-05-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect('[]')
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
+    .expect(() => {
+      let expected = testData.slice(0, 10)
+      expected.forEach((doc, i, docs) => {
+        delete docs[i].date_num
+      })
+      return expected
     })
-})
-
-test.cb('/filter?q=date:"2016-04-01"', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:%222016-04-0122')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/filter?q=date:-1461470262870', t => {
-  request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:-146147026287')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -334,23 +478,18 @@ test.cb('/filter?q=date:"today"', t => {
     })
 })
 
-test.cb('/filter?q=start:<"2016,04,02,13"', t => {
+test.cb('/filter?q=start:>=0', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=start:%3C%222016,04,02,13%22')
+    .get('/1.0/athletics/filter?q=start:%3E=0')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
-      let expected = testData.filter((doc, i, data) => {
-        return doc.id === '02SC'
-      })
+      let expected = testData.slice(0, 10)
 
-      expected['matched_events'] = [{
-        title: 'Zumba',
-        location: 'Studio 2',
-        building_id: '208',
-        start_time: '2016-04-02T12:00:00.000Z',
-        end_time: '2016-04-02T12:50:00.000Z'
-      }]
+      expected.forEach((doc, i, docs) => {
+        docs[i]['matched_events'] = docs[i]['events']
+        delete docs[i].date_num
+      })
 
       return expected
     })
@@ -361,26 +500,136 @@ test.cb('/filter?q=start:<"2016,04,02,13"', t => {
     })
 })
 
-test.cb('/filter?q=location:"gym" AND end:<="2016,04,11,13" AND start:>="2016-04-10"', t => {
+test.cb('/filter?q=start:<"5:30" AND date:<="2016-04-12"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=location:%22gym%22%20AND%20end:%3C=%222016,04,11,13%22%20AND%20start:%3E=%222016,04,10%22')
+    .get('/1.0/athletics/filter?q=start:%3C%225:30%22%20AND%20date:%3C=%222016-04-12%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(() => {
-      let expected = testData.filter((doc, i, data) => {
-        return doc.id === '11SC'
+      let expected = testData.filter(doc => {
+        return doc.date.includes('2016-04-11') || doc.date.includes('2016-04-12')
       })
+      expected.forEach((doc, i, docs) => {
+        docs[i]['matched_events'] = [{
+          title: 'Deep Water Lane Swim',
+          campus: 'UTSC',
+          location: 'Aquatics',
+          building_id: '208',
+          start_time: 18000,
+          end_time: 32400,
+          duration: 14400
+        }]
+        delete docs[i].date_num
+      })
+      return expected
+    })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
 
-      expected['matched_events'] = [{
-        title: 'Badminton/Table Tennis',
-        location: 'Gym 4',
-        building_id: '208',
-        start_time: '2016-04-11T10:00:00.000Z',
-        end_time: '2016-04-11T13:00:00.000Z'
-      }]
+test.cb('/filter?q=start:<19800 AND date:<="2016-04-12"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%3C19800%20AND%20date:%3C=%222016-04-12%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.includes('2016-04-11') || doc.date.includes('2016-04-12'))
+      expected.forEach((doc, i, docs) => {
+        docs[i]['matched_events'] = [{
+          title: 'Deep Water Lane Swim',
+          campus: 'UTSC',
+          location: 'Aquatics',
+          building_id: '208',
+          start_time: 18000,
+          end_time: 32400,
+          duration: 14400
+        }]
+        delete docs[i].date_num
+      })
+      return expected
+    })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:<1800 OR duration:>38400', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=duration:%3C1800%20OR%20duration:%3E38400')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:>=38400 AND date:>="2016-04-27"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=duration:%3E=38400%20AND%20date:%3E=%222016-04-27%22')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(() => {
+      let expected = testData.filter(doc => doc.date.match('2016-04-27') || doc.date.match('2016-04-28') )
+
+      expected.forEach((doc, i, docs) => {
+        docs[i]['matched_events'] = [{
+          title: 'Basketball',
+          campus: 'UTSC',
+          location: 'Gym 1',
+          building_id: '208',
+          start_time: 46800,
+          end_time: 85200,
+          duration: 38400
+        }]
+        delete docs[i].date_num
+      })
 
       return expected
     })
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:"25:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=duration:%22250:00%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:"k4:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%22k4:00%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=start:"now" AND end:"later"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=start:%22now%22%20AND%20end:%22later%22')
+    .expect('Content-Type', /json/)
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
