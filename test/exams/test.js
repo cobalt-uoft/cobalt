@@ -275,78 +275,6 @@ test.cb('/filter?q=code:"ECO100"', t => {
     })
 })
 
-test.cb('/filter?q=code:"ECO100" AND lecture:"L0201"', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/filter?q=code:%22ECO100%22%20AND%20lecture:%22L0201%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(() => {
-      let expected = expectedTestData.filter((doc) => doc.course_code.includes('ECO100'))
-      expected['matched_sections'] = [
-        {
-          lecture_code: 'L0201',
-          exam_section: 'A - GA',
-          location: 'BN 3'
-        },
-        {
-          lecture_code: 'L0201',
-          exam_section: 'GE - Y',
-          location: 'EX 100'
-        },
-        {
-          lecture_code: 'L0201',
-          exam_section: 'Z - Z',
-          location: 'EX 200'
-        }
-      ]
-      return expected
-    })
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/filter?q=date:"2016-04-28"', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/filter?q=date:%222016-04-28%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(expectedTestData.filter(doc => doc.id.match('CHM343H1S20161APR16')))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/filter?q=date:>=1461988800', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/filter?q=date:%3E=1461988800')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(expectedTestData.slice(0, 10))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/filter?q=date:<="2016,04,30"', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/filter?q=date:%3E=%222016,04,30%22')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 test.cb('/filter?q=duration:<10800', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=duration:%3C10800')
@@ -373,6 +301,32 @@ test.cb('/filter?q=duration:<=10800', t => {
     })
 })
 
+test.cb('/filter?q=duration:<"3:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=duration:<"3:00"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(expectedTestData.filter(doc => doc.duration < 10800).slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=duration:<="3:00"', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams/filter?q=duration:<="3:00"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(expectedTestData.slice(0, 10))
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=duration:-7200', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=duration:-7200')
@@ -386,20 +340,12 @@ test.cb('/filter?q=duration:-7200', t => {
     })
 })
 
-test.cb('/filter?q=location:"HI CART"', t => {
+test.cb('/filter?q=duration:-7200', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=location:%22HI%20CART%22')
+    .get('/1.0/exams/filter?q=duration:-7200')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(() => {
-      let expected = expectedTestData.filter(doc => doc.id.match('ENG364Y1Y20159APR16'))
-      expected['matched_sections'] = [{
-        lecture_code: 'L5101',
-        exam_section: '',
-        location: 'HI CART'
-      }]
-      return expected
-    })
+    .expect(expectedTestData.filter(doc => doc.duration !== 7200).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -420,27 +366,12 @@ test.cb('/filter?q=start:79200 OR end:79200', t => {
     })
 })
 
-test.cb('/filter?q=start:>50000 AND end:<62000 AND location:"SS"', t => {
+test.cb('/filter?q=start:"22:00" OR end:"22:00"', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=start:%3E50000%20AND%20end:%3C62000%20AND%20location:%22SS%22')
+    .get('/1.0/exams/filter?q=start:79200%20OR%20end:79200')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(() => {
-      let expected = expectedTestData.filter(doc => doc.id.match('ABS201Y1Y20159APR16'))
-      expected['matched_sections'] = [
-        {
-          lecture_code: '',
-          exam_section: 'A - L',
-          location: 'SS 2102'
-        },
-        {
-          lecture_code: '',
-          exam_section: 'M - Z',
-          location: 'SS 2135'
-        }
-      ]
-      return expected
-    })
+    .expect(expectedTestData.filter(doc => doc.start_time === 79200 || doc.end_time === 79200))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

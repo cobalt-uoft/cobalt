@@ -9,7 +9,7 @@ const KEYMAP = {
   code: 'course_code',
   campus: 'campus',
   period: 'period',
-  date: 'date',
+  date: 'date_num',
   start: 'start_time',
   duration: 'duration',
   end: 'end_time',
@@ -22,7 +22,7 @@ const ABSOLUTE_KEYMAP = {
   code: 'course_code',
   campus: 'campus',
   period: 'period',
-  date: 'date',
+  date: 'date_num',
   start: 'start_time',
   end: 'end_time',
   duration: 'duration',
@@ -181,7 +181,6 @@ function formatPart(key, part) {
         response.error.status = 400
         return response
       }
-
       part.value = date
     } else {
       // Times
