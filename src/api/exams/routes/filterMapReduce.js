@@ -29,7 +29,11 @@ o.map = function() {
         } else if (p.operator === '<=') {
           currentData[i][j] = value <= p.value
         } else {
-          currentData[i][j] = value.toLowerCase().includes(p.value.toLowerCase())
+          if (p.value.constructor === Date || !isNaN(value)) {
+            currentData[i][j] = value === p.value
+          } else {
+            currentData[i][j] = value.toLowerCase().includes(p.value.toLowerCase())
+          }
         }
       }
     }
@@ -49,6 +53,7 @@ o.map = function() {
     this.matched_sections = matchedSections
     delete this._id
     delete this.__v
+    delete this.date_num
     emit(this.id, this)
   }
 }

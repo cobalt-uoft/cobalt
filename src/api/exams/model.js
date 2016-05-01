@@ -7,7 +7,7 @@ var examsSchema = new Schema({
   course_code: String,
   campus: String,
   period: String,
-  date: Date,
+  date: String,
   start_time: Number,
   end_time: Number,
   duration: Number,
@@ -17,7 +17,5 @@ var examsSchema = new Schema({
     location: String
   }]
 })
-
-examsSchema.index({ course_code: 'text', campus: 'text', period: 'text' })
 
 export default mongoose.model('exams', examsSchema)

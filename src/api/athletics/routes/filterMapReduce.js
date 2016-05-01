@@ -29,7 +29,7 @@ o.map = function() {
         } else if (p.operator === '<=') {
           currentData[i][j] = value <= p.value
         } else {
-          if (p.value.constructor === Date) {
+          if (p.value.constructor === Date || !isNaN(value)) {
             currentData[i][j] = value === p.value
           } else {
             currentData[i][j] = value.toLowerCase().includes(p.value.toLowerCase())
@@ -53,7 +53,8 @@ o.map = function() {
     this.matched_events = matchedEvents
     delete this._id
     delete this.__v
-    emit(this.id, this)
+    delete this.date_num
+    emit(this.date, this)
   }
 }
 
