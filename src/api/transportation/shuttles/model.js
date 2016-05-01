@@ -18,9 +18,4 @@ var shuttlesSchema = new Schema({
   }]
 })
 
-shuttlesSchema.index({
-  'routes.id': 'text',
-  'routes.stops.location': 'text'
-})
-
 export default mongoose.model('shuttles', shuttlesSchema)
