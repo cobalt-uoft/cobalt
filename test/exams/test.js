@@ -156,46 +156,6 @@ test.cb('/CSC165', t => {
     })
 })
 
-/* search tests */
-
-test.cb('/search?q=', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/search?q=')
-    .expect('Content-Type', /json/)
-    .expect(400)
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/search?q=DEC15', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/search?q=DEC15')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(expectedTestData.filter(doc => doc.period.match('DEC15')).slice(0, 10))
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
-test.cb('/search?q=DEC14', t => {
-  request(cobalt.Server)
-    .get('/1.0/exams/search?q=DEC14')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('[]')
-    .end((err, res) => {
-      if (err) t.fail(err.message)
-      t.pass()
-      t.end()
-    })
-})
-
 /* filter tests */
 
 test.cb('/filter?q=', t => {
