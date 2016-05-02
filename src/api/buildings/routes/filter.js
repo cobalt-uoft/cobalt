@@ -2,6 +2,7 @@ import Building from '../model'
 import co from 'co'
 import QueryParser from '../../utils/query-parser'
 
+// Mapping of valid filter keys
 const KEYMAP = {
   'code':       { type: QueryParser.String, value: 'code' },
   'name':       { type: QueryParser.String, value: 'name' },
@@ -25,7 +26,7 @@ export default function filter(req, res, next) {
     for (let j = 0; j < q[i].length; j++) {
       q[i][j] = QueryParser.parse(q[i][j])
       if (!KEYMAP.hasOwnProperty(q[i][j].key)) {
-        let err = new Error('At least one provided filter key is not supported.')
+        let err = new Error(`Filter key '${q[i][j].key}' is not supported.`)
         err.status = 400
         return next(err)
       }
@@ -37,9 +38,8 @@ export default function filter(req, res, next) {
   for (let i = 0; i < q.length; i++) {
     filter.$and[i] = { $or: [] }
     for (let j = 0; j < q[i].length; j++) {
-      let query = KEYMAP[q[i][j].key].type(q[i][j].filter)
       filter.$and[i].$or[j] = {}
-      filter.$and[i].$or[j][KEYMAP[q[i][j].key].value] = query
+      filter.$and[i].$or[j][KEYMAP[q[i][j].key].value] = KEYMAP[q[i][j].key].type(q[i][j].filter)
     }
   }
 

@@ -114,14 +114,14 @@ class QueryParser {
   /*
     Form the MongoDB-compatible filter for dates.
   */
-  static Date (value) {
+  static Date (filter) {
 
   }
 
   /*
     Form the MongoDB-compatible filter for times.
   */
-  static Time (value) {
+  static Time (filter) {
 
   }
 
