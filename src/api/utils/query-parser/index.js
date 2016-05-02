@@ -4,7 +4,7 @@ class QueryParser {
     Tokenize the input query, and then parse the tokens into a
     MongoDB-compatible format.
   */
-  static generateFilter (query, keyMap) {
+  static parseQuery (query, keyMap) {
     let response = {}
 
     // Split query into tokens
