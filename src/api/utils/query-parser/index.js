@@ -1,6 +1,42 @@
 class QueryParser {
 
   /*
+    Tokenize the input query, and then parse the tokens into a
+    MongoDB-compatible format.
+  */
+  static generateFilter (query, keyMap) {
+    let response = {}
+
+    // Split query into tokens
+    let q = QueryParser.tokenize(query)
+
+    // Start Mongo-DB compatible filter
+    let filter = { $and: [] }
+
+    // Parse each token
+    for (let i = 0; i < q.length; i++) {
+      filter.$and[i] = { $or: [] }
+      for (let j = 0; j < q[i].length; j++) {
+        q[i][j] = QueryParser.parseToken(q[i][j])
+        // Verify that the key is valid
+        if (!keyMap.hasOwnProperty(q[i][j].key)) {
+          let err = new Error(`Filter key '${q[i][j].key}' is not supported.`)
+          err.status = 400
+          response.error = err
+          return response
+        }
+        // Form Mongo-DB compatible filter from key type
+        filter.$and[i].$or[j] = {}
+        filter.$and[i].$or[j][keyMap[q[i][j].key].value] = keyMap[q[i][j].key].type(q[i][j].filter)
+      }
+    }
+
+    response.tokens = q
+    response.filter = filter
+    return response
+  }
+
+  /*
     Split query into individual tokens.
   */
   static tokenize (query) {
@@ -19,7 +55,7 @@ class QueryParser {
   /*
     Parse token to retrieve key and filter information.
   */
-  static parse (token) {
+  static parseToken (token) {
     let response = {}
 
     response = {
