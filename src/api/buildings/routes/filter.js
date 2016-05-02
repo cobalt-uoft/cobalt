@@ -21,23 +21,21 @@ export default function filter(req, res, next) {
   // Split query into tokens
   let q = QueryParser.tokenize(req.query.q)
 
+  // Start Mongo-DB compatible filter
+  let filter = { $and: [] }
+
   // Parse each token
   for (let i = 0; i < q.length; i++) {
+    filter.$and[i] = { $or: [] }
     for (let j = 0; j < q[i].length; j++) {
       q[i][j] = QueryParser.parse(q[i][j])
+      // Verify that the key is valid
       if (!KEYMAP.hasOwnProperty(q[i][j].key)) {
         let err = new Error(`Filter key '${q[i][j].key}' is not supported.`)
         err.status = 400
         return next(err)
       }
-    }
-  }
-
-  // Generate MongoDB-compatible filter
-  let filter = { $and: [] }
-  for (let i = 0; i < q.length; i++) {
-    filter.$and[i] = { $or: [] }
-    for (let j = 0; j < q[i].length; j++) {
+      // Form Mongo-DB compatible filter from key type
       filter.$and[i].$or[j] = {}
       filter.$and[i].$or[j][KEYMAP[q[i][j].key].value] = KEYMAP[q[i][j].key].type(q[i][j].filter)
     }

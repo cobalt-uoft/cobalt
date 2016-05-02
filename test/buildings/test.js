@@ -285,6 +285,18 @@ test.cb('/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22', t => {
     })
 })
 
+test.cb('/filter?q=ab:"cd"', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=ab:"cd"')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Building.remove({}, err => {
     if (err) t.fail(err.message)

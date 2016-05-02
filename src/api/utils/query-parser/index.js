@@ -22,12 +22,6 @@ class QueryParser {
   static parse (token) {
     let response = {}
 
-    if (token.indexOf(':') < 0) {
-      response.error = new Error('Missing separator between key and filter.')
-      response.error.status = 400
-      return response
-    }
-
     response = {
       raw: token,
       key: token.slice(0, token.indexOf(':')).trim(),
