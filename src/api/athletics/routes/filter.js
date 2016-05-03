@@ -17,9 +17,7 @@ const KEYMAP = {
 export default function filter(req, res, next) {
   // Generate parsed tokens and filters from query
   let query = QueryParser.parseQuery(req.query.q, KEYMAP)
-
-  console.log(JSON.stringify(query.filter))
-
+  
   if (query.mapReduce) {
     co(function* () {
       try {
