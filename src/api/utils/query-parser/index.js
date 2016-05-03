@@ -182,7 +182,6 @@ class QueryParser {
     Convert a Cobalt time format to a number.
   */
   static timeToNumber (value) {
-    let validTime = true
     if (typeof value !== 'number' && value.indexOf(':') > -1) {
       // TODO: add period support (AM/PM)
       // Time formatted as 'HH:MM:SS' or 'HH:MM'
@@ -191,7 +190,7 @@ class QueryParser {
 
       for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
         if (isNaN(parseInt(timeValue[i]))) {
-          validTime = false
+          value = 0
           break
         }
 

@@ -33,26 +33,26 @@ export default function filter(req, res, next) {
   if (query.error) return next(query.error)
 
   if (query.mapReduce) {
-      co(function* () {
-        try {
-          let docs = yield Course.mapReduce({
-            query: query.filter,
-            scope: {
-              q: query.tokens,
-              keyMap: KEYMAP
-            },
-            limit: req.query.limit,
-            map: mapReduce.map,
-            reduce: mapReduce.reduce
-          })
-          for (let i = 0; i < docs.length; i++) {
-            docs[i] = docs[i].value
-          }
-          res.json(docs)
-        } catch(e) {
-          return next(e)
+    co(function* () {
+      try {
+        let docs = yield Course.mapReduce({
+          query: query.filter,
+          scope: {
+            q: query.tokens,
+            keyMap: KEYMAP
+          },
+          limit: req.query.limit,
+          map: mapReduce.map,
+          reduce: mapReduce.reduce
+        })
+        for (let i = 0; i < docs.length; i++) {
+          docs[i] = docs[i].value
         }
-      })
+        res.json(docs)
+      } catch(e) {
+        return next(e)
+      }
+    })
   } else {
     co(function* () {
       try {
