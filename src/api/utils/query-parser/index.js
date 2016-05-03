@@ -18,6 +18,7 @@ class QueryParser {
       filter.$and[i] = { $or: [] }
       for (let j = 0; j < q[i].length; j++) {
         q[i][j] = QueryParser.parseToken(q[i][j])
+
         // Verify that the key is valid
         if (!keyMap.hasOwnProperty(q[i][j].key)) {
           let err = new Error(`Filter key '${q[i][j].key}' is not supported.`)
@@ -25,9 +26,31 @@ class QueryParser {
           response.error = err
           return response
         }
+
         // Form Mongo-DB compatible filter from key type
+        let query = {}
+        switch (keyMap[q[i][j].key].type) {
+          case 'string':
+            query = QueryParser.stringQuery(q[i][j].filter)
+            break
+          case 'number':
+            query = QueryParser.numberQuery(q[i][j].filter)
+            break
+          case 'date':
+            q[i][j].filter.value = QueryParser.dateToNumber(q[i][j].filter.value)
+            query = QueryParser.numberQuery(q[i][j].filter)
+            break
+          case 'time':
+            q[i][j].filter.value = QueryParser.timeToNumber(q[i][j].filter.value)
+            query = QueryParser.numberQuery(q[i][j].filter)
+            break
+        }
+
         filter.$and[i].$or[j] = {}
-        filter.$and[i].$or[j][keyMap[q[i][j].key].value] = keyMap[q[i][j].key].type(q[i][j].filter)
+        filter.$and[i].$or[j][keyMap[q[i][j].key].value] = query
+        if (keyMap[q[i][j].key].relativeValue) {
+          response.mapReduce = true
+        }
       }
     }
 
@@ -109,9 +132,9 @@ class QueryParser {
   }
 
   /*
-    Form the MongoDB-compatible filter for strings.
+    Form the MongoDB-compatible query for strings.
   */
-  static String (filter) {
+  static stringQuery (filter) {
     if (filter.operator === '-') {
       return {
         $regex: '^((?!' + escapeRe(filter.value) + ').)*$',
@@ -122,9 +145,9 @@ class QueryParser {
   }
 
   /*
-    Form the MongoDB-compatible filter for numbers.
+    Form the MongoDB-compatible query for numbers.
   */
-  static Number (filter) {
+  static numberQuery (filter) {
     if (filter.operator === '>') {
       return { $gt: filter.value }
     } else if (filter.operator === '<') {
@@ -142,19 +165,43 @@ class QueryParser {
   }
 
   /*
-    Form the MongoDB-compatible filter for dates.
+    Convert a Cobalt date format to a number.
   */
-  static Date (filter) {
+  static dateToNumber (value) {
+    let date = undefined
+    let dateValue = String(value).split('-')
 
+    if (dateValue.length === 3) {
+      date = parseInt(dateValue.join(''))
+    }
+
+    value = date
   }
 
   /*
-    Form the MongoDB-compatible filter for times.
+    Convert a Cobalt time format to a number.
   */
-  static Time (filter) {
+  static timeToNumber (value) {
+    let validTime = true
+    if (typeof value !== 'number' && value.indexOf(':') > -1) {
+      // TODO: add period support (AM/PM)
+      // Time formatted as 'HH:MM:SS' or 'HH:MM'
+      let timeValue = value.split(':')
+      let time = 0
 
+      for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
+        if (isNaN(parseInt(timeValue[i]))) {
+          validTime = false
+          break
+        }
+
+        time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
+      }
+
+      value = time
+    }
+    return value
   }
-
 }
 
 function escapeRe (str) {
