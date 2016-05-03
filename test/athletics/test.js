@@ -395,6 +395,18 @@ test.cb('/filter?q=duration:>=38400 AND date:>="2016-04-27"', t => {
     })
 })
 
+test.cb('/filter?q=date:>="ABCD-EF-GH"', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics/filter?q=date:>="ABCD-EF-GH"')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Athletics.remove({}, err => {
     if (err) t.fail(err.message)
