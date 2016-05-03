@@ -23,8 +23,7 @@ class QueryParser {
         if (!keyMap.hasOwnProperty(q[i][j].key)) {
           let err = new Error(`Filter key \`${q[i][j].key}\` is not supported.`)
           err.status = 400
-          response.error = err
-          return response
+          throw err
         }
 
         // Form Mongo-DB compatible filter from key type
