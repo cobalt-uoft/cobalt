@@ -278,7 +278,8 @@ test.cb('/filter?q=duration:"25:00"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=duration:%22250:00%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(200)
+    .expect([])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

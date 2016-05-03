@@ -35,7 +35,6 @@ o.map = function() {
         } else if (p.filter.operator === '<=') {
           result[i][j] = value <= p.filter.value
         } else {
-          print("type:" + value)
           if (isNaN(parseFloat(value)) || !isFinite(value)) {
             // Is not a number
             result[i][j] = value.toLowerCase().match(p.filter.value.toLowerCase())
