@@ -6,7 +6,7 @@ export default function show(req, res, next) {
     try {
       let doc = yield Shuttle
         .findOne({ date: req.params.date },
-          '-__v -_id -date_num -routes._id -stops._id -times._id')
+          '-__v -_id -routes._id -stops._id -times._id')
         .exec()
       if (!doc) {
         let err = new Error('An entry with the specified date does not exist.')
