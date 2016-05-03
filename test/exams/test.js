@@ -5,8 +5,6 @@ import request from 'supertest'
 import cobalt from '../../src/index'
 import Exams from '../../src/api/exams/model'
 
-let expectedTestData = []
-
 test.cb.before('setup', t => {
   // Drop all documents
   Exams.remove({}, err => {
@@ -14,13 +12,6 @@ test.cb.before('setup', t => {
     // Insert test data
     Exams.create(testData, err => {
       if (err) t.fail(err.message)
-      // Populate expectedTestData (remove `date_num`)
-      for (let i = 0; i < testData.length; i++) {
-        let doc = testData[i]
-        delete doc.date_num
-        Object.freeze(doc)
-        expectedTestData.push(doc)
-      }
       t.end()
     })
   })
@@ -33,7 +24,7 @@ test.cb('/', t => {
     .get('/1.0/exams')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 10))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -58,7 +49,7 @@ test.cb('/?limit=2', t => {
     .get('/1.0/exams?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 2))
+    .expect(testData.slice(0, 2))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -83,7 +74,7 @@ test.cb('/?skip=10', t => {
     .get('/1.0/exams?skip=10')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(10, 20))
+    .expect(testData.slice(10, 20))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -109,7 +100,7 @@ test.cb('/?skip=2&limit=2', t => {
     .get('/1.0/exams?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(2, 4))
+    .expect(testData.slice(2, 4))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -124,7 +115,7 @@ test.cb(`/${testData[0].id}`, t => {
     .get(`/1.0/exams/${testData[0].id}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData[0])
+    .expect(testData[0])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -137,7 +128,7 @@ test.cb(`/${testData[0].id}`, t => {
     .get(`/1.0/exams/${testData[0].id}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData[0])
+    .expect(testData[0])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -176,7 +167,7 @@ test.cb('/filter?q=campus:"utm"', t => {
     .get('/1.0/exams/filter?q=campus:%22utm%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.campus.match('UTM')).slice(0, 10))
+    .expect(testData.filter(doc => doc.campus.match('UTM')).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -189,7 +180,7 @@ test.cb('/filter?q=campus:-"utm"', t => {
     .get('/1.0/exams/filter?q=campus:-%22utm%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => !doc.campus.match('UTM')).slice(0, 10))
+    .expect(testData.filter(doc => !doc.campus.match('UTM')).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -202,7 +193,7 @@ test.cb('/filter?q=campus:"utm" OR campus:"utsc" OR campus:"utsg"', t => {
     .get('/1.0/exams/filter?q=campus:%22utm%22%20OR%20campus:%22utsc%22%20OR%20campus:%22utsg%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 10))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -215,7 +206,7 @@ test.cb('/filter?q=period:"APR16"', t => {
     .get('/1.0/exams/filter?q=period:%22APR16%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.period.match('APR16')).slice(0, 10))
+    .expect(testData.filter(doc => doc.period.match('APR16')).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -228,7 +219,7 @@ test.cb('/filter?q=code:"ECO100"', t => {
     .get('/1.0/exams/filter?q=code:%22ECO100%22')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.course_code.includes('ECO100')))
+    .expect(testData.filter(doc => doc.course_code.includes('ECO100')))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -241,7 +232,7 @@ test.cb('/filter?q=duration:<10800', t => {
     .get('/1.0/exams/filter?q=duration:%3C10800')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.duration < 10800).slice(0, 10))
+    .expect(testData.filter(doc => doc.duration < 10800).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -254,7 +245,7 @@ test.cb('/filter?q=duration:<=10800', t => {
     .get('/1.0/exams/filter?q=duration:%3C=10800')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 10))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -267,7 +258,7 @@ test.cb('/filter?q=duration:<"3:00"', t => {
     .get('/1.0/exams/filter?q=duration:<"3:00"')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.duration < 10800).slice(0, 10))
+    .expect(testData.filter(doc => doc.duration < 10800).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -280,7 +271,7 @@ test.cb('/filter?q=duration:<="3:00"', t => {
     .get('/1.0/exams/filter?q=duration:<="3:00"')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 10))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -290,10 +281,10 @@ test.cb('/filter?q=duration:<="3:00"', t => {
 
 test.cb('/filter?q=duration:-7200', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=duration:-7200')
+    .get('/1.0/exams/filter?q=duration:<7200 OR duration:>7200')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.duration !== 7200).slice(0, 10))
+    .expect(testData.filter(doc => doc.duration !== 7200).slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -319,7 +310,7 @@ test.cb('/filter?q=start:79200 OR end:79200', t => {
     .get('/1.0/exams/filter?q=start:79200%20OR%20end:79200')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.start_time === 79200 || doc.end_time === 79200))
+    .expect(testData.filter(doc => doc.start_time === 79200 || doc.end_time === 79200))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -332,7 +323,7 @@ test.cb('/filter?q=start:"22:00" OR end:"22:00"', t => {
     .get('/1.0/exams/filter?q=start:79200%20OR%20end:79200')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.start_time === 79200 || doc.end_time === 79200))
+    .expect(testData.filter(doc => doc.start_time === 79200 || doc.end_time === 79200))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -357,7 +348,7 @@ test.cb('/filter?q=date:"2016-04-25"', t => {
     .get('/1.0/exams/filter?q=date:"2016-04-25"')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.filter(doc => doc.date === '2016-04-25'))
+    .expect(testData.filter(doc => doc.date === '2016-04-25'))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -405,7 +396,8 @@ test.cb('/filter?q=start:>86401', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=start:>86401')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(200)
+    .expect([])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

@@ -3,7 +3,6 @@ var Schema = mongoose.Schema
 
 var athleticsSchema = new Schema({
   date: String,
-  date_num: Number,
   events: [{
     title: String,
     campus: String,
