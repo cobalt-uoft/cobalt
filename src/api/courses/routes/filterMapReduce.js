@@ -20,10 +20,20 @@ o.map = function () {
 
         if (['code', 'size', 'enrolment', 'instructor'].indexOf(p.key) > -1) {
           value = x[keyMap[p.key].relativeValue]
+          if (!value) {
+            // Continue if value is not applicable
+            result[i][j] = true
+            continue
+          }
         } else if (['day', 'start', 'end', 'duration', 'location'].indexOf(p.key) > -1) {
           value = []
           for(let l = 0; l < x.times.length; l++) {
             value.push(x.times[l][keyMap[p.key].relativeValue])
+            if (!value[l]) {
+              // Continue if a value is not applicable
+              result[i][j] = true
+              continue
+            }
           }
         }
 

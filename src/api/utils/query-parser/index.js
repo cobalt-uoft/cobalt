@@ -21,7 +21,7 @@ class QueryParser {
 
         // Verify that the key is valid
         if (!keyMap.hasOwnProperty(q[i][j].key)) {
-          let err = new Error(`Filter key '${q[i][j].key}' is not supported.`)
+          let err = new Error(`Filter key \`${q[i][j].key}\` is not supported.`)
           err.status = 400
           response.error = err
           return response
@@ -37,7 +37,7 @@ class QueryParser {
             query = QueryParser.numberQuery(q[i][j].filter)
             break
           case 'date':
-            q[i][j].filter.value = QueryParser.dateToNumber(q[i][j].filter.value)
+            QueryParser.verifyDate(q[i][j].filter.value)
             query = QueryParser.numberQuery(q[i][j].filter)
             break
           case 'time':
@@ -157,7 +157,12 @@ class QueryParser {
     } else if (filter.operator === '<=') {
       return { $lte: filter.value }
     } else if (filter.operator === '-') {
-      return -filter.value
+      let newValue = -filter.value
+      if (isNaN(newValue)) {
+        return { $ne: filter.value }
+      } else {
+        return newValue
+      }
     } else {
       // Assume equality if no operator
       return filter.value
@@ -165,23 +170,32 @@ class QueryParser {
   }
 
   /*
-    Convert a Cobalt date format to a number.
+    Verify that the date is in a correct format.
   */
-  static dateToNumber (value) {
-    let date = undefined
+  static verifyDate (value) {
+    let err = new Error ('Invalid date parameter.')
+    err.status = 400
+
     let dateValue = String(value).split('-')
 
-    if (dateValue.length === 3) {
-      date = parseInt(dateValue.join(''))
+    if (dateValue.length != 3) {
+      throw err
     }
 
-    value = date
+    let date = parseInt(dateValue.join(''))
+
+    if (isNaN(date)) {
+      throw err
+    }
   }
 
   /*
     Convert a Cobalt time format to a number.
   */
   static timeToNumber (value) {
+    let err = new Error ('Invalid time parameter.')
+    err.status = 400
+
     if (typeof value !== 'number' && value.indexOf(':') > -1) {
       // TODO: add period support (AM/PM)
       // Time formatted as 'HH:MM:SS' or 'HH:MM'
@@ -190,17 +204,19 @@ class QueryParser {
 
       for (let i = 0; i < Math.min(timeValue.length, 3); i++) {
         if (isNaN(parseInt(timeValue[i]))) {
-          value = 0
-          break
+          throw err
         }
 
         time += parseInt(timeValue[i]) * Math.pow(60, 2 - i)
       }
 
       value = time
+    } else if (typeof value !== 'number') {
+      throw err
     }
     return value
   }
+
 }
 
 function escapeRe (str) {
