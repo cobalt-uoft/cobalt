@@ -18,14 +18,19 @@ o.map = function() {
         let p = q[i][j]
 
         let value = x[keyMap[p.key].relativeValue]
-        if (!value) {
+        if (value === undefined) {
           // Continue if value is not applicable
           result[i][j] = true
           continue
         }
 
-        if (p.filter.operator === '-') {
-          result[i][j] = !value.match(p.filter.value)
+        if (p.filter.operator === '!') {
+          if (isNaN(parseFloat(value)) || !isFinite(value)) {
+            // Is not a number
+            result[i][j] = !value.toLowerCase().match(p.filter.value.toLowerCase())
+          } else {
+            result[i][j] = value !== p.filter.value
+          }
         } else if (p.filter.operator === '>') {
           result[i][j] = value > p.filter.value
         } else if (p.filter.operator === '<') {

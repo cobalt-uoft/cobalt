@@ -86,10 +86,10 @@ class QueryParser {
       filter: token.slice(token.indexOf(':') + 1).trim()
     }
 
-    if (response.filter.indexOf('-') === 0) {
+    if (response.filter.indexOf('!') === 0) {
       // Negation
       response.filter = {
-        operator: '-',
+        operator: '!',
         value: response.filter.substring(1)
       }
     } else if (response.filter.indexOf('>=') === 0) {
@@ -134,7 +134,7 @@ class QueryParser {
     Form the MongoDB-compatible query for strings.
   */
   static stringQuery (filter) {
-    if (filter.operator === '-') {
+    if (filter.operator === '!') {
       return {
         $regex: '^((?!' + escapeRe(filter.value) + ').)*$',
         $options: 'i'
@@ -155,13 +155,8 @@ class QueryParser {
       return { $gte: filter.value }
     } else if (filter.operator === '<=') {
       return { $lte: filter.value }
-    } else if (filter.operator === '-') {
-      let newValue = -filter.value
-      if (isNaN(newValue)) {
-        return { $ne: filter.value }
-      } else {
-        return newValue
-      }
+    } else if (filter.operator === '!') {
+      return { $ne: filter.value }
     } else {
       // Assume equality if no operator
       return filter.value

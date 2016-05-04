@@ -20,33 +20,26 @@ o.map = function () {
 
         if (['code', 'size', 'enrolment', 'instructor'].indexOf(p.key) > -1) {
           value = x[keyMap[p.key].relativeValue]
-          if (!value) {
-            // Continue if value is not applicable
-            result[i][j] = true
-            continue
-          }
         } else if (['day', 'start', 'end', 'duration', 'location'].indexOf(p.key) > -1) {
           value = []
           for(let l = 0; l < x.times.length; l++) {
             value.push(x.times[l][keyMap[p.key].relativeValue])
-            if (!value[l]) {
-              // Continue if a value is not applicable
-              result[i][j] = true
-              continue
-            }
           }
+        } else {
+          result[i][j] = true
+          continue
         }
 
         if (value.constructor === Array) {
           let bools = []
 
-          if (p.filter.operator === '-') {
+          if (p.filter.operator === '!') {
             for (let l = 0; l < value.length; l++) {
               if (isNaN(parseFloat(value[l])) || !isFinite(value[l])) {
                 // Is not a number
                 bools.push(!value[l].toLowerCase().match(p.filter.value.toLowerCase()))
               } else {
-                bools.push(value[l] === -p.filter.value)
+                bools.push(value[l] !== p.filter.value)
               }
             }
           } else if (p.filter.operator === '>') {
@@ -78,12 +71,12 @@ o.map = function () {
 
           result[i][j] = bools.some(Boolean)
         } else {
-          if (p.filter.operator === '-') {
+          if (p.filter.operator === '!') {
             if (isNaN(parseFloat(value)) || !isFinite(value)) {
               // Is not a number
               result[i][j] = !value.toLowerCase().match(p.filter.value.toLowerCase())
             } else {
-              result[i][j] = value === -p.filter.value
+              result[i][j] = value !== p.filter.value
             }
           } else if (p.filter.operator === '>') {
             result[i][j] = value > p.filter.value

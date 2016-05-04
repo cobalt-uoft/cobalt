@@ -256,9 +256,9 @@ test.cb('/filter?q=course_code:%22NEW%22%20AND%20price:%3C16.50', t => {
     })
 })
 
-test.cb('/filter?q=course_requirement:-%22required%22%20AND%20course_requirement:-%22referenced%22', t => {
+test.cb('/filter?q=course_requirement:!%22required%22%20AND%20course_requirement:!%22referenced%22', t => {
   request(cobalt.Server)
-    .get('/1.0/textbooks/filter?q=course_requirement:-%22required%22%20AND%20course_requirement:-%22referenced%22')
+    .get('/1.0/textbooks/filter?q=course_requirement:!%22required%22%20AND%20course_requirement:!%22referenced%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => {

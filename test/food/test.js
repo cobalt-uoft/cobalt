@@ -228,9 +228,9 @@ test.cb('/filter?q=tag:%22innis%22', t => {
     })
 })
 
-test.cb('/filter?q=campus:-%22UTSG%22', t => {
+test.cb('/filter?q=campus:!%22UTSG%22', t => {
   request(cobalt.Server)
-    .get('/1.0/food/filter?q=campus:-%22UTSG%22')
+    .get('/1.0/food/filter?q=campus:!%22UTSG%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => {

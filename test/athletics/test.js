@@ -212,9 +212,9 @@ test.cb('/filter?q=date:<"2016"', t => {
     })
 })
 
-test.cb('/filter?q=date:-"2016-05-01"', t => {
+test.cb('/filter?q=date:!"2016-05-01"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=date:-%222016-05-01%22')
+    .get('/1.0/athletics/filter?q=date:!%222016-05-01%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.slice(0, 10))
@@ -323,9 +323,9 @@ test.cb('/filter?q=campus:"utm" AND date:"2016-04-03"', t => {
     })
 })
 
-test.cb('/filter?q=campus:-"utm" AND date:"2016-04-03"', t => {
+test.cb('/filter?q=campus:!"utm" AND date:"2016-04-03"', t => {
   request(cobalt.Server)
-    .get('/1.0/athletics/filter?q=campus:-%22UTM%22%20AND%20date:%222016-04-03%22')
+    .get('/1.0/athletics/filter?q=campus:!%22UTM%22%20AND%20date:%222016-04-03%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .end((err, res) => {

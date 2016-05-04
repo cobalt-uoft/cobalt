@@ -175,9 +175,9 @@ test.cb('/filter?q=campus:"utm"', t => {
     })
 })
 
-test.cb('/filter?q=campus:-"utm"', t => {
+test.cb('/filter?q=campus:!"utm"', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=campus:-%22utm%22')
+    .get('/1.0/exams/filter?q=campus:!%22utm%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => !doc.campus.match('UTM')).slice(0, 10))
@@ -279,9 +279,9 @@ test.cb('/filter?q=duration:<="3:00"', t => {
     })
 })
 
-test.cb('/filter?q=duration:-7200', t => {
+test.cb('/filter?q=duration:!7200', t => {
   request(cobalt.Server)
-    .get('/1.0/exams/filter?q=duration:<7200 OR duration:>7200')
+    .get('/1.0/exams/filter?q=duration:!7200')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => doc.duration !== 7200).slice(0, 10))

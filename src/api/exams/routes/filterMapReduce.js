@@ -24,12 +24,12 @@ o.map = function() {
           continue
         }
 
-        if (p.filter.operator === '-') {
+        if (p.filter.operator === '!') {
           if (isNaN(parseFloat(value)) || !isFinite(value)) {
             // Is not a number
-            result[i][j] = value.toLowerCase().match(p.filter.value.toLowerCase())
+            result[i][j] = !value.toLowerCase().match(p.filter.value.toLowerCase())
           } else {
-            result[i][j] = value === p.filter.value
+            result[i][j] = value !== p.filter.value
           }
         } else if (p.filter.operator === '>') {
           result[i][j] = value > p.filter.value
