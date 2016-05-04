@@ -10,6 +10,7 @@ import exams from './api/exams'
 import food from './api/food'
 import textbooks from './api/textbooks'
 import transportation from './api/transportation'
+import cdf from './api/cdf'
 
 let test = process.argv.join().match('/ava/')
 let enableSync = process.env.COBALT_ENABLE_DB_SYNC || 'true'
@@ -39,6 +40,7 @@ app.use(`/${apiVersion}/exams`, exams)
 app.use(`/${apiVersion}/food`, food)
 app.use(`/${apiVersion}/textbooks`, textbooks)
 app.use(`/${apiVersion}/transportation`, transportation)
+app.use(`/${apiVersion}/cdf`, cdf)
 
 // Error handlers
 app.use((req, res, next) => {
