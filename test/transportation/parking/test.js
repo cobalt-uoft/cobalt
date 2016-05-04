@@ -285,9 +285,9 @@ test.cb('/filter?q=lat:>=40', t => {
     })
 })
 
-test.cb('/filter?q=type:-"bicycle"', t => {
+test.cb('/filter?q=type:!"bicycle"', t => {
   request(cobalt.Server)
-    .get('/1.0/transportation/parking/filter?q=type:-"bicycle"')
+    .get('/1.0/transportation/parking/filter?q=type:!"bicycle"')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(testData.filter(doc => { return doc.type.match('car') }))

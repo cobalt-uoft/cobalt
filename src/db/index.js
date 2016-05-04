@@ -38,28 +38,6 @@ db.update = (collection) => {
         shell.on('close', code => {
           if (code == 0) {
             winston.info(`Synced ${collection}.`)
-
-            let runDate = false
-            let js = ''
-
-            if (['athletics', 'exams', 'shuttles'].indexOf(collection) > -1) {
-              runDate = true
-              js = `db.${collection}.find().forEach(doc => {
-                doc.date_num = parseInt(doc.date.replace(/\-/g, ''))
-                db.${collection}.save(doc)
-              })`
-            }
-
-            if (runDate) {
-              let cmd = `mongo cobalt --eval "${js}"`
-              childProcess.exec(cmd, error => {
-                if (!error) {
-                  winston.info(`Updated dates for ${collection}.`)
-                } else {
-                  winston.warn(`Could not update date values for ${collection}.`)
-                }
-              })
-            }
           } else {
             winston.warn(`Could not import ${collection} to MongoDB. \
               The 'mongoexport' command left us with exit code ${code}.`)

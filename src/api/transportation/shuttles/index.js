@@ -5,26 +5,25 @@ import list from './routes/list'
 import show from './routes/show'
 // import filter from './routes/filter'
 
-import validation from '../../validation'
+import Validator from '../../utils/validator'
 
 router.get('/',
-  validation.limit,
-  validation.skip,
-  validation.sort,
+  Validator.limit,
+  Validator.skip,
+  Validator.sort,
   list)
 
 /*
 router.get('/filter',
-  validation.query,
-  validation.filterQuery,
-  validation.limit,
-  validation.skip,
-  validation.sort,
+  Validator.query,
+  Validator.limit,
+  Validator.skip,
+  Validator.sort,
   filter)
 */
 
 router.get('/:date',
-  validation.date,
+  Validator.date,
   show)
 
 export default router

@@ -253,9 +253,9 @@ test.cb('/filter?q=level:100%20OR%20name:%22econ%22', t => {
     })
 })
 
-test.cb('/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22', t => {
+test.cb('/filter?q=level:>=400%20AND%20department:!%22bio%22%20AND%20campus:%22UTSG%22', t => {
   request(cobalt.Server)
-    .get('/1.0/courses/filter?q=level:>=400%20AND%20department:-%22bio%22%20AND%20campus:%22UTSG%22')
+    .get('/1.0/courses/filter?q=level:>=400%20AND%20department:!%22bio%22%20AND%20campus:%22UTSG%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(JSON.stringify(testData.filter(doc => {
@@ -325,9 +325,9 @@ test.cb('/filter?q=size:>5000', t => {
     })
 })
 
-test.cb('/filter?q=instructor:-"D Liu"', t => {
+test.cb('/filter?q=instructor:!"D Liu"', t => {
   request(cobalt.Server)
-    .get('/1.0/courses/filter?q=instructor:-"D Liu"')
+    .get('/1.0/courses/filter?q=instructor:!"D Liu"')
     .expect('Content-Type', /json/)
     .expect(200)
     .end((err, res) => {

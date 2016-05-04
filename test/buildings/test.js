@@ -272,12 +272,24 @@ test.cb('/filter?q=lat:43.65963205070242%20AND%20lng:-79.3946933827686', t => {
     })
 })
 
-test.cb('/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22', t => {
+test.cb('/filter?q=campus:%22UTSG%22%20AND%20campus:!%22UTSG%22', t => {
   request(cobalt.Server)
-    .get('/1.0/buildings/filter?q=campus:%22UTSG%22%20AND%20campus:-%22UTSG%22')
+    .get('/1.0/buildings/filter?q=campus:%22UTSG%22%20AND%20campus:!%22UTSG%22')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect('[]')
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=ab:"cd"', t => {
+  request(cobalt.Server)
+    .get('/1.0/buildings/filter?q=ab:"cd"')
+    .expect('Content-Type', /json/)
+    .expect(400)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

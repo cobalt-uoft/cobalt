@@ -94,10 +94,10 @@ function formatPart(key, part) {
 
   // Checking if the start of the segment is an operator (-, >, <, .>, .<)
 
-  if (part.indexOf('-') === 0) {
+  if (part.indexOf('!') === 0) {
     // Negation
     part = {
-      operator: '-',
+      operator: '!',
       value: part.substring(1)
     }
   } else if (part.indexOf('>=') === 0) {
@@ -139,8 +139,9 @@ function formatPart(key, part) {
 
   if (['lat', 'lng'].indexOf(key) > -1) {
     // Numbers and arrays of Numbers
-
-    if (part.operator === '>') {
+    if (part.operator === '!') {
+      response.query[ABSOLUTE_KEYMAP[key]] = { $ne: part.value }
+    } else if (part.operator === '>') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $gt: part.value }
     } else if (part.operator === '<') {
       response.query[ABSOLUTE_KEYMAP[key]] = { $lt: part.value }
@@ -178,7 +179,7 @@ function formatPart(key, part) {
   } else {
     // Strings
 
-    if (part.operator === '-') {
+    if (part.operator === '!') {
       response.query[ABSOLUTE_KEYMAP[key]] = {
         $regex: '^((?!' + escapeRe(part.value) + ').)*$',
         $options: 'i'

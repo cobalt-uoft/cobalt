@@ -3,7 +3,6 @@ var Schema = mongoose.Schema
 
 var shuttlesSchema = new Schema({
   date: String,
-  date_num: Number,
   routes: [{
     id: String,
     name: String,

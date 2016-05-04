@@ -5,8 +5,6 @@ import request from 'supertest'
 import cobalt from '../../../src/index'
 import Shuttle from '../../../src/api/transportation/shuttles/model'
 
-let expectedTestData = []
-
 test.cb.before('setup', t => {
   // Drop all documents
   Shuttle.remove({}, err => {
@@ -14,13 +12,6 @@ test.cb.before('setup', t => {
     // Insert test data
     Shuttle.create(testData, err => {
       if (err) t.fail(err.message)
-      // Populate expectedTestData (remove `date_num`)
-      for (let i = 0; i < testData.length; i++) {
-        let doc = testData[i]
-        delete doc.date_num
-        Object.freeze(doc)
-        expectedTestData.push(doc)
-      }
       t.end()
     })
   })
@@ -33,7 +24,7 @@ test.cb('/', t => {
     .get('/1.0/transportation/shuttles')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 10))
+    .expect(testData.slice(0, 10))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -58,7 +49,7 @@ test.cb('/?limit=2', t => {
     .get('/1.0/transportation/shuttles?limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(0, 2))
+    .expect(testData.slice(0, 2))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -109,7 +100,7 @@ test.cb('/?skip=2&limit=2', t => {
     .get('/1.0/transportation/shuttles?skip=2&limit=2')
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData.slice(2, 4))
+    .expect(testData.slice(2, 4))
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -124,7 +115,7 @@ test.cb(`/${testData[0].date}`, t => {
     .get(`/1.0/transportation/shuttles/${testData[0].date}`)
     .expect('Content-Type', /json/)
     .expect(200)
-    .expect(expectedTestData[0])
+    .expect(testData[0])
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -135,6 +126,18 @@ test.cb(`/${testData[0].date}`, t => {
 test.cb('/0002', t => {
   request(cobalt.Server)
     .get('/1.0/transportation/shuttles/0002')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/1234-56-78', t => {
+  request(cobalt.Server)
+    .get('/1.0/transportation/shuttles/1234-56-78')
     .expect('Content-Type', /json/)
     .expect(400)
     .end((err, res) => {

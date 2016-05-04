@@ -1,59 +1,70 @@
 let o = {}
 
 o.map = function() {
-  let matchedEvents = []
+  let matched = []
 
   for (let h = 0; h < this.events.length; h++) {
     delete this.events[h]._id
 
-    let s = this.events[h]
+    let x = this.events[h]
 
-    let currentData = []
+    let result = []
 
-    for (let i = 0; i < data.length; i++) {
-      currentData[i] = []
+    for (let i = 0; i < q.length; i++) {
+      result[i] = []
 
-      for (let j = 0; j < data[i].length; j++) {
-        currentData[i][j] = false
-        let p = data[i][j]
-        let value = s[p.key]
+      for (let j = 0; j < q[i].length; j++) {
+        result[i][j] = false
+        let p = q[i][j]
 
-        if (p.operator === '-') {
-          currentData[i][j] = !value.match(p.value)
-        } else if (p.operator === '>') {
-          currentData[i][j] = value > p.value
-        } else if (p.operator === '<') {
-          currentData[i][j] = value < p.value
-        } else if (p.operator === '>=') {
-          currentData[i][j] = value >= p.value
-        } else if (p.operator === '<=') {
-          currentData[i][j] = value <= p.value
-        } else {
-          if (p.value.constructor === Date || !isNaN(value)) {
-            currentData[i][j] = value === p.value
+        let value = x[keyMap[p.key].relativeValue]
+        if (value === undefined) {
+          // Continue if value is not applicable
+          result[i][j] = true
+          continue
+        }
+
+        if (p.filter.operator === '!') {
+          if (isNaN(parseFloat(value)) || !isFinite(value)) {
+            // Is not a number
+            result[i][j] = !value.toLowerCase().match(p.filter.value.toLowerCase())
           } else {
-            currentData[i][j] = value.toLowerCase().includes(p.value.toLowerCase())
+            result[i][j] = value !== p.filter.value
+          }
+        } else if (p.filter.operator === '>') {
+          result[i][j] = value > p.filter.value
+        } else if (p.filter.operator === '<') {
+          result[i][j] = value < p.filter.value
+        } else if (p.filter.operator === '>=') {
+          result[i][j] = value >= p.filter.value
+        } else if (p.filter.operator === '<=') {
+          result[i][j] = value <= p.filter.value
+        } else {
+          if (isNaN(parseFloat(value)) || !isFinite(value)) {
+            // Is not a number
+            result[i][j] = value.toLowerCase().match(p.filter.value.toLowerCase())
+          } else {
+            result[i][j] = value === p.filter.value
           }
         }
       }
     }
 
-    for (let i = 0; i < currentData.length; i++) {
-      currentData[i] = currentData[i].some(Boolean)
+    for (let i = 0; i < result.length; i++) {
+      result[i] = result[i].some(Boolean)
     }
 
-    currentData = currentData.every(Boolean)
+    result = result.every(Boolean)
 
-    if (currentData) {
-      matchedEvents.push(s)
+    if (result) {
+      matched.push(x)
     }
   }
 
-  if (matchedEvents.length > 0) {
-    this.matched_events = matchedEvents
+  if (matched.length > 0) {
+    this.matched_events = matched
     delete this._id
     delete this.__v
-    delete this.date_num
     emit(this.date, this)
   }
 }
