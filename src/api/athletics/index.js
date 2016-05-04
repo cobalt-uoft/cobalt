@@ -20,8 +20,8 @@ router.get('/filter',
   Validator.sort,
   filter)
 
-router.get('/:id',
-  Validator.id,
+router.get('/:date',
+  Validator.date,
   show)
 
 export default router

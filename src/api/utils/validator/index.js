@@ -64,6 +64,11 @@ class Validator {
   }
 
   static date (req, res, next) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(req.params.date)) {
+      let err = new Error('Date must be of format YYYY-MM-DD.')
+      err.status = 400
+      return next(err)
+    }
     next()
   }
 

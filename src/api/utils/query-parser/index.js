@@ -36,7 +36,11 @@ class QueryParser {
             query = QueryParser.numberQuery(q[i][j].filter)
             break
           case 'date':
-            QueryParser.verifyDate(q[i][j].filter.value)
+            if (!QueryParser.isValidDate(q[i][j].filter.value)) {
+              let err = new Error('Invalid date format.')
+              err.status = 400
+              throw err
+            }
             query = QueryParser.numberQuery(q[i][j].filter)
             break
           case 'time':
@@ -158,7 +162,6 @@ class QueryParser {
     } else if (filter.operator === '!') {
       return { $ne: filter.value }
     } else {
-      // Assume equality if no operator
       return filter.value
     }
   }
@@ -166,21 +169,8 @@ class QueryParser {
   /*
     Verify that the date is in a correct format.
   */
-  static verifyDate (value) {
-    let err = new Error ('Invalid date parameter.')
-    err.status = 400
-
-    let dateValue = String(value).split('-')
-
-    if (dateValue.length != 3) {
-      throw err
-    }
-
-    let date = parseInt(dateValue.join(''))
-
-    if (isNaN(date)) {
-      throw err
-    }
+  static isValidDate (value) {
+    return /^\d{4}-\d{2}-\d{2}$/.test(value)
   }
 
   /*

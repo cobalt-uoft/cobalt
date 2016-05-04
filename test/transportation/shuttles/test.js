@@ -135,6 +135,18 @@ test.cb('/0002', t => {
     })
 })
 
+test.cb('/1234-56-78', t => {
+  request(cobalt.Server)
+    .get('/1.0/transportation/shuttles/1234-56-78')
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb.after('cleanup', t => {
   Shuttle.remove({}, err => {
     if (err) t.fail(err.message)
