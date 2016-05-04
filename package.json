@@ -1,7 +1,7 @@
 {
   "name": "cobalt-uoft",
   "version": "0.5.0",
-  "description": "A collection of open data APIs that allow anyone to interface with public information from the University of Toronto.",
+  "description": "Open data APIs for interfacing with public information from the University of Toronto.",
   "main": "lib/index.js",
   "engines": {
     "node": "^5.6"
