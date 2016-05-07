@@ -25,7 +25,7 @@
 
 ## Data
 
-Current and historical datasets that power Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets/releases).
+Current and historical datasets that power Cobalt's APIs are publicly available at [cobalt-uoft/datasets](https://github.com/cobalt-uoft/datasets).
 
 ## Contributing
 
