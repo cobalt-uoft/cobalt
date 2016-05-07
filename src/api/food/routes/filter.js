@@ -21,7 +21,7 @@ export default function filter(req, res, next) {
   co(function* () {
     try {
       let docs = yield Food
-        .find(query.filter, '-__v -_id')
+        .find(query.filter, '-__v -_id -hours._id')
         .limit(req.query.limit)
         .skip(req.query.skip)
         .sort(req.query.sort)
