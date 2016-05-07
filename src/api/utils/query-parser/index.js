@@ -47,10 +47,27 @@ class QueryParser {
             q[i][j].filter.value = QueryParser.timeToNumber(q[i][j].filter.value)
             query = QueryParser.numberQuery(q[i][j].filter)
             break
+          case 'day':
+            let day = QueryParser.parseDay(q[i][j].filter)
+            query = QueryParser.dayQuery(q[i][j].filter)
+
+            if (query.constructor !== Array) {
+              keyMap[q[i][j].key].value = `hours.${day}.closed`
+            } else {
+              keyMap[q[i][j].key].value = [`hours.${day}.open`, `hours.${day}.close`]
+            }
+            break
         }
 
+        let values = keyMap[q[i][j].key].value instanceof Array ? keyMap[q[i][j].key].value : [keyMap[q[i][j].key].value]
+        let queries = query instanceof Array ? query : [query]
+
         filter.$and[i].$or[j] = {}
-        filter.$and[i].$or[j][keyMap[q[i][j].key].value] = query
+
+        queries.forEach((query, k) => {
+          filter.$and[i].$or[j][values[k]] = query
+        })
+
         if (keyMap[q[i][j].key].relativeValue) {
           response.mapReduce = true
         }
@@ -132,6 +149,35 @@ class QueryParser {
     }
 
     return response
+  }
+
+  static parseDay (filter) {
+    let matches = filter.value.match(/\(([^)]+)\)/)
+    return matches ? filter.value.slice(0, matches['index']) : filter.value
+  }
+
+  static dayQuery (filter) {
+    let matches = filter.value.match(/\(([^)]+)\)/)
+    if (!matches) {
+      return { $ne: filter.operator !== '!' }
+    }
+
+    let bound = matches[1]
+
+    // TODO handle >, >=, <, <=
+    if (bound.split('|').length === 1) {
+      bound = QueryParser.timeToNumber(bound.indexOf(':') > -1 ? bound : parseFloat(bound))
+      return [
+        {'$lte': bound},
+        {'$gte': bound}
+      ]
+    } else {
+      bound = bound.split('|').map(b => QueryParser.timeToNumber(b.indexOf(':') > -1 ? b : parseFloat(b)))
+      return [
+        {'$lte': bound[0]},
+        {'$gte': bound[1]}
+      ]
+    }
   }
 
   /*
