@@ -22,6 +22,11 @@
 * [Textbook API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/textbooks/README.md)
 * [Food API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/food/README.md)
 * [Athletics API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/athletics/README.md)
+* [Exams API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/exams/README.md)
+* [Parking API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/transportation/parking/README.md)
+* [Shuttles API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/transportation/shuttles/README.md)
+* [Labs API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/cdf/labs/README.md)
+* [Printers API](https://github.com/cobalt-uoft/documentation/blob/master/endpoints/cdf/printers/README.md)
 
 ## Data
 

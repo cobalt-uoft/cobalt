@@ -203,7 +203,6 @@ class QueryParser {
       if (range.match(/[<>]=?/)) {
         range = range[1] === '=' ? range.slice(2) : range.slice(1)
       }
-
       range = QueryParser.timeToNumber(range.indexOf(':') > -1 ? range : parseFloat(range))
       range = [range, range]
     } else if (!range.match(/[<>]=?/)) {
@@ -218,33 +217,6 @@ class QueryParser {
       { '$lte': range[0] || 0 },
       { '$gte': range[1] || 0 }
     ]
-  }
-
-  /*
-    Parse a Cobalt day format for the weekday and verify this weekday is valid.
-   */
-  static parseDay (filter) {
-    let err = new Error('Invalid day parameter.')
-    err.status = 400
-
-    let matches = filter.value.toLowerCase().match(/\(([^)]+)\)/)
-    let day = matches ? filter.value.slice(0, matches['index']) : filter.value
-
-    let weekdays = [
-      'sunday',
-      'monday',
-      'tuesday',
-      'wednesday',
-      'thursday',
-      'friday',
-      'saturday'
-    ]
-
-    if (weekdays.indexOf(day) === -1) {
-      throw err
-    }
-
-    return day
   }
 
   /*
@@ -282,6 +254,32 @@ class QueryParser {
     return value
   }
 
+  /*
+    Parse the weekday from a Cobalt day format and verify this weekday is valid.
+   */
+  static parseDay (filter) {
+    let err = new Error('Invalid day parameter.')
+    err.status = 400
+
+    let matches = filter.value.toLowerCase().match(/\(([^)]+)\)/)
+    let day = matches ? filter.value.slice(0, matches['index']) : filter.value
+
+    let weekdays = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday'
+    ]
+
+    if (weekdays.indexOf(day) === -1) {
+      throw err
+    }
+
+    return day
+  }
 }
 
 function escapeRe (str) {
