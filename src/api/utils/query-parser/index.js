@@ -47,10 +47,28 @@ class QueryParser {
             q[i][j].filter.value = QueryParser.timeToNumber(q[i][j].filter.value)
             query = QueryParser.numberQuery(q[i][j].filter)
             break
+          case 'day':
+            let day = QueryParser.parseDay(q[i][j].filter)
+            query = QueryParser.dayQuery(q[i][j].filter)
+
+            if (query && query.constructor !== Array) {
+              keyMap[q[i][j].key].value = `hours.${day}.closed`
+            } else {
+              keyMap[q[i][j].key].value = [`hours.${day}.open`, `hours.${day}.close`]
+            }
+
+            break
         }
 
+        let values = keyMap[q[i][j].key].value instanceof Array ? keyMap[q[i][j].key].value : [keyMap[q[i][j].key].value]
+        let queries = query instanceof Array ? query : [query]
+
         filter.$and[i].$or[j] = {}
-        filter.$and[i].$or[j][keyMap[q[i][j].key].value] = query
+
+        queries.forEach((query, k) => {
+          filter.$and[i].$or[j][values[k]] = query
+        })
+
         if (keyMap[q[i][j].key].relativeValue) {
           response.mapReduce = true
         }
@@ -167,6 +185,41 @@ class QueryParser {
   }
 
   /*
+    Form the MongoDB-compatible queries for days and time ranges.
+   */
+  static dayQuery (filter) {
+    let err = new Error('Invalid time range.')
+    err.status = 400
+
+    let matches = filter.value.match(/\(([^)]+)\)/)
+    if (!matches) {
+      return { $ne: filter.operator !== '!' }
+    }
+
+    let range = matches[1]
+
+    // TODO: combine these two using a single regexp
+    if (!range.match(/\|/)) {
+      if (range.match(/[<>]=?/)) {
+        range = range[1] === '=' ? range.slice(2) : range.slice(1)
+      }
+      range = QueryParser.timeToNumber(range.indexOf(':') > -1 ? range : parseFloat(range))
+      range = [range, range]
+    } else if (!range.match(/[<>]=?/)) {
+      range = range.split('|').map(r => {
+        return QueryParser.timeToNumber(r.indexOf(':') > -1 ? r : parseFloat(r))
+      })
+    } else {
+      throw err
+    }
+
+    return [
+      { '$lte': range[0] || 0 },
+      { '$gte': range[1] || 0 }
+    ]
+  }
+
+  /*
     Verify that the date is in a correct format.
   */
   static isValidDate (value) {
@@ -201,6 +254,32 @@ class QueryParser {
     return value
   }
 
+  /*
+    Parse the weekday from a Cobalt day format and verify this weekday is valid.
+   */
+  static parseDay (filter) {
+    let err = new Error('Invalid day parameter.')
+    err.status = 400
+
+    let matches = filter.value.toLowerCase().match(/\(([^)]+)\)/)
+    let day = matches ? filter.value.slice(0, matches['index']) : filter.value
+
+    let weekdays = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday'
+    ]
+
+    if (weekdays.indexOf(day) === -1) {
+      throw err
+    }
+
+    return day
+  }
 }
 
 function escapeRe (str) {

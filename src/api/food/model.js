@@ -15,27 +15,7 @@ var foodSchema = new Schema({
   lng: Number,
   address: String,
   hours: {
-    sunday: {
-      closed: Boolean,
-      open: Number,
-      close: Number
-    },
-    monday: {
-      closed: Boolean,
-      open: Number,
-      close: Number
-    },
-    tuesday: {
-      closed: Boolean,
-      open: Number,
-      close: Number
-    },
-    wednesday: {
-      closed: Boolean,
-      open: Number,
-      close: Number
-    },
-    thursday: {
+    saturday: {
       closed: Boolean,
       open: Number,
       close: Number
@@ -45,7 +25,27 @@ var foodSchema = new Schema({
       open: Number,
       close: Number
     },
-    saturday: {
+    thursday: {
+      closed: Boolean,
+      open: Number,
+      close: Number
+    },
+    wednesday: {
+      closed: Boolean,
+      open: Number,
+      close: Number
+    },
+    tuesday: {
+      closed: Boolean,
+      open: Number,
+      close: Number
+    },
+    monday: {
+      closed: Boolean,
+      open: Number,
+      close: Number
+    },
+    sunday: {
       closed: Boolean,
       open: Number,
       close: Number
@@ -53,6 +53,11 @@ var foodSchema = new Schema({
   }
 }, { collection: 'food' })
 
-foodSchema.index({ name: 'text', description: 'text', campus: 'text', tags: 'text' })
+foodSchema.index({
+  name: 'text',
+  description: 'text',
+  campus: 'text',
+  tags: 'text'
+})
 
 export default mongoose.model('food', foodSchema)
