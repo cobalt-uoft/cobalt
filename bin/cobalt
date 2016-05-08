@@ -8,6 +8,24 @@ var argv = require('minimist')(process.argv.slice(2))
 var port = argv.p || argv.port || process.env.PORT || 4242
 process.env.COBALT_MONGO_URI =  argv.d || argv.databaseURI || process.env.COBALT_MONGO_URI || 'mongodb://localhost/cobalt'
 
+var help = argv.h || argv.help
+if (help) {
+  console.log('Usage: cobalt [options]')
+  console.log('')
+  console.log('Options:')
+  console.log('')
+  console.log('  -p <num>, --port <num>')
+  console.log('\tThe port number to bind the server to.')
+  console.log('\t(default: 4242)')
+  console.log('')
+  console.log('  -d <uri>, --databaseURI <uri>')
+  console.log('\tThe MongoDB URI to synchronize datasets to.')
+  console.log('\t(default: mongodb://localhost/cobalt)')
+  console.log('')
+  console.log('Documentation can be found at https://cobalt.qas.im/documentation/')
+  process.exit(0)
+}
+
 // Express app
 var app = require('../lib/index').Server
 
