@@ -38,7 +38,7 @@ Cobalt is a student-driven project at the University of Toronto. Help contribute
 
 <br />
 
-- - -
+-
 
 <br />
 
