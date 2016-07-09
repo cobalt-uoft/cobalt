@@ -30,8 +30,10 @@ db.update = (collection) => {
         }
 
         let shell = childProcess.spawn('mongoimport', [
-          '-d', 'cobalt',
+          '-d', mongoose.connection.name,
           '-c', collection,
+          '--host', mongoose.connection.host,
+          '--port', mongoose.connection.port,
           '--file', filePath
         ])
 
