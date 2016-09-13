@@ -2,9 +2,9 @@ import http from 'http'
 
 export default function list(req, res, next) {
   let options  =  {
-    host: req.query.host || 'www.cdf.toronto.edu',
+    host: req.query.host || 'www.teach.cs.toronto.edu',
     port: req.query.port || 80,
-    path: req.query.path || '/~g3cheunh/cdfprinters.json'
+    path: req.query.path || '/~cheun550/cdfprinters.json'
   }
 
   http.get(options, response  => {
