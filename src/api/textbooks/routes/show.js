@@ -11,7 +11,7 @@ export default function show(req, res, next) {
       if (!doc) {
         let err = new Error(
           'A textbook with the specified identifier does not exist.')
-        err.status = 400
+        err.status = 404
         return next(err)
       }
       res.json(doc)

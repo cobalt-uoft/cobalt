@@ -10,7 +10,7 @@ export default function show(req, res, next) {
         .exec()
       if (!doc) {
         let err = new Error('An entry with the specified date does not exist.')
-        err.status = 400
+        err.status = 404
         return next(err)
       }
       res.json(doc)
