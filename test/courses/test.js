@@ -48,7 +48,7 @@ test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/courses?limit=0')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -73,7 +73,19 @@ test.cb('/?limit=200', t => {
   request(cobalt.Server)
     .get('/1.0/courses?limit=200')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/?limit=101', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses?limit=101')
+    .expect('Content-Type', /json/)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -98,7 +110,7 @@ test.cb('/?skip=-5', t => {
   request(cobalt.Server)
     .get('/1.0/courses?skip=-5')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -151,7 +163,7 @@ test.cb('/XYZ789H1F20159', t => {
   request(cobalt.Server)
     .get('/1.0/courses/XYZ789H1F20159')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(404)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -165,7 +177,7 @@ test.cb('/search?q=', t => {
   request(cobalt.Server)
     .get('/1.0/courses/search?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -203,7 +215,7 @@ test.cb('/search?q=kk', t => {
   request(cobalt.Server)
     .get('/1.0/courses/search?q=kk')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -217,7 +229,7 @@ test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/courses/filter?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

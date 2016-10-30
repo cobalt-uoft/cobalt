@@ -22,7 +22,7 @@ class QueryParser {
         // Verify that the key is valid
         if (!keyMap.hasOwnProperty(q[i][j].key)) {
           let err = new Error(`Filter key \`${q[i][j].key}\` is not supported.`)
-          err.status = 400
+          err.status = 422
           throw err
         }
 
@@ -38,7 +38,7 @@ class QueryParser {
           case 'date':
             if (!QueryParser.isValidDate(q[i][j].filter.value)) {
               let err = new Error('Invalid date format.')
-              err.status = 400
+              err.status = 422
               throw err
             }
             query = QueryParser.numberQuery(q[i][j].filter)
@@ -189,7 +189,7 @@ class QueryParser {
    */
   static dayQuery (filter) {
     let err = new Error('Invalid time range.')
-    err.status = 400
+    err.status = 422
 
     let matches = filter.value.match(/\(([^)]+)\)/)
     if (!matches) {
@@ -231,7 +231,7 @@ class QueryParser {
   */
   static timeToNumber (value) {
     let err = new Error ('Invalid time parameter.')
-    err.status = 400
+    err.status = 422
 
     if (typeof value !== 'number' && value.indexOf(':') > -1) {
       // TODO: add period support (AM/PM)
@@ -259,7 +259,7 @@ class QueryParser {
    */
   static parseDay (filter) {
     let err = new Error('Invalid day parameter.')
-    err.status = 400
+    err.status = 422
 
     let matches = filter.value.toLowerCase().match(/\(([^)]+)\)/)
     let day = matches ? filter.value.slice(0, matches['index']) : filter.value

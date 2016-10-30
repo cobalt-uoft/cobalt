@@ -9,7 +9,7 @@ export default function show(req, res, next) {
         .exec()
       if (!doc) {
         let err = new Error('A course with the specified identifier does not exist.')
-        err.status = 400
+        err.status = 404
         return next(err)
       }
       res.json(doc)

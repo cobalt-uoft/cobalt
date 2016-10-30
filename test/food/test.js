@@ -36,7 +36,7 @@ test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/food?limit=0')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -61,13 +61,26 @@ test.cb('/?limit=200', t => {
   request(cobalt.Server)
     .get('/1.0/food?limit=200')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
       t.end()
     })
 })
+
+test.cb('/?limit=101', t => {
+  request(cobalt.Server)
+    .get('/1.0/food?limit=101')
+    .expect('Content-Type', /json/)
+    .expect(422)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 
 test.cb('/?skip=10', t => {
   request(cobalt.Server)
@@ -127,7 +140,7 @@ test.cb('/0002', t => {
   request(cobalt.Server)
     .get('/1.0/food/0002')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(404)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -141,7 +154,7 @@ test.cb('/search?q=', t => {
   request(cobalt.Server)
     .get('/1.0/food/search?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -181,7 +194,7 @@ test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/food/filter?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -251,7 +264,7 @@ test.cb('/filter?q=open:"wednesday(>14:00|54000)"', t => {
   request(cobalt.Server)
     .get('/1.0/food/filter?q=open:%22wednesday(>14:00|54000)%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -263,7 +276,7 @@ test.cb('/filter?q=open:"september"', t => {
   request(cobalt.Server)
     .get('/1.0/food/filter?q=open:%22september%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

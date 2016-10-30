@@ -36,7 +36,7 @@ test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/textbooks?limit=0')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -61,7 +61,19 @@ test.cb('/?limit=200', t => {
   request(cobalt.Server)
     .get('/1.0/textbooks?limit=200')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/?limit=101', t => {
+  request(cobalt.Server)
+    .get('/1.0/textbooks?limit=101')
+    .expect('Content-Type', /json/)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -127,7 +139,7 @@ test.cb('/0002', t => {
   request(cobalt.Server)
     .get('/1.0/textbooks/0002')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(404)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -141,7 +153,7 @@ test.cb('/search?q=', t => {
   request(cobalt.Server)
     .get('/1.0/textbooks/search?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -181,7 +193,7 @@ test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/textbooks/filter?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
