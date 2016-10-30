@@ -36,7 +36,7 @@ test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/exams?limit=0')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -61,7 +61,19 @@ test.cb('/?limit=200', t => {
   request(cobalt.Server)
     .get('/1.0/exams?limit=200')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/?limit=101', t => {
+  request(cobalt.Server)
+    .get('/1.0/exams?limit=101')
+    .expect('Content-Type', /json/)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -140,7 +152,7 @@ test.cb('/CSC165', t => {
   request(cobalt.Server)
     .get('/1.0/exams/CSC165')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(404)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -154,7 +166,7 @@ test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -335,7 +347,7 @@ test.cb('/filter?q=date:"today"', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=date:%22today22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -409,7 +421,7 @@ test.cb('/filter?q=start:"ab:cd"', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=start:%22ab:cd%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -421,7 +433,7 @@ test.cb('/filter?q=start:"abc"', t => {
   request(cobalt.Server)
     .get('/1.0/exams/filter?q=start:%22abc%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()

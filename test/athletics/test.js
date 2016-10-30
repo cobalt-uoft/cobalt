@@ -36,7 +36,7 @@ test.cb('/?limit=0', t => {
   request(cobalt.Server)
     .get('/1.0/athletics?limit=0')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -61,7 +61,19 @@ test.cb('/?limit=200', t => {
   request(cobalt.Server)
     .get('/1.0/athletics?limit=200')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/?limit=101', t => {
+  request(cobalt.Server)
+    .get('/1.0/athletics?limit=101')
+    .expect('Content-Type', /json/)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -140,7 +152,7 @@ test.cb('/2018-04-02', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/2018-04-02')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(404)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -154,7 +166,7 @@ test.cb('/filter?q=', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -192,7 +204,7 @@ test.cb('/filter?q=date:>"2016"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:%3E%222016%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -204,7 +216,7 @@ test.cb('/filter?q=date:<"2016"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:%3C%222016%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -229,7 +241,7 @@ test.cb('/filter?q=date:"today"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:%22today22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -254,7 +266,7 @@ test.cb('/filter?q=start:"k4:00"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%22k4:00%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -266,7 +278,7 @@ test.cb('/filter?q=start:"now" AND end:"later"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%22now%22%20AND%20end:%22later%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -291,7 +303,7 @@ test.cb('/filter?q=start:"k4:00"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%22k4:00%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -303,7 +315,7 @@ test.cb('/filter?q=start:"now" AND end:"later"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=start:%22now%22%20AND%20end:%22later%22')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
@@ -399,7 +411,7 @@ test.cb('/filter?q=date:>="ABCD-EF-GH"', t => {
   request(cobalt.Server)
     .get('/1.0/athletics/filter?q=date:>="ABCD-EF-GH"')
     .expect('Content-Type', /json/)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
       if (err) t.fail(err.message)
       t.pass()
