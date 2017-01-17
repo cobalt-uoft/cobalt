@@ -281,6 +281,30 @@ test.cb('/filter?q=level:>=400%20AND%20department:!%22bio%22%20AND%20campus:%22U
     })
 })
 
+test.cb('/filter?q=code:"BIO" AND start:15', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=code:"BIO" AND start:15')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
+test.cb('/filter?q=code:"BIO" OR day:"THURSDAY"', t => {
+  request(cobalt.Server)
+    .get('/1.0/courses/filter?q=code:"BIO" OR day:"THURSDAY"')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) t.fail(err.message)
+      t.pass()
+      t.end()
+    })
+})
+
 test.cb('/filter?q=level:<100', t => {
   request(cobalt.Server)
     .get('/1.0/courses/filter?q=level:<100')

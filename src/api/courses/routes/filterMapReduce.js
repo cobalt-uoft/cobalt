@@ -18,7 +18,7 @@ o.map = function () {
         let p = q[i][j]
         let value = undefined
 
-        if (['code', 'size', 'enrolment', 'instructor'].indexOf(p.key) > -1) {
+        if (['meeting_code', 'size', 'enrolment', 'instructor'].indexOf(p.key) > -1) {
           value = x[keyMap[p.key].relativeValue]
         } else if (['day', 'start', 'end', 'duration', 'location'].indexOf(p.key) > -1) {
           value = []
