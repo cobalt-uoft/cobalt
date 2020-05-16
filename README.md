@@ -1,3 +1,11 @@
+## Notice
+
+This project is no longer maintained, and certain pieces have been archived.
+
+All pieces of the project remain open source, in the event that a new open data initiative at the University of Toronto may benefit from the work we did during the project's lifetime.
+
+<br />
+
 <p align="center">
   <a href="https://cobalt.qas.im"><img src="https://cobalt.qas.im/assets/img/github_header.png" alt="Cobalt @ University of Toronto" width="526" /></a>
 </p>
@@ -38,7 +46,7 @@ Cobalt is a student-driven project at the University of Toronto. Help contribute
 
 <br />
 
--
+---
 
 <br />
 
